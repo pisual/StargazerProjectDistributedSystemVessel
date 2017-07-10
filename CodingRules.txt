@@ -1,0 +1,69 @@
+StargazerProject 观星者计划
+注解方式:
+         Class注解：
+/** 
+ *  @name 缓存接口
+ *  @illustrate 实现缓存的基础功能
+ *  @param <K> 缓存的Key值类型
+ *  @param <V> 缓存的Value类型
+ *  @author Felixerio
+ *  **/
+          方法注释:
+                   Void:
+/**
+* @name 置入
+* @illustrate 缓存内容置入
+* @param <K> 缓存的Key值
+* @param <V> 缓存的Value值
+* **/
+
+                    Retuen&exception:
+/**
+* @name 获取
+* @illustrate 缓存内容置入
+* @param <K> 缓存的Key值
+* @return <V> 缓存的Value值
+* @exception ExecutionException
+* **/
+
+系统原理：
+/**
+ * 全局Spring容器加载
+ * 0.基础扩展容器，又名JAR容器，互相可以存在依赖，不依赖上层，不依赖下层，允许不受到Spring控制，但是推荐受到Spring控制，允许跨层调用
+ * 1.内核容器，互相没有依赖，不依赖上层，无参数自动注入，不允许跨层调用
+ * 2.系统容器，依赖内核容器，互相没有依赖，不依赖上层，有参数受控注入，不允许跨层调用
+ * 3.用户容器，依赖系统容器，互相之间可以互相依赖，但要注意线性加载，不依赖上层，有参数受控注入，不允许跨层调用
+ * 
+ * 
+ * 
+ *         用户容器   CellsModel
+ * 
+ *         系统容器   QueueModel     ClusterModel   InformationModel    KafkaModel       
+ *                   
+ *         内核容器   LogModel    ResourseModel    ValidationModel   ParameterModel  ExceptionModel   
+ *         
+ *       基础扩展容器  Cache   Disruptor   Netty   Guava   log4j   mongodb   protostuff  zookeeper  curator   Junit
+ *       
+ *         基本构建                                      Spring
+ *        
+ *         微型内核                           Stargazer System Microkernel
+ *         
+ *        反中心化数据网织(超广义中心化数据网织) The Centralized Data Network Weaving(聚合评论体 The Aggregation Review Body)
+ * *******************************************************************************************************************
+ *     诞生:  生命触发>>生命诞生>>启动基础扩展容器->引导启动微内核->启动微型Spring核心>->启动基本序列->启动默认批准->广播生命->获取网织批准->获取通道->获取批准->覆盖默认批准->准备构建前夕->启动重型Spring容器
+ *           启动内核容器->内核容器初始化->启动系统容器->系统容器初始化->启动用户容器->用户容器初始化->完成诞生->开始评论->申请网织批准消亡->批准移交->准备消亡前夕->消亡->等待生命触发            
+ * **/
+ 
+ Spring Order 顺序加载分组
+ 1-10000 : 系统级别
+ 10001-20000（可以自由扩展）：组件级别
+ {
+ SystemParameter: 20 CLass
+ SystemParameterAOPConfiguration: 21 CLass
+ OrderCache:30 Class
+ EventCache:40 Class
+ }
+ 
+ 1-1000 : DI级别
+ 1001－2000: AOP级别
+ 

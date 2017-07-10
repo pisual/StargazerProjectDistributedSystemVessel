@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="Arithmetic"/>
+	<classpathentry kind="src" path="ArithmeticImpl"/>
+	<classpathentry kind="src" path="Cache"/>
+	<classpathentry kind="src" path="CacheConfiguration"/>
+	<classpathentry kind="src" path="CacheImpl"/>
+	<classpathentry kind="src" path="CacheResources"/>
+	<classpathentry kind="src" path="CacheServer"/>
+	<classpathentry kind="src" path="CacheTest"/>
+	<classpathentry kind="src" path="Cell"/>
+	<classpathentry kind="src" path="CellImpl"/>
+	<classpathentry kind="src" path="Cells"/>
+	<classpathentry kind="src" path="CellsConfiguration"/>
+	<classpathentry kind="src" path="CellTest"/>
+	<classpathentry kind="src" path="Characteristic"/>
+	<classpathentry kind="src" path="Cluster"/>
+	<classpathentry kind="src" path="ClusterConfiguration"/>
+	<classpathentry kind="src" path="Container"/>
+	<classpathentry kind="src" path="Disruptor"/>
+	<classpathentry kind="src" path="Information"/>
+	<classpathentry kind="src" path="InformationConfiguration"/>
+	<classpathentry kind="src" path="Log"/>
+	<classpathentry kind="src" path="LogConfiguration"/>
+	<classpathentry kind="src" path="LogImpl"/>
+	<classpathentry kind="src" path="LogResources"/>
+	<classpathentry kind="src" path="LogServer"/>
+	<classpathentry kind="src" path="LogTest"/>
+	<classpathentry kind="src" path="MesasageQueue"/>
+	<classpathentry kind="src" path="MesasageQueueConfiguration"/>
+	<classpathentry kind="src" path="MesasageQueueImpl"/>
+	<classpathentry kind="src" path="MesasageQueueResources"/>
+	<classpathentry kind="src" path="MesasageQueueTest"/>
+	<classpathentry kind="src" path="MessageQueueDomain"/>
+	<classpathentry kind="src" path="Order"/>
+	<classpathentry kind="src" path="OrderConfiguration"/>
+	<classpathentry kind="src" path="Queue"/>
+	<classpathentry kind="src" path="QueueConfiguration"/>
+	<classpathentry kind="src" path="QueueImpl"/>
+	<classpathentry kind="src" path="QueueResources"/>
+	<classpathentry kind="src" path="QueueServer"/>
+	<classpathentry kind="src" path="QueueTest"/>
+	<classpathentry kind="src" path="Resources"/>
+	<classpathentry kind="src" path="ResourcesConfiguration"/>
+	<classpathentry kind="src" path="ResourcesTest"/>
+	<classpathentry kind="src" path="Segmentation"/>
+	<classpathentry kind="src" path="SegmentationConfiguration"/>
+	<classpathentry kind="src" path="Service"/>
+	<classpathentry kind="src" path="ServiceConfiguration"/>
+	<classpathentry kind="src" path="ServiceResources"/>
+	<classpathentry kind="src" path="ServiceTest"/>
+	<classpathentry kind="src" path="Shell"/>
+	<classpathentry kind="src" path="SpringTest"/>
+	<classpathentry kind="src" path="StargazerTest"/>
+	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
+	<classpathentry kind="src" path="Survive"/>
+	<classpathentry kind="src" path="SurviveConfiguration"/>
+	<classpathentry kind="src" path="SurviveImpl"/>
+	<classpathentry kind="src" path="SurviveResources"/>
+	<classpathentry kind="src" path="SurviveServer"/>
+	<classpathentry kind="src" path="SurviveTest"/>
+	<classpathentry kind="src" path="UserInterface"/>
+	<classpathentry kind="src" path="UserInterfaceConfiguration"/>
+	<classpathentry kind="src" path="Validation"/>
+	<classpathentry kind="src" path="ValidationConfiguration"/>
+	<classpathentry kind="src" path="ValidationTest"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

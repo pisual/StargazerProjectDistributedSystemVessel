@@ -1,0 +1,6 @@
+
+数据网织的寻索路径：
+
+    请求参与网织：    NetWeave://Apply/10.0.1.1:10481
+    同意参与网织：    NetWeave://Join/127.0.0.1:10491/StargazerSystem/cells/tasks/test1|StargazerSystem/cells/server/test2|
+    脱出网织:        NetWeave://TakeOff/127.0.0.1:10491/StargazerSystem/cells/tasks/test1|StargazerSystem/cells/server/test2|
