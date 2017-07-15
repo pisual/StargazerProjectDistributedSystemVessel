@@ -19,11 +19,8 @@
 	<classpathentry kind="src" path="Cells"/>
 	<classpathentry kind="src" path="CellsConfiguration"/>
 	<classpathentry kind="src" path="CellTest"/>
-	<classpathentry kind="src" path="Characteristic"/>
 	<classpathentry kind="src" path="Cluster"/>
 	<classpathentry kind="src" path="ClusterConfiguration"/>
-	<classpathentry kind="src" path="Container"/>
-	<classpathentry kind="src" path="Disruptor"/>
 	<classpathentry kind="src" path="Information"/>
 	<classpathentry kind="src" path="InformationConfiguration"/>
 	<classpathentry kind="src" path="Log"/>
@@ -36,8 +33,8 @@
 	<classpathentry kind="src" path="MesasageQueueConfiguration"/>
 	<classpathentry kind="src" path="MesasageQueueImpl"/>
 	<classpathentry kind="src" path="MesasageQueueResources"/>
-	<classpathentry kind="src" path="MesasageQueueTest"/>
 	<classpathentry kind="src" path="MessageQueueDomain"/>
+	<classpathentry kind="src" path="MesasageQueueTest"/>
 	<classpathentry kind="src" path="Order"/>
 	<classpathentry kind="src" path="OrderConfiguration"/>
 	<classpathentry kind="src" path="Queue"/>
@@ -55,9 +52,6 @@
 	<classpathentry kind="src" path="ServiceConfiguration"/>
 	<classpathentry kind="src" path="ServiceResources"/>
 	<classpathentry kind="src" path="ServiceTest"/>
-	<classpathentry kind="src" path="Shell"/>
-	<classpathentry kind="src" path="SpringTest"/>
-	<classpathentry kind="src" path="StargazerTest"/>
 	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
 	<classpathentry kind="src" path="Survive"/>
 	<classpathentry kind="src" path="SurviveConfiguration"/>
@@ -70,6 +64,12 @@
 	<classpathentry kind="src" path="Validation"/>
 	<classpathentry kind="src" path="ValidationConfiguration"/>
 	<classpathentry kind="src" path="ValidationTest"/>
+	<classpathentry kind="src" path="Characteristic"/>
+	<classpathentry kind="src" path="Container"/>
+	<classpathentry kind="src" path="Disruptor"/>
+	<classpathentry kind="src" path="Shell"/>
+	<classpathentry kind="src" path="SpringTest"/>
+	<classpathentry kind="src" path="StargazerTest"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

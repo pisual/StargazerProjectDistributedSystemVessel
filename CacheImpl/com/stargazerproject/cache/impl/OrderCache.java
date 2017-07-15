@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.google.common.cache.LoadingCache;
-import com.stargazerproject.cache.base.impl.TemporaryCacheImpl;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.base.impl.BaseCacheImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.model.order.impl.Order;
 
@@ -22,19 +22,14 @@ import com.stargazerproject.model.order.impl.Order;
 @Component(value="orderCache")
 @Qualifier("orderCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public final class OrderCache extends TemporaryCacheImpl<String,Order> implements StanderCharacteristicShell<LoadingCache<String,Order>>{
+public final class OrderCache extends BaseCacheImpl<String,Order> implements StanderCharacteristicShell<Cache<String,Order>>{
 	
 	/** @construction 初始化构造 **/
 	public OrderCache() {}
 
-	/**
-	* @name 永久缓存Shell推入函数
-	* @illustrate 缓存特征置入
-	* @param <K> 经过Optional包装的特征
-	* **/
 	@Override
-	public void initialize(Optional<LoadingCache<String, Order>> loadingCacheArg) {
-		loadingCache = loadingCacheArg.get();
+	public void initialize(Optional<Cache<String, Order>> cacaheArg) {
+		cache = cacaheArg.get();
 	}
 
 }

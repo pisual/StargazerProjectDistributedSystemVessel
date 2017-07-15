@@ -1,14 +1,13 @@
 package com.stargazerproject.cache.impl;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.base.impl.PermanentCacheImpl;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.base.impl.BaseCacheImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 
 /** 
@@ -21,13 +20,13 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 @Component(value="systemParameterCahce")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Qualifier("systemParameterCahce")
-public final class SystemParameterCahce extends PermanentCacheImpl<String,String> implements StanderCharacteristicShell<Map<String,String>>{
+public final class SystemParameterCahce extends BaseCacheImpl<String,String> implements StanderCharacteristicShell<Cache<String,String>>{
 	
 	/** @construction 初始化构造 **/
 	public SystemParameterCahce() {}
 
 	@Override
-	public void initialize(Optional<Map<String, String>> mapArg) {
-		map = mapArg.get();
+	public void initialize(Optional<Cache<String, String>> cacheArg) {
+		cache = cacheArg.get();
 	}
 }
