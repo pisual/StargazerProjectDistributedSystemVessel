@@ -1,8 +1,6 @@
-package com.stargazerproject.cache.resources.permanentcache;
+package com.stargazerproject.cache.impl.resources.shell;
 
 import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,22 +11,24 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 
 /** 
  *  @name SystemParameter的Map初始化
- *  @illustrate 对SystemParameter所需要的特征Map进行初始化
+ *  @illustrate 对SystemParameter所需要的特征Cache进行初始化
  *  @author Felixerio
  *  **/
-@Component
-@Qualifier("systemParameterMap")
+@Component(value="systemParameterCahceShell")
+@Qualifier("systemParameterCahceShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class PermanentcacheSystemParameterMap implements BaseCharacteristic<Map<String, String>>{
-	
-	/** @illustrate SystemParameterCache(系统参数缓存)需要的特征(Map<String, String>)接口 **/
-	private Map<String, String> map = new ConcurrentSkipListMap<String, String>();
+public class SystemParameterCahceShell implements BaseCharacteristic<Cache<String, String>>{
 
+	@Autowired
+	@Qualifier("systemParameterCahceCharacteristic")
+	protected Cache<String, String> systemParameterCahceCharacteristic;
+	
 	@Autowired
 	@Qualifier("stargazerProjectParameterList")
 	protected Object stargazerProjectParameterList;
@@ -38,14 +38,14 @@ public class PermanentcacheSystemParameterMap implements BaseCharacteristic<Map<
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
-	private PermanentcacheSystemParameterMap() {}
+	private SystemParameterCahceShell() {}
 	
 	@Override
-	@Bean(name="systemParameterMapCharacteristic")
+	@Bean(name="systemParameterCahceCharacteristicInitialize")
 	@Lazy(true)
-	public Optional<Map<String, String>> characteristic() {
+	public Optional<Cache<String, String>> characteristic() {
 		getParamentListFromClass();
-		return Optional.of(map);
+		return Optional.of(systemParameterCahceCharacteristic);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class PermanentcacheSystemParameterMap implements BaseCharacteristic<Map<
 			Field[] valueFields = stargazerProjectParameterList.getClass().getDeclaredFields();
 			for(Field valueField : valueFields){
 				valueField.setAccessible(true);
-				map.put(valueField.getName(), valueField.get(valueField.getName()).toString());
+				systemParameterCahceCharacteristic.put(Optional.of(valueField.getName()), Optional.of(valueField.get(valueField.getName()).toString()));
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			baseLog.ERROR(this, e.getLocalizedMessage());

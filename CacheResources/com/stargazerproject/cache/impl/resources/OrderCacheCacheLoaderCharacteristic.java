@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.cacheLoader;
+package com.stargazerproject.cache.impl.resources;
 
 import java.util.concurrent.ExecutionException;
 
@@ -14,16 +14,16 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.model.order.impl.Order;
 
 @Component
-@Qualifier("temporaryCacheOrderCacheCacheLoader")
+@Qualifier("OrderCacheCacheLoader")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class TemporaryCacheOrderCacheCacheLoader implements BaseCharacteristic<CacheLoader<String, Order>>{
+public class OrderCacheCacheLoaderCharacteristic implements BaseCharacteristic<CacheLoader<String, Order>>{
 
 	private CacheLoader<String, Order> cacheLoader;
 
-	private TemporaryCacheOrderCacheCacheLoader() {}
+	private OrderCacheCacheLoaderCharacteristic() {}
 	
 	@Override
-	@Bean(name="temporaryCacheOrderCacheCacheLoaderCharacteristic")
+	@Bean(name="OrderCacheCacheLoaderCharacteristic")
 	public Optional<CacheLoader<String, Order>> characteristic() {
 		initializationCacheLoader();
 		return Optional.of(cacheLoader);

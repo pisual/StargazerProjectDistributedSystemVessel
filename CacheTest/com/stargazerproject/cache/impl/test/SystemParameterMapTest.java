@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.stargazerproject.cache.resources.permanentcache.PermanentcacheSystemParameterMap;
+import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.test.pattern.WorkInTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={GroupLogConfiguration.class, PermanentcacheSystemParameterMap.class,StargazerProjectParameterList.class})
+@ContextConfiguration(classes={GroupLogConfiguration.class, SystemParameterCahceShell.class,StargazerProjectParameterList.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class SystemParameterMapTest implements WorkInTest{
 	

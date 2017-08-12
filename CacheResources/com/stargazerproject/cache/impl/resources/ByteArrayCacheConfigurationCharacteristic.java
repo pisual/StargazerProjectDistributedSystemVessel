@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.configuration;
+package com.stargazerproject.cache.impl.resources;
 
 import javax.annotation.Resource;
 
@@ -18,14 +18,14 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 @Component
 @Qualifier("byteArrayCacheConfiguration")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheConfiguration implements BaseCharacteristic<Configuration>{
+public class ByteArrayCacheConfigurationCharacteristic implements BaseCharacteristic<Configuration>{
 
 	private Configuration configuration;
 	
 	@Resource(name="byteArrayCacheCacheConfigurationCharacteristic")
 	private Optional<CacheConfiguration> cacheConfiguration;
 
-	private ByteArrayCacheConfiguration() {}
+	private ByteArrayCacheConfigurationCharacteristic() {}
 	
 	@Override
 	@Bean(name="byteArrayCacheConfigurationCharacteristic")

@@ -10,14 +10,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.common.cache.CacheLoader;
-import com.stargazerproject.cache.resources.temporarycache.cacheLoader.TemporaryCacheOrderCacheCacheLoader;
+import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.test.pattern.WorkInTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={TemporaryCacheOrderCacheCacheLoader.class,GroupLogConfiguration.class})
+@ContextConfiguration(classes={OrderCacheCacheLoaderCharacteristic.class,GroupLogConfiguration.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class TemporaryCacheOrderCacheCacheLoaderTest implements WorkInTest{
 	

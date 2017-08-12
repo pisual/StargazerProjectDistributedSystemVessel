@@ -1,13 +1,14 @@
-package com.stargazerproject.cache.base.impl;
+package com.stargazerproject.cache.impl.resources;
 
 import java.util.concurrent.ExecutionException;
 
 import com.google.common.base.Optional;
 import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.model.order.impl.Order;
 
 /** 
- *  @name 临时缓存
+ *  @name Order缓存
  *  @Shell LoadingCache<K, V> loadingCache，Guava LoadingCache 类型的通用接口
  *  @illustrate 在指定条件下发生解出操作的缓存，
  *              1.自主解出
@@ -17,21 +18,21 @@ import com.stargazerproject.cache.Cache;
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
  *  **/
-public abstract class TemporaryCacheImpl<K, V> implements Cache<K, V>{
-	
+public class OrderCahceCharacteristic implements Cache<String, Order>{
+
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/
-	protected LoadingCache<K, V> loadingCache;
+	protected LoadingCache<String, Order> loadingCache;
 	
 	/** @construction 初始化构造 **/
-	public TemporaryCacheImpl() {}
+	public OrderCahceCharacteristic() {}
 	
 	@Override
-	public void put(Optional<K> key ,Optional<V> value) {
+	public void put(Optional<String> key, Optional<Order> value) {
 		loadingCache.put(key.get(), value.get());
 	}
 
 	@Override
-	public Optional<V> get(Optional<K> key){
+	public Optional<Order> get(Optional<String> key) {
 		try {
 			return Optional.of(loadingCache.get(key.get()));
 		} catch (ExecutionException e) {
@@ -40,7 +41,8 @@ public abstract class TemporaryCacheImpl<K, V> implements Cache<K, V>{
 	}
 
 	@Override
-	public void remove(Optional<K> key){
+	public void remove(Optional<String> key) {
 		loadingCache.invalidate(key.get());
 	}
+
 }

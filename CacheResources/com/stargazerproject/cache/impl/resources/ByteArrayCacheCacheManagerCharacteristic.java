@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.cachemanager;
+package com.stargazerproject.cache.impl.resources;
 
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.config.Configuration;
@@ -17,13 +17,13 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component
 @Qualifier("byteArrayCacheCacheManager")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheCacheManager implements BaseCharacteristic<CacheManager>{
+public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteristic<CacheManager>{
 
 	private CacheManager manager;
 	
 	private Optional<Configuration> cacheConfiguration;
 
-	private ByteArrayCacheCacheManager() {}
+	private ByteArrayCacheCacheManagerCharacteristic() {}
 	
 	@Override
 	@Bean(name="byteArrayCacheCacheManagerCharacteristic")

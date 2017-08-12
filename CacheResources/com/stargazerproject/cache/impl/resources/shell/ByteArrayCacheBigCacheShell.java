@@ -1,12 +1,9 @@
-package com.stargazerproject.cache.resources.temporarycache.cache;
-
-import javax.annotation.Resource;
+package com.stargazerproject.cache.impl.resources.shell;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -22,13 +19,13 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component
 @Qualifier("byteArrayCacheBigCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheBigCache implements BigCache<String,byte[]>, BaseCharacteristic<BigCache<String,byte[]>>{
+public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, BaseCharacteristic<BigCache<String,byte[]>>{
 	
 	private Optional<CacheManager> manager;
 	
 	private Cache cache;
 	
-	public ByteArrayCacheBigCache() {}
+	public ByteArrayCacheBigCacheShell() {}
 
 	@Override
 	public void put(Optional<String> key, byte[] value) {

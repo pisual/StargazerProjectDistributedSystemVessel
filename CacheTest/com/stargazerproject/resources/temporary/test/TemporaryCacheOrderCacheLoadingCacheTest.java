@@ -12,10 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.common.base.Optional;
 import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
-import com.stargazerproject.cache.resources.permanentcache.PermanentcacheSystemParameterMap;
-import com.stargazerproject.cache.resources.temporarycache.cacheLoader.TemporaryCacheOrderCacheCacheLoader;
-import com.stargazerproject.cache.resources.temporarycache.cacheremovallistener.TemporaryCacheOrderCacheRemovalListener;
-import com.stargazerproject.cache.resources.temporarycache.loadingCache.TemporaryCacheOrderCacheLoadingCache;
+import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.model.order.impl.Order;
@@ -23,7 +23,7 @@ import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.test.pattern.WorkInTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={SystemParameterCahce.class, PermanentcacheSystemParameterMap.class,StargazerProjectParameterList.class,TemporaryCacheOrderCacheLoadingCache.class,TemporaryCacheOrderCacheCacheLoader.class,TemporaryCacheOrderCacheRemovalListener.class,GroupLogConfiguration.class})
+@ContextConfiguration(classes={SystemParameterCahce.class, SystemParameterCahceShell.class,StargazerProjectParameterList.class,OrderCacheLoadingCacheCharacteristic.class,OrderCacheCacheLoaderCharacteristic.class,OrderCacheRemovalListenerCharacteristic.class,GroupLogConfiguration.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class TemporaryCacheOrderCacheLoadingCacheTest implements WorkInTest{
 	

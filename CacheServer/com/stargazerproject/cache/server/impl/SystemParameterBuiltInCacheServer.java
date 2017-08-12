@@ -36,7 +36,7 @@ public class SystemParameterBuiltInCacheServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener");
-		Optional<Map<String, String>> mapArg = BeanContainer.instance().getBean(Optional.of("systemParameterMapCharacteristic"), Optional.class);
+		Optional<Map<String, String>> mapArg = BeanContainer.instance().getBean(Optional.of("systemParameterCahceCharacteristicInitialize"), Optional.class);
 		SystemParameterCache.initialize(mapArg);
 	}
 

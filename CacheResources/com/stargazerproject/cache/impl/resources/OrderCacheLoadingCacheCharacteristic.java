@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.loadingCache;
+package com.stargazerproject.cache.impl.resources;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,12 +22,12 @@ import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component
-@Qualifier("temporaryCacheOrderCacheLoadingCache")
+@Qualifier("OrderCacheLoadingCacheShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class TemporaryCacheOrderCacheLoadingCache implements BaseCharacteristic<LoadingCache<String,Order>>{
+public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<LoadingCache<String,Order>>{
 
 	/**
-	* @name LoadingCache
+	* @name systemParameter
 	* @illustrate 缓存特征
 	* **/
 	private Cache<String,String> systemParameter;
@@ -36,7 +36,7 @@ public class TemporaryCacheOrderCacheLoadingCache implements BaseCharacteristic<
 	* @name LoadingCache
 	* @illustrate 缓存特征
 	* **/
-	@Resource(name="temporaryCacheOrderCacheCacheLoaderCharacteristic")
+	@Resource(name="OrderCacheCacheLoaderCharacteristic")
 	private Optional<CacheLoader<String, Order>> cacheLoader;
 	
 	
@@ -44,7 +44,7 @@ public class TemporaryCacheOrderCacheLoadingCache implements BaseCharacteristic<
 	* @name LoadingCache
 	* @illustrate 缓存特征
 	* **/
-	@Resource(name="temporaryCacheOrderCacheRemovalListenerCharacteristic")
+	@Resource(name="OrderCacheRemovalListenerCharacteristic")
 	private Optional<RemovalListener<String, Order>> removalListener;
 	
 	/**
@@ -53,10 +53,10 @@ public class TemporaryCacheOrderCacheLoadingCache implements BaseCharacteristic<
 	* **/
 	private LoadingCache<String,Order> loadingCache;
 	
-	private TemporaryCacheOrderCacheLoadingCache() {}
+	private OrderCacheLoadingCacheCharacteristic() {}
 	
 	@Override
-	@Bean(name="temporaryCacheOrderCacheLoadingCacheCharacteristic")
+	@Bean(name="OrderCacheLoadingCacheCharacteristic")
 	@Lazy(true)
 	@SuppressWarnings("unchecked")
 	public Optional<LoadingCache<String, Order>> characteristic() {

@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.cacheconfiguration;
+package com.stargazerproject.cache.impl.resources;
 
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.MemoryUnit;
@@ -14,13 +14,13 @@ import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 
 @Component
-@Qualifier("byteArrayCacheCacheConfiguration")
+@Qualifier("byteArrayCacheCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheCacheConfiguration implements BaseCharacteristic<CacheConfiguration>{
+public class ByteArrayCacheCacheConfigurationCharacteristic implements BaseCharacteristic<CacheConfiguration>{
 
 	private CacheConfiguration cacheConfiguration;
 
-	private ByteArrayCacheCacheConfiguration() {}
+	private ByteArrayCacheCacheConfigurationCharacteristic() {}
 	
 	@Override
 	@Bean(name="byteArrayCacheCacheConfigurationCharacteristic")

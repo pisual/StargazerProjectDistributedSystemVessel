@@ -11,14 +11,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.common.base.Optional;
 import com.google.common.cache.RemovalListener;
-import com.stargazerproject.cache.resources.temporarycache.cacheremovallistener.TemporaryCacheOrderCacheRemovalListener;
+import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.test.pattern.WorkInTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={TemporaryCacheOrderCacheRemovalListener.class, GroupLogConfiguration.class})
+@ContextConfiguration(classes={OrderCacheRemovalListenerCharacteristic.class, GroupLogConfiguration.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class TemporaryCacheOrderCacheRemovalListenerTest implements WorkInTest{
 	

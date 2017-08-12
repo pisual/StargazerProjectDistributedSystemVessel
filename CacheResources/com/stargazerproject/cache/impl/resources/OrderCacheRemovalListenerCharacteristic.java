@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.resources.temporarycache.cacheremovallistener;
+package com.stargazerproject.cache.impl.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,9 +15,9 @@ import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.model.order.impl.Order;
 
 @Component
-@Qualifier("temporaryCacheOrderCacheRemovalListener")
+@Qualifier("tOrderCacheRemovalListener")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class TemporaryCacheOrderCacheRemovalListener implements BaseCharacteristic<RemovalListener<String, Order>>{
+public class OrderCacheRemovalListenerCharacteristic implements BaseCharacteristic<RemovalListener<String, Order>>{
 
 	private RemovalListener<String, Order> removalListener;
 	
@@ -25,12 +25,12 @@ public class TemporaryCacheOrderCacheRemovalListener implements BaseCharacterist
 	@Qualifier("logRecord")
 	private LogMethod log;
 	
-	public TemporaryCacheOrderCacheRemovalListener() {
+	public OrderCacheRemovalListenerCharacteristic() {
 		initializationRemovalListener();
 	}
 	
 	@Override
-	@Bean(name="temporaryCacheOrderCacheRemovalListenerCharacteristic")
+	@Bean(name="OrderCacheRemovalListenerCharacteristic")
 	public Optional<RemovalListener<String, Order>> characteristic() {
 		initializationRemovalListener();
 		return Optional.of(removalListener);
