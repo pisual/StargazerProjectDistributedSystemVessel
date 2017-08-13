@@ -56,7 +56,7 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	private OrderCacheLoadingCacheCharacteristic() {}
 	
 	@Override
-	@Bean(name="OrderCacheLoadingCacheCharacteristic")
+	@Bean(name="orderCacheLoadingCacheCharacteristic")
 	@Lazy(true)
 	@SuppressWarnings("unchecked")
 	public Optional<LoadingCache<String, Order>> characteristic() {

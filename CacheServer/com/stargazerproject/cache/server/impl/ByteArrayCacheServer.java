@@ -7,12 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.BigCache;
-import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -39,7 +35,7 @@ public class ByteArrayCacheServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		Optional<BigCache<String, byte[]>> bigCache = BeanContainer.instance().getBean(Optional.of("byteArrayCacheBigCacheCharacteristic"), Optional.class);
+		Optional<BigCache<String, byte[]>> bigCache = BeanContainer.instance().getBean(Optional.of("byteArrayCacheBigCacheInitialize"), Optional.class);
 		byteArrayCache.initialize(bigCache);
 	}
 

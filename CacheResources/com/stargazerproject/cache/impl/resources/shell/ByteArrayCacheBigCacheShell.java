@@ -50,7 +50,7 @@ public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, Bas
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="byteArrayCacheBigCacheCharacteristic")
+	@Bean(name="byteArrayCacheBigCacheInitialize")
 	@Lazy(true)
 	public Optional<BigCache<String, byte[]>> characteristic() {
 		manager= BeanContainer.instance().getBean(Optional.of("byteArrayCacheCacheManagerCharacteristic"),Optional.class);
