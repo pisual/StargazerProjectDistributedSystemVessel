@@ -23,8 +23,12 @@ public interface BigCache<K, V> {
 	public void put(Optional<K> key, V value);
 	
 	/**
-	 * @name 置入
-	 * @illustrate 缓存内容置入
+	 * @name 添加（分片添加）
+	 * @illustrate 在原有的索引ID后面加上 _1 ,重新建立缓存存入，用于消除反复合并Byte数组造成的性能缺失
+	 * 1, 主键 uuid_1  :   Byte[]
+	 * 2, 添加新的Byte Byte[]_2
+	 * 3, 建立新的索引 附键 uuid_2 : Byte[]_2
+	 * 4, 同时更新主键为 uuid_1_2,用于追踪最后一位的存储ID位置
 	 * @param <K> 缓存的Key值
 	 * @param <V> 缓存的Value值
 	 * @Optional Guava包装
@@ -39,7 +43,7 @@ public interface BigCache<K, V> {
 	 * @exception ExecutionException
 	 * @Optional Guava包装
 	 * **/
-	public V get(Optional<K> key);
+	public Optional<V> get(Optional<K> key);
 	
 	/**
 	 * @name 移除
@@ -48,4 +52,12 @@ public interface BigCache<K, V> {
 	 * @Optional Guava包装
 	 * **/
 	public void remove(Optional<K> key);
+	
+	/**
+	 * @name 检测Key是否存在
+	 * @illustrate 检测Key是否存在
+	 * @param <K> 缓存的Key值
+	 * **/
+	public boolean isExist(Optional<K> key);
+
 }
