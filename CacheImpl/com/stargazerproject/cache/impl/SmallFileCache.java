@@ -1,5 +1,6 @@
 package com.stargazerproject.cache.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.base.impl.BaseBigCacheImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.model.order.impl.Order;
 
 
 @Component(value="byteArrayCache")
@@ -24,7 +23,7 @@ public final class SmallFileCache extends BaseBigCacheImpl<String, byte[]> imple
 	
 	@Autowired
 	@Qualifier("BigCahceIndexCache")
-	private Cache<String,Integer> bigCahceIndexCache;
+	private Cache<String, Map<String, Integer>> bigCahceIndexCache;
 	
 	/** @construction 初始化构造 **/
 	public SmallFileCache() {}
@@ -40,27 +39,52 @@ public final class SmallFileCache extends BaseBigCacheImpl<String, byte[]> imple
 			return cache.get(key);
 		}
 		else{
+
+			Integer lashIndex = bigCahceIndexCache.get(key).get().get(Optional.of("lashIndex"));
+			Integer byteLenght = bigCahceIndexCache.get(key).get().get(Optional.of("byteLenght"));
+
+			byte[] resultByte = new byte[byteLenght - 1];
+			int resultByteStartPoint = 0;
+			byte[] firstCopyByte = cache.get(key).get();
+			System.arraycopy(firstCopyByte, 0, resultByte, resultByteStartPoint, firstCopyByte.length); //5个参数  原数组 起始index  数组2   起始index  拷贝长度  
+			resultByteStartPoint = resultByteStartPoint + firstCopyByte.length;
 			
+			if(lashIndex > 1){
+				for(int i = 2; i<=lashIndex; i++){
+					byte[] CopyByte = cache.get(Optional.of(key.get() + "_" + i)).get();
+					System.arraycopy(CopyByte,0,resultByte,resultByteStartPoint,CopyByte.length); //5个参数  原数组 起始index  数组2   起始index  拷贝长度 
+					resultByteStartPoint = resultByteStartPoint + CopyByte.length;
+				}
+			}
+			return Optional.of(resultByte);
 		}
-		return cache.get(key);
 	}
 
 	@Override
 	public void add(Optional<String> key, byte[] value) {
 		if(null == bigCahceIndexCache.get(key).orNull()){
 			put(key, value);
-			bigCahceIndexCache.put(key, Optional.of(1));
+			indexPointChange(key, 1, value.length);
 		}
 		else{
-			Integer indexLast = bigCahceIndexCache.get(key).get() + 1;
-			put(Optional.of(key.get() + "_" +indexLast), value);
-			bigCahceIndexCache.put(key, Optional.of(indexLast));
+			Integer lashIndex = bigCahceIndexCache.get(key).get().get(Optional.of("lashIndex"));
+			Integer byteLenght = bigCahceIndexCache.get(key).get().get(Optional.of("byteLenght"));
+			indexPointChange(key, lashIndex + 1, byteLenght + value.length);
+			put(Optional.of(key.get() + "_" + (lashIndex + 1)), value);
 		}
 	}
 	
 	@Override
 	public void put(Optional<String> key, byte[] value) {
 		super.put(key, value);
-		bigCahceIndexCache.put(key, Optional.of(1));
+		indexPointChange(key, 1, value.length);
 	}
+	
+	private void indexPointChange(Optional<String> key, Integer LastIndex, Integer byteLenght){
+		Map<String,Integer> indexPoint = new HashMap<String,Integer>();
+		indexPoint.put("lashIndex", LastIndex);
+		indexPoint.put("byteLenght", byteLenght);
+		bigCahceIndexCache.put(key, Optional.of(indexPoint));
+	}
+
 }

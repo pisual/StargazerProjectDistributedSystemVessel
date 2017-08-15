@@ -52,12 +52,5 @@ public interface BigCache<K, V> {
 	 * @Optional Guava包装
 	 * **/
 	public void remove(Optional<K> key);
-	
-	/**
-	 * @name 检测Key是否存在
-	 * @illustrate 检测Key是否存在
-	 * @param <K> 缓存的Key值
-	 * **/
-	public boolean isExist(Optional<K> key);
 
 }
