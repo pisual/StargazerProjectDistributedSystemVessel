@@ -38,8 +38,8 @@ public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, Bas
 	}
 
 	@Override
-	public byte[] get(Optional<String> key) {
-		return (byte[]) cache.get(key.get()).getObjectValue();
+	public Optional<byte[]> get(Optional<String> key) {
+		return Optional.of((byte[]) cache.get(key.get()).getObjectValue());
 	}
 
 	@Override
