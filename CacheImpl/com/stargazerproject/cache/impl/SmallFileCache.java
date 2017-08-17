@@ -39,18 +39,14 @@ public final class SmallFileCache extends BaseBigCacheImpl<String, byte[]> imple
 			return cache.get(key);
 		}
 		else{
-
-			Integer lashIndex = bigCahceIndexCache.get(key).get().get(Optional.of("lashIndex"));
-			Integer byteLenght = bigCahceIndexCache.get(key).get().get(Optional.of("byteLenght"));
-
-			byte[] resultByte = new byte[byteLenght - 1];
+			byte[] resultByte = new byte[byteLenght(key) - 1];
 			int resultByteStartPoint = 0;
 			byte[] firstCopyByte = cache.get(key).get();
 			System.arraycopy(firstCopyByte, 0, resultByte, resultByteStartPoint, firstCopyByte.length); //5个参数  原数组 起始index  数组2   起始index  拷贝长度  
 			resultByteStartPoint = resultByteStartPoint + firstCopyByte.length;
 			
-			if(lashIndex > 1){
-				for(int i = 2; i<=lashIndex; i++){
+			if(lashIndex(key) > 1){
+				for(int i = 2; i<=lashIndex(key); i++){
 					byte[] CopyByte = cache.get(Optional.of(key.get() + "_" + i)).get();
 					System.arraycopy(CopyByte,0,resultByte,resultByteStartPoint,CopyByte.length); //5个参数  原数组 起始index  数组2   起始index  拷贝长度 
 					resultByteStartPoint = resultByteStartPoint + CopyByte.length;
@@ -85,6 +81,24 @@ public final class SmallFileCache extends BaseBigCacheImpl<String, byte[]> imple
 		indexPoint.put("lashIndex", LastIndex);
 		indexPoint.put("byteLenght", byteLenght);
 		bigCahceIndexCache.put(key, Optional.of(indexPoint));
+	}
+	
+	@Override
+	public void remove(Optional<String> key) {
+		super.remove(key);
+		if(lashIndex(key) > 1){
+			for(int i = 2; i<=lashIndex(key); i++){
+				super.remove(Optional.of(key.get() + "_" + i));
+			}
+		}
+	}
+	
+	private Integer lashIndex(Optional<String> key){
+		return bigCahceIndexCache.get(key).get().get(Optional.of("lashIndex"));
+	}
+	
+	private Integer byteLenght(Optional<String> key){
+		return bigCahceIndexCache.get(key).get().get(Optional.of("byteLenght"));
 	}
 
 }
