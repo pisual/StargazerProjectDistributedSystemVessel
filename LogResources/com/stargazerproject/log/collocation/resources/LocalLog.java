@@ -19,20 +19,17 @@ public class LocalLog implements Log{
 
 	@Override
 	public void WARN(Object object, String message) {
-		// TODO Auto-generated method stub
-		
+		Logger.getLogger(object.getClass()).warn(message);
 	}
 
 	@Override
 	public void ERROR(Object object, String message) {
-		// TODO Auto-generated method stub
-		
+		Logger.getLogger(object.getClass()).error(message);
 	}
 
 	@Override
 	public void FATAL(Object object, String message) {
-		// TODO Auto-generated method stub
-		
+		Logger.getLogger(object.getClass()).fatal(message);
 	}
 
 }

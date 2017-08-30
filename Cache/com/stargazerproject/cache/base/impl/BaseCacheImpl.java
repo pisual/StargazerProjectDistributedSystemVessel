@@ -23,5 +23,5 @@ public abstract class BaseCacheImpl<K, V> implements Cache<K, V>{
 	public void remove(Optional<K> key) {
 		cache.remove(key);
 	}
-	
+
 }

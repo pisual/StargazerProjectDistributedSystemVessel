@@ -1,7 +1,5 @@
 package com.stargazerproject.log.impl;
 
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.stargazerproject.log.Log;
 import com.stargazerproject.log.LogControl;
 import com.stargazerproject.log.LogMethod;

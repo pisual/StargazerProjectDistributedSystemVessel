@@ -47,7 +47,7 @@ public class SystemParameterAOPConfiguration {
 	@Around("setMethod(key, value)")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key, Optional<?> value) throws Throwable{
 		try {
-			systemParameterServerState.serverstateCheck();
+			//systemParameterServerState.serverstateCheck();
 			proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
 			baseLog.ERROR(proceedingJoinPoint.getClass(), throwable.getMessage());
@@ -63,7 +63,7 @@ public class SystemParameterAOPConfiguration {
 	@Around("getMethod(key)")
 	public Object getMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key) throws Throwable{
 		try{
-			systemParameterServerState.serverstateCheck();
+			//systemParameterServerState.serverstateCheck();
 			return proceedingJoinPoint.proceed();
 		}catch (Throwable throwable){
 			baseLog.ERROR(proceedingJoinPoint.getClass(), throwable.getMessage());

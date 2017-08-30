@@ -1,7 +1,5 @@
 package com.stargazerproject.cache.server.impl;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -9,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
@@ -26,7 +25,7 @@ public class SystemParameterBuiltInCacheServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
-	private StanderCharacteristicShell<Map<String,String>> SystemParameterCache;
+	private StanderCharacteristicShell<Cache<String,String>> SystemParameterCache;
 	
 	/** @construction 初始化构造 **/
 	private SystemParameterBuiltInCacheServer() {}
@@ -36,7 +35,7 @@ public class SystemParameterBuiltInCacheServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener");
-		Optional<Map<String, String>> mapArg = BeanContainer.instance().getBean(Optional.of("systemParameterCahceCharacteristicInitialize"), Optional.class);
+		Optional<Cache<String, String>> mapArg = BeanContainer.instance().getBean(Optional.of("systemParameterCahceCharacteristicInitialize"), Optional.class);
 		SystemParameterCache.initialize(mapArg);
 	}
 

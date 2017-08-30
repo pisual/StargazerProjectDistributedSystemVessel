@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Optional;
 
 /** 
  *  @name Log日志
@@ -26,10 +27,10 @@ public class LogData {
 	
 	public LogData() {}
 	
-	public LogData(String nameArg, String contentArg, LogLevel logLevelArg) {
-		name = nameArg;
-		content = contentArg;
-		logLevel = logLevelArg;
+	public LogData(Optional<String> nameArg, Optional<String> contentArg, Optional<LogLevel> logLevelArg) {
+		name = nameArg.get();
+		content = contentArg.get();
+		logLevel = logLevelArg.get();
 	}
 	
 	@Override

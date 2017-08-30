@@ -6,7 +6,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration 
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages={"com.stargazerproject.cache.aop"})
+@ComponentScan(basePackages={"com.stargazerproject.cache.aop.configuration"})
 public class CacheAOPConfiguration {
 
 }

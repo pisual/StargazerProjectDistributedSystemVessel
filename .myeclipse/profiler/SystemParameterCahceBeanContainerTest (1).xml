@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">SystemParameterCahceBeanContainerTest (1) Launch Configuration</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">com.lmax.disruptor.*,
+com.pingan.test.springbootdemo.*,
+com.stargazer.segmentation.*,
+com.stargazerproject.arithmetic.*,
+com.stargazerproject.cache.*,
+com.stargazerproject.cell.*,
+com.stargazerproject.characteristic.*,
+com.stargazerproject.classLoader.*,
+com.stargazerproject.interfaces.characteristic.shell.*,
+com.stargazerproject.log.*,
+com.stargazerproject.messagequeue.*,
+com.stargazerproject.model.order.*,
+com.stargazerproject.model.server.*,
+com.stargazerproject.model.util.*,
+com.stargazerproject.queue.*,
+com.stargazerproject.resources.configuration.*,
+com.stargazerproject.resources.di.configuration.*,
+com.stargazerproject.resources.i18n.*,
+com.stargazerproject.resources.parameter.*,
+com.stargazerproject.resources.service.*,
+com.stargazerproject.resources.systemparameter.test.*,
+com.stargazerproject.resources.temporary.test.*,
+com.stargazerproject.resources.userinterface.*,
+com.stargazerproject.server.*,
+com.stargazerproject.service.*,
+com.stargazerproject.spring.container.*,
+com.stargazerproject.spring.context.*,
+com.stargazerproject.survive.*,
+com.stargazerproject.system.initialize.*,
+com.stargazerproject.system.start.*,
+com.stargazerproject.test.*,
+com.stargazerproject.ui.assembly.*,
+com.stargazerproject.ui.configuration.*,
+com.stargazerproject.ui.listener.*,
+com.stargazerproject.ui.start.*,
+com.stargazerproject.ui.util.*,
+com.stargazerproject.validation.*,
+com.stargazerproject.zookeeper.*</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="app_preset_"/>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">com.lmax.disruptor.**
+com.pingan.test.springbootdemo.**
+com.stargazer.segmentation.**
+com.stargazerproject.arithmetic.**
+com.stargazerproject.cache.**
+com.stargazerproject.cell.**
+com.stargazerproject.characteristic.**
+com.stargazerproject.classLoader.**
+com.stargazerproject.interfaces.characteristic.shell.**
+com.stargazerproject.log.**
+com.stargazerproject.messagequeue.**
+com.stargazerproject.model.order.**
+com.stargazerproject.model.server.**
+com.stargazerproject.model.util.**
+com.stargazerproject.queue.**
+com.stargazerproject.resources.configuration.**
+com.stargazerproject.resources.di.configuration.**
+com.stargazerproject.resources.i18n.**
+com.stargazerproject.resources.parameter.**
+com.stargazerproject.resources.service.**
+com.stargazerproject.resources.systemparameter.test.**
+com.stargazerproject.resources.temporary.test.**
+com.stargazerproject.resources.userinterface.**
+com.stargazerproject.server.**
+com.stargazerproject.service.**
+com.stargazerproject.spring.container.**
+com.stargazerproject.spring.context.**
+com.stargazerproject.survive.**
+com.stargazerproject.system.initialize.**
+com.stargazerproject.system.start.**
+com.stargazerproject.test.**
+com.stargazerproject.ui.assembly.**
+com.stargazerproject.ui.configuration.**
+com.stargazerproject.ui.listener.**
+com.stargazerproject.ui.start.**
+com.stargazerproject.ui.util.**
+com.stargazerproject.validation.**
+com.stargazerproject.zookeeper.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>

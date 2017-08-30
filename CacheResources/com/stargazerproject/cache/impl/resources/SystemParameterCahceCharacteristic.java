@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 
-@Component
-@Qualifier("systemCahceCharacteristic")
+@Component(value="systemParameterCahceCharacteristic")
+@Qualifier("systemParameterCahceCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class SystemCahceCharacteristic implements Cache<String, String>{
+public class SystemParameterCahceCharacteristic implements Cache<String, String>{
 
 	/** @illustrate SystemParameterCache(系统参数缓存)需要的特征(Map<String, String>)接口 **/
 	protected Map<String, String> map = new ConcurrentSkipListMap<String, String>();
@@ -26,7 +26,7 @@ public class SystemCahceCharacteristic implements Cache<String, String>{
 
 	@Override
 	public Optional<String> get(Optional<String> key) {
-		return Optional.of(map.get(key.get()));
+		return Optional.fromNullable(map.get(key.get()));
 	}
 
 	@Override

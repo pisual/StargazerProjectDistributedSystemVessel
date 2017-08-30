@@ -16,7 +16,7 @@ import com.stargazerproject.cache.base.impl.BaseBigCacheImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 
 
-@Component(value="byteArrayCache")
+//@Component(value="byteArrayCache")
 @Qualifier("byteArrayCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class SmallFileCache extends BaseBigCacheImpl<String, byte[]> implements StanderCharacteristicShell<BigCache<String, byte[]>>{

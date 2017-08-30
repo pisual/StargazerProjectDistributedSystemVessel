@@ -10,7 +10,7 @@ import com.stargazerproject.service.WorkInServiceState;
 import com.stargazerproject.service.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
+@Component(value="systemParameterCacheServerListener")
 @Qualifier("systemParameterCacheServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class SystemParameterCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{

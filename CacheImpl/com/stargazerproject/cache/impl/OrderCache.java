@@ -19,7 +19,7 @@ import com.stargazerproject.model.order.impl.Order;
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
  *  **/
-@Component(value="orderCache")
+//@Component(value="orderCache")
 @Qualifier("orderCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class OrderCache extends BaseCacheImpl<String,Order> implements StanderCharacteristicShell<Cache<String,Order>>{
