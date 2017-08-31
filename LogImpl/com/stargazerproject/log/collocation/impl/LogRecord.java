@@ -20,6 +20,9 @@ import com.stargazerproject.log.impl.BaseLog;
 @Qualifier("logRecord")
 public class LogRecord extends BaseLog implements StanderCharacteristicShell<Log>{
 
+	public LogRecord() {
+		super();
+	}
 	@Override
 	public void initialize(Optional<Log> logArg) {
 		log = logArg.get();

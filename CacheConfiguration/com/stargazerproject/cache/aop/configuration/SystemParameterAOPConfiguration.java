@@ -47,10 +47,10 @@ public class SystemParameterAOPConfiguration {
 	@Around("setMethod(key, value)")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key, Optional<?> value) throws Throwable{
 		try {
-			//systemParameterServerState.serverstateCheck();
+			systemParameterServerState.serverstateCheck();
 			proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
-			baseLog.ERROR(proceedingJoinPoint.getClass(), throwable.getMessage());
+			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
 			throw throwable;
 		}
 	}
@@ -63,10 +63,26 @@ public class SystemParameterAOPConfiguration {
 	@Around("getMethod(key)")
 	public Object getMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key) throws Throwable{
 		try{
-			//systemParameterServerState.serverstateCheck();
+			systemParameterServerState.serverstateCheck();
 			return proceedingJoinPoint.proceed();
 		}catch (Throwable throwable){
-			baseLog.ERROR(proceedingJoinPoint.getClass(), throwable.getMessage());
+			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
+			throw throwable;
+		}
+	}
+	
+	/** @illustrate SystemParameterCache(系统参数缓存) 中的Remove方法的AOP切点**/
+	@Pointcut ("execution(* com.stargazerproject.cache.Cache.remove(com.google.common.base.Optional)) && args(key) && bean(systemParameterCahce)")
+	public void removeMethod(Optional<?> key){}
+	
+	/** @illustrate SystemParameterCache(系统参数缓存) 中的Remove方法的AOP切点的具体方法**/
+	@Around("removeMethod(key)")
+	public Object removeMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key) throws Throwable{
+		try{
+			systemParameterServerState.serverstateCheck();
+			return proceedingJoinPoint.proceed();
+		}catch (Throwable throwable){
+			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
 			throw throwable;
 		}
 	}
