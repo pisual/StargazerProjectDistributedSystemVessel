@@ -17,22 +17,22 @@ import com.stargazerproject.service.StanderServiceShell;
  *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="logQueueServerManage")
-@Qualifier("logQueueServerManage")
+@Component
+@Qualifier("eventQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LogQueueServerManage extends AbstractIdleService{
+public class EventQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("logQueueServer")
-	private StanderServiceShell logQueueServer;
+	@Qualifier("eventQueueServer")
+	private StanderServiceShell eventQueueServer;
 	
 	@Autowired
-	@Qualifier("logQueueServerListener")
+	@Qualifier("eventQueueServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public LogQueueServerManage() {}
+	public EventQueueServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct
@@ -43,13 +43,13 @@ public class LogQueueServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		logQueueServer.startUp();
+		eventQueueServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		logQueueServer.shutDown();
+		eventQueueServer.shutDown();
 	}
 
 }

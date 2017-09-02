@@ -25,6 +25,8 @@ public final class Event extends ID{
 	
 	/** @illustrate 事件结果接口**/
 	private Result result;
+	
+	public Event() {}
 
 	/** @illustrate  加参数初始化 **/
 	public Event(Optional<String> idArg, Optional<Cache<String, String>> parameterArg) {

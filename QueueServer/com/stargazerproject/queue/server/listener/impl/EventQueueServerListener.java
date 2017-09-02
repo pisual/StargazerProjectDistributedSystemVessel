@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.server.listener.impl;
+package com.stargazerproject.queue.server.listener.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -11,42 +11,42 @@ import com.stargazerproject.service.WorkInServiceState;
 import com.stargazerproject.service.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
-@Qualifier("orderCacheServerListener")
+@Component(value="eventQueueServerListener")
+@Qualifier("eventQueueServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class EventQueueServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	
 	@Override
 	public void starting() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : Server Starting");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Starting");
 	}
 	
 	@Override
 	public void running() {
 		super.running();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderCache Server Run");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderCache Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
 		super.terminated(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderCache Server Terminated");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderCache Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Failed");
 	}
 	
 }

@@ -33,7 +33,6 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristic<Cache<String, Order>>{
 
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/
-//	@Resource(name="orderCacheLoadingCacheCharacteristic")
 	protected Optional<LoadingCache<String, Order>> loadingCache;
 	
 	/** @construction 初始化构造 **/
@@ -57,7 +56,7 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 		try {
 			return Optional.of(loadingCache.get().get(key.get()));
 		} catch (ExecutionException e) {
-			throw new NullPointerException("Key :"+key.get()+" 的Value不存在");
+			throw new NullPointerException("Stargazer ServiceControlServer Report :  Key : "+key.get()+" Value is Null");
 		}
 	}
 

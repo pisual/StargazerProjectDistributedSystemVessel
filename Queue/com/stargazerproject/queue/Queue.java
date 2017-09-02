@@ -6,5 +6,5 @@ package com.stargazerproject.queue;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-public interface Queue<E> extends QueueControl<E>,QueueOperation<E>{
+public interface Queue<E> extends QueueControl<E>, QueueProducer<E>{
 }

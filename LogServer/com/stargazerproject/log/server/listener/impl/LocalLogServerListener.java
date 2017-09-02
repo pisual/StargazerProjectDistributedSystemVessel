@@ -19,34 +19,34 @@ public class LocalLogServerListener extends StandardWorkInServiceState implement
 	/** @illustrate 启动服务 **/
 	@Override
 	public void starting() {
-		Logger.getLogger(this.getClass()).info("LocalLog Server Starting");
+		Logger.getLogger(this.getClass()).info("Stargazer ServiceControlSystem Report : LocalLog Server Starting");
 	}
 	
-	/** @illustrate 服务正在运行 **/
 	@Override
 	public void running() {
 		super.running();
-		Logger.getLogger(this.getClass()).info("LocalLog Server Running");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : LocalLog Server Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		Logger.getLogger(this.getClass()).info("LocalLog Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : LocalLog Server Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
-		Logger.getLogger(this.getClass()).info("LocalLog Server Terminated");
+		super.terminated(from);
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : LocalLog Server Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		Logger.getLogger(this.getClass()).info("LocalLog Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : LocalLog Server Failed");
 	}
 	
 }
