@@ -1,4 +1,4 @@
-package com.stargazerproject.log.collocation.resources;
+package com.stargazerproject.log.resources;
 
 
 import com.stargazerproject.log.Log;

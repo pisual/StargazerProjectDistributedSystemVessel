@@ -1,5 +1,6 @@
 package com.stargazerproject.queue.test;
 
+import org.apache.log4j.chainsaw.Main;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,13 +29,21 @@ import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.log.model.LogLevel;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
+import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
+import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
+import com.stargazerproject.queue.resources.impl.EventFactory;
+import com.stargazerproject.queue.resources.impl.EventHandler;
+import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
 import com.stargazerproject.queue.resources.impl.LogEventFactory;
 import com.stargazerproject.queue.resources.impl.LogHandler;
 import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
+import com.stargazerproject.queue.server.impl.EventQueueServer;
 import com.stargazerproject.queue.server.impl.LogQueueServer;
+import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
+import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.resources.service.ServiceParameterList;
@@ -56,6 +65,17 @@ public class LogQueueTest {
 	static{
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 				/**Itself Configuration Class**/
+				EventQueue.class,
+				EventDisruptorShell.class,
+				EventFactory.class,
+				EventHandler.class,
+				EventQueueThreadFactory.class,
+				EventQueueServer.class,
+				EventQueueServerListener.class,
+				EventQueueServerManage.class,
+				
+		     /******Depend Configuration Class******/
+				/**Depend LogQueue**/
 				LogQueue.class,
 				LogDisruptorShell.class,
 				LogEventFactory.class,
@@ -65,7 +85,6 @@ public class LogQueueTest {
 				LogQueueServerListener.class,
 				LogQueueServerManage.class,
 				
-		     /******Depend Configuration Class******/
 				/**Depend OrderCache**/
 				OrderCache.class,
 				OrderCacheCacheLoaderCharacteristic.class,
@@ -100,6 +119,11 @@ public class LogQueueTest {
 				);
 	}
 	
+	public static void main(String args[]){
+		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
+		serviceControl.startAllservice();
+	}
+	
 	public LogData getLogData(){
 		return new LogData(Optional.of("LogTestTitle"), Optional.of("LogConsurm"), Optional.of(LogLevel.DEBUG));
 	}
@@ -116,10 +140,6 @@ public class LogQueueTest {
 		queueControl = BeanContainer.instance().getBean(Optional.of("logQueue"), QueueControl.class);
 	}
 	
-	@Test(timeout=10)
-	public void queueStartTest(){
-		queueControl.start();
-	}
 	
 	@Test(timeout=10)
 	public void queuePutTest(){

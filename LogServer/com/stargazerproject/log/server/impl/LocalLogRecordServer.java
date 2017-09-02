@@ -23,7 +23,7 @@ public class LocalLogRecordServer implements StanderServiceShell{
 	private StanderCharacteristicShell<Log> logCharacteristic;
 	
 	@Autowired
-	@Resource(name="localLogCharacteristic")
+	@Resource(name="localLogCharacteristicInitialize")
 	private Optional<Log> log;
 	
 	/** @construction 初始化构造 **/

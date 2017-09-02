@@ -20,7 +20,6 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.model.order.impl.Event;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.queue.QueueConsumer;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -44,6 +43,15 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event> implements B
 	
 	private EventDisruptorShell() {}
 	
+	@Override
+	@Bean(name="eventQueueCharacteristicInitialize")
+	@Lazy(true)
+	public Optional<Queue<Event>> characteristic() {
+		handleEvents();
+		disruptorInitialization();
+		return Optional.of(this);
+	}
+	
 	private void disruptorInitialization(){
 		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Order_Size_of_bufferSize")).get());
 		disruptor = new Disruptor<Event>(eventFactory, bufferSize, threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
@@ -56,15 +64,6 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event> implements B
 		for(int i=0; i<logConsumersNumber; i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), WorkHandler.class);
 		}
-	}
-
-	@Override
-	@Bean(name="eventQueueCharacteristicInitialize")
-	@Lazy(true)
-	public Optional<Queue<Event>> characteristic() {
-		handleEvents();
-		disruptorInitialization();
-		return Optional.of(this);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.stargazerproject.log.collocation.resources;
+package com.stargazerproject.log.resources;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -18,7 +18,7 @@ public class LocalLogLog extends LocalLog implements BaseCharacteristic<Log>{
 	private LocalLogLog() {}
 
 	@Override
-	@Bean(name="localLogCharacteristic")
+	@Bean(name="localLogCharacteristicInitialize")
 	public Optional<Log> characteristic() {
 		return Optional.of(this);
 	}

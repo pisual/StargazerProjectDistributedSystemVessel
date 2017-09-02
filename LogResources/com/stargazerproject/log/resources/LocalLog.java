@@ -1,4 +1,4 @@
-package com.stargazerproject.log.collocation.resources;
+package com.stargazerproject.log.resources;
 
 
 import org.apache.log4j.Logger;

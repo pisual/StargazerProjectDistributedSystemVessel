@@ -1,7 +1,5 @@
 package com.stargazerproject.log.server.impl;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -24,10 +22,6 @@ public class OnlineLogRecordServer implements StanderServiceShell{
 	@Qualifier("logRecord")
 	private StanderCharacteristicShell<Log> logCharacteristic;
 	
-	@Autowired
-	@Resource(name="onlineLogCharacteristic")
-	private Optional<Log> log;
-	
 	/** @construction 初始化构造 **/
 	private OnlineLogRecordServer() {}
 	
@@ -35,7 +29,7 @@ public class OnlineLogRecordServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener","systemParameterCacheServerListener","logQueueServerListener");
-		Optional<Log> log = BeanContainer.instance().getBean(Optional.of("onlineLogCharacteristic"), Optional.class);
+		Optional<Log> log = BeanContainer.instance().getBean(Optional.of("onlineLogCharacteristicInitialize"), Optional.class);
 		logCharacteristic.initialize(log);
 	}
 

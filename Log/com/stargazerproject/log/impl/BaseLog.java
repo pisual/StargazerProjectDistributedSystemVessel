@@ -3,7 +3,7 @@ package com.stargazerproject.log.impl;
 import com.stargazerproject.log.Log;
 import com.stargazerproject.log.LogControl;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.log.collocation.resources.BasicLog;
+import com.stargazerproject.log.resources.BasicLog;
 
 public abstract class BaseLog implements LogMethod, LogControl{
 	

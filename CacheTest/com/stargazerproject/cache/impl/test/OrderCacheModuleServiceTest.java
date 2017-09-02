@@ -30,6 +30,22 @@ import com.stargazerproject.model.order.impl.Event;
 import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.model.order.impl.Transaction;
 import com.stargazerproject.model.order.impl.Transmission;
+import com.stargazerproject.queue.impl.EventQueue;
+import com.stargazerproject.queue.impl.LogQueue;
+import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
+import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
+import com.stargazerproject.queue.resources.impl.EventFactory;
+import com.stargazerproject.queue.resources.impl.EventHandler;
+import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
+import com.stargazerproject.queue.resources.impl.LogEventFactory;
+import com.stargazerproject.queue.resources.impl.LogHandler;
+import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
+import com.stargazerproject.queue.server.impl.EventQueueServer;
+import com.stargazerproject.queue.server.impl.LogQueueServer;
+import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
+import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
+import com.stargazerproject.queue.server.manage.EventQueueServerManage;
+import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.ServiceControl;
@@ -56,15 +72,35 @@ public class OrderCacheModuleServiceTest{
 				OrderCacheServer.class,
 				OrderCacheServerListener.class,
 				OrderCacheServerManage.class,
-				
+
 		     /******Depend Configuration Class******/
-				/**Depend SystemParameterCahce**/
+				/**Depend OrderCache**/
 				SystemParameterCahce.class,
 				SystemParameterCahceCharacteristic.class,
 				SystemParameterCahceShell.class,
 				SystemParameterBuiltInCacheServer.class,
 				SystemParameterCacheServerListener.class,
 				SystemParameterCacheServerManage.class,
+				
+				/**Depend EventQueue**/
+				EventQueue.class,
+				EventDisruptorShell.class,
+				EventFactory.class,
+				EventHandler.class,
+				EventQueueThreadFactory.class,
+				EventQueueServer.class,
+				EventQueueServerListener.class,
+				EventQueueServerManage.class,
+				
+				/**Depend LogCache**/
+				LogQueue.class,
+				LogDisruptorShell.class,
+				LogEventFactory.class,
+				LogHandler.class,
+				LogQueueThreadFactory.class,
+				LogQueueServer.class,
+				LogQueueServerListener.class,
+				LogQueueServerManage.class,
 				
 				/**Depend AOP**/
 				OrderCacheAOPConfiguration.class,
@@ -119,10 +155,9 @@ public class OrderCacheModuleServiceTest{
 	@Test
 	public void cacheRemoveLatersTest(){
 		expectedException.equals(NullPointerException.class);
-		expectedException.expectMessage("Key :TestKey 的Value不存在");  
+		expectedException.expectMessage("Stargazer ServiceControlServer Report :  Key : TestKey Value is Null");  
 		System.out.println(cache.get(Optional.of("TestKey")).get());
 	}
-	
 	
 	@Test(timeout=10000)
 	public void cacheBitchPutTest(){

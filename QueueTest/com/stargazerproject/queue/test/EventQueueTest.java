@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.impl.test;
+package com.stargazerproject.queue.test;
 
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -7,7 +7,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.OrderCache;
@@ -25,6 +24,9 @@ import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServe
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
+import com.stargazerproject.model.order.impl.Event;
+import com.stargazerproject.queue.Queue;
+import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
@@ -49,26 +51,18 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class SystemParameterCahceModuleServiceTest{
+public class EventQueueTest {
+
+	public static Queue<Event> queue;
 	
-	public static Cache<String, String> cache;
+	public static QueueControl<Event> queueControl;
 	
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
 
 	static{
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
-				
 				/**Itself Configuration Class**/
-				SystemParameterCahce.class,
-				SystemParameterCahceCharacteristic.class,
-				SystemParameterCahceShell.class,
-				SystemParameterBuiltInCacheServer.class,
-				SystemParameterCacheServerListener.class,
-				SystemParameterCacheServerManage.class,
-
-		     /******Depend Configuration Class******/
-				/**Depend EventQueue**/
 				EventQueue.class,
 				EventDisruptorShell.class,
 				EventFactory.class,
@@ -77,7 +71,8 @@ public class SystemParameterCahceModuleServiceTest{
 				EventQueueServer.class,
 				EventQueueServerListener.class,
 				EventQueueServerManage.class,
-				
+
+		     /******Depend Configuration Class******/
 				/**Depend LogCache**/
 				LogQueue.class,
 				LogDisruptorShell.class,
@@ -98,6 +93,14 @@ public class SystemParameterCahceModuleServiceTest{
 				OrderCacheServerListener.class,
 				OrderCacheServerManage.class,
 				
+				/**Depend SystemParameterCahce**/
+				SystemParameterCahce.class,
+				SystemParameterCahceCharacteristic.class,
+				SystemParameterCahceShell.class,
+				SystemParameterBuiltInCacheServer.class,
+				SystemParameterCacheServerListener.class,
+				SystemParameterCacheServerManage.class,
+				
 				/**Depend AOP**/
 				OrderCacheAOPConfiguration.class,
 				SystemParameterAOPConfiguration.class,
@@ -114,6 +117,10 @@ public class SystemParameterCahceModuleServiceTest{
 				);
 	}
 	
+	public Event getEventData(){
+		return new Event(Optional.of("ID"), Optional.of(new SystemParameterCahce()));
+	}
+	
 	@Test
 	public void serviceStartTest(){
 		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
@@ -121,44 +128,47 @@ public class SystemParameterCahceModuleServiceTest{
 	}
 
 	@Test
-	public void getCacheTest(){
-		cache = BeanContainer.instance().getBean(Optional.of("systemParameterCahce"), Cache.class);
+	public void getqueueTest(){
+		queue = BeanContainer.instance().getBean(Optional.of("eventQueue"), Queue.class);
+		queueControl = BeanContainer.instance().getBean(Optional.of("eventQueue"), QueueControl.class);
+	}
+	
+	
+	@Test(timeout=10)
+	public void queuePutTest(){
+		queue.producer(Optional.of(getEventData()));
+	}
+
+	@Test(timeout=20000)
+	public void cacheBitchPutTest(){
+		for (int i = 0; i < 100000000; i++) {
+			queue.producer(Optional.of(getEventData()));
+		}
+		System.out.println("Event Queue 亿级(100000000个)数据测试Put完毕");
 	}
 	
 	@Test(timeout=10)
-	public void cachePutTest(){
-		cache.put(Optional.of("TestKey"), Optional.of("TestValue"));
-	}
-	
-	@Test
-	public void cacheGetTest(){
-		System.out.println(cache.get(Optional.of("TestKey")).get());
-	}
-	
-	@Test
-	public void cacheRemoveTest(){
-		cache.remove(Optional.of("TestKey"));
-	}
-	
-	@Test
-	public void cacheRemoveLatersTest(){
+	public void queueStartAgainTest(){
 		expectedException.equals(IllegalStateException.class);
-		expectedException.expectMessage("Optional.get() cannot be called on an absent value");  
-		System.out.println(cache.get(Optional.of("TestKey")).get());
+		expectedException.expectMessage("Disruptor.start() must only be called once.");  
+		queueControl.start();
 	}
 	
-	@Test(timeout=10000)
-	public void cacheBitchPutTest(){
-		for (int i = 0; i < 1000000; i++) {
-			cache.put(Optional.of("TestKey" + i), Optional.of("TestValue" + i));
-		}
+	@Test(timeout=10)
+	public void queuehutdownTest(){  
+		queueControl.shutdown();
 	}
 	
-	@Test(timeout=10000)
-	public void cacheBitchGetTest(){
-		for (int i = 0; i < 1000000; i++) {
-			cache.get(Optional.of("TestKey" + i));
-		}
+	@Test(timeout=10)
+	public void queuehutdownAgainTest(){  
+		queueControl.shutdown();
+	}
+	
+	@Test(timeout=10)
+	public void queueStartAgainTest2(){
+		expectedException.equals(IllegalStateException.class);
+		expectedException.expectMessage("Disruptor.start() must only be called once.");  
+		queueControl.start();
 	}
 	
 	@Test
@@ -169,25 +179,9 @@ public class SystemParameterCahceModuleServiceTest{
 	
 	@Test
 	public void serviceStopLaterGetTest(){
-		expectedException.equals(IllegalStateException.class);
-		expectedException.expectMessage("Server Not Start");  
-		cache.get(Optional.of("TestKey"));
+		queue.producer(Optional.of(getEventData()));
 	}
 	
-	@Test
-	public void serviceStopLaterRemoveTest(){
-		expectedException.equals(IllegalStateException.class);
-		expectedException.expectMessage("Server Not Start");  
-		cache.remove(Optional.of("TestKey"));
-	}
-	
-	@Test
-	public void serviceStopLaterPutTest(){
-		expectedException.equals(IllegalStateException.class);
-		expectedException.expectMessage("Server Not Start");  
-		cache.put(Optional.of("TestKey"), Optional.of("TestValue"));
-	}
-
 	@Test
 	public void serviceStartAgainTest(){
 		expectedException.equals(IllegalStateException.class);
@@ -201,5 +195,4 @@ public class SystemParameterCahceModuleServiceTest{
 		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
 		serviceControl.stopAllService();
 	}
-	
 }

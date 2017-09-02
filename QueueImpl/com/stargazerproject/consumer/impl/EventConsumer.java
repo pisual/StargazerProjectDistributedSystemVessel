@@ -10,7 +10,6 @@ public class EventConsumer implements QueueConsumer<Event>{
 	
 	@Override
 	public void consumer(Optional<Event> e) {
-		System.out.println("具体消费者");
 	}
 
 }

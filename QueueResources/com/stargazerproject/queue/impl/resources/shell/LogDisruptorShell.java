@@ -20,7 +20,6 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.queue.QueueConsumer;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.LogHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;

@@ -1,8 +1,9 @@
-package com.stargazerproject.log.collocation.resources;
+package com.stargazerproject.log.resources;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,8 @@ public class OnlineLogLog extends OnlineLog implements BaseCharacteristic<Log>{
 	private OnlineLogLog() {}
 
 	@Override
-	@Bean(name="onlineLogCharacteristic")
+	@Bean(name="onlineLogCharacteristicInitialize")
+	@Lazy(true)
 	public Optional<Log> characteristic() {
 		return Optional.of(this);
 	}

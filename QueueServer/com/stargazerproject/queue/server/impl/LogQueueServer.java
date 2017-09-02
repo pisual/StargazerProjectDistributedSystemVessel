@@ -10,6 +10,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.queue.Queue;
+import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -21,19 +22,24 @@ public class LogQueueServer implements StanderServiceShell{
 
 	@Autowired
 	@Qualifier("logQueue")
-	private StanderCharacteristicShell<Queue<LogData>> logQueueShell;
+	private StanderCharacteristicShell<Queue<LogData>> logQueue;
+	
+	@Autowired
+	@Qualifier("logQueue")
+	private QueueControl<LogData> logQueueControl;
 	
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
      	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		Optional<Queue<LogData>> queueArg = BeanContainer.instance().getBean(Optional.of("logQueueCharacteristicInitialize"), Optional.class);
-		logQueueShell.initialize(queueArg);
+		logQueue.initialize(queueArg);
+		logQueueControl.start();
 	}
 
 	@Override
 	public void shutDown() {
-		
+		logQueueControl.shutdown();
 	}
 
 }

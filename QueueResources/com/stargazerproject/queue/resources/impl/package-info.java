@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.queue.disruptor.resources.eventfactory.impl;
+package com.stargazerproject.queue.resources.impl;
