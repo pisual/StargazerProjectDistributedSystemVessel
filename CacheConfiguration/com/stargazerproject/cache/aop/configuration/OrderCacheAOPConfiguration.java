@@ -16,40 +16,40 @@ import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.service.WorkInServiceState;
 
 /** 
- *  @name SystemParameter的AOP
- *  @illustrate 针对于SystemParameter实现初始化过程的Shell注入及其他的操作进行AOP控制
+ *  @name OrderCache的AOP
+ *  @illustrate 针对于OrderCache实现初始化过程的Shell注入及其他的操作进行AOP控制
  *  @author Felixerio
  *  **/
 @Component
 @EnableAspectJAutoProxy
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Aspect
-public class SystemParameterAOPConfiguration {
+public class OrderCacheAOPConfiguration {
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
-	/** @illustrate 获取SystemParameterCache(系统参数缓存) ServerControl接口
+	/** @illustrate 获取OrderCache(系统参数缓存) ServerControl接口
 	 *  @DeclareParents 这个接口为Spring后期织入
 	 * **/
 	@Autowired
-	@Qualifier("systemParameterCacheServerListener")
-	private WorkInServiceState systemParameterServerState;
+	@Qualifier("orderCacheServerListener")
+	private WorkInServiceState orderCacheServerListenerState;
 	
 	/** @construction 初始化构造 **/
-	private SystemParameterAOPConfiguration() {}
+	private OrderCacheAOPConfiguration() {}
 	
-	/** @illustrate SystemParameterCache(系统参数缓存) 中的Set方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.cache.Cache.put(com.google.common.base.Optional,com.google.common.base.Optional)) && args(key,value) && bean(systemParameterCahce)")
+	/** @illustrate orderCache 中的Set方法的AOP切点**/
+	@Pointcut ("execution(* com.stargazerproject.cache.Cache.put(com.google.common.base.Optional,com.google.common.base.Optional)) && args(key,value) && bean(orderCache)")
 	public void setMethod(Optional<?> key, Optional<?> value){}
 	
-	/** @illustrate SystemParameterCache(系统参数缓存) 中的Set的AOP切点的具体方法**/
+	/** @illustrate orderCache 中的Set的AOP切点的具体方法**/
 	@Around("setMethod(key, value)")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key, Optional<?> value) throws Throwable{
 		try {
-			systemParameterServerState.serverstateCheck();
+			orderCacheServerListenerState.serverstateCheck();
 			proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
 			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
@@ -58,14 +58,14 @@ public class SystemParameterAOPConfiguration {
 	}
 	
 	/** @illustrate SystemParameterCache(系统参数缓存) 中的Get方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.cache.Cache.get(com.google.common.base.Optional)) && args(key) && bean(systemParameterCahce)")
+	@Pointcut ("execution(* com.stargazerproject.cache.Cache.get(com.google.common.base.Optional)) && args(key) && bean(orderCache)")
 	public void getMethod(Optional<?> key){}
 	
 	/** @illustrate SystemParameterCache(系统参数缓存) 中的Get方法的AOP切点的具体方法**/
 	@Around("getMethod(key)")
 	public Object getMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key) throws Throwable{
 		try{
-			systemParameterServerState.serverstateCheck();
+			orderCacheServerListenerState.serverstateCheck();
 			return proceedingJoinPoint.proceed();
 		}catch (Throwable throwable){
 			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
@@ -73,15 +73,15 @@ public class SystemParameterAOPConfiguration {
 		}
 	}
 	
-	/** @illustrate SystemParameterCache(系统参数缓存) 中的Remove方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.cache.Cache.remove(com.google.common.base.Optional)) && args(key) && bean(systemParameterCahce)")
+	/** @illustrate orderCache(系统参数缓存) 中的Remove方法的AOP切点**/
+	@Pointcut ("execution(* com.stargazerproject.cache.Cache.remove(com.google.common.base.Optional)) && args(key) && bean(orderCache)")
 	public void removeMethod(Optional<?> key){}
 	
-	/** @illustrate SystemParameterCache(系统参数缓存) 中的Remove方法的AOP切点的具体方法**/
+	/** @illustrate orderCache(系统参数缓存) 中的Remove方法的AOP切点的具体方法**/
 	@Around("removeMethod(key)")
 	public Object removeMethodAround(ProceedingJoinPoint proceedingJoinPoint, Optional<?> key) throws Throwable{
 		try{
-			systemParameterServerState.serverstateCheck();
+			orderCacheServerListenerState.serverstateCheck();
 			return proceedingJoinPoint.proceed();
 		}catch (Throwable throwable){
 			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());

@@ -16,8 +16,8 @@ import com.stargazerproject.cache.Cache;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class Transaction extends ID{
 	
-	@Autowired
-	@Qualifier("eventCache")
+//	@Autowired
+//	@Qualifier("eventCache")
 	/** @illustrate 获取SystemParameterCache(系统参数缓存)接口 **/
 	private Cache<Integer, Event> eventCahce;
 	
@@ -28,7 +28,8 @@ public final class Transaction extends ID{
 		super(idArg);
 		int tempNumber = 0;
 		for(Optional<Event> event:events){
-			eventCahce.put(Optional.of(tempNumber++), event);
+	//		eventCahce.put(Optional.of(tempNumber++), event);
+			tempNumber++;
 		}
 		eventNumber = tempNumber;
 	}

@@ -39,6 +39,7 @@ public class SystemParameterCacheServerListener extends StandardWorkInServiceSta
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
+		super.terminated(from);
 		baseLog.INFO(this, "SystemParameterCache Server Terminated");
 	}
 	

@@ -8,14 +8,28 @@ import org.junit.runners.MethodSorters;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
+import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
+import com.stargazerproject.cache.server.impl.OrderCacheServer;
 import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
+import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
+import com.stargazerproject.model.order.impl.AddressTarget;
+import com.stargazerproject.model.order.impl.Event;
+import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.model.order.impl.Transaction;
+import com.stargazerproject.model.order.impl.Transmission;
 import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.ServiceControl;
@@ -24,17 +38,27 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class SystemParameterCahceModuleServiceTest{
+public class OrderCacheModuleServiceTest{
 	
-	public static Cache<String, String> cache;
+	public static Cache<String, Order> cache;
 	
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
 
 	static{
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
-				
 				/**Itself Configuration Class**/
+				OrderCache.class,
+				OrderCacheCacheLoaderCharacteristic.class,
+				OrderCacheLoadingCacheCharacteristic.class,
+				OrderCacheRemovalListenerCharacteristic.class,
+				OrderCahceShell.class,
+				OrderCacheServer.class,
+				OrderCacheServerListener.class,
+				OrderCacheServerManage.class,
+				
+		     /******Depend Configuration Class******/
+				/**Depend SystemParameterCahce**/
 				SystemParameterCahce.class,
 				SystemParameterCahceCharacteristic.class,
 				SystemParameterCahceShell.class,
@@ -43,6 +67,7 @@ public class SystemParameterCahceModuleServiceTest{
 				SystemParameterCacheServerManage.class,
 				
 				/**Depend AOP**/
+				OrderCacheAOPConfiguration.class,
 				SystemParameterAOPConfiguration.class,
 				
 				/**Depend Resources**/
@@ -57,6 +82,14 @@ public class SystemParameterCahceModuleServiceTest{
 				);
 	}
 	
+	public Order getTestModelOrder(){
+		Transmission transmission = new Transmission(Optional.of(new AddressTarget(Optional.fromNullable("10.0.1.1"), Optional.fromNullable(1234))), Optional.of(new AddressTarget(Optional.fromNullable("10.0.1.1"), Optional.fromNullable(1234))));
+		Event event = new Event(Optional.of("ID"), Optional.of(new SystemParameterCahce()));
+		Transaction transaction = new Transaction(Optional.of("T ID"), Optional.of(event));
+		Order order = new Order(Optional.of("Order ID"), Optional.of(transmission), Optional.of(transaction));
+		return(order);
+	}
+	
 	@Test
 	public void serviceStartTest(){
 		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
@@ -65,17 +98,17 @@ public class SystemParameterCahceModuleServiceTest{
 
 	@Test
 	public void getCacheTest(){
-		cache = BeanContainer.instance().getBean(Optional.of("systemParameterCahce"), Cache.class);
+		cache = BeanContainer.instance().getBean(Optional.of("orderCache"), Cache.class);
 	}
 	
 	@Test(timeout=10)
 	public void cachePutTest(){
-		cache.put(Optional.of("TestKey"), Optional.of("TestValue"));
+		cache.put(Optional.of("TestKey"), Optional.of(getTestModelOrder()));
 	}
 	
 	@Test
 	public void cacheGetTest(){
-		System.out.println(cache.get(Optional.of("TestKey")).get());
+		System.out.println(cache.get(Optional.of("TestKey")).get().toString());
 	}
 	
 	@Test
@@ -85,16 +118,18 @@ public class SystemParameterCahceModuleServiceTest{
 	
 	@Test
 	public void cacheRemoveLatersTest(){
-		expectedException.equals(IllegalStateException.class);
-		expectedException.expectMessage("Optional.get() cannot be called on an absent value");  
+		expectedException.equals(NullPointerException.class);
+		expectedException.expectMessage("Key :TestKey 的Value不存在");  
 		System.out.println(cache.get(Optional.of("TestKey")).get());
 	}
+	
 	
 	@Test(timeout=10000)
 	public void cacheBitchPutTest(){
 		for (int i = 0; i < 1000000; i++) {
-			cache.put(Optional.of("TestKey" + i), Optional.of("TestValue" + i));
+			cache.put(Optional.of("TestKey" + i), Optional.of(getTestModelOrder()));
 		}
+		System.out.println("百万级测试Put完毕");
 	}
 	
 	@Test(timeout=10000)
@@ -102,6 +137,7 @@ public class SystemParameterCahceModuleServiceTest{
 		for (int i = 0; i < 1000000; i++) {
 			cache.get(Optional.of("TestKey" + i));
 		}
+		System.out.println("百万级测试Get完毕");
 	}
 	
 	@Test
@@ -128,7 +164,7 @@ public class SystemParameterCahceModuleServiceTest{
 	public void serviceStopLaterPutTest(){
 		expectedException.equals(IllegalStateException.class);
 		expectedException.expectMessage("Server Not Start");  
-		cache.put(Optional.of("TestKey"), Optional.of("TestValue"));
+		cache.put(Optional.of("TestKey"), Optional.of(getTestModelOrder()));
 	}
 
 	@Test

@@ -19,10 +19,11 @@ import com.google.common.cache.RemovalListener;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
-@Qualifier("OrderCacheLoadingCacheShell")
+@Component(value="orderCacheLoadingCache")
+@Qualifier("orderCacheLoadingCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<LoadingCache<String,Order>>{
 
