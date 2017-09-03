@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.model.order.impl;
+package com.stargazerproject.order.impl;

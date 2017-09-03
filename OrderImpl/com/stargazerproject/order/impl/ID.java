@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 @Component
 @Qualifier("iD")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public abstract class ID{
+public class ID{
 
 	/** @illustrate ID**/
 	protected String id;

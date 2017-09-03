@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.model.order.shared;
+package com.stargazerproject.order.shared;
