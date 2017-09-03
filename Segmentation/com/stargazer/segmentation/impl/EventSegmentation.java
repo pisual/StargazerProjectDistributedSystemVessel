@@ -1,13 +1,11 @@
 package com.stargazer.segmentation.impl;
 
-import java.util.Map;
-
 import com.stargazer.segmentation.Segmentation;
-import com.stargazerproject.model.order.impl.Event;
+import com.stargazerproject.order.impl.Event;
 
-public class EventSegmentation implements Segmentation<Map<Integer, Event>>{
+public class EventSegmentation implements Segmentation<Event>{
 	
 	@Override
-	public void batchSegmentation(Map<Integer, Event> map) {
+	public void batchSegmentation(Event event) {
 	}
 }

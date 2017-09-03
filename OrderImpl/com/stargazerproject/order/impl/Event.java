@@ -1,23 +1,15 @@
-package com.stargazerproject.model.order.impl;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+package com.stargazerproject.order.impl;
 
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Execute;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.model.order.Result;
+import com.stargazerproject.order.Result;
 
 /** 
- *  @name 可追踪注入序列实体dddddddd
- *  @illustrate 带有ID变量的可追踪的实体，由外界进行序列注入ddddd
+ *  @name 可追踪注入序列实体
+ *  @illustrate 带有ID变量的可追踪的实体，由外界进行序列注入
  *  @author Felixerio
  *  **/
-@Component
-@Qualifier("event")
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public final class Event extends ID{
 	
 	/** @illustrate 事件参数接口,需要注入baseMapUnit **/
@@ -33,9 +25,14 @@ public final class Event extends ID{
 		super(idArg);
 		parameter = parameterArg.get();
 	}
+	
+	public boolean isComplete(){
+		return result.isComplete();
+	}
 
 	/** @illustrate  开始执行事件 **/
 	public void startEvent(Optional<Execute> execute) {
 		execute.get().executeEvent(Optional.of(parameter), Optional.of(result));
+		result.Complete();
 	}
 }

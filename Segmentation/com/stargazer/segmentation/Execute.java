@@ -2,7 +2,7 @@ package com.stargazer.segmentation;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.model.order.Result;
+import com.stargazerproject.order.Result;
 
 
 public interface Execute {

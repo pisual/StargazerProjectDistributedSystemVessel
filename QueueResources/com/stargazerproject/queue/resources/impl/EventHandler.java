@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.consumer.impl.EventConsumer;
-import com.stargazerproject.model.order.impl.Event;
+import com.stargazerproject.order.impl.Event;
 
 /** 
  *  @name Event队列的消费者

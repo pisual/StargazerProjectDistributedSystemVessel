@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
-import com.stargazerproject.model.order.impl.Parameter;
-import com.stargazerproject.model.order.impl.ResultVoid;
+import com.stargazerproject.order.impl.Parameter;
+import com.stargazerproject.order.impl.ResultVoid;
 
 
 public class CellsMethod {

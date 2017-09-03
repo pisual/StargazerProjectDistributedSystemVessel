@@ -1,4 +1,4 @@
-package com.stargazerproject.model.order.impl;
+package com.stargazerproject.order.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,8 +9,8 @@ import java.io.OptionalDataException;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazerproject.model.order.shared.Entity;
 import com.stargazerproject.model.util.Clone;
+import com.stargazerproject.order.shared.Entity;
 
 /** 
  *  @name 缓存接口

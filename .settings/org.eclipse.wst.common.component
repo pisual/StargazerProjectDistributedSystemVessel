@@ -67,6 +67,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Validation"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderImpl"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

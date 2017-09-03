@@ -1,7 +1,7 @@
-package com.stargazerproject.model.order.impl;
+package com.stargazerproject.order.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.model.order.Target;
+import com.stargazerproject.order.Target;
 
 
 /** 指令传输 **/

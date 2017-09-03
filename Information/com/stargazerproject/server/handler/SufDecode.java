@@ -9,9 +9,9 @@ import io.protostuff.runtime.RuntimeSchema;
 
 import java.util.List;
 
-import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.model.server.MessageType;
 import com.stargazerproject.model.server.NetworkConnectionMessage;
+import com.stargazerproject.order.impl.Order;
 
 public class SufDecode extends ByteToMessageDecoder {
 	

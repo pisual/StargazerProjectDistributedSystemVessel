@@ -7,24 +7,39 @@ import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.aop.configuration.BigCacheIndexCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
+import com.stargazerproject.cache.impl.BigCacheIndexCahce;
+import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
 import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
+import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
+import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
-import com.stargazerproject.model.order.impl.Event;
+import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.queue.impl.EventQueue;
@@ -63,17 +78,6 @@ public class EventQueueTest {
 	static{
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 				/**Itself Configuration Class**/
-				EventQueue.class,
-				EventDisruptorShell.class,
-				EventFactory.class,
-				EventHandler.class,
-				EventQueueThreadFactory.class,
-				EventQueueServer.class,
-				EventQueueServerListener.class,
-				EventQueueServerManage.class,
-
-		     /******Depend Configuration Class******/
-				/**Depend LogCache**/
 				LogQueue.class,
 				LogDisruptorShell.class,
 				LogEventFactory.class,
@@ -82,6 +86,43 @@ public class EventQueueTest {
 				LogQueueServer.class,
 				LogQueueServerListener.class,
 				LogQueueServerManage.class,
+				
+		     /******Depend Configuration Class******/
+				/**Depend ByteArrayCache**/
+				ByteArrayCache.class,
+				ByteArrayCacheCacheConfigurationCharacteristic.class,
+				ByteArrayCacheCacheManagerCharacteristic.class,
+				ByteArrayCacheConfigurationCharacteristic.class,
+				ByteArrayCacheShell.class,
+				ByteArrayCacheServer.class,
+				ByteArrayCacheServerListener.class,
+				ByteArrayCacheServerManage.class,
+				
+				/**Depend BigCacheIndexCahce**/
+				BigCacheIndexCahce.class,
+				BigCacheIndexCahceCharacteristic.class,
+				BigCacheIndexCahceShell.class,
+				BigCacheIndexCacheBuiltInCacheServer.class,
+				BigCacheIndexCacheServerListener.class,
+				BigCacheIndexCacheServerManage.class,
+				
+				/**Depend SystemParameterCahce**/
+				SystemParameterCahce.class,
+				SystemParameterCahceCharacteristic.class,
+				SystemParameterCahceShell.class,
+				SystemParameterBuiltInCacheServer.class,
+				SystemParameterCacheServerListener.class,
+				SystemParameterCacheServerManage.class,
+				
+				/**Depend EventQueue**/
+				EventQueue.class,
+				EventDisruptorShell.class,
+				EventFactory.class,
+				EventHandler.class,
+				EventQueueThreadFactory.class,
+				EventQueueServer.class,
+				EventQueueServerListener.class,
+				EventQueueServerManage.class,
 				
 				/**Depend OrderCache**/
 				OrderCache.class,
@@ -93,17 +134,10 @@ public class EventQueueTest {
 				OrderCacheServerListener.class,
 				OrderCacheServerManage.class,
 				
-				/**Depend SystemParameterCahce**/
-				SystemParameterCahce.class,
-				SystemParameterCahceCharacteristic.class,
-				SystemParameterCahceShell.class,
-				SystemParameterBuiltInCacheServer.class,
-				SystemParameterCacheServerListener.class,
-				SystemParameterCacheServerManage.class,
-				
 				/**Depend AOP**/
 				OrderCacheAOPConfiguration.class,
 				SystemParameterAOPConfiguration.class,
+				BigCacheIndexCacheAOPConfiguration.class,
 				
 				/**Depend Resources**/
 				StargazerProjectParameterList.class,

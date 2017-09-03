@@ -1,4 +1,4 @@
-package com.stargazerproject.model.order.impl;
+package com.stargazerproject.order.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

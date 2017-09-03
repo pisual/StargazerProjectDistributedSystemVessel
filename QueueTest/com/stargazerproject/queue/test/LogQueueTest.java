@@ -1,6 +1,5 @@
 package com.stargazerproject.queue.test;
 
-import org.apache.log4j.chainsaw.Main;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,20 +7,35 @@ import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.aop.configuration.BigCacheIndexCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
+import com.stargazerproject.cache.impl.BigCacheIndexCahce;
+import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
 import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
+import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
+import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
@@ -65,17 +79,6 @@ public class LogQueueTest {
 	static{
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 				/**Itself Configuration Class**/
-				EventQueue.class,
-				EventDisruptorShell.class,
-				EventFactory.class,
-				EventHandler.class,
-				EventQueueThreadFactory.class,
-				EventQueueServer.class,
-				EventQueueServerListener.class,
-				EventQueueServerManage.class,
-				
-		     /******Depend Configuration Class******/
-				/**Depend LogQueue**/
 				LogQueue.class,
 				LogDisruptorShell.class,
 				LogEventFactory.class,
@@ -84,6 +87,43 @@ public class LogQueueTest {
 				LogQueueServer.class,
 				LogQueueServerListener.class,
 				LogQueueServerManage.class,
+				
+		     /******Depend Configuration Class******/
+				/**Depend ByteArrayCache**/
+				ByteArrayCache.class,
+				ByteArrayCacheCacheConfigurationCharacteristic.class,
+				ByteArrayCacheCacheManagerCharacteristic.class,
+				ByteArrayCacheConfigurationCharacteristic.class,
+				ByteArrayCacheShell.class,
+				ByteArrayCacheServer.class,
+				ByteArrayCacheServerListener.class,
+				ByteArrayCacheServerManage.class,
+				
+				/**Depend BigCacheIndexCahce**/
+				BigCacheIndexCahce.class,
+				BigCacheIndexCahceCharacteristic.class,
+				BigCacheIndexCahceShell.class,
+				BigCacheIndexCacheBuiltInCacheServer.class,
+				BigCacheIndexCacheServerListener.class,
+				BigCacheIndexCacheServerManage.class,
+				
+				/**Depend SystemParameterCahce**/
+				SystemParameterCahce.class,
+				SystemParameterCahceCharacteristic.class,
+				SystemParameterCahceShell.class,
+				SystemParameterBuiltInCacheServer.class,
+				SystemParameterCacheServerListener.class,
+				SystemParameterCacheServerManage.class,
+				
+				/**Depend EventQueue**/
+				EventQueue.class,
+				EventDisruptorShell.class,
+				EventFactory.class,
+				EventHandler.class,
+				EventQueueThreadFactory.class,
+				EventQueueServer.class,
+				EventQueueServerListener.class,
+				EventQueueServerManage.class,
 				
 				/**Depend OrderCache**/
 				OrderCache.class,
@@ -95,17 +135,10 @@ public class LogQueueTest {
 				OrderCacheServerListener.class,
 				OrderCacheServerManage.class,
 				
-				/**Depend SystemParameterCahce**/
-				SystemParameterCahce.class,
-				SystemParameterCahceCharacteristic.class,
-				SystemParameterCahceShell.class,
-				SystemParameterBuiltInCacheServer.class,
-				SystemParameterCacheServerListener.class,
-				SystemParameterCacheServerManage.class,
-				
 				/**Depend AOP**/
 				OrderCacheAOPConfiguration.class,
 				SystemParameterAOPConfiguration.class,
+				BigCacheIndexCacheAOPConfiguration.class,
 				
 				/**Depend Resources**/
 				StargazerProjectParameterList.class,
@@ -117,11 +150,6 @@ public class LogQueueTest {
 				/**Depend Service**/
 				GroupServiceConfiguration.class
 				);
-	}
-	
-	public static void main(String args[]){
-		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
-		serviceControl.startAllservice();
 	}
 	
 	public LogData getLogData(){

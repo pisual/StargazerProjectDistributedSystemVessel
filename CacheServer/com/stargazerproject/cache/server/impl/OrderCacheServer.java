@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;

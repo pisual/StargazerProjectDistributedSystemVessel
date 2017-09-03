@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import com.stargazerproject.cache.impl.impl.OrderCache;
-import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.order.impl.Order;
 
 public class ObjectReceiveHandler extends SimpleChannelInboundHandler<Object> {
     @Override

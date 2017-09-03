@@ -18,7 +18,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="orderCacheLoadingCache")

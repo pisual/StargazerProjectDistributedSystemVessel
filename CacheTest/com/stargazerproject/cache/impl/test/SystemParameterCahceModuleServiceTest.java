@@ -10,18 +10,32 @@ import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
+import com.stargazerproject.cache.impl.BigCacheIndexCahce;
+import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
 import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
+import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
+import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
@@ -68,6 +82,24 @@ public class SystemParameterCahceModuleServiceTest{
 				SystemParameterCacheServerManage.class,
 
 		     /******Depend Configuration Class******/
+				/**Depend BigCacheIndexCahce**/
+				BigCacheIndexCahce.class,
+				BigCacheIndexCahceCharacteristic.class,
+				BigCacheIndexCahceShell.class,
+				BigCacheIndexCacheBuiltInCacheServer.class,
+				BigCacheIndexCacheServerListener.class,
+				BigCacheIndexCacheServerManage.class,
+				
+				/**Depend ByteArrayCache**/
+				ByteArrayCache.class,
+				ByteArrayCacheCacheConfigurationCharacteristic.class,
+				ByteArrayCacheCacheManagerCharacteristic.class,
+				ByteArrayCacheConfigurationCharacteristic.class,
+				ByteArrayCacheShell.class,
+				ByteArrayCacheServer.class,
+				ByteArrayCacheServerListener.class,
+				ByteArrayCacheServerManage.class,
+				
 				/**Depend EventQueue**/
 				EventQueue.class,
 				EventDisruptorShell.class,

@@ -5,8 +5,8 @@ import java.lang.reflect.Method;
 
 import com.stargazerproject.cellsmethod.CellsMethod;
 import com.stargazerproject.log.collocation.impl.LocalityLog;
-import com.stargazerproject.model.order.impl.Parameter;
-import com.stargazerproject.model.order.impl.ResultVoid;
+import com.stargazerproject.order.impl.Parameter;
+import com.stargazerproject.order.impl.ResultVoid;
 import com.stargazerproject.parameter.impl.SystemParameter;
 
 public class CellsInitialize {

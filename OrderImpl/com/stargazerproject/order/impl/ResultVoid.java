@@ -1,7 +1,6 @@
-package com.stargazerproject.model.order.impl;
+package com.stargazerproject.order.impl;
 
-import com.google.common.base.Optional;
-import com.stargazerproject.model.order.Result;
+import com.stargazerproject.order.Result;
 
 
 /** 
@@ -11,13 +10,23 @@ import com.stargazerproject.model.order.Result;
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
  *  **/
-@SuppressWarnings("unused")
 public class ResultVoid implements Result{
 	
 	/** @illustrate 是否执行完成**/
 	private Boolean isComplete;
 
-	public ResultVoid(Optional<Boolean> isCompleteArg) {
-		isComplete = isCompleteArg.get();
+	public ResultVoid() {
+		isComplete = Boolean.FALSE;
 	}
+
+	@Override
+	public boolean isComplete() {
+		return isComplete;
+	}
+
+	@Override
+	public void Complete() {
+		isComplete = Boolean.TRUE;
+	}
+	
 }

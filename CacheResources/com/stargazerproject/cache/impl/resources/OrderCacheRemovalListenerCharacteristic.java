@@ -12,7 +12,7 @@ import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.order.impl.Order;
 
 @Component
 @Qualifier("tOrderCacheRemovalListener")

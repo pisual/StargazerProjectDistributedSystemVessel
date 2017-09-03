@@ -176,7 +176,6 @@ public class ByteArrayCacheModuleServiceTest{
 		}
 		byte[] tempByte = new byte[fileBufferSize];
 		try {
-			int i=0;
 			int readByteLenght = 0;
 			while((readByteLenght = fileInputStream.read(tempByte))!=-1){
 				if(readByteLenght <fileBufferSize){
@@ -188,7 +187,6 @@ public class ByteArrayCacheModuleServiceTest{
 				else{
 					list.add(tempByte);
 					tempByte = new byte[fileBufferSize];
-					i++;
 				}
 			}
 		} catch (IOException e) {
@@ -212,14 +210,12 @@ public class ByteArrayCacheModuleServiceTest{
 	        return  bigInt.toString(16);
 	    } catch (IOException | NoSuchAlgorithmException e){
 	        e.printStackTrace();
+	        throw new NullPointerException("Md5 is Null");
 	    }
-	    return "";
 	}
 	
 	public String byteArrayMd5(byte[] byteArray){
-		String md5 = "md5";
-		md5 = DigestUtils.md5Hex(byteArray); 
-		return md5;
+		return DigestUtils.md5Hex(byteArray);
 	}
 	
 	@Test
@@ -283,63 +279,131 @@ public class ByteArrayCacheModuleServiceTest{
 		cache.get(Optional.of("TestKey"));
 	}
 	
+	@Test
+	public void cacheBitchPutTest(){
+		ArrayList<byte[]> list = getByteAll("/Users/Felixerio/Desktop/testFile.mkv");
+		int listSize = list.size();
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 100000; i++) {
+					for (int j = 0; j < listSize; j++) {
+						cache.add(Optional.of("TestKeyBitch"+i), list.get(0));
+					}
+				}
+			}
+		});
+		
+		Thread thread2 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 1001; i < 2000; i++) {
+					for (int j = 0; j < listSize; j++) {
+						cache.add(Optional.of("TestKeyBitch"+i), list.get(0));
+					}
+				}
+			}
+		});
+		
+		Thread thread3 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 3001; i < 3000; i++) {
+					for (int j = 0; j < listSize; j++) {
+						cache.add(Optional.of("TestKeyBitch"+i), list.get(0));
+					}
+				}
+			}
+		});
+		
+		Thread thread4 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 4001; i < 5000; i++) {
+					for (int j = 0; j < listSize; j++) {
+						cache.add(Optional.of("TestKeyBitch"+i), list.get(0));
+					}
+				}
+			}
+		});
+		
+		Thread thread5 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 5001; i < 6000; i++) {
+					for (int j = 0; j < listSize; j++) {
+						cache.add(Optional.of("TestKeyBitch"+i), list.get(0));
+					}
+				}
+			}
+		});
+		
+		try {
+			
+			thread.start();
+			thread2.start();
+			thread3.start();
+			thread4.start();
+			thread5.start();
+			
+			thread.join();
+			thread2.join();
+			thread3.join();
+			thread4.join();
+			thread5.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("5000级测试Put完毕");
+	}
 	
+	@Test
+	public void cacheBitchGetTest(){
+		for (int i = 0; i < 100; i++) {
+			cache.get(Optional.of("TestKeyBitch" + i));
+		}
+		System.out.println("百级测试Get完毕");
+	}
 	
-//	@Test(timeout=10000)
-//	public void cacheBitchPutTest(){
-//		for (int i = 0; i < 1000000; i++) {
-//			cache.put(Optional.of("TestKey" + i), Optional.of(i));
-//		}
-//		System.out.println("百万级测试Put完毕");
-//	}
-//	
-//	@Test(timeout=10000)
-//	public void cacheBitchGetTest(){
-//		for (int i = 0; i < 1000000; i++) {
-//			cache.get(Optional.of("TestKey" + i));
-//		}
-//		System.out.println("百万级测试Get完毕");
-//	}
-//	
-//	@Test
-//	public void serviceStopTest(){
-//		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
-//		serviceControl.stopAllService();
-//	}
-//	
-//	@Test
-//	public void serviceStopLaterGetTest(){
-//		expectedException.equals(IllegalStateException.class);
-//		expectedException.expectMessage("Server Not Start");  
-//		cache.get(Optional.of("TestKey"));
-//	}
-//	
-//	@Test
-//	public void serviceStopLaterRemoveTest(){
-//		expectedException.equals(IllegalStateException.class);
-//		expectedException.expectMessage("Server Not Start");  
-//		cache.remove(Optional.of("TestKey"));
-//	}
-//	
+	@Test
+	public void serviceStopTest(){
+		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
+		serviceControl.stopAllService();
+	}
+	
+	@Test
+	public void serviceStopLaterGetTest(){
+		expectedException.equals(IllegalStateException.class);
+		expectedException.expectMessage("Server Not Start");  
+		cache.get(Optional.of("TestKey"));
+	}
+	
+	@Test
+	public void serviceStopLaterRemoveTest(){
+		expectedException.equals(IllegalStateException.class);
+		expectedException.expectMessage("Server Not Start");  
+		cache.remove(Optional.of("TestKey"));
+	}
+	
 //	@Test
 //	public void serviceStopLaterPutTest(){
 //		expectedException.equals(IllegalStateException.class);
 //		expectedException.expectMessage("Server Not Start");  
 //		cache.put(Optional.of("TestKey"), Optional.of(1));
 //	}
-//
-//	@Test
-//	public void serviceStartAgainTest(){
-//		expectedException.equals(IllegalStateException.class);
-//		expectedException.expectMessage("Service LocalLogServerManage [TERMINATED] is TERMINATED, cannot start it.");  
-//		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
-//		serviceControl.startAllservice();
-//	}
-//	
-//	@Test
-//	public void serviceStopAgainTest(){
-//		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
-//		serviceControl.stopAllService();
-//	}
+
+	@Test
+	public void serviceStartAgainTest(){
+		expectedException.equals(IllegalStateException.class);
+		expectedException.expectMessage("Service LocalLogServerManage [TERMINATED] is TERMINATED, cannot start it.");  
+		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
+		serviceControl.startAllservice();
+	}
+	
+	@Test
+	public void serviceStopAgainTest(){
+		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
+		serviceControl.stopAllService();
+	}
 	
 }

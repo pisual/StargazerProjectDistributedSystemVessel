@@ -10,9 +10,9 @@ import io.protostuff.runtime.RuntimeSchema;
 
 import java.io.ByteArrayOutputStream;
 
-import com.stargazerproject.model.order.impl.Order;
 import com.stargazerproject.model.server.MessageType;
 import com.stargazerproject.model.server.NetworkConnectionMessage;
+import com.stargazerproject.order.impl.Order;
 
 public class sufEncoder extends MessageToByteEncoder<Object>{
 	 private static final Schema<Order> ORDER_SCHEMA = RuntimeSchema.getSchema(Order.class);

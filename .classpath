@@ -36,6 +36,7 @@
 	<classpathentry kind="src" path="MessageQueueDomain"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
 	<classpathentry kind="src" path="Order"/>
+	<classpathentry kind="src" path="OrderImpl"/>
 	<classpathentry kind="src" path="OrderConfiguration"/>
 	<classpathentry kind="src" path="Queue"/>
 	<classpathentry kind="src" path="QueueConfiguration"/>

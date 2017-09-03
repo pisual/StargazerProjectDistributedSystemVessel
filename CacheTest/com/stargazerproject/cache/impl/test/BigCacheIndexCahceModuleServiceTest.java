@@ -1,5 +1,8 @@
 package com.stargazerproject.cache.impl.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,23 +15,31 @@ import com.stargazerproject.cache.aop.configuration.BigCacheIndexCacheAOPConfigu
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
+import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
 import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
 import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
 import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
 import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
 import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
 import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
 import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
+import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
@@ -58,7 +69,7 @@ import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationConte
 @FixMethodOrder(MethodSorters.JVM)
 public class BigCacheIndexCahceModuleServiceTest{
 	
-	public static Cache<String, Integer> cache;
+	public static Cache<String, Map<String, Integer>> cache;
 	
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
@@ -75,6 +86,16 @@ public class BigCacheIndexCahceModuleServiceTest{
 				BigCacheIndexCacheServerManage.class,
 
 		     /******Depend Configuration Class******/
+				/**Depend ByteArrayCache**/
+				ByteArrayCache.class,
+				ByteArrayCacheCacheConfigurationCharacteristic.class,
+				ByteArrayCacheCacheManagerCharacteristic.class,
+				ByteArrayCacheConfigurationCharacteristic.class,
+				ByteArrayCacheShell.class,
+				ByteArrayCacheServer.class,
+				ByteArrayCacheServerListener.class,
+				ByteArrayCacheServerManage.class,
+				
 				/**Depend SystemParameterCahce**/
 				SystemParameterCahce.class,
 				SystemParameterCahceCharacteristic.class,
@@ -143,7 +164,9 @@ public class BigCacheIndexCahceModuleServiceTest{
 	
 	@Test(timeout=10)
 	public void cachePutTest(){
-		cache.put(Optional.of("TestKey"), Optional.of(1));
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("TestKey", 1);
+		cache.put(Optional.of("TestKey"), Optional.of(map));
 	}
 	
 	@Test
@@ -165,8 +188,10 @@ public class BigCacheIndexCahceModuleServiceTest{
 	
 	@Test(timeout=10000)
 	public void cacheBitchPutTest(){
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("TestKey", 1);
 		for (int i = 0; i < 1000000; i++) {
-			cache.put(Optional.of("TestKey" + i), Optional.of(i));
+			cache.put(Optional.of("TestKey" + i), Optional.of(map));
 		}
 		System.out.println("百万级测试Put完毕");
 	}
@@ -203,7 +228,9 @@ public class BigCacheIndexCahceModuleServiceTest{
 	public void serviceStopLaterPutTest(){
 		expectedException.equals(IllegalStateException.class);
 		expectedException.expectMessage("Server Not Start");  
-		cache.put(Optional.of("TestKey"), Optional.of(1));
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("TestKey", 1);
+		cache.put(Optional.of("TestKey"), Optional.of(map));
 	}
 
 	@Test

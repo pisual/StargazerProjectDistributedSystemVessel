@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.model.order.impl.Order;
+import com.stargazerproject.order.impl.Order;
 
 @Component
 @Qualifier("OrderCacheCacheLoader")
