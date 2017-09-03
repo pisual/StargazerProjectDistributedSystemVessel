@@ -13,26 +13,26 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.stargazerproject.service.StanderServiceShell;
 
 /** 
- *  @name OrderCache服务集中托管
- *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
+ *  @name bigCacheIndexCacheServerManage服务集中托管
+ *  @illustrate bigCacheIndexCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
 @Component
-@Qualifier("byteArrayCacheServerManage")
+@Qualifier("bigCacheIndexCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheServerManage extends AbstractIdleService{
+public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("byteArrayCacheServer")
-	private StanderServiceShell byteArrayCacheServer;
+	@Qualifier("bigCacheIndexCacheBuiltInCacheServer")
+	private StanderServiceShell bigCacheIndexCacheBuiltInCacheServer;
 	
 	@Autowired
-	@Qualifier("byteArrayCacheServerListener")
+	@Qualifier("bigCacheIndexCacheServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public ByteArrayCacheServerManage() {}
+	public BigCacheIndexCacheServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct
@@ -43,13 +43,12 @@ public class ByteArrayCacheServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		byteArrayCacheServer.startUp();
+		bigCacheIndexCacheBuiltInCacheServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		byteArrayCacheServer.shutDown();
+		bigCacheIndexCacheBuiltInCacheServer.shutDown();
 	}
-
 }

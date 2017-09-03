@@ -16,16 +16,16 @@ import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
-@Qualifier("byteArrayCacheBigCache")
+@Component(value="ByteArrayCacheShell")
+@Qualifier("byteArrayCacheShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, BaseCharacteristic<BigCache<String,byte[]>>{
+public class ByteArrayCacheShell implements BigCache<String,byte[]>, BaseCharacteristic<BigCache<String,byte[]>>{
 	
 	private Optional<CacheManager> manager;
 	
 	private Cache cache;
 	
-	public ByteArrayCacheBigCacheShell() {}
+	public ByteArrayCacheShell() {}
 
 	@Override
 	public void put(Optional<String> key, byte[] value) {
@@ -39,7 +39,7 @@ public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, Bas
 
 	@Override
 	public Optional<byte[]> get(Optional<String> key) {
-		return Optional.of((byte[]) cache.get(key.get()).getObjectValue());
+		return Optional.fromNullable((byte[]) cache.get(key.get()).getObjectValue());
 	}
 
 	@Override
@@ -50,11 +50,11 @@ public class ByteArrayCacheBigCacheShell implements BigCache<String,byte[]>, Bas
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="byteArrayCacheBigCacheInitialize")
+	@Bean(name="byteArrayCacheInitialize")
 	@Lazy(true)
 	public Optional<BigCache<String, byte[]>> characteristic() {
 		manager= BeanContainer.instance().getBean(Optional.of("byteArrayCacheCacheManagerCharacteristic"),Optional.class);
-		cache = manager.get().getCache("sample-cache");
+		cache = manager.get().getCache("byteArrayCache");
 		return Optional.of(this);
 	}
 

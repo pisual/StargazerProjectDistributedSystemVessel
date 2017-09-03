@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 
-@Component
+@Component(value="byteArrayCacheConfiguration")
 @Qualifier("byteArrayCacheConfiguration")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheConfigurationCharacteristic implements BaseCharacteristic<Configuration>{
@@ -41,7 +41,7 @@ public class ByteArrayCacheConfigurationCharacteristic implements BaseCharacteri
 		configuration = new Configuration();
 		configuration.updateCheck(true)
 		             .monitoring(Configuration.Monitoring.AUTODETECT)
-	                 .name("cacheManagerCompleteExample")
+	                 .name("byteArrayCache")
 	                 .addCache(cacheConfiguration.get());
 	}
 	

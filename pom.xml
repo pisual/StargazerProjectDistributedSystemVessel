@@ -219,7 +219,8 @@
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
-				<resource>
+			</resource>
+			<resource>
 					<targetPath>${basedir}/WebRoot/WEB-INF/lib/</targetPath>
 					<directory>${basedir}/WebRoot/WEB-INF/lib/</directory>
 					<includes>
@@ -228,7 +229,6 @@
 						<include>${basedir}/WebRoot/WEB-INF/lib/hystrix-core-1.5.11.jar</include>
 					</includes>
 				</resource>
-			</resource>
 		</resources>
 		<plugins>
 			<plugin>

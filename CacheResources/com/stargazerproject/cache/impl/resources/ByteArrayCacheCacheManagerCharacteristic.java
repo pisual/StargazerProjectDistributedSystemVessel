@@ -14,7 +14,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
+@Component(value="byteArrayCacheCacheManager")
 @Qualifier("byteArrayCacheCacheManager")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteristic<CacheManager>{

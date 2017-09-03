@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 
-@Component
-@Qualifier("byteArrayCacheCache")
+@Component(value="byteArrayCacheCacheConfiguration")
+@Qualifier("byteArrayCacheCacheConfiguration")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheCacheConfigurationCharacteristic implements BaseCharacteristic<CacheConfiguration>{
 
@@ -33,7 +33,7 @@ public class ByteArrayCacheCacheConfigurationCharacteristic implements BaseChara
 	
 	private void initializatioConfiguration(){
 		cacheConfiguration = new CacheConfiguration()
-	                             .name("sample-cache")
+	                             .name("byteArrayCache")
 	                             .maxBytesLocalHeap(128, MemoryUnit.MEGABYTES)
 	                             .maxBytesLocalOffHeap(1, MemoryUnit.GIGABYTES)
 	                             .timeToLiveSeconds(100)
