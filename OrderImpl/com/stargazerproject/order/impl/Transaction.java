@@ -5,6 +5,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 
@@ -33,4 +35,14 @@ public final class Transaction extends ID{
 			segmentation.batchSegmentation(events[i].get());
 		}
 	}
+	
+	@Override
+	public String toString() {
+		ToStringHelper toStringHelper = MoreObjects.toStringHelper(this);
+		for (int j = 0; j < events.length; j++) {
+			toStringHelper.add("events"+j, events[j].get());
+		}
+        return toStringHelper.toString();
+	}
+	
 }

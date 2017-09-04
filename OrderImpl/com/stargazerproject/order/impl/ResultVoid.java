@@ -1,5 +1,6 @@
 package com.stargazerproject.order.impl;
 
+import com.google.common.base.MoreObjects;
 import com.stargazerproject.order.Result;
 
 
@@ -27,6 +28,12 @@ public class ResultVoid implements Result{
 	@Override
 	public void Complete() {
 		isComplete = Boolean.TRUE;
+	}
+	
+	@Override
+	public String toString() {
+        return MoreObjects.toStringHelper(this)
+                          .add("isComplete", isComplete).toString();
 	}
 	
 }

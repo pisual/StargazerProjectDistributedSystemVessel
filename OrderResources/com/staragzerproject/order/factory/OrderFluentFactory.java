@@ -14,21 +14,12 @@ import com.stargazerproject.order.impl.Transmission;
 public class OrderFluentFactory {
 	
 	private Optional<String> id;
-	
-	private Transmission transmission;
-	private TransmissionTarget transmissionTarget;
 	private Target source;
 	private Target receive;
-	
-	private TransactionEvents transactionEvents;
-	protected ArrayList<Event> event = new ArrayList<Event>();
-	int eventPoint;
-
-	private EventsParameter eventsParameter;
+	protected ArrayList<Event> event;
 	
 	public OrderFluentFactory() {
-		transmissionTarget = new TransmissionTarget();
-		transactionEvents = new TransactionEvents();
+		event = new ArrayList<Event>();
 	}
 	
 	public OrderFluentFactory addID(Optional<String> idArg){
@@ -37,11 +28,11 @@ public class OrderFluentFactory {
 	}
 	
 	public TransmissionTarget addTransmission(){
-		return transmissionTarget;
+		return new TransmissionTarget();
 	}
 	
 	public TransactionEvents addTransactionEvents(){
-		return transactionEvents;
+		return new TransactionEvents();
 	}
 	
 	public class TransmissionTarget{
@@ -71,7 +62,7 @@ public class OrderFluentFactory {
 		
 		private Cache<String, String> cache;
 		
-		public EventsParameter addCache(Optional<Cache> cacheArg){
+		public EventsParameter addCache(Optional<Cache<String, String>> cacheArg){
 			cache = cacheArg.get();
 			return this;
 		}
@@ -83,10 +74,11 @@ public class OrderFluentFactory {
 		
 		public TransactionEvents addnextEvent(){
 			event.add(new Event(id, Optional.of(cache)));
-			return transactionEvents;
+			return new TransactionEvents();
 		}
 		
 		public Order complete(){
+			event.add(new Event(id, Optional.of(cache)));
 			Event[] eventArray = new Event[event.size()];
 			Event[] evenResult = event.toArray(eventArray);
 			

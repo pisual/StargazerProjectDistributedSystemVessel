@@ -1,5 +1,6 @@
 package com.stargazerproject.order.impl;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.order.Target;
 
@@ -17,4 +18,11 @@ public final class Transmission{
 		receive = receiveArg.get();
 	}
 	
+	@Override
+	public String toString() {
+	    return MoreObjects.toStringHelper(this)
+	            .add("sourceTarget", source)
+	            .add("receiveTarget", receive).toString();
+	}
+
 }
