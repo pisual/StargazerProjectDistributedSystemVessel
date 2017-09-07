@@ -30,9 +30,9 @@ public final class Transaction extends ID{
 		return result;
 	}
 	
-	public void segmentationMethod(Segmentation<Event> segmentation){
-		for(int i= events.length; i>= 0; i-- ){
-			segmentation.batchSegmentation(events[i].get());
+	public void segmentationMethod(Segmentation<Optional<Event>> segmentation){
+		for (int i = 0; i < events.length; i++) {
+			segmentation.batchSegmentation(events[i]);
 		}
 	}
 	

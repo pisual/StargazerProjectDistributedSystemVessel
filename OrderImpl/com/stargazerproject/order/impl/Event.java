@@ -14,12 +14,10 @@ import com.stargazerproject.order.Result;
 public final class Event extends ID{
 	
 	/** @illustrate 事件参数接口,需要注入baseMapUnit **/
-	private Cache<String, String> parameter;
+	public Cache<String, String> parameter;
 	
 	/** @illustrate 事件结果接口**/
 	private Result result;
-	
-	public Event() {}
 
 	/** @illustrate  加参数初始化 **/
 	public Event(Optional<String> idArg, Optional<Cache<String, String>> parameterArg) {
@@ -33,6 +31,7 @@ public final class Event extends ID{
 
 	/** @illustrate  开始执行事件 **/
 	public void startEvent(Optional<Execute> execute) {
+		result = new ResultVoid();
 		execute.get().executeEvent(Optional.of(parameter), Optional.of(result));
 		result.Complete();
 	}
@@ -40,6 +39,7 @@ public final class Event extends ID{
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("result", result).toString();
+                          .add("result", result).add("parameter Test", parameter.get(Optional.of("Test")))
+                          .add("parameter", parameter).toString();
 	}
 }

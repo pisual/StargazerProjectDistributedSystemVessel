@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.EventTranslatorOneArg;
 import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -19,7 +20,10 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.model.LogData;
+import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
+import com.stargazerproject.queue.model.EventQueueEvent;
+import com.stargazerproject.queue.model.LogQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.LogHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -35,11 +39,11 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="logQueueShell")
 @Qualifier("logQueueShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LogDisruptorShell extends BaseQueueRingBuffer<LogData> implements BaseCharacteristic<Queue<LogData>>{
+public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEvent> implements BaseCharacteristic<Queue<LogData>>{
 	
 	@Autowired
 	@Qualifier("logEventFactory")
-	private EventFactory<LogData> eventFactory;
+	private EventFactory<LogQueueEvent> eventFactory;
 	
 	@Autowired
 	@Qualifier("logQueueThreadFactory")
@@ -49,7 +53,13 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData> implements B
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> cache;
 	
-	private LogDisruptorShell() {}
+	private LogDisruptorShell() {
+		super.translator = new EventTranslatorOneArg<LogQueueEvent, LogData>() {
+			public void translateTo(LogQueueEvent logQueueEvent, long sequence, LogData logData) {
+				logQueueEvent.setLogData(logData);
+			}
+		};
+	}
 	
 	@Override
 	@Bean(name="logQueueCharacteristicInitialize")
@@ -62,7 +72,7 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData> implements B
 	
 	private void disruptorInitialization(){
 		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Log_Size_of_bufferSize")).get());
-		disruptor = new Disruptor<LogData>(eventFactory, bufferSize, threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
+		disruptor = new Disruptor<LogQueueEvent>(eventFactory, bufferSize, threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
 		disruptor.handleEventsWithWorkerPool(handler);
 	}
 	

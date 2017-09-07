@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.consumer.impl.LogConsumer;
-import com.stargazerproject.log.model.LogData;
+import com.stargazerproject.queue.model.LogQueueEvent;
 
 /** 
  *  @name Log队列的消费者
@@ -19,13 +19,13 @@ import com.stargazerproject.log.model.LogData;
 @Component
 @Qualifier("logHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class LogHandler extends LogConsumer implements WorkHandler<LogData>{
+public class LogHandler extends LogConsumer implements WorkHandler<LogQueueEvent>{
 	
 	/** @construction 初始化构造 **/
 	public LogHandler() {}
 
 	@Override
-	public void onEvent(LogData event){
-		super.consumer(Optional.of(event));
+	public void onEvent(LogQueueEvent event){
+		super.consumer(Optional.of(event.getLogData()));
 	}
 }

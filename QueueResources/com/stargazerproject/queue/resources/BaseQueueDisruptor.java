@@ -4,11 +4,11 @@ import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.stargazerproject.queue.Queue;
 
-public abstract class BaseQueueDisruptor<E> implements Queue<E>{
+public abstract class BaseQueueDisruptor<E,V> implements Queue<E>{
 	
-	protected Disruptor<E> disruptor;
+	protected Disruptor<V> disruptor;
 	
-	protected WorkHandler<E>[] handler;
+	protected WorkHandler<V>[] handler;
 
 	protected BaseQueueDisruptor() {}
 	

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.consumer.impl.EventConsumer;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.queue.model.EventQueueEvent;
 
 /** 
  *  @name Event队列的消费者
@@ -19,14 +19,14 @@ import com.stargazerproject.order.impl.Event;
 @Component
 @Qualifier("eventHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EventHandler extends EventConsumer implements WorkHandler<Event>{
+public class EventHandler extends EventConsumer implements WorkHandler<EventQueueEvent>{
 	
 	/** @construction 初始化构造 **/
 	public EventHandler() {}
 
 	@Override
-	public void onEvent(Event event){
-		super.consumer(Optional.of(event));
+	public void onEvent(EventQueueEvent event){
+		super.consumer(Optional.of(event.getEvent()));
 	}
 	
 	

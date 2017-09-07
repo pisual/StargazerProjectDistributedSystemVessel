@@ -22,9 +22,9 @@ public class OrderFluentsTest {
 		Order order = o.addID(Optional.of(uuid.toString())).addTransmission()
 				.addReceiveTarget(Optional.of("192.168.1.1"), Optional.of(1010))
 				.addSourceTarget(Optional.of("192.168.1.2"), Optional.of(2020)).next().addEvents()
-				.addCache(Optional.fromNullable(new OrderParameterCache()))
+				.addCache(Optional.of(new OrderParameterCache()))
 				.addparameter(Optional.of("a"), Optional.of("a")).addnextEvent().addEvents()
-				.addCache(Optional.fromNullable(new OrderParameterCache()))
+				.addCache(Optional.of(new OrderParameterCache()))
 				.addparameter(Optional.of("a"), Optional.of("a")).complete();
 		return order;
 	}
@@ -40,12 +40,12 @@ public class OrderFluentsTest {
 		getOrder();
 	}
 	
-	@Test
-	public void getOrderList() {
-		for (int i = 0; i < 1000000; i++) {
-			orderList.add(getOrder());
-		}
-	}
+//	@Test
+//	public void getOrderList() {
+//		for (int i = 0; i < 1000000; i++) {
+//			orderList.add(getOrder());
+//		}
+//	}
 	
 
 }

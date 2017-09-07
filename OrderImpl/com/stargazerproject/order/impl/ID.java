@@ -18,7 +18,7 @@ import com.google.common.base.Optional;
 public class ID{
 
 	/** @illustrate ID**/
-	protected String id;
+	private String id;
 	
 	protected ID() {}
 

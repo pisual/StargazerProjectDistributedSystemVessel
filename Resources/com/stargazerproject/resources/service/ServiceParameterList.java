@@ -56,10 +56,10 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 	@Qualifier("bigCacheIndexCacheServerManage")
 	private AbstractIdleService bigCacheIndexCacheServerManage;
 	
-	/** @illustrate byteArrayCacheServerManage**/
-	@Autowired
-	@Qualifier("byteArrayCacheServerManage")
-	private AbstractIdleService byteArrayCacheServerManage;
+//	/** @illustrate byteArrayCacheServerManage**/
+//	@Autowired
+//	@Qualifier("byteArrayCacheServerManage")
+//	private AbstractIdleService byteArrayCacheServerManage;
 	
 	/** @illustrate 内部服务列表**/
 	private List<AbstractIdleService> serviceList = new ArrayList<AbstractIdleService>();
@@ -75,7 +75,7 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 		serviceList.add(onlineLogServerManage);
 		serviceList.add(eventQueueServerManage);
 		serviceList.add(orderCacheServerManage);
-		serviceList.add(byteArrayCacheServerManage);
+//		serviceList.add(byteArrayCacheServerManage);
 	}
 
 	@Override

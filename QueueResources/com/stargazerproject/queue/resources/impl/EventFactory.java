@@ -5,22 +5,16 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.QueueEventFactory;
 
 @Component
 @Qualifier("eventFactory")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventFactory extends QueueEventFactory<Event>{
-	
-	/** @construction 初始化构造 **/
-	private EventFactory() {
-		super();
-		}
-
+public class EventFactory extends QueueEventFactory<EventQueueEvent>{
 	@Override
-	public Event newInstance() {
-		return new Event();
+	public EventQueueEvent newInstance() {
+		return new EventQueueEvent();
 	}
 	
 }

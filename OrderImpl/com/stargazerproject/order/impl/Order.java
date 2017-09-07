@@ -1,14 +1,9 @@
 package com.stargazerproject.order.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
+import com.stargazer.segmentation.Segmentation;
+import com.stargazerproject.cache.Cache;
 import com.stargazerproject.model.util.Clone;
 import com.stargazerproject.order.shared.Entity;
 
@@ -19,7 +14,6 @@ import com.stargazerproject.order.shared.Entity;
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
  *  **/
-@SuppressWarnings("unused")
 public final class Order extends ID implements Entity<Order>{
 	
 	/** @illustrate 指令传输 **/
@@ -37,6 +31,25 @@ public final class Order extends ID implements Entity<Order>{
 	    transaction = transactionArg.get();
 	}
 	
+	/**
+	* @name 切分事务
+	* @illustrate 切分事务到缓存队列
+	* @param Segmentation<Event> 缓存队列
+	* **/
+	public void segmentation(Segmentation<Optional<Event>> segmentation){
+		transaction.segmentationMethod(segmentation);
+	}
+	
+	/**
+	* @name 保存Order到临时缓存
+	* @illustrate 保存Order到临时缓存
+	* @param Cache<String, Order> 缓存
+	* **/
+	public Order save(Cache<String, Order> cache){
+		cache.put(super.IDSequence(), Optional.of(this));
+		return this;
+	}
+	
 	@Override
 	public Order clone() throws CloneNotSupportedException {
 		return (Order) Clone.deepClone(Optional.of(this));
@@ -47,6 +60,6 @@ public final class Order extends ID implements Entity<Order>{
         return MoreObjects.toStringHelper(this)
                           .add("transmission", transmission)
                           .add("transaction", transaction)
-                          .add("ID", id).toString();
+                          .add("ID", super.IDSequence().get()).toString();
 	}
 }
