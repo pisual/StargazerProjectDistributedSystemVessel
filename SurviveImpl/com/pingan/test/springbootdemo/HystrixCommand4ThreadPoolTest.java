@@ -47,7 +47,7 @@ public class HystrixCommand4ThreadPoolTest extends HystrixCommand<String> {
                 )
                 .andThreadPoolPropertiesDefaults(
                 	HystrixThreadPoolProperties.Setter()
-                		.withCoreSize(3)	// 配置线程池里的线程数
+                		.withCoreSize(8)	// 配置线程池里的线程数
                 )
         );
         this.name = name;
@@ -80,7 +80,7 @@ public class HystrixCommand4ThreadPoolTest extends HystrixCommand<String> {
         
     	// HystrixBadRequestException异常由非法参数或非系统错误引起，不会触发fallback，也不会被计入熔断器
 //        throw new HystrixBadRequestException("HystrixBadRequestException is never trigger fallback");
-    	TimeUnit.MILLISECONDS.sleep(2000);
+  //  	TimeUnit.MILLISECONDS.sleep(2000);
 		return name;
     }
 
@@ -93,7 +93,7 @@ public class HystrixCommand4ThreadPoolTest extends HystrixCommand<String> {
 
         @Test
         public void testSynchronous() throws IOException {
-        	for(int i = 0; i < 10; i++) {
+        	for(int i = 0; i < 1000000; i++) {
 	        	try {
 //	        		assertEquals("fallback: Hlx", new HystrixCommand4ThreadPoolTest("Hlx").execute());
 //	        		System.out.println("===========" + new HystrixCommand4ThreadPoolTest("Hlx").execute());
@@ -103,29 +103,29 @@ public class HystrixCommand4ThreadPoolTest extends HystrixCommand<String> {
 	        		System.out.println("run()抛出HystrixBadRequestException时，被捕获到这里" + e.getCause());
 	        	}
         	}
-        	for(int i = 0; i < 20; i++) {
-	        	try {
-	//        		assertEquals("fallback: Hlx", new HystrixCommand4ThreadPoolTest("Hlx").execute());
-	        		System.out.println("===========" + new HystrixCommand4ThreadPoolTest("Hlx").execute());
-//	        		Future<String> future = new HystrixCommand4ThreadPoolTest("Hlx1"+i).queue();
-//	        		System.out.println("===========" + future);
-	        	} catch(Exception e) {
-	        		System.out.println("run()抛出HystrixBadRequestException时，被捕获到这里" + e.getCause());
-	        	}
-        	}
-        	try {
-        		TimeUnit.MILLISECONDS.sleep(2000);
-        	}catch(Exception e) {}
-        	System.out.println("------开始打印现有线程---------");
-        	Map<Thread, StackTraceElement[]> map=Thread.getAllStackTraces();
-        	for (Thread thread : map.keySet()) {
-				System.out.println(thread.getName());
-			}
-        	System.out.println(map);
-        	System.out.println("thread num: " + map.size());
-//        	int numExecuted = HystrixRequestLog.getCurrentRequest().getAllExecutedCommands().size();
-//            System.out.println("num executed: " + numExecuted);
-        	System.in.read();
+//        	for(int i = 0; i < 20; i++) {
+//	        	try {
+//	//        		assertEquals("fallback: Hlx", new HystrixCommand4ThreadPoolTest("Hlx").execute());
+//	        		System.out.println("===========" + new HystrixCommand4ThreadPoolTest("Hlx").execute());
+////	        		Future<String> future = new HystrixCommand4ThreadPoolTest("Hlx1"+i).queue();
+////	        		System.out.println("===========" + future);
+//	        	} catch(Exception e) {
+//	        		System.out.println("run()抛出HystrixBadRequestException时，被捕获到这里" + e.getCause());
+//	        	}
+//        	}
+//        	try {
+//        		TimeUnit.MILLISECONDS.sleep(2000);
+//        	}catch(Exception e) {}
+//        	System.out.println("------开始打印现有线程---------");
+//        	Map<Thread, StackTraceElement[]> map=Thread.getAllStackTraces();
+//        	for (Thread thread : map.keySet()) {
+//				System.out.println(thread.getName());
+//			}
+//        	System.out.println(map);
+//        	System.out.println("thread num: " + map.size());
+////        	int numExecuted = HystrixRequestLog.getCurrentRequest().getAllExecutedCommands().size();
+////            System.out.println("num executed: " + numExecuted);
+//        	System.in.read();
         }
     }
 

@@ -65,6 +65,7 @@ import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
 
 @FixMethodOrder(MethodSorters.JVM)
 public class BigCacheIndexCahceModuleServiceTest{
@@ -74,81 +75,9 @@ public class BigCacheIndexCahceModuleServiceTest{
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
 
-	static{
-		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
-				
-				/**Itself Configuration Class**/
-				BigCacheIndexCahce.class,
-				BigCacheIndexCahceCharacteristic.class,
-				BigCacheIndexCahceShell.class,
-				BigCacheIndexCacheBuiltInCacheServer.class,
-				BigCacheIndexCacheServerListener.class,
-				BigCacheIndexCacheServerManage.class,
-
-		     /******Depend Configuration Class******/
-				/**Depend ByteArrayCache**/
-				ByteArrayCache.class,
-				ByteArrayCacheCacheConfigurationCharacteristic.class,
-				ByteArrayCacheCacheManagerCharacteristic.class,
-				ByteArrayCacheConfigurationCharacteristic.class,
-				ByteArrayCacheShell.class,
-				ByteArrayCacheServer.class,
-				ByteArrayCacheServerListener.class,
-				ByteArrayCacheServerManage.class,
-				
-				/**Depend SystemParameterCahce**/
-				SystemParameterCahce.class,
-				SystemParameterCahceCharacteristic.class,
-				SystemParameterCahceShell.class,
-				SystemParameterBuiltInCacheServer.class,
-				SystemParameterCacheServerListener.class,
-				SystemParameterCacheServerManage.class,
-				
-				/**Depend EventQueue**/
-				EventQueue.class,
-				EventDisruptorShell.class,
-				EventFactory.class,
-				EventHandler.class,
-				EventQueueThreadFactory.class,
-				EventQueueServer.class,
-				EventQueueServerListener.class,
-				EventQueueServerManage.class,
-				
-				/**Depend LogCache**/
-				LogQueue.class,
-				LogDisruptorShell.class,
-				LogEventFactory.class,
-				LogHandler.class,
-				LogQueueThreadFactory.class,
-				LogQueueServer.class,
-				LogQueueServerListener.class,
-				LogQueueServerManage.class,
-				
-				/**Depend OrderCache**/
-				OrderCache.class,
-				OrderCacheCacheLoaderCharacteristic.class,
-				OrderCacheLoadingCacheCharacteristic.class,
-				OrderCacheRemovalListenerCharacteristic.class,
-				OrderCahceShell.class,
-				OrderCacheServer.class,
-				OrderCacheServerListener.class,
-				OrderCacheServerManage.class,
-				
-				/**Depend AOP**/
-				OrderCacheAOPConfiguration.class,
-				SystemParameterAOPConfiguration.class,
-				BigCacheIndexCacheAOPConfiguration.class,
-				
-				/**Depend Resources**/
-				StargazerProjectParameterList.class,
-				ServiceParameterList.class,
-				
-				/**Depend Log**/
-				GroupLogConfiguration.class,
-				
-				/**Depend Service**/
-				GroupServiceConfiguration.class
-				);
+	@Test
+	public void SpringInit(){
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize();
 	}
 	
 	@Test

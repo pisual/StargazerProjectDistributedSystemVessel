@@ -1,0 +1,139 @@
+package com.stargazerproject.spring.context.initialization.test;
+
+import com.stargazer.segmentation.impl.EventExecuteImpl;
+import com.stargazer.segmentation.impl.EventSegmentation;
+import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
+import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
+import com.stargazerproject.cache.impl.BigCacheIndexCahce;
+import com.stargazerproject.cache.impl.ByteArrayCache;
+import com.stargazerproject.cache.impl.OrderCache;
+import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
+import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
+import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
+import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
+import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
+import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
+import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
+import com.stargazerproject.cache.server.impl.OrderCacheServer;
+import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
+import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
+import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
+import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
+import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
+import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
+import com.stargazerproject.consumer.impl.EventConsumer;
+import com.stargazerproject.log.configuration.GroupLogConfiguration;
+import com.stargazerproject.queue.impl.EventQueue;
+import com.stargazerproject.queue.impl.LogQueue;
+import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
+import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
+import com.stargazerproject.queue.resources.impl.EventFactory;
+import com.stargazerproject.queue.resources.impl.EventHandler;
+import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
+import com.stargazerproject.queue.resources.impl.LogEventFactory;
+import com.stargazerproject.queue.resources.impl.LogHandler;
+import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
+import com.stargazerproject.queue.server.impl.EventQueueServer;
+import com.stargazerproject.queue.server.impl.LogQueueServer;
+import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
+import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
+import com.stargazerproject.queue.server.manage.EventQueueServerManage;
+import com.stargazerproject.queue.server.manage.LogQueueServerManage;
+import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
+import com.stargazerproject.resources.service.ServiceParameterList;
+import com.stargazerproject.service.configuration.GroupServiceConfiguration;
+import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+
+public class GlobalAnnotationApplicationContextInitialization {
+
+	public static void ApplicationContextInitialize(){
+		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
+		
+		/**Itself Configuration Class**/
+		SystemParameterCahce.class,
+		SystemParameterCahceCharacteristic.class,
+		SystemParameterCahceShell.class,
+		SystemParameterBuiltInCacheServer.class,
+		SystemParameterCacheServerListener.class,
+		SystemParameterCacheServerManage.class,
+
+     /******Depend Configuration Class******/
+		/**Depend BigCacheIndexCahce**/
+		BigCacheIndexCahce.class,
+		BigCacheIndexCahceCharacteristic.class,
+		BigCacheIndexCahceShell.class,
+		BigCacheIndexCacheBuiltInCacheServer.class,
+		BigCacheIndexCacheServerListener.class,
+		BigCacheIndexCacheServerManage.class,
+		
+		/**Depend ByteArrayCache**/
+		ByteArrayCache.class,
+		ByteArrayCacheCacheConfigurationCharacteristic.class,
+		ByteArrayCacheCacheManagerCharacteristic.class,
+		ByteArrayCacheConfigurationCharacteristic.class,
+		ByteArrayCacheShell.class,
+		ByteArrayCacheServer.class,
+		ByteArrayCacheServerListener.class,
+		ByteArrayCacheServerManage.class,
+		
+		/**Depend EventQueue**/
+		EventQueue.class,
+		EventDisruptorShell.class,
+		EventFactory.class,
+		EventHandler.class,
+		EventQueueThreadFactory.class,
+		EventQueueServer.class,
+		EventQueueServerListener.class,
+		EventQueueServerManage.class,
+		EventConsumer.class,
+		
+		/**Depend LogCache**/
+		LogQueue.class,
+		LogDisruptorShell.class,
+		LogEventFactory.class,
+		LogHandler.class,
+		LogQueueThreadFactory.class,
+		LogQueueServer.class,
+		LogQueueServerListener.class,
+		LogQueueServerManage.class,
+		
+		/**Depend OrderCache**/
+		OrderCache.class,
+		OrderCacheCacheLoaderCharacteristic.class,
+		OrderCacheLoadingCacheCharacteristic.class,
+		OrderCacheRemovalListenerCharacteristic.class,
+		OrderCahceShell.class,
+		OrderCacheServer.class,
+		OrderCacheServerListener.class,
+		OrderCacheServerManage.class,
+		
+		/**Depend AOP**/
+		OrderCacheAOPConfiguration.class,
+		SystemParameterAOPConfiguration.class,
+		
+		/**Depend Resources**/
+		StargazerProjectParameterList.class,
+		ServiceParameterList.class,
+		
+		/**Depend Log**/
+		GroupLogConfiguration.class,
+		
+		/**Depend Service**/
+		GroupServiceConfiguration.class,
+		
+		EventSegmentation.class,
+		EventExecuteImpl.class
+		);
+	} 
+}

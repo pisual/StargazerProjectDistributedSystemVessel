@@ -5,6 +5,6 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.order.Result;
 
 
-public interface Execute {
+public interface EventExecute {
 	public Boolean executeEvent(Optional<Cache<String, String>> parameter, Optional<Result> result);
 }

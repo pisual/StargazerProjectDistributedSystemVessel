@@ -39,13 +39,4 @@ public class OrderFluentsTest {
 	public void getSingleOrder() {
 		getOrder();
 	}
-	
-//	@Test
-//	public void getOrderList() {
-//		for (int i = 0; i < 1000000; i++) {
-//			orderList.add(getOrder());
-//		}
-//	}
-	
-
 }

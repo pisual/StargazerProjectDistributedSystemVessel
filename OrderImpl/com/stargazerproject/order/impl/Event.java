@@ -2,7 +2,7 @@ package com.stargazerproject.order.impl;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazer.segmentation.Execute;
+import com.stargazer.segmentation.EventExecute;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.order.Result;
 
@@ -30,7 +30,7 @@ public final class Event extends ID{
 	}
 
 	/** @illustrate  开始执行事件 **/
-	public void startEvent(Optional<Execute> execute) {
+	public void startEvent(Optional<EventExecute> execute) {
 		result = new ResultVoid();
 		execute.get().executeEvent(Optional.of(parameter), Optional.of(result));
 		result.Complete();

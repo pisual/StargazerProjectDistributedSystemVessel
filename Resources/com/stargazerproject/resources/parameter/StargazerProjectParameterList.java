@@ -91,31 +91,13 @@ public class StargazerProjectParameterList {
 	private static final String ConsoleTextPane_Text_Circle = "CircleText.png";
 	//UI配置 End
 	
-	//Netty接收Order超时缓存(Google Guava)配置 Start OrderCache
-	/** Netty接收Order缓存初始化数目 **/
-	/** @illustrate 参数类 **/
-	private static final String OrderCache_initialSize = "10000";
-	/** 拆分Order缓存最大数目 **/
-	/** @illustrate 参数类 **/
-	private static final String OrderCache_maxSize = "90000000";
-	/** 拆分Order缓存 并行级别数目 **/
-	/** @illustrate 参数类 **/
-	private static final String OrderCache_concurrencyLevel = "1";
-	/** 拆分Order缓存 非写销毁时间 **/
-	/** @illustrate 参数类 **/
-	private static final String OrderCache_expireAfterWriteTime = "102400";
-	/** 拆分Order缓存 非读销毁时间 **/
-	/** @illustrate 参数类 **/
-	private static final String OrderCache_expireAfterReadTime = "102400";
-	//Netty接收Order超时缓存(Google Guava)配置 End
-
 	//Event队列 Start
 	/**接收Event队列消费者数目**/
 	/** @illustrate 参数类 **/
 	private static final String Receive_Event_Number_of_consumers = "4";
 	/**接收Event队列缓存**/
 	/** @illustrate 参数类 **/
-	private static final String Receive_Event_Size_of_bufferSize = "16";
+	private static final String Receive_Event_Size_of_bufferSize = "65536";
 	//Event队列 End
 	
 	//系统核心日志队列配置 Start
@@ -127,14 +109,23 @@ public class StargazerProjectParameterList {
 	private static final String Receive_Log_Size_of_bufferSize = "65536";
 	//系统核心日志队列配置 End
 	
-	//Order队列配置 Start
-	/**系统核心日志队列消费者数目**/
+	//Netty接收Order超时缓存(Google Guava)配置 Start OrderCache
+	/** Netty接收Order缓存初始化数目 **/
 	/** @illustrate 参数类 **/
-	private static final String Receive_Order_Number_of_consumers = "8";
-	/**系统核心日志队列缓存**/
+	private static final String OrderCache_initialSize = "65536";
+	/** 拆分Order缓存最大数目 **/
 	/** @illustrate 参数类 **/
-	private static final String Receive_Order_Size_of_bufferSize = "65536";
-	//Order队列配置 End
+	private static final String OrderCache_maxSize = "65537";
+	/** 拆分Order缓存 并行级别数目 **/
+	/** @illustrate 参数类 **/
+	private static final String OrderCache_concurrencyLevel = Receive_Event_Number_of_consumers;
+	/** 拆分Order缓存 非写销毁时间 **/
+	/** @illustrate 参数类 **/
+	private static final String OrderCache_expireAfterWriteTime = "6553";
+	/** 拆分Order缓存 非读销毁时间 **/
+	/** @illustrate 参数类 **/
+	private static final String OrderCache_expireAfterReadTime = "5553";
+	//Netty接收Order超时缓存(Google Guava)配置 End
 	
 	//运算级别指令队列 OperationLevelInstruction Start
 	/** @illustrate 运算级别指令队列消费者数目 **/

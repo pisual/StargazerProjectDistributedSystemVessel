@@ -10,6 +10,7 @@ public class LogConsumer implements QueueConsumer<LogData>{
 	
 	@Override
 	public void consumer(Optional<LogData> e) {
+		System.out.println(e.toString());
 	}
 
 }

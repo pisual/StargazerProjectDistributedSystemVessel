@@ -62,13 +62,13 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	}
 	
 	private void disruptorInitialization(){
-		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Order_Size_of_bufferSize")).get());
+		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Event_Size_of_bufferSize")).get());
 		disruptor = new Disruptor<EventQueueEvent>(eventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new SleepingWaitStrategy());
 		disruptor.handleEventsWithWorkerPool(handler);
 	}
 	
 	private void handleEvents(){
-		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Receive_Order_Number_of_consumers")).get());
+		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Receive_Event_Number_of_consumers")).get());
 		handler = new EventHandler[logConsumersNumber];
 		for(int i=0; i<logConsumersNumber; i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), WorkHandler.class);

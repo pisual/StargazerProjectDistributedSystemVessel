@@ -7,7 +7,7 @@ public final class TimeoutException extends Exception
 
     private TimeoutException()
     {
-        // Singleton
+    	System.out.println("TimeOut");
     }
 
     @Override

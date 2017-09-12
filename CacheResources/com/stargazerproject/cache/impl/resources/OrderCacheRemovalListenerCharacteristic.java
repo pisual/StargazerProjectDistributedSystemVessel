@@ -44,26 +44,26 @@ public class OrderCacheRemovalListenerCharacteristic implements BaseCharacterist
 				switch (notification.getCause().name()) {
 				/**表明键或值被垃圾回收**/
 				case "COLLECTED":
-//					CoreLogManaged.getInstance().WARN(OrderCacheConfigurationFactory.class, "Order Has Been Remove By Garbage Collection");
+					log.WARN(OrderCacheRemovalListenerCharacteristic.class, "Order Has Been Remove By Garbage Collection");
 					break;
 					/**表明最近一次写条目或获取条目的时间超时**/
 				case "EXPIRED":
-//					CoreLogManaged.getInstance().WARN(OrderCacheConfigurationFactory.class, "Order Has Been Remove By Timeout");
+					log.WARN(OrderCacheRemovalListenerCharacteristic.class, "Order Has Been Remove By Timeout");
 					break;
 					/**表明用户手动的移除条目**/
 				case "EXPLICIT":
-			//		CoreLogManaged.getInstance().INFO(OrderCacheConfigurationFactory.class, "Order Has Been Remove By Normal Way");
+					log.INFO(OrderCacheRemovalListenerCharacteristic.class, "Order Has Been Remove By Normal Way");
 					break;
 					/**表明条目不是真正的被移除，只是value值被改变**/
 				case "REPLACED":
-//					CoreLogManaged.getInstance().INFO(OrderCacheConfigurationFactory.class, "Order Value Has Been Change");
+					log.INFO(OrderCacheRemovalListenerCharacteristic.class, "Order Value Has Been Change");
 					break;
 					/**表明由于Cache的长度达到或接近设置的最大限制，条目被移除**/
 				case "SIZE":
-//					CoreLogManaged.getInstance().WARN(OrderCacheConfigurationFactory.class, "Order Has Been Remove By Reached The Maximum Queue Length");
+					log.WARN(OrderCacheRemovalListenerCharacteristic.class, "Order Has Been Remove By Reached The Maximum Queue Length");
 					break;
 				default:
-//					CoreLogManaged.getInstance().ERROR(OrderCacheConfigurationFactory.class, "An Unknown Error");
+					log.ERROR(OrderCacheRemovalListenerCharacteristic.class, "An Unknown Error");
 					break;
 				}
 			}	
