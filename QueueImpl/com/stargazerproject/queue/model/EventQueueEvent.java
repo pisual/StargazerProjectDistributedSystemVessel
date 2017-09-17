@@ -21,6 +21,10 @@ public class EventQueueEvent {
 		this.event = event;
 	}
 	
+    public void clear(){
+    	    event = null;
+    }
+	
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)

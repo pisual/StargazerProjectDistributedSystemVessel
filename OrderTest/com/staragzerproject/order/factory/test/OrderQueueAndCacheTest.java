@@ -3,6 +3,7 @@ package com.staragzerproject.order.factory.test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -83,7 +84,7 @@ public class OrderQueueAndCacheTest {
 	
 	@Test
 	public void getOrderList() {
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 2; i++) {
 			orderList.add(getOrder());
 		}
 		log.INFO(this, "百万级Order序列创建完成");
@@ -91,11 +92,20 @@ public class OrderQueueAndCacheTest {
 	
 	@Test
 	public void orderSegmentation() {
-			for (int i = 0; i < 1000000; i++) {
+			for (int i = 0; i < 2; i++) {
 				cache.put(orderList.get(i).IDSequence(), Optional.of(orderList.get(i)));
-				orderList.get(i).segmentation(segmentation);;
+				orderList.get(i).segmentation(segmentation);
 		}
 		log.INFO(this, "百万级Order切分创建完成");
+	}
+	
+	@Test
+	public void waitTime(){
+		try {
+			TimeUnit.SECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

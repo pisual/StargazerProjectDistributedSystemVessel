@@ -32,15 +32,20 @@ import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
 import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
+import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
+import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
+import com.stargazerproject.queue.resources.impl.CleanEventHandler;
+import com.stargazerproject.queue.resources.impl.CleanLogHandler;
 import com.stargazerproject.queue.resources.impl.EventFactory;
 import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
+import com.stargazerproject.queue.resources.impl.EventResultMergeHandler;
 import com.stargazerproject.queue.resources.impl.LogEventFactory;
 import com.stargazerproject.queue.resources.impl.LogHandler;
 import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
@@ -97,6 +102,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventQueueServerListener.class,
 		EventQueueServerManage.class,
 		EventConsumer.class,
+		EventResultMergeHandler.class,
+		CleanEventHandler.class,
 		
 		/**Depend LogCache**/
 		LogQueue.class,
@@ -107,6 +114,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		LogQueueServer.class,
 		LogQueueServerListener.class,
 		LogQueueServerManage.class,
+		CleanLogHandler.class,
 		
 		/**Depend OrderCache**/
 		OrderCache.class,
@@ -133,7 +141,10 @@ public class GlobalAnnotationApplicationContextInitialization {
 		GroupServiceConfiguration.class,
 		
 		EventSegmentation.class,
-		EventExecuteImpl.class
+		EventExecuteImpl.class,
+		
+		StandardCellsTransactionImpl.class,
+		HystrixConfigurationS.class
 		);
 	} 
 }

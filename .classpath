@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+	<classpathentry including="**/*.java" kind="src" path="src">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="Cache"/>
-	<classpathentry kind="src" path="CacheConfiguration"/>
 	<classpathentry kind="src" path="CacheImpl"/>
+	<classpathentry kind="src" path="CacheConfiguration"/>
 	<classpathentry kind="src" path="CacheResources"/>
 	<classpathentry kind="src" path="CacheServer"/>
 	<classpathentry kind="src" path="CacheTest"/>
 	<classpathentry kind="src" path="Cell"/>
 	<classpathentry kind="src" path="CellImpl"/>
-	<classpathentry kind="src" path="Cells"/>
 	<classpathentry kind="src" path="CellsConfiguration"/>
+	<classpathentry kind="src" path="CellResources"/>
+	<classpathentry kind="src" path="CellServer"/>
 	<classpathentry kind="src" path="CellTest"/>
 	<classpathentry kind="src" path="Cluster"/>
 	<classpathentry kind="src" path="ClusterConfiguration"/>
@@ -28,8 +29,8 @@
 	<classpathentry kind="src" path="LogServer"/>
 	<classpathentry kind="src" path="LogTest"/>
 	<classpathentry kind="src" path="MesasageQueue"/>
-	<classpathentry kind="src" path="MesasageQueueConfiguration"/>
 	<classpathentry kind="src" path="MesasageQueueImpl"/>
+	<classpathentry kind="src" path="MesasageQueueConfiguration"/>
 	<classpathentry kind="src" path="MesasageQueueResources"/>
 	<classpathentry kind="src" path="MessageQueueDomain"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
@@ -39,8 +40,8 @@
 	<classpathentry kind="src" path="OrderTest"/>
 	<classpathentry kind="src" path="OrderConfiguration"/>
 	<classpathentry kind="src" path="Queue"/>
-	<classpathentry kind="src" path="QueueConfiguration"/>
 	<classpathentry kind="src" path="QueueImpl"/>
+	<classpathentry kind="src" path="QueueConfiguration"/>
 	<classpathentry kind="src" path="QueueResources"/>
 	<classpathentry kind="src" path="QueueServer"/>
 	<classpathentry kind="src" path="QueueTest"/>

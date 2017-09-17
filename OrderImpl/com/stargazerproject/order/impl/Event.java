@@ -32,7 +32,8 @@ public final class Event extends ID{
 	/** @illustrate  开始执行事件 **/
 	public void startEvent(Optional<EventExecute> execute) {
 		result = new ResultVoid();
-		execute.get().executeEvent(Optional.of(parameter), Optional.of(result));
+		if(execute.get().executeEvent(Optional.of(parameter)))
+		   {result.Complete();}
 		result.Complete();
 	}
 	

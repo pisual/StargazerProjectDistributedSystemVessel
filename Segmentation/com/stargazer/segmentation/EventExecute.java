@@ -2,9 +2,8 @@ package com.stargazer.segmentation;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.order.Result;
 
 
 public interface EventExecute {
-	public Boolean executeEvent(Optional<Cache<String, String>> parameter, Optional<Result> result);
+	public Boolean executeEvent(Optional<Cache<String, String>> parameter);
 }

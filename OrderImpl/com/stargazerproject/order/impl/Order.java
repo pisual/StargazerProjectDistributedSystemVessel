@@ -50,6 +50,10 @@ public final class Order extends ID implements Entity<Order>{
 		return this;
 	}
 	
+	public Boolean checkResult(){
+		return transaction.isComplete();
+	}
+	
 	@Override
 	public Order clone() throws CloneNotSupportedException {
 		return (Order) Clone.deepClone(Optional.of(this));

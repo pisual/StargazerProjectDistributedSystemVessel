@@ -5,9 +5,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
-import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.queue.model.EventQueueEvent;
 
 /** 
@@ -17,16 +15,16 @@ import com.stargazerproject.queue.model.EventQueueEvent;
  *  @author Felixerio
  *  **/
 @Component
-@Qualifier("eventHandler")
+@Qualifier("cleanEventHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EventHandler extends EventConsumer implements WorkHandler<EventQueueEvent> {
+public class CleanEventHandler implements WorkHandler<EventQueueEvent> {
 	
 	/** @construction 初始化构造 **/
-	public EventHandler() {}
+	public CleanEventHandler() {}
 
 	@Override
 	public void onEvent(EventQueueEvent event){
-		super.consumer(Optional.of(event.getEvent()));
+		event.clear();
 	}
 	
 }

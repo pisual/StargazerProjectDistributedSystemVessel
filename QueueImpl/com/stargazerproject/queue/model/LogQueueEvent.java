@@ -1,8 +1,6 @@
 package com.stargazerproject.queue.model;
 
-import com.google.common.base.MoreObjects;
 import com.stargazerproject.log.model.LogData;
-import com.stargazerproject.order.impl.Event;
 
 /** 
  *  @name lmax disruptor 专用的EventModel
@@ -13,6 +11,10 @@ import com.stargazerproject.order.impl.Event;
 public class LogQueueEvent {
 	
 	private LogData logData;
+	
+    public void clear(){
+    	    logData = null;
+	}
 
 	public LogData getLogData() {
 		return logData;

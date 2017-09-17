@@ -2,6 +2,7 @@ package com.stargazerproject.queue.impl.resources.shell;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,9 +13,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.EventTranslatorOneArg;
-import com.lmax.disruptor.SleepingWaitStrategy;
+import com.lmax.disruptor.PhasedBackoffWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
@@ -25,6 +27,7 @@ import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.EventHandler;
+import com.stargazerproject.queue.resources.impl.EventOutTimeExceptionHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component
@@ -43,6 +46,14 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> cache;
+	
+	@Autowired
+	@Qualifier("eventResultMergeHandler")
+	private WorkHandler<EventQueueEvent> eventResultMergeHandler;
+	
+	@Autowired
+	@Qualifier("cleanEventHandler")
+	private WorkHandler<EventQueueEvent> cleanEventHandler;
 	
 	private EventDisruptorShell() {
 		super.translator = new EventTranslatorOneArg<EventQueueEvent, Event>() {
@@ -63,15 +74,16 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	
 	private void disruptorInitialization(){
 		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Event_Size_of_bufferSize")).get());
-		disruptor = new Disruptor<EventQueueEvent>(eventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new SleepingWaitStrategy());
-		disruptor.handleEventsWithWorkerPool(handler);
+		disruptor = new Disruptor<EventQueueEvent>(eventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
+		disruptor.setDefaultExceptionHandler(new EventOutTimeExceptionHandler<EventQueueEvent>());
+		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(eventResultMergeHandler).thenHandleEventsWithWorkerPool(cleanEventHandler);
 	}
 	
 	private void handleEvents(){
 		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Receive_Event_Number_of_consumers")).get());
 		handler = new EventHandler[logConsumersNumber];
 		for(int i=0; i<logConsumersNumber; i++){
-			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), WorkHandler.class);
+			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
 	}
 	

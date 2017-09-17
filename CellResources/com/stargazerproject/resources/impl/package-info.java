@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.classLoader;
+package com.stargazerproject.resources.impl;

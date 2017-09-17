@@ -24,7 +24,7 @@ public final class Transaction extends ID{
 	
 	public Boolean isComplete(){
 		boolean result = true;
-		for(int i= events.length; i>= 0; i-- ){
+		for (int i = 0; i < events.length; i++) {
 			result = result & events[i].get().isComplete();
 		}
 		return result;

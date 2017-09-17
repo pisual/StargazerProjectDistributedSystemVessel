@@ -51,6 +51,10 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEven
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> cache;
 	
+	@Autowired
+	@Qualifier("cleanLogHandler")
+	private WorkHandler<LogQueueEvent> cleanLogHandler;
+	
 	private LogDisruptorShell() {
 		super.translator = new EventTranslatorOneArg<LogQueueEvent, LogData>() {
 			public void translateTo(LogQueueEvent logQueueEvent, long sequence, LogData logData) {
@@ -71,7 +75,7 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEven
 	private void disruptorInitialization(){
 		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Log_Size_of_bufferSize")).get());
 		disruptor = new Disruptor<LogQueueEvent>(eventFactory, bufferSize, threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
-		disruptor.handleEventsWithWorkerPool(handler);
+		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanLogHandler);
 	}
 	
 	private void handleEvents(){
