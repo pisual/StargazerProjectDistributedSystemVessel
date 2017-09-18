@@ -38,10 +38,13 @@ import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
+import com.stargazerproject.queue.impl.OrderExportQueue;
 import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
+import com.stargazerproject.queue.impl.resources.shell.OrderExportDisruptorShell;
 import com.stargazerproject.queue.resources.impl.CleanEventHandler;
 import com.stargazerproject.queue.resources.impl.CleanLogHandler;
+import com.stargazerproject.queue.resources.impl.CleanOrderExportHandler;
 import com.stargazerproject.queue.resources.impl.EventFactory;
 import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
@@ -49,12 +52,18 @@ import com.stargazerproject.queue.resources.impl.EventResultMergeHandler;
 import com.stargazerproject.queue.resources.impl.LogEventFactory;
 import com.stargazerproject.queue.resources.impl.LogHandler;
 import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
+import com.stargazerproject.queue.resources.impl.OrderExportEventFactory;
+import com.stargazerproject.queue.resources.impl.OrderExportHandler;
+import com.stargazerproject.queue.resources.impl.OrderExportThreadFactory;
 import com.stargazerproject.queue.server.impl.EventQueueServer;
 import com.stargazerproject.queue.server.impl.LogQueueServer;
+import com.stargazerproject.queue.server.impl.OrderExportQueueServer;
 import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
+import com.stargazerproject.queue.server.listener.impl.OrderExportQueueServerListener;
 import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
+import com.stargazerproject.queue.server.manage.OrderExportQueueServerManage;
 import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
@@ -115,6 +124,17 @@ public class GlobalAnnotationApplicationContextInitialization {
 		LogQueueServerListener.class,
 		LogQueueServerManage.class,
 		CleanLogHandler.class,
+		
+		/**Depend LogCache**/
+		OrderExportQueue.class,
+		OrderExportDisruptorShell.class,
+		OrderExportEventFactory.class,
+		OrderExportHandler.class,
+		OrderExportThreadFactory.class,
+		OrderExportQueueServer.class,
+		OrderExportQueueServerListener.class,
+		OrderExportQueueServerManage.class,
+		CleanOrderExportHandler.class,
 		
 		/**Depend OrderCache**/
 		OrderCache.class,

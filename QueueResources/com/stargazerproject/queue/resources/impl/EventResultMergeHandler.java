@@ -6,9 +6,12 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.order.State;
 import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 
 /** 
@@ -26,14 +29,23 @@ public class EventResultMergeHandler implements WorkHandler<EventQueueEvent> {
 	@Qualifier("orderCache")
 	private Cache<String, Order> cache;
 	
+	@Autowired
+	@Qualifier("OrderExportQueue")
+	private Queue<Order> OrderExportQueue;
+	
 	/** @construction 初始化构造 **/
 	public EventResultMergeHandler() {}
 
 	@Override
 	public void onEvent(EventQueueEvent event){
 		Order order = cache.get(event.getEvent().IDSequence()).get();
-		if(order.checkResult()){
-			System.out.println("指令已经完成");
+		if(order.checkResult() && order.state().get().equals(State.Execute)){
+			order.changeState(Optional.of(State.Send));
+			System.out.println("Order归并成功 " + order.toString());
+			OrderExportQueue.producer(Optional.of(order));
+		}
+		else{
+			System.out.println("Order 已经归并，将抛弃本次归并" + order.toString());
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package com.stargazerproject.order.shared;
+package com.stargazerproject.order;
 
 public interface Entity<T>{
 
