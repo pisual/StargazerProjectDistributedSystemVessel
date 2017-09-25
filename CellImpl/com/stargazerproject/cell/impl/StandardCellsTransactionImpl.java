@@ -20,6 +20,7 @@ public class StandardCellsTransactionImpl extends BaseCellsTransaction<String, S
 	@HystrixCommand(fallbackMethod = "fallBack", groupKey="TestMethod", commandProperties = {
     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "200")})
 	public boolean method(Optional<Cache<String, String>> cache) {
+		System.out.println("局外加载成功");
 		return Boolean.TRUE;
 	}
 	

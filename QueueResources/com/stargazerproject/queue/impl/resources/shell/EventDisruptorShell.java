@@ -75,7 +75,7 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	private void disruptorInitialization(){
 		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Event_Size_of_bufferSize")).get());
 		disruptor = new Disruptor<EventQueueEvent>(eventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
-		disruptor.setDefaultExceptionHandler(new EventOutTimeExceptionHandler<EventQueueEvent>());
+	//	disruptor.setDefaultExceptionHandler(new EventOutTimeExceptionHandler<EventQueueEvent>());
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(eventResultMergeHandler).thenHandleEventsWithWorkerPool(cleanEventHandler);
 	}
 	

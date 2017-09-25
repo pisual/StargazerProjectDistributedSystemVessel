@@ -69,13 +69,13 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	}
 	
 	private void disruptorInitialization(){
-		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Receive_Event_Size_of_bufferSize")).get());
+		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Order_Export_Size_of_bufferSize")).get());
 		disruptor = new Disruptor<OrderExportEvent>(orderExportEventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanOrderExportHandler);
 	}
 	
 	private void handleEvents(){
-		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Receive_Event_Number_of_consumers")).get());
+		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Order_Export_Number_of_consumers")).get());
 		handler = new OrderExportHandler[logConsumersNumber];
 		for(int i=0; i<logConsumersNumber; i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("orderExportHandler"), com.lmax.disruptor.WorkHandler.class);

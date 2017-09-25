@@ -55,12 +55,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SpringTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/StargazerTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/StargazerUIAssaultLilys"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Survive"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SurviveConfiguration"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SurviveImpl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SurviveResources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SurviveServer"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SurviveTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterface"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Validation"/>
@@ -71,6 +65,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Inject"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectImpl"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

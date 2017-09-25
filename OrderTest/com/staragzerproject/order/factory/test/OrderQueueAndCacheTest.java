@@ -42,7 +42,8 @@ public class OrderQueueAndCacheTest {
 	
 	@Test
 	public void SpringInit(){
-		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize();
+		String args[] = {"debug"};
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 	
 	/**内部函数区域开始**/
@@ -107,5 +108,4 @@ public class OrderQueueAndCacheTest {
 			e.printStackTrace();
 		}
 	}
-
 }

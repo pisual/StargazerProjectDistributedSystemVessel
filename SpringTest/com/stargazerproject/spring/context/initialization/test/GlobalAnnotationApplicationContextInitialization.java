@@ -1,5 +1,8 @@
 package com.stargazerproject.spring.context.initialization.test;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
+
 import com.stargazer.segmentation.impl.EventExecuteImpl;
 import com.stargazer.segmentation.impl.EventSegmentation;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
@@ -64,16 +67,21 @@ import com.stargazerproject.queue.server.listener.impl.OrderExportQueueServerLis
 import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.queue.server.manage.OrderExportQueueServerManage;
-import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
+import com.stargazerproject.resources.parameter.CacheParameters;
+import com.stargazerproject.resources.parameter.QueueParameters;
+import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 
+@SpringBootApplication
+@PropertySource(value="Spring.properties")
 public class GlobalAnnotationApplicationContextInitialization {
 
-	public static void ApplicationContextInitialize(){
+	public static void ApplicationContextInitialize(String args[]){
+		setProfiles();
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
-		
+	    args,
 		/**Itself Configuration Class**/
 		SystemParameterCahce.class,
 		SystemParameterCahceCharacteristic.class,
@@ -151,7 +159,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterAOPConfiguration.class,
 		
 		/**Depend Resources**/
-		StargazerProjectParameterList.class,
+		CacheParameters.class,
+		QueueParameters.class,
+		UIParameters.class,
 		ServiceParameterList.class,
 		
 		/**Depend Log**/
@@ -167,4 +177,10 @@ public class GlobalAnnotationApplicationContextInitialization {
 		HystrixConfigurationS.class
 		);
 	} 
+	
+	private static void setProfiles(){
+		System.setProperty("spring.profiles.active", "Run");
+		System.setProperty("spring.profiles.default", "Run");
+	}
+	
 }

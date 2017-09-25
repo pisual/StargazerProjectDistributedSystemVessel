@@ -47,7 +47,8 @@ public class OrderCacheModuleServiceTest{
 	
 	@Test
 	public void SpringInit(){
-		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize();
+		String args[] = {"debug"};
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 	
 	@Test

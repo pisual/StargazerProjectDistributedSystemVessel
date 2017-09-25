@@ -1,158 +1,66 @@
 package com.stargazerproject.queue.test;
 
+import java.util.UUID;
+
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
+import com.fasterxml.uuid.Generators;
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.aop.configuration.BigCacheIndexCacheAOPConfiguration;
-import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
-import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
-import com.stargazerproject.cache.impl.BigCacheIndexCahce;
-import com.stargazerproject.cache.impl.ByteArrayCache;
-import com.stargazerproject.cache.impl.OrderCache;
+import com.staragzerproject.order.factory.OrderFluentFactory;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
-import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
-import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
-import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
-import com.stargazerproject.cache.impl.resources.ByteArrayCacheConfigurationCharacteristic;
-import com.stargazerproject.cache.impl.resources.OrderCacheCacheLoaderCharacteristic;
-import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
-import com.stargazerproject.cache.impl.resources.OrderCacheRemovalListenerCharacteristic;
-import com.stargazerproject.cache.impl.resources.SystemParameterCahceCharacteristic;
-import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
-import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
-import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
-import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
-import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
-import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
-import com.stargazerproject.cache.server.impl.OrderCacheServer;
-import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
-import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
-import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
-import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
-import com.stargazerproject.cache.server.listener.impl.SystemParameterCacheServerListener;
-import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
-import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
-import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
-import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
-import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
-import com.stargazerproject.queue.impl.EventQueue;
-import com.stargazerproject.queue.impl.LogQueue;
-import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
-import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
-import com.stargazerproject.queue.resources.impl.EventFactory;
-import com.stargazerproject.queue.resources.impl.EventHandler;
-import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
-import com.stargazerproject.queue.resources.impl.LogEventFactory;
-import com.stargazerproject.queue.resources.impl.LogHandler;
-import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
-import com.stargazerproject.queue.server.impl.EventQueueServer;
-import com.stargazerproject.queue.server.impl.LogQueueServer;
-import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
-import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
-import com.stargazerproject.queue.server.manage.EventQueueServerManage;
-import com.stargazerproject.queue.server.manage.LogQueueServerManage;
-import com.stargazerproject.resources.parameter.StargazerProjectParameterList;
-import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.container.impl.BeanContainer;
-import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
 
 @FixMethodOrder(MethodSorters.JVM)
 public class EventQueueTest {
 
 	public static Queue<Event> queue;
 	
+	private static Cache<String, Order> cache;
+	
 	public static QueueControl<Event> queueControl;
 	
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
-
-	static{
-		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
-				/**Itself Configuration Class**/
-				LogQueue.class,
-				LogDisruptorShell.class,
-				LogEventFactory.class,
-				LogHandler.class,
-				LogQueueThreadFactory.class,
-				LogQueueServer.class,
-				LogQueueServerListener.class,
-				LogQueueServerManage.class,
-				
-		     /******Depend Configuration Class******/
-				/**Depend ByteArrayCache**/
-				ByteArrayCache.class,
-				ByteArrayCacheCacheConfigurationCharacteristic.class,
-				ByteArrayCacheCacheManagerCharacteristic.class,
-				ByteArrayCacheConfigurationCharacteristic.class,
-				ByteArrayCacheShell.class,
-				ByteArrayCacheServer.class,
-				ByteArrayCacheServerListener.class,
-				ByteArrayCacheServerManage.class,
-				
-				/**Depend BigCacheIndexCahce**/
-				BigCacheIndexCahce.class,
-				BigCacheIndexCahceCharacteristic.class,
-				BigCacheIndexCahceShell.class,
-				BigCacheIndexCacheBuiltInCacheServer.class,
-				BigCacheIndexCacheServerListener.class,
-				BigCacheIndexCacheServerManage.class,
-				
-				/**Depend SystemParameterCahce**/
-				SystemParameterCahce.class,
-				SystemParameterCahceCharacteristic.class,
-				SystemParameterCahceShell.class,
-				SystemParameterBuiltInCacheServer.class,
-				SystemParameterCacheServerListener.class,
-				SystemParameterCacheServerManage.class,
-				
-				/**Depend EventQueue**/
-				EventQueue.class,
-				EventDisruptorShell.class,
-				EventFactory.class,
-				EventHandler.class,
-				EventQueueThreadFactory.class,
-				EventQueueServer.class,
-				EventQueueServerListener.class,
-				EventQueueServerManage.class,
-				
-				/**Depend OrderCache**/
-				OrderCache.class,
-				OrderCacheCacheLoaderCharacteristic.class,
-				OrderCacheLoadingCacheCharacteristic.class,
-				OrderCacheRemovalListenerCharacteristic.class,
-				OrderCahceShell.class,
-				OrderCacheServer.class,
-				OrderCacheServerListener.class,
-				OrderCacheServerManage.class,
-				
-				/**Depend AOP**/
-				OrderCacheAOPConfiguration.class,
-				SystemParameterAOPConfiguration.class,
-				BigCacheIndexCacheAOPConfiguration.class,
-				
-				/**Depend Resources**/
-				StargazerProjectParameterList.class,
-				ServiceParameterList.class,
-				
-				/**Depend Log**/
-				GroupLogConfiguration.class,
-				
-				/**Depend Service**/
-				GroupServiceConfiguration.class
-				);
+	
+	@Test
+	public void SpringInit(){
+		String args[] = {"debug"};
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 	
 	public Event getEventData(){
 		return new Event(Optional.of("ID"), Optional.of(new SystemParameterCahce()));
+	}
+	
+	/**内部函数区域开始**/
+	
+	private Order getOrder(String uuid) {
+		OrderFluentFactory o = new OrderFluentFactory();
+		Order order = o.addID(Optional.of(uuid)).addTransmission()
+				       .addReceiveTarget(Optional.of("192.168.1.1"), Optional.of(1010))
+				       .addSourceTarget(Optional.of("192.168.1.2"), Optional.of(2020)).next().addEvents()
+					   .addCache(Optional.of(new OrderParameterCache()))
+				       .addparameter(Optional.of("Test"), Optional.of(getUUID())).addnextEvent().addEvents()
+					   .addCache(Optional.of(new OrderParameterCache()))
+				       .addparameter(Optional.of("Test"), Optional.of(getUUID())).complete();
+		return order;
+	}
+	
+	private String getUUID(){
+		UUID uuid = Generators.randomBasedGenerator().generate();
+		return uuid.toString();
 	}
 	
 	@Test
@@ -164,6 +72,7 @@ public class EventQueueTest {
 	@Test
 	public void getqueueTest(){
 		queue = BeanContainer.instance().getBean(Optional.of("eventQueue"), Queue.class);
+		cache = BeanContainer.instance().getBean(Optional.of("orderCache"), Cache.class);
 		queueControl = BeanContainer.instance().getBean(Optional.of("eventQueue"), QueueControl.class);
 	}
 	
@@ -175,8 +84,10 @@ public class EventQueueTest {
 
 	@Test(timeout=20000)
 	public void cacheBitchPutTest(){
-		for (int i = 0; i < 100000000; i++) {
-			queue.producer(Optional.of(getEventData()));
+		for (int i = 0; i < 1; i++) {
+			Event event = getEventData();
+			cache.put(event.IDSequence(), Optional.of(getOrder(event.IDSequence().get())));
+			queue.producer(Optional.of(event));
 		}
 		System.out.println("Event Queue 亿级(100000000个)数据测试Put完毕");
 	}

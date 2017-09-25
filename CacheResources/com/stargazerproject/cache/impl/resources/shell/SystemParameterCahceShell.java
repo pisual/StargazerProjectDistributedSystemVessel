@@ -30,8 +30,16 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	protected Cache<String, String> systemParameterCahceCharacteristic;
 	
 	@Autowired
-	@Qualifier("stargazerProjectParameterList")
-	protected Object stargazerProjectParameterList;
+	@Qualifier("cacheParameters")
+	protected Object cacheParameters;
+	
+	@Autowired
+	@Qualifier("queueParameters")
+	protected Object queueParameters;
+	
+	@Autowired
+	@Qualifier("uiParameters")
+	protected Object uiParameters;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -44,16 +52,18 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	@Bean(name="systemParameterCahceCharacteristicInitialize")
 	@Lazy(true)
 	public Optional<Cache<String, String>> characteristic() {
-		getParamentListFromClass();
+		getParamentListFromClass(cacheParameters);
+		getParamentListFromClass(queueParameters);
+		getParamentListFromClass(uiParameters);
 		return Optional.of(systemParameterCahceCharacteristic);
 	}
 	
 	/**
 	 * @illustrate 从CLass文件获取参数并注入到Mao列表
 	 * **/
-	private void getParamentListFromClass(){
+	private void getParamentListFromClass(Object object){
 		try {
-			Field[] valueFields = stargazerProjectParameterList.getClass().getDeclaredFields();
+			Field[] valueFields = object.getClass().getDeclaredFields();
 			for(Field valueField : valueFields){
 				valueField.setAccessible(true);
 				systemParameterCahceCharacteristic.put(Optional.of(valueField.getName()), Optional.of(valueField.get(valueField.getName()).toString()));

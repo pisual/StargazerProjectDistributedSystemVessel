@@ -22,7 +22,8 @@ public class SystemParameterCahceModuleServiceTest{
 
 	@Test
 	public void SpringInit(){
-		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize();
+		String args[] = {"debug"};
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 
 	@Test

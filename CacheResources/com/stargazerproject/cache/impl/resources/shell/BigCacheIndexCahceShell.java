@@ -29,10 +29,6 @@ public class BigCacheIndexCahceShell implements BaseCharacteristic<Cache<String,
 	@Qualifier("bigCacheIndexCahceCharacteristic")
 	protected Cache<String, Map<String, Integer>> bigCacheIndexCahceCharacteristic;
 	
-	@Autowired
-	@Qualifier("stargazerProjectParameterList")
-	protected Object stargazerProjectParameterList;
-	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
