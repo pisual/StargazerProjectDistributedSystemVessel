@@ -5,6 +5,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.spring.container.BeanControl;
+import com.stargazerproject.spring.container.model.Scope;
 import com.stargazerproject.spring.context.GlobalApplicationContext;
 
 /** 
@@ -22,9 +23,9 @@ public class BeanContainer extends GlobalApplicationContext implements BeanContr
 	}
 	
 	@Override
-	public void setBean(Optional<String> className, Optional<String> scope, Class<?> ClassArg) {
+	public void setBean(Optional<String> className, Optional<Scope> scope, Class<?> ClassArg) {
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
-		beanFactory.registerBeanDefinition(className.get(), BeanDefinitionBuilder.genericBeanDefinition(ClassArg).setScope(scope.get()).getBeanDefinition());
+		beanFactory.registerBeanDefinition(className.get(), BeanDefinitionBuilder.genericBeanDefinition(ClassArg).setScope(scope.get().name()).getBeanDefinition());
 	}
 	
 	@Override

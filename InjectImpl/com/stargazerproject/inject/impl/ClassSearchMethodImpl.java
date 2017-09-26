@@ -16,28 +16,13 @@ import com.stargazerproject.inject.ClassSearchMethod;
 public class ClassSearchMethodImpl implements ClassSearchMethod{
 	
 	private URLClassLoader urlClassLoader;
+	private List<Class<?>> classList = new ArrayList<Class<?>>();
 	
 	public ClassSearchMethodImpl() {}
 	
 	@Override
 	public Optional<List<Class<?>>> searchFromJar(Optional<String> absolutePath) throws IOException, ClassNotFoundException {
-		
-		List<Class<?>> classList = new ArrayList<Class<?>>();
-		
-		Optional<URL> url = fileUrl(absolutePath);
-		Optional<JarFile> jarFile = readJarFile(absolutePath);
-		Optional<URLClassLoader> classLoader = classLoader(url);
-		Optional<Enumeration<?>> jarEnumeration = jarEnumeration(jarFile);
-
-		while(jarEnumeration.get().hasMoreElements()){
-			JarEntry jarEntry = (JarEntry) jarEnumeration.get().nextElement();
-			if(classFileRecognize(Optional.of(jarEntry.getName()))){
-				Class<?> classCell = loadClass(classLoadPathChange(Optional.of(jarEntry.getName())), classLoader).get();
-				System.out.println(classCell.getName());
-				classList.add(classCell);
-			}
-		}
-		closeClassLoader();
+		injectClassList(jarEnumeration(readJarFile(absolutePath)), classLoader(fileUrl(absolutePath)));
 		return Optional.of(classList);
 	}
 	
@@ -68,6 +53,23 @@ public class ClassSearchMethodImpl implements ClassSearchMethod{
 	
 	private Optional<Class<?>> loadClass(Optional<String> loadClassPath, Optional<URLClassLoader> classLoader) throws ClassNotFoundException{
 		return Optional.of(classLoader.get().loadClass(loadClassPath.get()));
+	}
+	
+	private void injectClassList(Optional<Enumeration<?>> jarEnumeration, Optional<URLClassLoader> classLoader) throws IOException{
+		try {
+			while(jarEnumeration.get().hasMoreElements()){
+				JarEntry jarEntry = (JarEntry) jarEnumeration.get().nextElement();
+				if(classFileRecognize(Optional.of(jarEntry.getName()))){
+					Class<?> classCell = loadClass(classLoadPathChange(Optional.of(jarEntry.getName())), classLoader).get();
+					classList.add(classCell);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		finally{
+			closeClassLoader();
+		}
 	}
 	
 	private void closeClassLoader() throws IOException{
