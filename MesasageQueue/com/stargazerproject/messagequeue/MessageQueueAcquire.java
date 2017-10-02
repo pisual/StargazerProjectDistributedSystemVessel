@@ -2,6 +2,8 @@ package com.stargazerproject.messagequeue;
 
 import java.util.List;
 
+import com.google.common.base.Optional;
+
 public interface MessageQueueAcquire<T> {
 	
 	/**
@@ -10,6 +12,6 @@ public interface MessageQueueAcquire<T> {
 	* @param <Integer> 批量抓取的数目
 	* @param List<T> 获取批量抓取的结果
 	* **/
-	public List<T> get(int messageNumber);
+	public Optional<List<T>> get(Optional<Integer> messageNumber);
 	
 }

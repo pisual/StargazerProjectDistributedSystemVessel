@@ -9,6 +9,7 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>java:com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

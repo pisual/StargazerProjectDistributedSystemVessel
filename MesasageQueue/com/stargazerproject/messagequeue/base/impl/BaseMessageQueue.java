@@ -2,29 +2,33 @@ package com.stargazerproject.messagequeue.base.impl;
 
 import java.util.List;
 
+import com.google.common.base.Optional;
 import com.stargazerproject.messagequeue.MessageQueue;
-import com.stargazerproject.messagequeue.MessageQueueControl;
 
-public abstract class BaseMessageQueue<T> implements MessageQueue<T>{
+public class BaseMessageQueue<T> implements MessageQueue<T>{
 	
 	protected MessageQueue<T>  messageQueue;
 	
 	protected BaseMessageQueue() {}
-	
+
 	@Override
-	public MessageQueueControl<T> Join() {
-		return messageQueue.Join();
-	}
-	
-	@Override
-	public void put(T t) {
-		messageQueue.put(t);
-	}
-	
-	@Override
-	public List<T> get(int messageNumber) {
+	public Optional<List<T>> get(Optional<Integer> messageNumber) {
 		return messageQueue.get(messageNumber);
 	}
-	
+
+	@Override
+	public void join(Optional<String> messageQueueUrl) {
+		messageQueue.join(messageQueueUrl);
+	}
+
+	@Override
+	public void out() {
+		messageQueue.out();
+	}
+
+	@Override
+	public void put(Optional<List<T>> t) {
+		messageQueue.put(t);
+	}
 	
 }
