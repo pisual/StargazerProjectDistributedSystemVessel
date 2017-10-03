@@ -1,21 +1,16 @@
 package com.stargazerproject.zookeeper.model.factory;
 
-import io.protostuff.ProtobufIOUtil;
-import io.protostuff.Schema;
-import io.protostuff.runtime.RuntimeSchema;
-
-import java.util.HashMap;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 
-import com.stargazerproject.parameter.util.ParamentUtil;
 import com.stargazerproject.zookeeper.model.InfiniteWatcher;
 import com.stargazerproject.zookeeper.model.ZookeeperNodeData;
-import com.stargazerproject.zookeeper.model.ZookeeperPropertiesNodeData;
-import com.stargazerproject.zookeeper.server.ServerZookeeperControl;
+
+import io.protostuff.ProtobufIOUtil;
+import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
 
 public final class PropertiesInfiniteConfigurationFactory {
 	
@@ -50,7 +45,7 @@ public final class PropertiesInfiniteConfigurationFactory {
 				case CHILD_REMOVED:
 					System.out.println("激活事件 CHILD_REMOVED : ");
 					System.out.println("节点数据: #"+ String.valueOf(data) +"#");
-					System.out.println("计算节点已经上线 "+data.getPath());
+					System.out.println("计算节点已经离线 "+data.getPath());
 					break;
 				case CHILD_UPDATED:
 					System.out.println("CHILD_UPDATED : ");

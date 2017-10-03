@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.server.impl;
+package com.stargazerproject.messagequeue.server.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,37 +7,37 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
+import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
- *  @name OrderCache服务的实现
- *  @illustrate 继承于ServiceShell的OrderCache相关服务实现
+ *  @name orderMessageQueue服务的实现
+ *  @illustrate 继承于ServiceShell的orderMessageQueue相关服务实现
  *  @author Felixerio
  *  **/
-@Component(value="orderCacheServer")
-@Qualifier("orderCacheServer")
+@Component(value="orderMessageQueueServer")
+@Qualifier("orderMessageQueueServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderCacheServer implements StanderServiceShell{
+public class OrderMessageQueueServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("orderCache")
-	private StanderCharacteristicShell<Cache<String, Order>> orderCacheShell;
+	@Qualifier("orderMessageQueue")
+	private StanderCharacteristicShell<MessageQueue<Order>> orderMessageQueueShell;
 	
 	/** @construction 初始化构造 **/
-	private OrderCacheServer() {}
+	private OrderMessageQueueServer() {}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		Optional<Cache<String, Order>> orderCache = BeanContainer.instance().getBean(Optional.of("orderCahceCharacteristicInitialize"), Optional.class);
-		orderCacheShell.initialize(orderCache);
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
+		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueInitialize"), Optional.class);
+		orderMessageQueueShell.initialize(orderMessageQueue);
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

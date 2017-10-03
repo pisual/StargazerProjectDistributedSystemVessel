@@ -1,21 +1,16 @@
 package com.stargazerproject.zookeeper.model.factory;
 
-import io.protostuff.ProtobufIOUtil;
-import io.protostuff.Schema;
-import io.protostuff.runtime.RuntimeSchema;
-
-import java.util.HashMap;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 
-import com.stargazerproject.parameter.util.ParamentUtil;
 import com.stargazerproject.zookeeper.model.InfiniteWatcher;
 import com.stargazerproject.zookeeper.model.ZookeeperNodeData;
-import com.stargazerproject.zookeeper.model.ZookeeperPropertiesNodeData;
-import com.stargazerproject.zookeeper.server.ServerZookeeperControl;
+
+import io.protostuff.ProtobufIOUtil;
+import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
 
 public final class ServerInitializeZookeeepeInfiniteConfigurationFactory {
 	
@@ -49,16 +44,16 @@ public final class ServerInitializeZookeeepeInfiniteConfigurationFactory {
 					ZookeeperNodeData zookeeperNodeData = zookeeperNodeDataDeserialize(data.getData());
 					System.out.println("获取的数据: " + zookeeperNodeData.toString());
 					System.out.println("开始注入参数数据");
-					try {
-						HashMap<String, String> valueField = ParamentUtil.getParamentByReflectFromPackageInfo("com.stargazerproject.parameter.util.StargazerProjectParameter");
-						ZookeeperPropertiesNodeData zookeeperPropertiesNodeData = new ZookeeperPropertiesNodeData(valueField);
-						System.out.println(zookeeperPropertiesNodeData.toString());
-						ServerZookeeperControl.getInstance().creatEphemeralNodes("StargazerSystem/cells/tasks/" + zookeeperNodeData.getCellsID() + "_properties", zookeeperPropertiesNodeData);
-					} catch (IllegalArgumentException e1) {
-						e1.printStackTrace();
-					} catch (IllegalAccessException e1) {
-						e1.printStackTrace();
-					}
+//					try {
+//						HashMap<String, String> valueField = ParamentUtil.getParamentByReflectFromPackageInfo("com.stargazerproject.parameter.util.StargazerProjectParameter");
+//						ZookeeperPropertiesNodeData zookeeperPropertiesNodeData = new ZookeeperPropertiesNodeData(valueField);
+//						System.out.println(zookeeperPropertiesNodeData.toString());
+//						ServerZookeeperControl.getInstance().creatEphemeralNodes("StargazerSystem/cells/tasks/" + zookeeperNodeData.getCellsID() + "_properties", zookeeperPropertiesNodeData);
+//					} catch (IllegalArgumentException e1) {
+//						e1.printStackTrace();
+//					} catch (IllegalAccessException e1) {
+//						e1.printStackTrace();
+//					}
 					break;
 				case CHILD_REMOVED:
 					System.out.println("激活事件 CHILD_REMOVED : ");

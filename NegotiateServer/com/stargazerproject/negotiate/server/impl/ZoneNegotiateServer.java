@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.server.impl;
+package com.stargazerproject.negotiate.server.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,37 +7,36 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.negotiate.Negotiate;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
- *  @name OrderCache服务的实现
- *  @illustrate 继承于ServiceShell的OrderCache相关服务实现
+ *  @name zoneNegotiate服务的实现
+ *  @illustrate 继承于ServiceShell的zoneNegotiate相关服务实现
  *  @author Felixerio
  *  **/
-@Component(value="orderCacheServer")
-@Qualifier("orderCacheServer")
+@Component(value="zoneNegotiateServer")
+@Qualifier("zoneNegotiateServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderCacheServer implements StanderServiceShell{
+public class ZoneNegotiateServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("orderCache")
-	private StanderCharacteristicShell<Cache<String, Order>> orderCacheShell;
+	@Qualifier("zoneNegotiate")
+	private StanderCharacteristicShell<Negotiate> zoneNegotiateShell;
 	
 	/** @construction 初始化构造 **/
-	private OrderCacheServer() {}
+	private ZoneNegotiateServer() {}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		Optional<Cache<String, Order>> orderCache = BeanContainer.instance().getBean(Optional.of("orderCahceCharacteristicInitialize"), Optional.class);
-		orderCacheShell.initialize(orderCache);
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
+		Optional<Negotiate> zoneNegotiate = BeanContainer.instance().getBean(Optional.of("zoneNegotiateInitialize"), Optional.class);
+		zoneNegotiateShell.initialize(zoneNegotiate);
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

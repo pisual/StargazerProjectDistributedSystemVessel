@@ -33,7 +33,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MessageQueueDomain"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Order"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Queue"/>
@@ -67,6 +66,13 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Inject"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Negotiate"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MessageQueueServer"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>
