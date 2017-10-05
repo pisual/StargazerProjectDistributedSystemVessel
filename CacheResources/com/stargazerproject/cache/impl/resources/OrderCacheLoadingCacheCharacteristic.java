@@ -79,5 +79,6 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	     }
 	
 	private Integer getIntegerParameter(String key){
-		return Integer.parseInt(systemParameter.get(Optional.of(key)).get());}
+		return Integer.parseInt(systemParameter.get(Optional.of(key)).get());
+	}
 }

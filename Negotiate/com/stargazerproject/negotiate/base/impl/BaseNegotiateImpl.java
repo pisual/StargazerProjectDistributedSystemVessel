@@ -65,4 +65,14 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 		return negotiate.getSelectLeader(nodeName, nodePath);
 	}
 
+	@Override
+	public void start() {
+		negotiate.start();
+	}
+	
+	@Override
+	public void close(){
+		negotiate.close();
+	}
+
 }
