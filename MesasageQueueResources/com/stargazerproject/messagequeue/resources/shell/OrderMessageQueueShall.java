@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
@@ -23,6 +25,8 @@ public class OrderMessageQueueShall implements MessageQueue<Order>, BaseCharacte
 	private MessageQueuePush<Order> messageQueuePush;
 	
 	@Override
+	@Bean(name="orderMessageQueueCharacteristicInitialize")
+	@Lazy(true)
 	public Optional<MessageQueue<Order>> characteristic() {
 		return null;
 	}

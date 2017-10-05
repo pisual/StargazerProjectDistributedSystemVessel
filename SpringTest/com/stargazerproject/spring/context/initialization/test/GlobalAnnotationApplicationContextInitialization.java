@@ -39,6 +39,14 @@ import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
+import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquire;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueControl;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueuePush;
+import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
+import com.stargazerproject.messagequeue.server.impl.OrderMessageQueueServer;
+import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueListener;
+import com.stargazerproject.messagequeue.server.manage.OrderMessageQueueManage;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.OrderExportQueue;
@@ -91,6 +99,16 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterCacheServerManage.class,
 
      /******Depend Configuration Class******/
+		/**Depend OrderQueueMessage**/
+		OrderMessageQueue.class,
+		OrderMessageQueueServer.class,
+		OrderMessageQueueListener.class,
+		OrderMessageQueueManage.class,
+		OrderMessageQueueAcquire.class,
+		OrderMessageQueueControl.class,
+		OrderMessageQueuePush.class,
+		OrderMessageQueueShall.class,
+		
 		/**Depend BigCacheIndexCahce**/
 		BigCacheIndexCahce.class,
 		BigCacheIndexCahceCharacteristic.class,

@@ -7,8 +7,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="UserInterface"/>
+	<classpathentry kind="src" path="UserInterfaceImpl"/>
 	<classpathentry kind="src" path="UserInterfaceConfiguration"/>
-	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
+	<classpathentry kind="src" path="UserInterfaceResources"/>
+	<classpathentry kind="src" path="UserInterfaceServer"/>
+	<classpathentry kind="src" path="UserInterfaceTest"/>
 	<classpathentry kind="src" path="Cache"/>
 	<classpathentry kind="src" path="CacheImpl"/>
 	<classpathentry kind="src" path="CacheConfiguration"/>
@@ -39,6 +42,12 @@
 	<classpathentry kind="src" path="MessageQueueServer"/>
 	<classpathentry kind="src" path="MesasageQueueResources"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
+	<classpathentry kind="src" path="Exchange"/>
+	<classpathentry kind="src" path="ExchangeImpl"/>
+	<classpathentry kind="src" path="ExchangeResources"/>
+	<classpathentry kind="src" path="ExchangeConfiguration"/>
+	<classpathentry kind="src" path="ExchangeServer"/>
+	<classpathentry kind="src" path="ExchangeTest"/>
 	<classpathentry kind="src" path="Order"/>
 	<classpathentry kind="src" path="OrderImpl"/>
 	<classpathentry kind="src" path="OrderConfiguration"/>
@@ -76,6 +85,8 @@
 	<classpathentry kind="src" path="ServiceTest"/>
 	<classpathentry kind="src" path="SpringTest"/>
 	<classpathentry kind="src" path="StargazerTest"/>
+	<classpathentry kind="src" path="Userinterfaces"/>
+	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

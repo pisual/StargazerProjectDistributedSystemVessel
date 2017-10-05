@@ -28,7 +28,7 @@ public class OrderMessageQueueManage extends AbstractIdleService{
 	private StanderServiceShell orderMessageQueueServer;
 	
 	@Autowired
-	@Qualifier("orderMessageQueueServerListener")
+	@Qualifier("orderMessageQueueListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/

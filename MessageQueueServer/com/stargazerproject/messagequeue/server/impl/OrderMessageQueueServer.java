@@ -36,7 +36,7 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
-		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueInitialize"), Optional.class);
+		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
 		orderMessageQueueShell.initialize(orderMessageQueue);
 	}
 

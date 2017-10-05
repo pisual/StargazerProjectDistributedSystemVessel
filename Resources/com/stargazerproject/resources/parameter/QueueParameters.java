@@ -44,4 +44,21 @@ public class QueueParameters {
 		private static final String Receive_Log_Size_of_bufferSize = "65536";
 		//系统核心日志队列配置 End
 		
+		//Kafka消息队列配置 Start
+		/**消息推送队列**/
+		/** @illustrate 参数类 **/
+		private static final String Message_Push_Queue_Topic = "OrderPushMessageQueue";
+		/**消息推送队列组**/
+		/** @illustrate 参数类 **/
+		private static final String Message_Push_Queue_Topic_Group = "OrderPushMessageQueueGroup";
+		/**消息接收队列**/
+		/** @illustrate 参数类 **/
+		private static final String Message_Acquire_Queue_Topic = "OrderAcquireMessageQueue";
+		/**消息接收队列组**/
+		/** @illustrate 参数类 **/
+		private static final String Message_Acquire_Queue_Topic_Group = "OrderAcquireMessageQueueGroup";
+		/**消息队列集群地址**/
+		/** @illustrate 参数类 **/
+		private static final String Kafka_Binder_Brokers = "127.0.0.1:9092";
+		//Kafka消息队配置 End
 }
