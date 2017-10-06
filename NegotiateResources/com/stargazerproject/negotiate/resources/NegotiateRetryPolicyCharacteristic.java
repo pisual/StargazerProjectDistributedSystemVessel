@@ -22,7 +22,6 @@ public class NegotiateRetryPolicyCharacteristic implements BaseCharacteristic<Re
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
-	
 	private RetryPolicy retryPolicy;
 	
 	public NegotiateRetryPolicyCharacteristic() {}

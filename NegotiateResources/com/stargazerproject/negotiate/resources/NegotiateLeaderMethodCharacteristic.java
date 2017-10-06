@@ -7,6 +7,8 @@ import org.apache.curator.framework.recipes.leader.LeaderLatch;
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,8 @@ public class NegotiateLeaderMethodCharacteristic extends CacheObject<String, Lea
 	}
 
 	@Override
+	@Bean(name="negotiateLeaderMethodCharacteristic")
+	@Lazy(true)
 	public Optional<NegotiateLeaderMethod> characteristic() {
 		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
 		return Optional.of(this);

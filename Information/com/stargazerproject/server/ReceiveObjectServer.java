@@ -1,5 +1,11 @@
 package com.stargazerproject.server;
 
+import com.stargazerproject.model.server.ListenSocketConfiguration;
+import com.stargazerproject.server.handler.ObjectReceiveHandler;
+import com.stargazerproject.server.handler.ServerConnectionHandler;
+import com.stargazerproject.server.handler.SufDecode;
+import com.stargazerproject.server.handler.sufEncoder;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -10,13 +16,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import com.stargazerproject.log.collocation.impl.LocalityLog;
-import com.stargazerproject.model.server.ListenSocketConfiguration;
-import com.stargazerproject.server.handler.ObjectReceiveHandler;
-import com.stargazerproject.server.handler.ServerConnectionHandler;
-import com.stargazerproject.server.handler.SufDecode;
-import com.stargazerproject.server.handler.sufEncoder;
 
 public final class ReceiveObjectServer extends Thread{
 
@@ -74,14 +73,14 @@ public final class ReceiveObjectServer extends Thread{
 		try {
 			channelFuture = bootstrap.bind(listenSocketConfiguration.getPort()).sync();
 			if (channelFuture.isSuccess()) {
-				LocalityLog.getInstance().INFO(ReceiveObjectServer.class, "Receive Object Server Start Success");
+	//			LocalityLog.getInstance().INFO(ReceiveObjectServer.class, "Receive Object Server Start Success");
 				channelFuture.channel().closeFuture().sync();
 			}
 			else{
-				LocalityLog.getInstance().ERROR(ReceiveObjectServer.class, "Receive Object Server Start Faild");
+	//			LocalityLog.getInstance().ERROR(ReceiveObjectServer.class, "Receive Object Server Start Faild");
 			}
 		} catch (InterruptedException e) {
-			LocalityLog.getInstance().ERROR(ReceiveObjectServer.class, e.getMessage());
+	//		LocalityLog.getInstance().ERROR(ReceiveObjectServer.class, e.getMessage());
 		}
 		finally {
 			boss.shutdownGracefully();

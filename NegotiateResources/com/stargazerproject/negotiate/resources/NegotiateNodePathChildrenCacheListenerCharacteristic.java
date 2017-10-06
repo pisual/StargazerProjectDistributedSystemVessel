@@ -6,6 +6,8 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ public class NegotiateNodePathChildrenCacheListenerCharacteristic implements Bas
 	private PathChildrenCacheListener pathChildrenCacheListener;
 	
 	@Override
+	@Bean(name="negotiateNodePathChildrenCacheListenerCharacteristic")
+	@Lazy(true)
 	public Optional<PathChildrenCacheListener> characteristic() {
 		zookeeeperConfigurationInitialize();
 		return Optional.of(pathChildrenCacheListener);

@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs.Ids;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
@@ -16,6 +18,8 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 	private Optional<CuratorFramework> curatorFramework;
 	
 	@Override
+	@Bean(name="negotiateNodeMethodCharacteristic")
+	@Lazy(true)
 	public Optional<NegotiateNodeMethod> characteristic() {
 		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
 		return Optional.of(this);

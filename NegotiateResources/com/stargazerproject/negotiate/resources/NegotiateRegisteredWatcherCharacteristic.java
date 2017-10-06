@@ -9,6 +9,8 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ public class NegotiateRegisteredWatcherCharacteristic implements NegotiateRegist
 	private Optional<CuratorFramework> curatorFramework;
 	
 	@Override
+	@Bean(name="negotiateRegisteredWatcherCharacteristic")
+	@Lazy(true)
 	public Optional<NegotiateRegisteredWatcher> characteristic() {
 		NegotiateRegisteredWatcherInitialize();
 		return Optional.of(this);

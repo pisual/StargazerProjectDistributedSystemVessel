@@ -1,5 +1,10 @@
 package com.stargazerproject.server;
 
+import com.stargazerproject.model.server.ListenSocketConfiguration;
+import com.stargazerproject.server.handler.NettyClientHandler;
+import com.stargazerproject.server.handler.SufDecode;
+import com.stargazerproject.server.handler.sufEncoder;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -10,12 +15,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import com.stargazerproject.log.collocation.impl.LocalityLog;
-import com.stargazerproject.model.server.ListenSocketConfiguration;
-import com.stargazerproject.server.handler.NettyClientHandler;
-import com.stargazerproject.server.handler.SufDecode;
-import com.stargazerproject.server.handler.sufEncoder;
 
 public final class SendObjectServer extends Thread{
 	
@@ -71,15 +70,15 @@ public final class SendObjectServer extends Thread{
 		try {
 			channelFuture =bootstrap.connect(listenSocketConfiguration.getHost(),listenSocketConfiguration.getPort()).sync();
 			if (channelFuture.isSuccess()) {
-				LocalityLog.getInstance().INFO(SendObjectServer.class, "Receive Object Server Start Success");
+	//			LocalityLog.getInstance().INFO(SendObjectServer.class, "Receive Object Server Start Success");
 	            socketChannel = (SocketChannel)channelFuture.channel();
 				channelFuture.channel().closeFuture().sync();
 			}
 			else{
-				LocalityLog.getInstance().ERROR(SendObjectServer.class, "Receive Object Server Start Faild");
+//				LocalityLog.getInstance().ERROR(SendObjectServer.class, "Receive Object Server Start Faild");
 			}
 		} catch (InterruptedException e) {
-			LocalityLog.getInstance().ERROR(SendObjectServer.class, e.getMessage());
+//			LocalityLog.getInstance().ERROR(SendObjectServer.class, e.getMessage());
 		}
 		finally {
 			boss.shutdownGracefully();
