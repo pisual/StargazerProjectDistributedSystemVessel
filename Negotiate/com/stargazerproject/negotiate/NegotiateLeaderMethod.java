@@ -11,7 +11,7 @@ public interface NegotiateLeaderMethod {
 	 * @author Felixerio
 	 * @throws Exception 
 	 * **/
-	public void startSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception;
+	public <T> void startSelectLeader(Optional<String> nodeName, Optional<String> nodePath, Optional<T> listener) throws Exception;
 	
 	/**
 	 * @MethodName 放弃Leader

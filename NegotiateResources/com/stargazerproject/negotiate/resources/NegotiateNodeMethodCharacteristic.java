@@ -11,9 +11,15 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateNodeMethod;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod,BaseCharacteristic<NegotiateNodeMethod>{
+public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, BaseCharacteristic<NegotiateNodeMethod>{
 
 	private Optional<CuratorFramework> curatorFramework;
+	
+	@Override
+	public Optional<NegotiateNodeMethod> characteristic() {
+		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
+		return Optional.of(this);
+	}
 	
 	@Override
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
@@ -43,12 +49,6 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod,Ba
 	@Override
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return (null == curatorFramework.get().checkExists().forPath("/" + nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
-	}
-
-	@Override
-	public Optional<NegotiateNodeMethod> characteristic() {
-		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
-		return Optional.of(this);
 	}
 
 }

@@ -51,8 +51,8 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 	}
 
 	@Override
-	public void startSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		negotiate.startSelectLeader(nodeName, nodePath);
+	public <T> void startSelectLeader(Optional<String> nodeName, Optional<String> nodePath, Optional<T> listener) throws Exception {
+		negotiate.startSelectLeader(nodeName, nodePath, listener);
 	}
 
 	@Override

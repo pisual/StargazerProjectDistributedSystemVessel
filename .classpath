@@ -64,8 +64,6 @@
 	<classpathentry kind="src" path="ServiceResources"/>
 	<classpathentry kind="src" path="Inject"/>
 	<classpathentry kind="src" path="InjectImpl"/>
-	<classpathentry kind="src" path="Cluster"/>
-	<classpathentry kind="src" path="ClusterConfiguration"/>
 	<classpathentry kind="src" path="Information"/>
 	<classpathentry kind="src" path="InformationConfiguration"/>
 	<classpathentry kind="src" path="Resources"/>

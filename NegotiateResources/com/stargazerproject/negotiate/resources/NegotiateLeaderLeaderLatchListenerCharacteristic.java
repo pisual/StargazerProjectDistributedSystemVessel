@@ -1,8 +1,8 @@
-package com.stargazerproject.zookeeper.leader.listener;
+package com.stargazerproject.negotiate.resources;
 
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 
-public class StrategyCellsLeaderLatchListener implements LeaderLatchListener{
+public class NegotiateLeaderLeaderLatchListenerCharacteristic implements LeaderLatchListener{
 
 	 @Override
      public void isLeader() {

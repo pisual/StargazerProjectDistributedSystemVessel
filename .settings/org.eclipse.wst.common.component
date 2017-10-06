@@ -16,8 +16,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellsConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Characteristic"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Cluster"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ClusterConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Container"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Disruptor"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Information"/>

@@ -33,7 +33,115 @@ import com.stargazerproject.negotiate.base.impl.BaseNegotiateImpl;
  *                                                                 
  *                                                                   第一协议
  *                                                              去中心化阶段聚合自身弱化协议
- *                      S1，在集群主Cells列表（Master_Cells_List）注册自己的信息（Cells(ID, BackupLevel,Zone), Cells_Transmission(IP:Point1-n),Cells_Lock(ZoneLock), Cells_Zone(Group(Name,IP:Point1-n)))
+ *                      S1，在集群主Cells列表（Master_Cells_List）注册自己的信息（Cells(ID, BackupLevel,Zone), /Cells_Lock(ZoneLock), /Cells_Zone(Group_Name))
+ *                      
+ *                             序列：
+ *                                                            注册节点
+ *                                                 {
+ *                             1.                   ／Master_Cells_List/UUID_1
+ *                                                  ／Master_Cells_List/UUID_1/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_1/Zone
+ *                             
+ *                                                  ／Master_Cells_List/UUID_2
+ *                                                  ／Master_Cells_List/UUID_2/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_2/Zone
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_3
+ *                                                  ／Master_Cells_List/UUID_3/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_3/Zone
+ *                                                  
+ *                                                  }
+ *                                                  
+ *                                                          自由组建
+ *                                                  {
+ *                                                  ／Master_Cells_List/UUID_1
+ *                                                  ／Master_Cells_List/UUID_1/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_1/Zone
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Zone/UUID_1_Group
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_2
+ *                                                  ／Master_Cells_List/UUID_2/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_2/Zone
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Zone/UUID_1_Group
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_3
+ *                                                  ／Master_Cells_List/UUID_3/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_3/Zone
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Zone/UUID_1_Group
+ *                                                  }
+ *                                                  
+ *                                                           注册第一组
+ *                                                  {
+ *                                                  ／Master_Cells_List/UUID_1
+ *                                                  ／Master_Cells_List/UUID_1/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_1/Zone
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_2
+ *                                                  ／Master_Cells_List/UUID_2/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_2/Zone
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_3
+ *                                                  ／Master_Cells_List/UUID_3/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_3/Zone
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  }
+ *                                                  
+ *                                                   注册第二组
+ *                                                  {
+ *                                                  ／Master_Cells_List/UUID_1
+ *                                                  ／Master_Cells_List/UUID_1/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_1/Zone
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Zone/UUID_2_Group/UUID_1／LeaderA（GiveUP）
+ *                                                                                                    /UUID_2/LeaderB
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_2
+ *                                                  ／Master_Cells_List/UUID_2/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_2/Zone
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_2/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                  ／Master_Cells_List/UUID_1/Cells_Zone/UUID_2_Group/UUID_1／LeaderA（GiveUP）
+ *                                                                                                    /UUID_2/LeaderB
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  
+ *                                                  ／Master_Cells_List/UUID_3
+ *                                                  ／Master_Cells_List/UUID_3/BackupLevel/Zone3
+ *                                                  ／Master_Cells_List/UUID_3/Zone
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Lock
+ *                                                  ／Master_Cells_List/UUID_3/Cells_Zone/UUID_1_Group/UUID_1／LeaderA
+ *                                                                                                    /UUID_2
+ *                                                                                                    /UUID_3
+ *                                                   ／Master_Cells_List/UUID_1/Cells_Zone/UUID_2_Group/UUID_1／LeaderA（GiveUP）
+ *                                                                                                    /UUID_2/LeaderB
+ *                                                                                                    /UUID_3
+ *                                                  
+ *                                                  }
+ *                                                  
+ *                                                 
+ *                      
  *                      S2, 等待（等待之非常重要的一环，也是构建整个去中心化集群的重要的一步，等待的时间是随机的，这也为自由分区提供的一定余地），等待期间自身不允许寻找组成员，但允许被邀请加入组
  *                                                          
  *                                                          根据BackupLevel自由的构建集群

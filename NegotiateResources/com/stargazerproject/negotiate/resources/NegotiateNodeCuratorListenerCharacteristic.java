@@ -1,31 +1,30 @@
-package com.stargazerproject.zookeeper.model.factory;
+package com.stargazerproject.negotiate.resources;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.framework.api.CuratorListener;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import com.stargazerproject.zookeeper.model.SingleWatcher;
+import com.google.common.base.Optional;
+import com.stargazerproject.characteristic.BaseCharacteristic;
 
-public final class ZookeeepeSingleConfigurationFactory {
-	private static SingleWatcher singleWatcher;
-	private static ZookeeepeSingleConfigurationFactory zookeeeperConfigurationFactory;
-	private static CuratorListener curatorListener;
+@Component(value="negotiateNodeCuratorListener")
+@Qualifier("negotiateNodeCuratorListener")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class NegotiateNodeCuratorListenerCharacteristic implements BaseCharacteristic<CuratorListener>{
+
+	private CuratorListener curatorListener;
 	
-	public static SingleWatcher getSingleWatcherInstance(String nodeName){
-		if(null == singleWatcher){
-			if(null == zookeeeperConfigurationFactory){
-				zookeeeperConfigurationFactory = new ZookeeepeSingleConfigurationFactory();
-			}
-			zookeeeperConfigurationFactory.SingleWatcherInitialize();
-	        singleWatcher = new SingleWatcher(curatorListener, nodeName);
-		}
-		return singleWatcher;
+	@Override
+	public Optional<CuratorListener> characteristic() {
+		zookeeeperConfigurationInitialize();
+		return Optional.of(curatorListener);
 	}
 	
-	private ZookeeepeSingleConfigurationFactory() {
-	}
-	
-	private void SingleWatcherInitialize(){
+	private void zookeeeperConfigurationInitialize() {
 		curatorListener = new CuratorListener() {  
             @Override  
             public void eventReceived(CuratorFramework client, CuratorEvent event) throws Exception {  
@@ -69,4 +68,5 @@ public final class ZookeeepeSingleConfigurationFactory {
             }  
         };
 	}
+
 }
