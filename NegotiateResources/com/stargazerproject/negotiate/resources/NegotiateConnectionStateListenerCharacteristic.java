@@ -16,7 +16,7 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 @Component(value="negotiateConnectionStateListener")
 @Qualifier("negotiateConnectionStateListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class NegotiateConnectionStateListenerCharacteristic implements ConnectionStateListener,BaseCharacteristic<ConnectionStateListener>{
+public class NegotiateConnectionStateListenerCharacteristic implements ConnectionStateListener, BaseCharacteristic<ConnectionStateListener>{
 
 	@Autowired
 	@Qualifier("systemParameterCahce")

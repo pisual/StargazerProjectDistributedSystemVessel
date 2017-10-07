@@ -6,6 +6,13 @@ import com.stargazerproject.parameter.impl.SystemParameter;
 import com.stargazerproject.ui.listener.LogoClickListener;
 import com.stargazerproject.ui.listener.MouseAdapterListener;
 import com.stargazerproject.ui.listener.MouseMotionAdapterListener;
+import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.ConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
 
 /**
  * 混合主界面,启动界面
@@ -16,23 +23,23 @@ import com.stargazerproject.ui.listener.MouseMotionAdapterListener;
  */
 public class MainFrame {
 	/**混合主界面**/
-	private static BaseFrame baseFrame;
+	private static MainFrameJFrameCharacteristic baseFrame;
 	/**控制台**/
-	private static ConsoleTextPane consoleTextPane;
+	private static ConsoleTextPaneCharacteristic consoleTextPane;
 	/**控制台**/
 	private static RightConsoleTextPane rightConsoleTextPane;
 	/**主界面滚动条**/
-	private static MainFrameJScrollPane jScrollPane;
+	private static MainFrameJScrollPaneCharacteristic jScrollPane;
 	/**主界面滚动条**/
 	private static MainFrameRightJScrollPane rightJScrollPane;
 	/**操纵图标头像位置**/
-	private static MainFrameLogoJlabel mainFrameLogoJlabel;
+	private static MainFrameLogoJlabelCharacteristic mainFrameLogoJlabel;
 	/**系统构架拓扑**/
-	private static StructureTopologyJlabel structureTopologyJlabel;
+	private static MainFrameStructureTopologyJlabelCharacteristic structureTopologyJlabel;
 	/**主界面背景**/
-	private static MainFrameBackgroundJlabel mainFrameBackgroundJlabel;
+	private static MainFrameBackgroundJlabelCharacteristic mainFrameBackgroundJlabel;
 	/**混合主界面布局**/
-	private static MainFrameLayout mainFrameLayout;
+	private static MainFrameLayoutCharacteristic mainFrameLayout;
 	/**主界面坐标点，用于界面拖动**/
 	private static Point origin = new Point();
 	/**主界面鼠标点击事件**/
@@ -44,14 +51,14 @@ public class MainFrame {
 	
 	public MainFrame(){
 	//	baseFrame = BaseFrame.getInstance();
-		consoleTextPane = ConsoleTextPane.getInstance();
+		consoleTextPane = ConsoleTextPaneCharacteristic.getInstance();
 		rightConsoleTextPane = RightConsoleTextPane.getInstance();
 		rightJScrollPane = MainFrameRightJScrollPane.getInstance(rightConsoleTextPane);
-		jScrollPane = MainFrameJScrollPane.getInstance(consoleTextPane);
-		mainFrameLogoJlabel = MainFrameLogoJlabel.getInstance(SystemParameterCahce.getInstance().getString("Main_Frame_Logo_Path"));
-		structureTopologyJlabel = StructureTopologyJlabel.getInstance(SystemParameterCahce.getInstance().getString("Main_Frame_StructureTopology_Path"));
-		mainFrameBackgroundJlabel = MainFrameBackgroundJlabel.getInstance(SystemParameterCahce.getInstance().getString("MAIN_INTERFACE_BACKGROUND"));
-		mainFrameLayout = MainFrameLayout.getInstance();
+		jScrollPane = MainFrameJScrollPaneCharacteristic.getInstance(consoleTextPane);
+		mainFrameLogoJlabel = MainFrameLogoJlabelCharacteristic.getInstance(SystemParameterCahce.getInstance().getString("Main_Frame_Logo_Path"));
+		structureTopologyJlabel = MainFrameStructureTopologyJlabelCharacteristic.getInstance(SystemParameterCahce.getInstance().getString("Main_Frame_StructureTopology_Path"));
+		mainFrameBackgroundJlabel = MainFrameBackgroundJlabelCharacteristic.getInstance(SystemParameterCahce.getInstance().getString("MAIN_INTERFACE_BACKGROUND"));
+		mainFrameLayout = MainFrameLayoutCharacteristic.getInstance();
 		logoClickListener = LogoClickListener.getInstance(baseFrame);
 		mouseAdapterListener = MouseAdapterListener.getInstance(origin);
 		mouseMotionAdapterListener = MouseMotionAdapterListener.getInstance(origin,baseFrame);

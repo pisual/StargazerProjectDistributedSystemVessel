@@ -1,6 +1,11 @@
 package com.stargazerproject.ui.assembly.impl;
 
 import com.stargazerproject.parameter.impl.SystemParameter;
+import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
 
 /**
  * 混合主界面,启动加载界面
@@ -11,22 +16,22 @@ import com.stargazerproject.parameter.impl.SystemParameter;
  */
 public class LoadingFrame {
 	/**加载进度界面**/
-	private static LoadingBaseFrameJDialog loadingBaseFrameJDialog;
+	private static LoadingBaseFrameJDialogCharacteristic loadingBaseFrameJDialog;
 	/**加载进度界面进度条**/
-	private static LoadingJProgressBar loadingJProgressBar;
+	private static LoadingJProgressBarCharacteristic loadingJProgressBar;
 	/**加载界面进度条文字标识**/
-	private static LoadingProgressInfo loadingProgressInfo;
+	private static LoadingProgressInfoCharacteristic loadingProgressInfo;
 	/**加载进度页面背景**/
-	private static LoadingFrameBackgroundJlabel loadingFrameBackgroundJlabel;
+	private static LoadingFrameBackgroundJlabelCharacteristic loadingFrameBackgroundJlabel;
 	/**加载进度界面布局**/
-	private static LoadingFrameLayout loadingFrameLayout;
+	private static LoadingFrameLayoutCharacteristic loadingFrameLayout;
 	
 	public LoadingFrame() {
-		loadingBaseFrameJDialog = LoadingBaseFrameJDialog.getInstance();
-		loadingJProgressBar = LoadingJProgressBar.getInstance();
-		loadingProgressInfo = LoadingProgressInfo.getInstance();
-		loadingFrameBackgroundJlabel = LoadingFrameBackgroundJlabel.getInstance(SystemParameterCahce.getInstance().getString("LOADING_INTERFACE_BACKGROUND"));
-		loadingFrameLayout = LoadingFrameLayout.getInstance();
+		loadingBaseFrameJDialog = LoadingBaseFrameJDialogCharacteristic.getInstance();
+		loadingJProgressBar = LoadingJProgressBarCharacteristic.getInstance();
+		loadingProgressInfo = LoadingProgressInfoCharacteristic.getInstance();
+		loadingFrameBackgroundJlabel = LoadingFrameBackgroundJlabelCharacteristic.getInstance(SystemParameterCahce.getInstance().getString("LOADING_INTERFACE_BACKGROUND"));
+		loadingFrameLayout = LoadingFrameLayoutCharacteristic.getInstance();
 		loadingFrameLayout.initMainFrameLayout(loadingBaseFrameJDialog,loadingJProgressBar,loadingProgressInfo);
 		loadingBaseFrameJDialog.getLayeredPane().add(loadingFrameBackgroundJlabel, new Integer(Integer.MIN_VALUE));
 		loadingBaseFrameJDialog.getLayeredPane().add(loadingJProgressBar, new Integer(Integer.MAX_VALUE));

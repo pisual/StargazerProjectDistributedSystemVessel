@@ -5,10 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import com.stargazerproject.ui.assembly.impl.BaseFrame;
+import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
 
 @Configuration 
-@ComponentScan(basePackageClasses={BaseFrame.class})
+@ComponentScan(basePackageClasses={MainFrameJFrameCharacteristic.class})
 public class BaseFrameConfiguration {
 	@Bean 
 	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() 

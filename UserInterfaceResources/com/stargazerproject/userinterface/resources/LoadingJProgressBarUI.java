@@ -1,4 +1,4 @@
-package com.stargazerproject.ui.assembly.impl;
+package com.stargazerproject.userinterface.resources;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,7 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
-import com.stargazerproject.ui.util.ColorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import com.google.common.base.Optional;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.model.util.ColorUtil;
+import com.stargazerproject.model.util.ParameterStringUtil;
+import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /**
  * 加载界面进度条UI
@@ -17,13 +24,15 @@ import com.stargazerproject.ui.util.ColorUtil;
  *@author Felixerio FelixSion
  */
 public class LoadingJProgressBarUI extends BasicProgressBarUI {
+	
 	/**加载界面进度条**/
 	private static JProgressBar loadingframeJProgressBar;
 	/**加载界面进度条 RGB色组**/
 	private static Color Loading_Frame_ProgressBar_Color;
 	
 	public LoadingJProgressBarUI(JProgressBar jProgressBar) {
-		Loading_Frame_ProgressBar_Color  = ColorUtil.getColorFromSystemmParanment("Loading_Frame_ProgressBar_Color");
+		Cache<String,String> systemParameter = BeanContainer.instance().getBean(Optional.of("systemParameterCahce"), Cache.class);
+		Loading_Frame_ProgressBar_Color  = ColorUtil.getColorFromIntRGBParament(ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("Loading_Frame_ProgressBar_Color")), Optional.of(","), Optional.of(3)).get());
 		loadingframeJProgressBar = jProgressBar;
 	}
 	

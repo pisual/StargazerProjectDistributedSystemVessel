@@ -1,4 +1,4 @@
-package com.stargazerproject.ui.assembly.impl;
+package com.stargazerproject.userinterface.resources;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import com.google.common.base.Optional;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 
 public class GradientLoadInterface extends JLabel implements ActionListener {
@@ -23,11 +24,13 @@ public class GradientLoadInterface extends JLabel implements ActionListener {
 	private int startNumber = 0;
 	private int frameIndex;
 	private Timer timer;
-	private BufferedImage image = null;
+	protected BufferedImage image = null;
 	
-	public GradientLoadInterface(String imgPath) {
+	public GradientLoadInterface() {}
+	
+	protected void readImage(Optional<String> imagePath){
 		try {
-			image = ImageIO.read(UserinterfaceResource.class.getResource(imgPath));
+			image = ImageIO.read(UserinterfaceResource.class.getResource(imagePath.get()));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
