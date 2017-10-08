@@ -2,8 +2,6 @@ package com.stargazerproject.userinterface.resources;
 
 import java.io.IOException;
 
-import javax.swing.JLabel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.sun.awt.AWTUtilities;
 
 /**
  *主界面背景
@@ -24,29 +23,34 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 @Component(value="mainFrameBackgroundJlabel")
 @Qualifier("mainFrameBackgroundJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameBackgroundJlabelCharacteristic extends GradientLoadInterface implements BaseCharacteristic<JLabel>{
+public class MainFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<GradientLoadInterface>{
 	private static final long serialVersionUID = 4040037367225492924L;
+	
+	private GradientLoadInterface gradientLoadInterface;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
 	
-	public MainFrameBackgroundJlabelCharacteristic() {}
+	public GradientLoadInterface get(){
+		return gradientLoadInterface;
+	}
 	
 	@Override
 	@Bean(name="mainFrameBackgroundJlabelCharacteristic")
 	@Lazy(true)
-	public Optional<JLabel> characteristic() {
+	public Optional<GradientLoadInterface> characteristic() {
 		try {
+			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("MAIN_INTERFACE_BACKGROUND")).get());
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return Optional.of(this);
+		return Optional.of(gradientLoadInterface);
 	}
 	
 	private void initialization() throws IOException {
-		super.readImage(systemParameter.get(Optional.of("MAIN_INTERFACE_BACKGROUND")));
-		this.setBounds(0, 0,image.getWidth(), image.getHeight());
+		gradientLoadInterface.setBounds(0, 0,gradientLoadInterface.image.getWidth(), gradientLoadInterface.image.getHeight());
+		gradientLoadInterface.setOpaque(true);
 	}
 }

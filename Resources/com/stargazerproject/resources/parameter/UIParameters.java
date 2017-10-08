@@ -18,9 +18,6 @@ public class UIParameters {
 	/** @illustrate 全局根路径 **/
 	private static final String BasePath = System.getProperty("user.dir") + "/StargazerUIAssaultLily/";
 
-	/** @illustrate 是否进行了集群配置 **/
-	private static final String CluStar_Cache_Initialize = "false";
-
 	//言语及区域配置 Start
 	/** @illustrate I18N全局语言配置 **/
 	private static final String I18N_Initialize_PropertiesPath = "StargazerI18N_en.properties";
@@ -28,10 +25,10 @@ public class UIParameters {
 	
 	//UI配置 Start
 	/** @illustrate 界面宽 **/
-	private static final String FRAME_SIZE_WIDTH = "1024";
+	private static final String FRAME_SIZE_WIDTH = "1824";
 	
 	/** @illustrate 界面高 **/
-	private static final String FRAME_SIZE_HIGTH = "1024";
+	private static final String FRAME_SIZE_HIGTH = "617";
 	
 	/** @illustrate 加载进度页面背景 **/
 	private static final String LOADING_INTERFACE_BACKGROUND = "Loading.png";

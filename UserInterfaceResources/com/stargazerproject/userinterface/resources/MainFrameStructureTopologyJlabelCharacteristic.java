@@ -24,34 +24,34 @@ import com.stargazerproject.model.util.ParameterStringUtil;
 @Component(value="MainFrameStructureTopologyJlabel")
 @Qualifier("MainFrameStructureTopologyJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameStructureTopologyJlabelCharacteristic extends GradientLoadInterface implements BaseCharacteristic<JLabel>{
+public class MainFrameStructureTopologyJlabelCharacteristic implements BaseCharacteristic<JLabel>{
 	private static final long serialVersionUID = 5010683231088848230L;
 	
+	private GradientLoadInterface gradientLoadInterface;
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
-	
-	private MainFrameStructureTopologyJlabelCharacteristic() {}
 	
 	@Override
 	@Bean(name="mainFrameStructureTopologyJlabelCharacteristic")
 	@Lazy(true)
 	public Optional<JLabel> characteristic() {
 		try {
+			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("Main_Frame_StructureTopology_Path")).get());
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return Optional.of(this);
+		return Optional.of(gradientLoadInterface);
 	}
 	
 	private void initialization() throws IOException {
-		super.readImage(systemParameter.get(Optional.of("StructureTopology.png")));
+		gradientLoadInterface.readImage(systemParameter.get(Optional.of("Main_Frame_StructureTopology_Path")));
 		initMainFrameLogoJlabel();
 	}
 	
 	private void initMainFrameLogoJlabel(){
 		int structureTopologyJlabelLocation[] = ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("Main_Frame_StructureTopology_Location")), Optional.of(","), Optional.of(4)).get();
-		this.setBounds(structureTopologyJlabelLocation[0], structureTopologyJlabelLocation[1], structureTopologyJlabelLocation[2], structureTopologyJlabelLocation[3]);
+		gradientLoadInterface.setBounds(structureTopologyJlabelLocation[0], structureTopologyJlabelLocation[1], structureTopologyJlabelLocation[2], structureTopologyJlabelLocation[3]);
 	}
 }

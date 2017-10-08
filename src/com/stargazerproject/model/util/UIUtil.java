@@ -1,4 +1,4 @@
-package com.stargazerproject.ui.util;
+package com.stargazerproject.model.util;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,9 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.text.Document;
-
-import com.stargazerproject.ui.assembly.impl.ConsoleTextPane;
-import com.stargazerproject.ui.assembly.impl.RightConsoleTextPane;
 
 
 /**
@@ -81,8 +78,8 @@ public class UIUtil {
                     		consoleTextPane.setText("");
                     	}
                         boolean caretAtEnd = consoleTextPane.getCaretPosition() == consoleDocument.getLength() ? true : false;
-                        ConsoleTextPane.getInstance().insertLogo();
-                        ConsoleTextPane.getInstance().insertMessage(consoleContent);
+//                        MainFrameConsoleTextPaneCharacteristic.getInstance().insertLogo();
+//                        MainFrameConsoleTextPaneCharacteristic.getInstance().insertMessage(consoleContent);
                         if(caretAtEnd)
                         	consoleTextPane.setCaretPosition(consoleDocument.getLength());
                     }
@@ -116,8 +113,8 @@ public class UIUtil {
                     		consoleTextPane.setText("");
                     	}
                         boolean caretAtEnd = consoleTextPane.getCaretPosition() == consoleDocument.getLength() ? true : false;
-                        RightConsoleTextPane.getInstance().insertLogo();
-                        RightConsoleTextPane.getInstance().insertMessage(consoleContent);
+//                        RightConsoleTextPane.getInstance().insertLogo();
+//                        RightConsoleTextPane.getInstance().insertMessage(consoleContent);
 
                         if(caretAtEnd)
                         	consoleTextPane.setCaretPosition(consoleDocument.getLength());

@@ -1,4 +1,4 @@
-package com.stargazerproject.model.util;
+package com.stargazer.ui.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,6 +22,7 @@ public class LoopedStreams {
 				pipedOS.close();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
+				System.exit(1);
 			}
 		}
 	};
@@ -33,6 +34,7 @@ public class LoopedStreams {
 				super.close();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
+				System.exit(1);
 			}
 		}
 	};
@@ -57,6 +59,7 @@ public class LoopedStreams {
 							pipedOS.write(buffer, 0, buffer.length);
 						} catch (IOException e) {
 							System.err.println(e.getMessage());
+							System.exit(1);
 						}
 					} else
 						try {

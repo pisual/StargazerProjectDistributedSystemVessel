@@ -1,8 +1,6 @@
-package com.stargazerproject.ui.util;
+package com.stargazerproject.model.util;
 
 import java.awt.Color;
-
-import com.stargazerproject.parameter.impl.SystemParameter;
 
 /**
  * 颜色控制工具
@@ -22,10 +20,4 @@ public class ColorUtil {
 		return color;
 	}
 	
-	/**从系统参数表中获取Int[]后构建Color类**/
-	public static Color getColorFromSystemmParanment(String paramantName){
-		int RGB[] = SystemParameterCahce.getInstance()
-				.getParamentByKeyInSystemMemoryTransformArray(paramantName);
-		return getColorFromIntRGBParament(RGB);
-	}
 }

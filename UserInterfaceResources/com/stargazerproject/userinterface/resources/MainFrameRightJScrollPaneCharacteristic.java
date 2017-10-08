@@ -23,7 +23,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="MainFrameRightJScrollPane")
 @Qualifier("MainFrameRightJScrollPane")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameRightJScrollPaneCharacteristic extends JScrollPane implements BaseCharacteristic<JScrollPane> {
+public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacteristic<JScrollPane> {
 	private static final long serialVersionUID = -6704110635604470232L;
 	
 	private Optional<JTextPane> jTextPane;
@@ -33,17 +33,17 @@ public class MainFrameRightJScrollPaneCharacteristic extends JScrollPane impleme
 	@Bean(name="mainFrameRightJScrollPaneCharacteristic")
 	@Lazy(true)
 	public Optional<JScrollPane> characteristic() {
-		jTextPane = BeanContainer.instance().getBean(Optional.of("rightConsoleTextPaneCharacteristic"), Optional.class);
-		initialization();
+		jTextPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightConsoleTextPaneCharacteristic"), Optional.class);
 		jScrollPane = new JScrollPane(jTextPane.get());
-		return Optional.of(this);
+		initialization();
+		return Optional.of(jScrollPane);
 	}
 	
 	public void initialization(){
 		jScrollPane.setOpaque(false);
 		jScrollPane.getViewport().setOpaque(false);
 		jScrollPane.setBorder(null);
-		jScrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
-		jScrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 }

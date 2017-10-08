@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.sun.awt.AWTUtilities;
 
 /**
  * 主要操作界面
@@ -23,30 +24,33 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 @Component(value="mainFrameJFrame")
 @Qualifier("mainFrameJFrame")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameJFrameCharacteristic extends JFrame implements BaseCharacteristic<JFrame>{
+public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>{
 	
 	private static final long serialVersionUID = -2355092246173538052L;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
-
-	private MainFrameJFrameCharacteristic() {}
+	
+	private JFrame jFrame;
 	
 	@Override
 	@Bean(name="mainFrameJFrameCharacteristic")
 	@Lazy(true)
 	public Optional<JFrame> characteristic() {
+		jFrame = new JFrame();
 		initialization();
-		return Optional.of(this);
+		return Optional.of(jFrame);
 	}
 
+	@SuppressWarnings("restriction")
 	private void initialization() {
 		Integer FRAME_SIZE_WIDTH = Integer.parseInt(systemParameter.get(Optional.of("FRAME_SIZE_WIDTH")).get());
 		Integer FRAME_SIZE_HIGTH = Integer.parseInt(systemParameter.get(Optional.of("FRAME_SIZE_HIGTH")).get());
-		setSize(FRAME_SIZE_WIDTH,FRAME_SIZE_HIGTH);
-		((JPanel) getContentPane()).setOpaque(Boolean.TRUE);
-		setUndecorated(true);
+		jFrame.setSize(FRAME_SIZE_WIDTH,FRAME_SIZE_HIGTH);
+		((JPanel)jFrame.getContentPane()).setOpaque(Boolean.TRUE);
+		jFrame.setUndecorated(true);
+		AWTUtilities.setWindowOpaque(jFrame, false);
 	}
 	
 }

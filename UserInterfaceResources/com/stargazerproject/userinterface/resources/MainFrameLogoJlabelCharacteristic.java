@@ -23,35 +23,35 @@ import com.stargazerproject.model.util.ParameterStringUtil;
 @Component(value="mainFrameLogoJlabel")
 @Qualifier("mainFrameLogoJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameLogoJlabelCharacteristic extends GradientLoadInterface implements BaseCharacteristic<JLabel>{
+public class MainFrameLogoJlabelCharacteristic implements BaseCharacteristic<JLabel>{
 	private static final long serialVersionUID = 5010683231088848230L;
+	
+	private GradientLoadInterface gradientLoadInterface;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
-	
-	public MainFrameLogoJlabelCharacteristic() {}
 	
 	@Override
 	@Bean(name="mainFrameLogoJlabelCharacteristic")
 	@Lazy(true)
 	public Optional<JLabel> characteristic() {
 		try {
+			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("Main_Frame_Logo_Path")).get());
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return Optional.of(this);
+		return Optional.of(gradientLoadInterface);
 	}
 
 	private void initialization() throws IOException {
-		super.readImage(systemParameter.get(Optional.of("Main_Frame_Logo_Path")));
 		initMainFrameLogoJlabel();
 	}
 	
 	private void initMainFrameLogoJlabel(){
 		int logoLocation[] = ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("Main_Frame_LogoLocation")), Optional.of(","), Optional.of(4)).get();
-		this.setBounds(logoLocation[0], logoLocation[1], logoLocation[2], logoLocation[3]);
+		gradientLoadInterface.setBounds(logoLocation[0], logoLocation[1], logoLocation[2], logoLocation[3]);
 	}
 
 }

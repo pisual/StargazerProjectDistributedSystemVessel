@@ -1,6 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -48,8 +49,6 @@ public class MainFrameRightConsoleTextPaneCharacteristic extends JTextPane imple
 	private static Style style;
 	private static SimpleAttributeSet simpleAttributeSet;
     private static Document consoleDocument;
-  
-	public MainFrameRightConsoleTextPaneCharacteristic() {}
 	
 	@Override
 	@Bean(name="mainFrameRightConsoleTextPaneCharacteristic")
@@ -68,6 +67,7 @@ public class MainFrameRightConsoleTextPaneCharacteristic extends JTextPane imple
 		this.setOpaque(false);
 		this.setFont(fontInitialization());
 		this.setForeground(fontColorInitialization());
+		this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		this.setBorder(BorderFactory.createEmptyBorder());
 	}
 	
@@ -79,15 +79,15 @@ public class MainFrameRightConsoleTextPaneCharacteristic extends JTextPane imple
 	}
 	
 	private Color fontColorInitialization(){
-		Color ConsoleText_FontColor = ColorUtil.getColorFromIntRGBParament(ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("ConsoleText_FontColor")), Optional.of(","), Optional.of(4)).get());
+		Color ConsoleText_FontColor = ColorUtil.getColorFromIntRGBParament(ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("ConsoleText_FontColor")), Optional.of(","), Optional.of(3)).get());
 		return ConsoleText_FontColor;
 	}
 
 
-	public void insertMessage(String text) {
+	public void insertMessage(Optional<String> text) {
 		try {
 			boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
-			styledDocument.insertString(styledDocument.getLength(), text + '\n', simpleAttributeSet);
+			styledDocument.insertString(styledDocument.getLength(), text.get() + '\n', simpleAttributeSet);
 			  if(caretAtEnd)
 				  this.setCaretPosition(consoleDocument.getLength());
 		} catch (BadLocationException e) {

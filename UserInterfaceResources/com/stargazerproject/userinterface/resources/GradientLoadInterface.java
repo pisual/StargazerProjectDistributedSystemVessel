@@ -6,10 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -18,16 +20,24 @@ import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 
 public class GradientLoadInterface extends JLabel implements ActionListener {
 	private static final long serialVersionUID = -3936803863823364655L;
-	
 	private int ANIMATION_FRAMES = 100;
 	private int ANIMATION_INTERVAL = 10;
 	private int startNumber = 0;
 	private int frameIndex;
 	private Timer timer;
-	protected BufferedImage image = null;
+	public BufferedImage image = null;
 	
-	public GradientLoadInterface() {}
-	
+	public GradientLoadInterface(String imgPath) {
+		super(new ImageIcon(imgPath));
+		try {
+			image = ImageIO.read(UserinterfaceResource.class.getResource(imgPath));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	protected void readImage(Optional<String> imagePath){
 		try {
 			image = ImageIO.read(UserinterfaceResource.class.getResource(imagePath.get()));

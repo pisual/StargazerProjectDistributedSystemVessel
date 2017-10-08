@@ -11,7 +11,7 @@ import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacte
 import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.ConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
 
 /**
@@ -25,7 +25,7 @@ public class MainFrame {
 	/**混合主界面**/
 	private static MainFrameJFrameCharacteristic baseFrame;
 	/**控制台**/
-	private static ConsoleTextPaneCharacteristic consoleTextPane;
+	private static MainFrameConsoleTextPaneCharacteristic consoleTextPane;
 	/**控制台**/
 	private static RightConsoleTextPane rightConsoleTextPane;
 	/**主界面滚动条**/
@@ -51,7 +51,7 @@ public class MainFrame {
 	
 	public MainFrame(){
 	//	baseFrame = BaseFrame.getInstance();
-		consoleTextPane = ConsoleTextPaneCharacteristic.getInstance();
+		consoleTextPane = MainFrameConsoleTextPaneCharacteristic.getInstance();
 		rightConsoleTextPane = RightConsoleTextPane.getInstance();
 		rightJScrollPane = MainFrameRightJScrollPane.getInstance(rightConsoleTextPane);
 		jScrollPane = MainFrameJScrollPaneCharacteristic.getInstance(consoleTextPane);

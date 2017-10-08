@@ -34,15 +34,13 @@ public class MainFrameLayoutCharacteristic implements BaseCharacteristic<MainFra
 	private Optional<JScrollPane> jScrollPane;
 	private Optional<JScrollPane> rightJScrollPane;
 	
-	public MainFrameLayoutCharacteristic() {}
-	
 	@Override
 	@Bean(name="mainFrameLayoutCharacteristic")
 	@Lazy(true)
 	public Optional<MainFrameLayoutCharacteristic> characteristic() {
 		jFrame = BeanContainer.instance().getBean(Optional.of("mainFrameJFrameCharacteristic"), Optional.class);
-		jScrollPane = BeanContainer.instance().getBean(Optional.of("consoleTextPaneCharacteristic"), Optional.class);
-		rightJScrollPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightConsoleTextPaneCharacteristic"), Optional.class);
+		jScrollPane = BeanContainer.instance().getBean(Optional.of("mainFrameJScrollPaneCharacteristic"), Optional.class);
+		rightJScrollPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightJScrollPaneCharacteristic"), Optional.class);
 		initialization(jFrame.get(), jScrollPane.get(), rightJScrollPane.get());
 		return Optional.of(this);
 	}

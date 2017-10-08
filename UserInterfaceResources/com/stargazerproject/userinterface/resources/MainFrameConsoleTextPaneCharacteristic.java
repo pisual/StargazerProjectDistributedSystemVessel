@@ -1,6 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -34,10 +35,10 @@ import com.stargazerproject.resources.userinterface.UserinterfaceResource;
  * 
  * @author Felixerio
  */
-@Component(value="consoleTextPane")
-@Qualifier("consoleTextPane")
+@Component(value="mainFrameConsoleTextPane")
+@Qualifier("mainFrameConsoleTextPane")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ConsoleTextPaneCharacteristic extends JTextPane implements BaseCharacteristic<JTextPane>{
+public class MainFrameConsoleTextPaneCharacteristic extends JTextPane implements BaseCharacteristic<JTextPane>{
 	private static final long serialVersionUID = 7309857723035362456L;
 	
 	@Autowired
@@ -48,11 +49,9 @@ public class ConsoleTextPaneCharacteristic extends JTextPane implements BaseChar
 	private static Style style;
 	private static SimpleAttributeSet simpleAttributeSet;
     private static Document consoleDocument;
-  
-	public ConsoleTextPaneCharacteristic() {}
 	
 	@Override
-	@Bean(name="consoleTextPaneCharacteristic")
+	@Bean(name="mainFrameConsoleTextPaneCharacteristic")
 	@Lazy(true)
 	public Optional<JTextPane> characteristic() {
 		initialization();
@@ -74,7 +73,7 @@ public class ConsoleTextPaneCharacteristic extends JTextPane implements BaseChar
 	private Font fontInitialization(){
 		String Main_Frame_Console_StandbyFontPath = systemParameter.get(Optional.of("Main_Frame_Console_StandbyFontPath")).get();
 		String Main_Frame_Console_FontName = systemParameter.get(Optional.of("Main_Frame_Console_FontName")).get();
-		Font ConsoleTextFont = FontUtil.getConsoleFont(Main_Frame_Console_FontName,Main_Frame_Console_StandbyFontPath);
+		Font ConsoleTextFont = FontUtil.getConsoleFont(Main_Frame_Console_FontName, Main_Frame_Console_StandbyFontPath);
 		return ConsoleTextFont;
 	}
 	
@@ -84,10 +83,10 @@ public class ConsoleTextPaneCharacteristic extends JTextPane implements BaseChar
 	}
 
 
-	public void insertMessage(String text) {
+	public void insertMessage(Optional<String> text) {
 		try {
 			boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
-			styledDocument.insertString(styledDocument.getLength(), text + '\n', simpleAttributeSet);
+			styledDocument.insertString(styledDocument.getLength(), text.get() + '\n', simpleAttributeSet);
 			  if(caretAtEnd)
 				  this.setCaretPosition(consoleDocument.getLength());
 		} catch (BadLocationException e) {
