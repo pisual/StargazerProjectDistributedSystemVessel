@@ -1,5 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.model.util.UIUtil;
+import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.sun.awt.AWTUtilities;
 
 /**
@@ -21,12 +25,11 @@ import com.sun.awt.AWTUtilities;
  * 
  *@author Felixerio
  */
+@SuppressWarnings("restriction")
 @Component(value="mainFrameJFrame")
 @Qualifier("mainFrameJFrame")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>{
-	
-	private static final long serialVersionUID = -2355092246173538052L;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
@@ -43,7 +46,6 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 		return Optional.of(jFrame);
 	}
 
-	@SuppressWarnings("restriction")
 	private void initialization() {
 		Integer FRAME_SIZE_WIDTH = Integer.parseInt(systemParameter.get(Optional.of("FRAME_SIZE_WIDTH")).get());
 		Integer FRAME_SIZE_HIGTH = Integer.parseInt(systemParameter.get(Optional.of("FRAME_SIZE_HIGTH")).get());
@@ -51,6 +53,8 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 		((JPanel)jFrame.getContentPane()).setOpaque(Boolean.TRUE);
 		jFrame.setUndecorated(true);
 		AWTUtilities.setWindowOpaque(jFrame, false);
+		UIUtil.changeFrameToCenter(jFrame);
+		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(UserinterfaceResource.class.getResource(systemParameter.get(Optional.of("Main_Frame_IconImage")).get())));
 	}
 	
 }

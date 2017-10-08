@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.sun.awt.AWTUtilities;
 
 /**
  *主界面背景
@@ -24,17 +23,12 @@ import com.sun.awt.AWTUtilities;
 @Qualifier("mainFrameBackgroundJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<GradientLoadInterface>{
-	private static final long serialVersionUID = 4040037367225492924L;
 	
 	private GradientLoadInterface gradientLoadInterface;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
-	
-	public GradientLoadInterface get(){
-		return gradientLoadInterface;
-	}
 	
 	@Override
 	@Bean(name="mainFrameBackgroundJlabelCharacteristic")

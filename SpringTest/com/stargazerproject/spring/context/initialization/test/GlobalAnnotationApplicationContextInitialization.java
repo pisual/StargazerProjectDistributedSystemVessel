@@ -39,14 +39,6 @@ import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
-import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
-import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquire;
-import com.stargazerproject.messagequeue.resources.OrderMessageQueueControl;
-import com.stargazerproject.messagequeue.resources.OrderMessageQueuePush;
-import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
-import com.stargazerproject.messagequeue.server.impl.OrderMessageQueueServer;
-import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueListener;
-import com.stargazerproject.messagequeue.server.manage.OrderMessageQueueManage;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.OrderExportQueue;
@@ -81,6 +73,31 @@ import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
+import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
+import com.stargazerproject.userinterface.resources.LogoClickListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
+import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
+import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
+import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
+import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
+import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceManage;
 
 @SpringBootApplication
 @PropertySource(value="Spring.properties")
@@ -99,15 +116,15 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterCacheServerManage.class,
 
      /******Depend Configuration Class******/
-		/**Depend OrderQueueMessage**/
-		OrderMessageQueue.class,
-		OrderMessageQueueServer.class,
-		OrderMessageQueueListener.class,
-		OrderMessageQueueManage.class,
-		OrderMessageQueueAcquire.class,
-		OrderMessageQueueControl.class,
-		OrderMessageQueuePush.class,
-		OrderMessageQueueShall.class,
+//		/**Depend OrderQueueMessage**/
+//		OrderMessageQueue.class,
+//		OrderMessageQueueServer.class,
+//		OrderMessageQueueListener.class,
+//		OrderMessageQueueManage.class,
+//		OrderMessageQueueAcquire.class,
+//		OrderMessageQueueControl.class,
+//		OrderMessageQueuePush.class,
+//		OrderMessageQueueShall.class,
 		
 		/**Depend BigCacheIndexCahce**/
 		BigCacheIndexCahce.class,
@@ -192,7 +209,34 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventExecuteImpl.class,
 		
 		StandardCellsTransactionImpl.class,
-		HystrixConfigurationS.class
+		HystrixConfigurationS.class,
+		
+		/**User Interface Service**/
+		MainFrameBackgroundJlabelCharacteristic.class,
+		MainFrameConsoleTextPaneCharacteristic.class,
+		MainFrameJFrameCharacteristic.class,
+		MainFrameJScrollPaneCharacteristic.class,
+		MainFrameLayoutCharacteristic.class,
+		MainFrameLogoJlabelCharacteristic.class,
+		MainFrameRightConsoleTextPaneCharacteristic.class,
+		MainFrameRightJScrollPaneCharacteristic.class,
+		MainFrameStructureTopologyJlabelCharacteristic.class,
+		MainFrameShall.class,
+		LogoClickListenerCharacteristic.class,
+		MainFrameMouseAdapterListenerCharacteristic.class,
+		MainFrameMouseMotionAdapterListenerCharacteristic.class,
+		MainFramePointCharacteristic.class,
+		LoadingBaseFrameJDialogCharacteristic.class,
+		LoadingJProgressBarCharacteristic.class,
+		LoadingProgressInfoCharacteristic.class,
+		LoadingFrameBackgroundJlabelCharacteristic.class,
+		LoadingFrameLayoutCharacteristic.class,
+		LoadingFrameShall.class,
+		AssaultLilysUserInterfaceImpl.class,
+		AssaultLilysUserInterfaceShall.class,
+		FrameUserInterfaceServer.class,
+		FrameUserInterfaceListener.class,
+		FrameUserInterfaceManage.class
 		);
 	} 
 	

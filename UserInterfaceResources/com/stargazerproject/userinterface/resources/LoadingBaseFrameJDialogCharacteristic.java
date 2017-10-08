@@ -1,5 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
+import java.awt.Toolkit;
+
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.sun.awt.AWTUtilities;
 
 /**
@@ -21,8 +24,9 @@ import com.sun.awt.AWTUtilities;
  *@email pisual@163.com dsnsuva@163.com dsnsuva@gmail.com
  *@author Felixerio FelixSion
  */
-@Component(value="mainFrameBackgroundJlabel")
-@Qualifier("mainFrameBackgroundJlabel")
+@SuppressWarnings("restriction")
+@Component(value="loadingBaseFrameJDialog")
+@Qualifier("loadingBaseFrameJDialog")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements BaseCharacteristic<JDialog>{
 	private static final long serialVersionUID = 5171904966548890916L;
@@ -43,5 +47,6 @@ public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements Ba
 		this.setSize(295,296);
 		this.setBounds(839, 403, 296, 296);
 		AWTUtilities.setWindowOpaque(this, false);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserinterfaceResource.class.getResource("logo.png")));
 	}
 }

@@ -1,7 +1,6 @@
 package com.stargazerproject.userinterface.resources;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -28,6 +27,7 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.model.util.ColorUtil;
 import com.stargazerproject.model.util.FontUtil;
 import com.stargazerproject.model.util.ParameterStringUtil;
+import com.stargazerproject.model.util.UIUtil;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 
 /**
@@ -68,6 +68,7 @@ public class MainFrameConsoleTextPaneCharacteristic extends JTextPane implements
 		this.setFont(fontInitialization());
 		this.setForeground(fontColorInitialization());
 		this.setBorder(BorderFactory.createEmptyBorder());
+		UIUtil.startConsoleReaderThread(this);
 	}
 	
 	private Font fontInitialization(){

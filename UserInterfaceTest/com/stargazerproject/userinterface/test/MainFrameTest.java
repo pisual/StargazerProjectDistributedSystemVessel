@@ -1,6 +1,10 @@
 package com.stargazerproject.userinterface.test;
 
+import java.util.concurrent.TimeUnit;
+
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.impl.EventExecuteImpl;
@@ -75,22 +79,41 @@ import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
+import com.stargazerproject.userinterface.LoadingUserInterface;
 import com.stargazerproject.userinterface.extend.AssaultLilysUserInterface;
+import com.stargazerproject.userinterface.extend.MainFrameAssaultLilysUserInterface;
+import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
+import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
+import com.stargazerproject.userinterface.resources.LogoClickListenerCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
+import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
 import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
+import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
+import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
+import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceManage;
 
+@FixMethodOrder(MethodSorters.JVM)
 public class MainFrameTest {
 	
 	public static void ApplicationContextInitialize(String args[]){
-		System.setProperty("java. awt.headless", "true");
+		System.setProperty("java.awt.headless", "false");
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 	    args,
 		/**Itself Configuration Class**/
@@ -102,15 +125,6 @@ public class MainFrameTest {
 		SystemParameterCacheServerManage.class,
 
      /******Depend Configuration Class******/
-//		/**Depend OrderQueueMessage**/
-//		OrderMessageQueue.class,
-//		OrderMessageQueueServer.class,
-//		OrderMessageQueueListener.class,
-//		OrderMessageQueueManage.class,
-//		OrderMessageQueueAcquire.class,
-//		OrderMessageQueueControl.class,
-//		OrderMessageQueuePush.class,
-//		OrderMessageQueueShall.class,
 		
 		/**Depend BigCacheIndexCahce**/
 		BigCacheIndexCahce.class,
@@ -206,37 +220,51 @@ public class MainFrameTest {
 		MainFrameRightConsoleTextPaneCharacteristic.class,
 		MainFrameRightJScrollPaneCharacteristic.class,
 		MainFrameStructureTopologyJlabelCharacteristic.class,
-		MainFrameShall.class
+		MainFrameShall.class,
+		LogoClickListenerCharacteristic.class,
+		MainFrameMouseAdapterListenerCharacteristic.class,
+		MainFrameMouseMotionAdapterListenerCharacteristic.class,
+		MainFramePointCharacteristic.class,
+		LoadingBaseFrameJDialogCharacteristic.class,
+		LoadingJProgressBarCharacteristic.class,
+		LoadingProgressInfoCharacteristic.class,
+		LoadingFrameBackgroundJlabelCharacteristic.class,
+		LoadingFrameLayoutCharacteristic.class,
+		LoadingFrameShall.class,
+		AssaultLilysUserInterfaceImpl.class,
+		AssaultLilysUserInterfaceShall.class,
+		FrameUserInterfaceServer.class,
+		FrameUserInterfaceListener.class,
+		FrameUserInterfaceManage.class
 		);
 	}
 	
 	@Test
 	public void SpringInit(){
-		System.setProperty("java. awt.headless", "true");
+		System.setProperty("java.awt.headless", "false");
 		String args[] = {"debug"};
-		ApplicationContextInitialize(args);
+	//	ApplicationContextInitialize(args);
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 
 	@Test
 	public void serviceStartTest(){
-		System.setProperty("java. awt.headless", "true");
+		System.setProperty("java.awt.headless", "false");
 		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
 		serviceControl.startAllservice();
 	}
 	
-//	@Test
-//	public void objectInit(){
-//		log = BeanContainer.instance().getBean(Optional.of("logRecord"), LogMethod.class);
-//	}
-	public static void main(String[] args) {
-
+	@Test
+	public void startUserInterfaceInit(){
 		System.setProperty("java.awt.headless", "false");
-		ApplicationContextInitialize(args);
-		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
-		serviceControl.startAllservice();
 		Optional<AssaultLilysUserInterface> mainFrameShall = BeanContainer.instance().getBean(Optional.of("mainFrameShallCharacteristic"), Optional.class);
 		mainFrameShall.get().startMain();
-		
-		
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("java.awt.headless", "false");
+		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
+		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"),ServiceControl.class);
+		serviceControl.startAllservice();
 	}
 }

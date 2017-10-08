@@ -25,7 +25,6 @@ import com.stargazerproject.model.util.ParameterStringUtil;
 @Qualifier("MainFrameStructureTopologyJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameStructureTopologyJlabelCharacteristic implements BaseCharacteristic<JLabel>{
-	private static final long serialVersionUID = 5010683231088848230L;
 	
 	private GradientLoadInterface gradientLoadInterface;
 	@Autowired

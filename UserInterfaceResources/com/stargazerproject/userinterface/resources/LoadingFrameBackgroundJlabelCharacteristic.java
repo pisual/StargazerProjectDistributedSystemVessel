@@ -23,32 +23,30 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 @Component(value="loadingFrameBackgroundJlabel")
 @Qualifier("loadingFrameBackgroundJlabel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingFrameBackgroundJlabelCharacteristic extends GradientLoadInterface implements BaseCharacteristic<JLabel>{
-	private static final long serialVersionUID = 4040037367225492924L;
+public class LoadingFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<JLabel>{
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
+	
+	private GradientLoadInterface gradientLoadInterface;
 	
 	@Override
 	@Bean(name="loadingFrameBackgroundJlabelCharacteristic")
 	@Lazy(true)
 	public Optional<JLabel> characteristic() {
 		try {
+			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("LOADING_INTERFACE_BACKGROUND")).get());
+			initialization();
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return Optional.of(this);
+		return Optional.of(gradientLoadInterface);
 	}
 	
 	private void initialization() throws IOException {
-		super.readImage(systemParameter.get(Optional.of("LOADING_INTERFACE_BACKGROUND")));
-		initLoadingFrameBackgroundJlabel();
-	}
-	
-	private void initLoadingFrameBackgroundJlabel(){
-		super.setBounds(0, 0,image.getWidth(), image.getHeight());
+		gradientLoadInterface.setBounds(0, 0,gradientLoadInterface.image.getWidth(), gradientLoadInterface.image.getHeight());
 	}
 	
 }

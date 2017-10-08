@@ -24,11 +24,11 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Qualifier("MainFrameRightJScrollPane")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacteristic<JScrollPane> {
-	private static final long serialVersionUID = -6704110635604470232L;
 	
 	private Optional<JTextPane> jTextPane;
 	private JScrollPane jScrollPane;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Bean(name="mainFrameRightJScrollPaneCharacteristic")
 	@Lazy(true)
