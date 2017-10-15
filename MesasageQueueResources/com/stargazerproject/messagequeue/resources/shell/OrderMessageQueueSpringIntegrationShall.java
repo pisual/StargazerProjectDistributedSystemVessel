@@ -2,6 +2,7 @@ package com.stargazerproject.messagequeue.resources.shell;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -15,34 +16,35 @@ import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.messagequeue.MessageQueuePush;
 import com.stargazerproject.order.impl.Order;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="orderMessageQueueShall")
 @Qualifier("orderMessageQueueShall")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueShall implements MessageQueue<Order>, BaseCharacteristic<MessageQueue<Order>>{
+public class OrderMessageQueueSpringIntegrationShall implements MessageQueue<Order>, BaseCharacteristic<MessageQueue<Order>>{
 
-	private Optional<MessageQueueAcquire<Order>> messageQueueAcquire;
+	@Autowired
+	@Qualifier("orderMessageQueueAcquire")
+	private MessageQueueAcquire<Order> messageQueueAcquire;
 	
-	private Optional<MessageQueuePush<Order>> messageQueuePush;
+	@Autowired
+	@Qualifier("orderMessageQueuePush")
+	private MessageQueuePush<Order> messageQueuePush;
 	
 	@Override
 	@Bean(name="orderMessageQueueCharacteristicInitialize")
 	@Lazy(true)
 	public Optional<MessageQueue<Order>> characteristic() {
-		messageQueueAcquire= BeanContainer.instance().getBean(Optional.of("orderMessageQueueAcquireCharacteristic"),Optional.class);
-		messageQueuePush= BeanContainer.instance().getBean(Optional.of("orderMessageQueuePushCharacteristic"),Optional.class);
 		return Optional.of(this);
 	}
 
 	@Override
 	public Optional<List<Order>> get(Optional<Integer> messageNumber) {
-		return messageQueueAcquire.get().get(messageNumber);
+		return messageQueueAcquire.get(messageNumber);
 	}
 	
 	@Override
 	public void put(Optional<List<Order>> t) {
-		messageQueuePush.get().put(t);
+		messageQueuePush.put(t);
 	}
 
 	@Override

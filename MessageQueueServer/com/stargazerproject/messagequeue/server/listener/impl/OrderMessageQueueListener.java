@@ -18,7 +18,7 @@ public class OrderMessageQueueListener extends StandardWorkInServiceState implem
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("orderMessageQueueListener","localLogServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : orderMessageQueueListener Server Starting");
 	}
 	

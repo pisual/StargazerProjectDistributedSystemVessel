@@ -60,5 +60,8 @@ public class QueueParameters {
 		/**消息队列集群地址**/
 		/** @illustrate 参数类 **/
 		private static final String Kafka_Binder_Brokers = "127.0.0.1:9092";
+		/**消息队列Zookeeper地址**/
+		/** @illustrate 参数类 **/
+		private static final String Kafka_Zookeeper_Brokers = "127.0.0.1:9092";
 		//Kafka消息队配置 End
 }

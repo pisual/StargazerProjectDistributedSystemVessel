@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.messagequeue.MessageQueue;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueSpringIntegrationAcquire;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueControlCharacteristic;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueSpringIntegrationPush;
+import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
@@ -36,6 +40,7 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
+		 orderMessageQueueSpringInitialization();
 		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
 		orderMessageQueueShell.initialize(orderMessageQueue);
 	}
@@ -43,5 +48,12 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	public void shutDown() {
+	}
+	
+	private void orderMessageQueueSpringInitialization(){
+		BeanContainer.instance().setBean(Optional.of("orderMessageQueueAcquire"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueSpringIntegrationAcquire.class);
+		BeanContainer.instance().setBean(Optional.of("orderMessageQueueControl"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueControlCharacteristic.class);
+		BeanContainer.instance().setBean(Optional.of("orderMessageQueuePush"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueSpringIntegrationPush.class);
+		BeanContainer.instance().setBean(Optional.of("orderMessageQueueShall"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueShall.class);
 	}
 }

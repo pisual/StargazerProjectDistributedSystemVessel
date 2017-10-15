@@ -3,6 +3,7 @@ package com.stargazerproject.messagequeue.resources;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -32,7 +33,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="orderMessageQueuePush")
 @Qualifier("orderMessageQueuePush")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueuePush implements MessageQueuePush<Order>{
+public class OrderMessageQueueSpringIntegrationPush implements MessageQueuePush<Order>{
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")

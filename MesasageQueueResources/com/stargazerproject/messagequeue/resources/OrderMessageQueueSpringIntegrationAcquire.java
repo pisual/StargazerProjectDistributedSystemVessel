@@ -35,7 +35,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="orderMessageQueueAcquire")
 @Qualifier("orderMessageQueueAcquire")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueAcquire implements MessageQueueAcquire<Order>{
+public class OrderMessageQueueSpringIntegrationAcquire implements MessageQueueAcquire<Order>{
 
 	/**
 	* @name systemParameter
@@ -57,7 +57,7 @@ public class OrderMessageQueueAcquire implements MessageQueueAcquire<Order>{
 	
 	@Bean
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(3);
         factory.getContainerProperties().setPollTimeout(3000);
