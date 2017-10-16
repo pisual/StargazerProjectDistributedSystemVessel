@@ -1,4 +1,4 @@
-package com.stargazerproject.model.util;
+package com.stargazerproject.util;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;

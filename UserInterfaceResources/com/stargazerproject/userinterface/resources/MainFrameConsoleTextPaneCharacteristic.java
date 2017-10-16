@@ -24,11 +24,11 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.model.util.ColorUtil;
-import com.stargazerproject.model.util.FontUtil;
-import com.stargazerproject.model.util.ParameterStringUtil;
-import com.stargazerproject.model.util.UIUtil;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
+import com.stargazerproject.util.ColorUtil;
+import com.stargazerproject.util.FontUtil;
+import com.stargazerproject.util.ParameterStringUtil;
+import com.stargazerproject.util.UIUtil;
 
 /**
  * 主界面控制台输出

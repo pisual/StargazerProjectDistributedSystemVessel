@@ -3,9 +3,9 @@ package com.stargazerproject.order.impl;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
-import com.stargazerproject.model.util.Clone;
 import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.State;
+import com.stargazerproject.util.Clone;
 
 /** 
  *  @name 缓存接口

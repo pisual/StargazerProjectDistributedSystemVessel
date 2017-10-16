@@ -41,6 +41,14 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	@Qualifier("uiParameters")
 	protected Object uiParameters;
 	
+	@Autowired
+	@Qualifier("negotiateParameters")
+	protected Object negotiateParameters;
+	
+	@Autowired
+	@Qualifier("systemParameters")
+	protected Object systemParameters;
+	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
@@ -55,6 +63,8 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 		getParamentListFromClass(cacheParameters);
 		getParamentListFromClass(queueParameters);
 		getParamentListFromClass(uiParameters);
+		getParamentListFromClass(systemParameters);
+		getParamentListFromClass(negotiateParameters);
 		return Optional.of(systemParameterCahceCharacteristic);
 	}
 	

@@ -1,4 +1,4 @@
-package com.stargazerproject.model.util;
+package com.stargazerproject.util;
 
 public class FormatTime {
 	public static String formatTime(Long ms) {  

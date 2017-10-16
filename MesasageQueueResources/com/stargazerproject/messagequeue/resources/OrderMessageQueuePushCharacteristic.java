@@ -60,9 +60,8 @@ public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Ord
 		Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, systemParameter.get(Optional.of("Kafka_Binder_Brokers")).get());
         props.put(ProducerConfig.CLIENT_ID_CONFIG, systemParameter.get(Optional.of("Cells_UUID")).get());
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, systemParameter.get(Optional.of("Cells_UUID")).get());
-	    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.IntegerDeserializer");
-	    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.BytesSerializer");
 		return props;
 	}
 

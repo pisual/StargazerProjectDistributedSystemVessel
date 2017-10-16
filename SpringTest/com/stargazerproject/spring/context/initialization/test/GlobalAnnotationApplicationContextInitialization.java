@@ -40,9 +40,10 @@ import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
-import com.stargazerproject.messagequeue.resources.OrderMessageQueueSpringIntegrationAcquire;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueueCallBackCharacteristic;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueControlCharacteristic;
-import com.stargazerproject.messagequeue.resources.OrderMessageQueueSpringIntegrationPush;
+import com.stargazerproject.messagequeue.resources.OrderMessageQueuePushCharacteristic;
 import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
 import com.stargazerproject.messagequeue.server.impl.OrderMessageQueueServer;
 import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueListener;
@@ -76,7 +77,9 @@ import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.queue.server.manage.OrderExportQueueServerManage;
 import com.stargazerproject.resources.parameter.CacheParameters;
+import com.stargazerproject.resources.parameter.NegotiateParameters;
 import com.stargazerproject.resources.parameter.QueueParameters;
+import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
@@ -97,6 +100,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterBuiltInCacheServer.class,
 		SystemParameterCacheServerListener.class,
 		SystemParameterCacheServerManage.class,
+		NegotiateParameters.class,
+		SystemParameters.class,
 
      /******Depend Configuration Class******/
 		/**Depend OrderQueueMessage**/
@@ -105,12 +110,13 @@ public class GlobalAnnotationApplicationContextInitialization {
 		OrderMessageQueueListener.class,
 		OrderMessageQueueManage.class,
 		
-//		/**Depend OrderQueueMessage**/
-//		OrderMessageQueueAcquire.class,
-//		OrderMessageQueueControl.class,
-//		OrderMessageQueuePush.class,
-//		OrderMessageQueueShall.class,
-//		
+		/**Depend OrderQueueMessage**/
+		OrderMessageQueueCallBackCharacteristic.class,
+		OrderMessageQueueAcquireCharacteristic.class,
+		OrderMessageQueueControlCharacteristic.class,
+		OrderMessageQueuePushCharacteristic.class,
+		OrderMessageQueueShall.class,
+		
 		/**Depend BigCacheIndexCahce**/
 		BigCacheIndexCahce.class,
 		BigCacheIndexCahceCharacteristic.class,

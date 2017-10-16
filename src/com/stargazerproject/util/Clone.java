@@ -1,4 +1,4 @@
-package com.stargazerproject.model.util;
+package com.stargazerproject.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

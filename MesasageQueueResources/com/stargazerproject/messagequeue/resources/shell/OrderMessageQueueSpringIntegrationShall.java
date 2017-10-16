@@ -17,8 +17,8 @@ import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.messagequeue.MessageQueuePush;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderMessageQueueShall")
-@Qualifier("orderMessageQueueShall")
+@Component(value="orderMessageQueueSpringIntegrationShall")
+@Qualifier("orderMessageQueueSpringIntegrationShall")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderMessageQueueSpringIntegrationShall implements MessageQueue<Order>, BaseCharacteristic<MessageQueue<Order>>{
 
@@ -31,7 +31,7 @@ public class OrderMessageQueueSpringIntegrationShall implements MessageQueue<Ord
 	private MessageQueuePush<Order> messageQueuePush;
 	
 	@Override
-	@Bean(name="orderMessageQueueCharacteristicInitialize")
+	@Bean(name="orderMessageQueueSpringIntegrationInitialize")
 	@Lazy(true)
 	public Optional<MessageQueue<Order>> characteristic() {
 		return Optional.of(this);

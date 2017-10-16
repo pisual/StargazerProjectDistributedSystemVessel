@@ -30,6 +30,7 @@ public class OrderMessageQueueControlCharacteristic implements MessageQueueContr
 	
 	private ZkUtils zkUtils;
 	
+	
 	public OrderMessageQueueControlCharacteristic() {}
 	
 	@Override

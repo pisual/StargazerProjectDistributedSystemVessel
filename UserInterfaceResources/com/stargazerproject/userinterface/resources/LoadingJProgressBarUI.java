@@ -9,9 +9,9 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.model.util.ColorUtil;
-import com.stargazerproject.model.util.ParameterStringUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.util.ColorUtil;
+import com.stargazerproject.util.ParameterStringUtil;
 
 /**
  * 加载界面进度条UI

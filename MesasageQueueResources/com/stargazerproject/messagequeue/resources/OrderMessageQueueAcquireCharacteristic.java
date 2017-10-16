@@ -74,6 +74,8 @@ public class OrderMessageQueueAcquireCharacteristic implements MessageQueueAcqui
 	    props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
 	    props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
 	    props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100");
+	    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+	    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.BytesDeserializer");
 	    return props;
 	}
 	

@@ -40,7 +40,6 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
-		 orderMessageQueueSpringInitialization();
 		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
 		orderMessageQueueShell.initialize(orderMessageQueue);
 	}
@@ -50,10 +49,4 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	public void shutDown() {
 	}
 	
-	private void orderMessageQueueSpringInitialization(){
-		BeanContainer.instance().setBean(Optional.of("orderMessageQueueAcquire"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueSpringIntegrationAcquire.class);
-		BeanContainer.instance().setBean(Optional.of("orderMessageQueueControl"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueControlCharacteristic.class);
-		BeanContainer.instance().setBean(Optional.of("orderMessageQueuePush"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueSpringIntegrationPush.class);
-		BeanContainer.instance().setBean(Optional.of("orderMessageQueueShall"), Optional.of(com.stargazerproject.spring.container.model.Scope.SCOPE_SINGLETON), OrderMessageQueueShall.class);
-	}
 }

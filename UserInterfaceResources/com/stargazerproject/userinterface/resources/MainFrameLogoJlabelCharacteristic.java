@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.model.util.ParameterStringUtil;
+import com.stargazerproject.util.ParameterStringUtil;
 
 /**
  *操控头像 
