@@ -18,7 +18,7 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="negotiateCuratorFramework")
-@Qualifier("negotiateRetrnegotiateCuratorFrameworkyPolicy")
+@Qualifier("negotiateCuratorFramework")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateCuratorFrameworkCharacteristic implements BaseCharacteristic<CuratorFramework>{
 	

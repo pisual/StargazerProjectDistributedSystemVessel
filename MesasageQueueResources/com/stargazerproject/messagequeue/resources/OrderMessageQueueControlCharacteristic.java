@@ -6,11 +6,14 @@ import org.apache.kafka.common.security.JaasUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.impl.CacheObject;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.order.impl.Order;
@@ -22,7 +25,7 @@ import kafka.utils.ZkUtils;
 @Component(value="orderMessageQueueControl")
 @Qualifier("orderMessageQueueControl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueControlCharacteristic implements MessageQueueControl<Order>, BaseCharacteristic<MessageQueueControl<Order>>{
+public class OrderMessageQueueControlCharacteristic extends CacheObject<String, String> implements MessageQueueControl<Order>, BaseCharacteristic<MessageQueueControl<Order>>{
  
 	@Autowired
 	@Qualifier("systemParameterCahce")
@@ -30,25 +33,27 @@ public class OrderMessageQueueControlCharacteristic implements MessageQueueContr
 	
 	private ZkUtils zkUtils;
 	
-	
 	public OrderMessageQueueControlCharacteristic() {}
 	
 	@Override
+	@Bean(name="orderMessageQueueControlCharacteristic")
+	@Lazy(true)
 	public Optional<MessageQueueControl<Order>> characteristic() {
-		return null;
+		return Optional.of(this);
 	}
 	
 	@Override
-	public void join(Optional<String> messageQueueUrl) {
+	public void join() {
 		zkUtils = ZkUtils.apply(systemParameter.get(Optional.of("Kafka_Zookeeper_Brokers")).get(), 30000, 30000, JaasUtils.isZkSecurityEnabled());
-		AdminUtils.createTopic(zkUtils, messageQueueUrl.get(), 1, 1, new Properties(), RackAwareMode.Enforced$.MODULE$);
+		AdminUtils.createTopic(zkUtils, systemParameter.get(Optional.of("Cells_UUID")).get(), 1, 1, new Properties(), RackAwareMode.Enforced$.MODULE$);
 		zkUtils.close();
+		put(Optional.of("Topic"), systemParameter.get(Optional.of("Cells_UUID")));
 	}
 
 	@Override
 	public void out() {
 		zkUtils = ZkUtils.apply(systemParameter.get(Optional.of("Kafka_Zookeeper_Brokers")).get(), 30000, 30000, JaasUtils.isZkSecurityEnabled());
-		AdminUtils.deleteTopic(zkUtils, "t1");
+		AdminUtils.deleteTopic(zkUtils, get(Optional.of("Topic")).get());
 		zkUtils.close();
 	}
 

@@ -42,11 +42,19 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
 		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
 		orderMessageQueueShell.initialize(orderMessageQueue);
+		
+		/**Topic Initialization**/
+	//	orderMessageQueue.get().join();
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
+	@SuppressWarnings("unchecked")
 	public void shutDown() {
+		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
+		
+		/**Topic Destroy**/
+		orderMessageQueue.get().out();;
 	}
 	
 }

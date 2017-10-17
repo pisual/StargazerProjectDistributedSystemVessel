@@ -48,7 +48,7 @@ public class OrderMessageQueueSpringIntegrationShall implements MessageQueue<Ord
 	}
 
 	@Override
-	public void join(Optional<String> messageQueueUrl) {
+	public void join() {
 		// TODO Auto-generated method stub
 		
 	}

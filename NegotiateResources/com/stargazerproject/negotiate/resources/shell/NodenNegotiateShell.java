@@ -20,8 +20,8 @@ import com.stargazerproject.negotiate.NegotiateNodeMethod;
 import com.stargazerproject.negotiate.NegotiateRegisteredWatcher;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="nodenNegotiateShell")
-@Qualifier("nodenNegotiateShell")
+@Component(value="nodenNegotiateShellCharacteristic")
+@Qualifier("nodenNegotiateShellCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negotiate>{
 

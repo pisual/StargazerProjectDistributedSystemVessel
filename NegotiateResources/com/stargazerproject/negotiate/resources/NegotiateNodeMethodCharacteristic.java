@@ -5,14 +5,21 @@ import java.util.List;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs.Ids;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateNodeMethod;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
+@Component(value="negotiateNodeMethod")
+@Qualifier("negotiateNodeMethod")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, BaseCharacteristic<NegotiateNodeMethod>{
 
 	private Optional<CuratorFramework> curatorFramework;

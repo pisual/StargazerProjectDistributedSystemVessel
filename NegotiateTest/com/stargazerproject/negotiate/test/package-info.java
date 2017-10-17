@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.util;
+package com.stargazerproject.negotiate.test;

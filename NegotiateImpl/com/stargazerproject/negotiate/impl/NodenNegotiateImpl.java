@@ -10,9 +10,9 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.negotiate.Negotiate;
 import com.stargazerproject.negotiate.base.impl.BaseNegotiateImpl;
 
-@Component(value="nodenNegotiateImpl")
+@Component(value="nodenNegotiate")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("nodenNegotiateImpl")
+@Qualifier("nodenNegotiate")
 /** 
  *  @name 节点级别协商
  *  @illustrate 节点级别协商位于Cells节点上线时进行的协商工作

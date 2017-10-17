@@ -48,6 +48,22 @@ import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
 import com.stargazerproject.messagequeue.server.impl.OrderMessageQueueServer;
 import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueListener;
 import com.stargazerproject.messagequeue.server.manage.OrderMessageQueueManage;
+import com.stargazerproject.negotiate.impl.NodenNegotiateImpl;
+import com.stargazerproject.negotiate.impl.ZoneNegotiateImpl;
+import com.stargazerproject.negotiate.resources.NegotiateConnectionStateListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateControlCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateCuratorFrameworkCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateLeaderLeaderLatchListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateLeaderMethodCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateNodeCuratorListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateNodeMethodCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateNodePathChildrenCacheListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateRegisteredWatcherCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateRetryPolicyCharacteristic;
+import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
+import com.stargazerproject.negotiate.server.impl.NodeNegotiateServer;
+import com.stargazerproject.negotiate.server.listener.impl.NodeNegotiateListener;
+import com.stargazerproject.negotiate.server.manage.NodeNegotiateManage;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.OrderExportQueue;
@@ -84,12 +100,38 @@ import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
+import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
+import com.stargazerproject.userinterface.resources.LogoClickListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
+import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
+import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
+import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
+import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
+import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceManage;
 
 @SpringBootApplication
 @PropertySource(value="Spring.properties")
 public class GlobalAnnotationApplicationContextInitialization {
 
 	public static void ApplicationContextInitialize(String args[]){
+		System.setProperty("java.awt.headless", "false");
 		setProfiles();
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 	    args,
@@ -109,6 +151,24 @@ public class GlobalAnnotationApplicationContextInitialization {
 		OrderMessageQueueServer.class,
 		OrderMessageQueueListener.class,
 		OrderMessageQueueManage.class,
+		
+		/**Depend nodenNegotiate*/
+		NodenNegotiateImpl.class,
+		ZoneNegotiateImpl.class,
+		NegotiateConnectionStateListenerCharacteristic.class,
+		NegotiateControlCharacteristic.class,
+		NegotiateCuratorFrameworkCharacteristic.class,
+		NegotiateLeaderLeaderLatchListenerCharacteristic.class,
+		NegotiateLeaderMethodCharacteristic.class,
+		NegotiateNodeCuratorListenerCharacteristic.class,
+		NegotiateNodeMethodCharacteristic.class,
+		NegotiateNodePathChildrenCacheListenerCharacteristic.class,
+		NegotiateRegisteredWatcherCharacteristic.class,
+		NegotiateRetryPolicyCharacteristic.class,
+		NodenNegotiateShell.class,
+		NodeNegotiateServer.class,
+		NodeNegotiateListener.class,
+		NodeNegotiateManage.class,
 		
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueueCallBackCharacteristic.class,
@@ -200,34 +260,34 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventExecuteImpl.class,
 		
 		StandardCellsTransactionImpl.class,
-		HystrixConfigurationS.class
+		HystrixConfigurationS.class,
 		
-//		/**User Interface Service**/
-//		MainFrameBackgroundJlabelCharacteristic.class,
-//		MainFrameConsoleTextPaneCharacteristic.class,
-//		MainFrameJFrameCharacteristic.class,
-//		MainFrameJScrollPaneCharacteristic.class,
-//		MainFrameLayoutCharacteristic.class,
-//		MainFrameLogoJlabelCharacteristic.class,
-//		MainFrameRightConsoleTextPaneCharacteristic.class,
-//		MainFrameRightJScrollPaneCharacteristic.class,
-//		MainFrameStructureTopologyJlabelCharacteristic.class,
-//		MainFrameShall.class,
-//		LogoClickListenerCharacteristic.class,
-//		MainFrameMouseAdapterListenerCharacteristic.class,
-//		MainFrameMouseMotionAdapterListenerCharacteristic.class,
-//		MainFramePointCharacteristic.class,
-//		LoadingBaseFrameJDialogCharacteristic.class,
-//		LoadingJProgressBarCharacteristic.class,
-//		LoadingProgressInfoCharacteristic.class,
-//		LoadingFrameBackgroundJlabelCharacteristic.class,
-//		LoadingFrameLayoutCharacteristic.class,
-//		LoadingFrameShall.class,
-//		AssaultLilysUserInterfaceImpl.class,
-//		AssaultLilysUserInterfaceShall.class,
-//		FrameUserInterfaceServer.class,
-//		FrameUserInterfaceListener.class,
-//		FrameUserInterfaceManage.class
+		/**User Interface Service**/
+		MainFrameBackgroundJlabelCharacteristic.class,
+		MainFrameConsoleTextPaneCharacteristic.class,
+		MainFrameJFrameCharacteristic.class,
+		MainFrameJScrollPaneCharacteristic.class,
+		MainFrameLayoutCharacteristic.class,
+		MainFrameLogoJlabelCharacteristic.class,
+		MainFrameRightConsoleTextPaneCharacteristic.class,
+		MainFrameRightJScrollPaneCharacteristic.class,
+		MainFrameStructureTopologyJlabelCharacteristic.class,
+		MainFrameShall.class,
+		LogoClickListenerCharacteristic.class,
+		MainFrameMouseAdapterListenerCharacteristic.class,
+		MainFrameMouseMotionAdapterListenerCharacteristic.class,
+		MainFramePointCharacteristic.class,
+		LoadingBaseFrameJDialogCharacteristic.class,
+		LoadingJProgressBarCharacteristic.class,
+		LoadingProgressInfoCharacteristic.class,
+		LoadingFrameBackgroundJlabelCharacteristic.class,
+		LoadingFrameLayoutCharacteristic.class,
+		LoadingFrameShall.class,
+		AssaultLilysUserInterfaceImpl.class,
+		AssaultLilysUserInterfaceShall.class,
+		FrameUserInterfaceServer.class,
+		FrameUserInterfaceListener.class,
+		FrameUserInterfaceManage.class
 		);
 	} 
 	

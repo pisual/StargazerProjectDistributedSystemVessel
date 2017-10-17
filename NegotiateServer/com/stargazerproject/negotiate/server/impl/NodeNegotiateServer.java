@@ -24,7 +24,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class NodeNegotiateServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("nodeNegotiate")
+	@Qualifier("nodenNegotiate")
 	private StanderCharacteristicShell<Negotiate> nodeNegotiateShell;
 	
 	/** @construction 初始化构造 **/

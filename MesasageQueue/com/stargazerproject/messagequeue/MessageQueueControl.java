@@ -1,7 +1,5 @@
 package com.stargazerproject.messagequeue;
 
-import com.google.common.base.Optional;
-
 /** 
  *  @name 消息队列接口
  *  @illustrate 实现消息队列的控制功能
@@ -14,7 +12,7 @@ public interface MessageQueueControl<T> {
 	* @name 加入消息队列
 	* @illustrate 加入消息队列
 	* **/
-	public void join(Optional<String> messageQueueUrl);
+	public void join();
 	
 	/**
 	* @name 退出消息队列

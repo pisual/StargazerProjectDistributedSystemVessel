@@ -56,10 +56,10 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 	@Qualifier("bigCacheIndexCacheServerManage")
 	private AbstractIdleService bigCacheIndexCacheServerManage;
 	
-//	/** @illustrate byteArrayCacheServerManage**/
-//	@Autowired
-//	@Qualifier("byteArrayCacheServerManage")
-//	private AbstractIdleService byteArrayCacheServerManage;
+	/** @illustrate byteArrayCacheServerManage**/
+	@Autowired
+	@Qualifier("byteArrayCacheServerManage")
+	private AbstractIdleService byteArrayCacheServerManage;
 	
 	/** @illustrate bigCacheIndexCacheServerManage**/
 	@Autowired
@@ -71,10 +71,15 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 	@Qualifier("orderMessageQueueManage")
 	private AbstractIdleService orderMessageQueueManage;
 	
-//	/** @illustrate bigCacheIndexCacheServerManage**/
-//	@Autowired
-//	@Qualifier("frameUserInterfaceManage")
-//	private AbstractIdleService frameUserInterfaceManage;
+	/** @illustrate nodeNegotiateManage**/
+	@Autowired
+	@Qualifier("nodeNegotiateManage")
+	private AbstractIdleService nodeNegotiateManage;
+	
+	/** @illustrate bigCacheIndexCacheServerManage**/
+	@Autowired
+	@Qualifier("frameUserInterfaceManage")
+	private AbstractIdleService frameUserInterfaceManage;
 	
 	/** @illustrate 内部服务列表**/
 	private List<AbstractIdleService> serviceList = new ArrayList<AbstractIdleService>();
@@ -91,9 +96,10 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 		serviceList.add(eventQueueServerManage);
 		serviceList.add(orderCacheServerManage);
 		serviceList.add(orderExportQueueServerManage);
-//		serviceList.add(byteArrayCacheServerManage);
+		serviceList.add(byteArrayCacheServerManage);
 		serviceList.add(orderMessageQueueManage);
-//		serviceList.add(frameUserInterfaceManage);
+	//	serviceList.add(frameUserInterfaceManage);
+		serviceList.add(nodeNegotiateManage);
 	}
 
 	@Override

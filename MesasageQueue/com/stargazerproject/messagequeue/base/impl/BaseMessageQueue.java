@@ -17,8 +17,8 @@ public class BaseMessageQueue<T> implements MessageQueue<T>{
 	}
 
 	@Override
-	public void join(Optional<String> messageQueueUrl) {
-		messageQueue.join(messageQueueUrl);
+	public void join() {
+		messageQueue.join();
 	}
 
 	@Override

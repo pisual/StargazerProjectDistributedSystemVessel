@@ -11,8 +11,8 @@ import com.stargazerproject.service.WorkInServiceState;
 import com.stargazerproject.service.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
-@Qualifier("nodeNegotiateListener")
+@Component(value="nodeNegotiateServerListener")
+@Qualifier("nodeNegotiateServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NodeNegotiateListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	

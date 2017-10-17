@@ -13,6 +13,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
+import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.messagequeue.MessageQueuePush;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -22,14 +23,15 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderMessageQueueShall implements MessageQueue<Order>, BaseCharacteristic<MessageQueue<Order>>{
 
+	private Optional<MessageQueueControl<Order>> orderMessageQueueControl;
 	private Optional<MessageQueueAcquire<Order>> messageQueueAcquire;
-	
 	private Optional<MessageQueuePush<Order>> messageQueuePush;
 	
 	@Override
 	@Bean(name="orderMessageQueueCharacteristicInitialize")
 	@Lazy(true)
 	public Optional<MessageQueue<Order>> characteristic() {
+		orderMessageQueueControl= BeanContainer.instance().getBean(Optional.of("orderMessageQueueControlCharacteristic"),Optional.class);
 		messageQueueAcquire= BeanContainer.instance().getBean(Optional.of("orderMessageQueueAcquireCharacteristic"),Optional.class);
 		messageQueuePush= BeanContainer.instance().getBean(Optional.of("orderMessageQueuePushCharacteristic"),Optional.class);
 		return Optional.of(this);
@@ -46,15 +48,13 @@ public class OrderMessageQueueShall implements MessageQueue<Order>, BaseCharacte
 	}
 
 	@Override
-	public void join(Optional<String> messageQueueUrl) {
-		// TODO Auto-generated method stub
-		
+	public void join() {
+		orderMessageQueueControl.get().join();
 	}
 
 	@Override
 	public void out() {
-		// TODO Auto-generated method stub
-		
+		orderMessageQueueControl.get().out();
 	}
 
 }
