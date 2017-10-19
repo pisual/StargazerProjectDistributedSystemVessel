@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.impl.CacheObject;
+import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.order.impl.Order;
@@ -25,11 +25,15 @@ import kafka.utils.ZkUtils;
 @Component(value="orderMessageQueueControl")
 @Qualifier("orderMessageQueueControl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueControlCharacteristic extends CacheObject<String, String> implements MessageQueueControl<Order>, BaseCharacteristic<MessageQueueControl<Order>>{
+public class OrderMessageQueueControlCharacteristic implements MessageQueueControl<Order>, BaseCharacteristic<MessageQueueControl<Order>>{
  
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
+	
+	@Autowired
+	@Qualifier("objectParameterCache")
+	private Cache<String, String> objectParameterCache;
 	
 	private ZkUtils zkUtils;
 	
@@ -47,13 +51,13 @@ public class OrderMessageQueueControlCharacteristic extends CacheObject<String, 
 		zkUtils = ZkUtils.apply(systemParameter.get(Optional.of("Kafka_Zookeeper_Brokers")).get(), 30000, 30000, JaasUtils.isZkSecurityEnabled());
 		AdminUtils.createTopic(zkUtils, systemParameter.get(Optional.of("Cells_UUID")).get(), 1, 1, new Properties(), RackAwareMode.Enforced$.MODULE$);
 		zkUtils.close();
-		put(Optional.of("Topic"), systemParameter.get(Optional.of("Cells_UUID")));
+		objectParameterCache.put(Optional.of("Topic"), systemParameter.get(Optional.of("Cells_UUID")));
 	}
 
 	@Override
 	public void out() {
 		zkUtils = ZkUtils.apply(systemParameter.get(Optional.of("Kafka_Zookeeper_Brokers")).get(), 30000, 30000, JaasUtils.isZkSecurityEnabled());
-		AdminUtils.deleteTopic(zkUtils, get(Optional.of("Topic")).get());
+		AdminUtils.deleteTopic(zkUtils, objectParameterCache.get(Optional.of("Topic")).get());
 		zkUtils.close();
 	}
 

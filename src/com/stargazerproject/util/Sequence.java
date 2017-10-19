@@ -2,10 +2,12 @@ package com.stargazerproject.util;
 
 import java.util.UUID;
 
+import com.fasterxml.uuid.Generators;
+
 public class Sequence {
 	/** 获取标准UUID **/
 	public static String getUUID() {
-		return UUID.randomUUID().toString();
+		return Generators.randomBasedGenerator().generate().toString();
 	}
 
 	/** 获取UUID类型的序列 **/

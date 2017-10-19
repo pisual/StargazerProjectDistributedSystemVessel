@@ -9,6 +9,8 @@ import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
 import com.stargazerproject.cache.impl.ByteArrayCache;
+import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
+import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
 import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
@@ -144,6 +146,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterCacheServerManage.class,
 		NegotiateParameters.class,
 		SystemParameters.class,
+		
+		/**Depend ObjectParameterCache Class**/
+		ObjectParameterCache.class,
+		
+		/**Depend LeaderLatchParameterCache Class**/
+		LeaderLatchParameterCache.class,
 
      /******Depend Configuration Class******/
 		/**Depend OrderQueueMessage**/

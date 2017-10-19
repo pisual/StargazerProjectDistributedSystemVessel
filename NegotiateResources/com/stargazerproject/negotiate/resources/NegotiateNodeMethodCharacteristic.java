@@ -24,6 +24,7 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 
 	private Optional<CuratorFramework> curatorFramework;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Bean(name="negotiateNodeMethodCharacteristic")
 	@Lazy(true)

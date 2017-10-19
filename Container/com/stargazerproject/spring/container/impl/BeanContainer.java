@@ -2,7 +2,6 @@ package com.stargazerproject.spring.container.impl;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.spring.container.BeanControl;
@@ -25,7 +24,6 @@ public class BeanContainer extends GlobalApplicationContext implements BeanContr
 	
 	@Override
 	public void setBean(Optional<String> className, Optional<Scope> scope, Class<?> ClassArg) {
-		System.out.println("#############################");
 		BeanDefinitionRegistry beanFactory = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
 		//beanFactory.registerBeanDefinition(className.get(), BeanDefinitionBuilder.genericBeanDefinition(ClassArg).setScope("singleton").getBeanDefinition());
 		//beanFactory.autowireBean(ClassArg);
