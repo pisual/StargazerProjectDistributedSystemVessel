@@ -1,48 +1,31 @@
-package com.stargazerproject.microkernel.base.impl;
-
-import java.util.concurrent.TimeUnit;
+package com.stargazerproject.sequence.base.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.microkernel.KernelSequenceModel;
+import com.stargazerproject.sequence.SequenceMethod;
 
-public abstract class BaseKernelModel implements KernelSequenceModel{
+public abstract class BaseSequenceModel implements SequenceMethod{
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	protected Cache<String,String> systemParameter;
 	
-	protected Boolean waitResult(Optional<String> waitPoint, Optional<Integer> retriesNumberArg, Optional<Integer> intervaltimeArg){
-		int retriesNumber = retriesNumberArg.get();
-		while(true){
-			if(systemParameter.get(waitPoint).get().equals("Continue")){
-				return Boolean.TRUE;
-			}
-			else{
-				wait(intervaltimeArg.get());
-				if( (--retriesNumber) < 0){
-					return Boolean.FALSE;
-				}
-			}
-		}
-	}
+	private boolean waitmethod = Boolean.FALSE;
 	
-	private void wait(int time){
-		try {
-			TimeUnit.SECONDS.sleep(time);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	protected void initialization(Optional<String> waitPoint){
-		systemParameter.put(waitPoint, Optional.of("Wait"));
+	protected void methodPass(Optional<String> waitPoint){
+		systemParameter.put(waitPoint, Optional.of("Continue"));
 	}
 
+	@Override
+	public void waitMethod() {
+		waitmethod = Boolean.TRUE;
+	}
+
+	@Override
+	public Optional<Boolean> getWaitMethod() {
+		return Optional.of(waitmethod);
+	}
 }

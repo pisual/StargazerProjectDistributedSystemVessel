@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.microkernel;
+package com.stargazerproject.sequence;

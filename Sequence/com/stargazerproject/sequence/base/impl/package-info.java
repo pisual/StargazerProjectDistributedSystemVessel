@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.microkernel.base.impl;
+package com.stargazerproject.sequence.base.impl;
