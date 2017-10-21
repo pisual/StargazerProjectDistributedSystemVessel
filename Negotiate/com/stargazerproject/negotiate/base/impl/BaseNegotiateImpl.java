@@ -46,7 +46,7 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 	}
 
 	@Override
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) {
+	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
 		negotiate.registeredSingleWatcher(nodeName, nodePath, watch);
 	}
 

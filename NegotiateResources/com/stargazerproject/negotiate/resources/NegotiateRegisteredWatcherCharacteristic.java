@@ -1,12 +1,10 @@
 package com.stargazerproject.negotiate.resources;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.CuratorListener;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.cache.TreeCache;
+import org.apache.curator.framework.recipes.cache.TreeCacheListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -46,9 +44,10 @@ public class NegotiateRegisteredWatcherCharacteristic implements NegotiateRegist
 	}
 
 	@Override
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) {
-		ExecutorService executorService = Executors.newCachedThreadPool();
-		curatorFramework.get().getCuratorListenable().addListener((CuratorListener) watch.get(), executorService);
+	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
+		TreeCache treeCache = new TreeCache(curatorFramework.get(), "/" + nodePath.get() + nodeName.get()); 
+		treeCache.getListenable().addListener((TreeCacheListener)watch.get());
+		treeCache.start();
 	}
 
 }

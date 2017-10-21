@@ -81,14 +81,13 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernel"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelImpl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelConfiguration"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelServer"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelResources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebRoot/WEB-INF/lib"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/MicroKernelContainer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Sequence"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceTest"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

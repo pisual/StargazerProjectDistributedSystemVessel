@@ -87,7 +87,7 @@ public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negoti
 	}
 
 	@Override
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) {
+	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
 		negotiateRegisteredWatcher.get().registeredSingleWatcher(nodeName, nodePath, watch);
 	}
 

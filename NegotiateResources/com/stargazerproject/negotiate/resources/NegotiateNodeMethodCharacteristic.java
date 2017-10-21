@@ -35,12 +35,12 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 	
 	@Override
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath + nodeName.get(), nodeData.get());
+		curatorFramework.get().create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath.get() + nodeName.get(), nodeData.get());
 	}
 
 	@Override
 	public void creatEphemeralNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath + nodeName.get(), nodeData.get());
+		curatorFramework.get().create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath.get() + nodeName.get(), nodeData.orNull());
 	}
 
 	@Override

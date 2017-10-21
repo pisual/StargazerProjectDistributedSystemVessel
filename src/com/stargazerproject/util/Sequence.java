@@ -1,7 +1,5 @@
 package com.stargazerproject.util;
 
-import java.util.UUID;
-
 import com.fasterxml.uuid.Generators;
 
 public class Sequence {
@@ -10,8 +8,8 @@ public class Sequence {
 		return Generators.randomBasedGenerator().generate().toString();
 	}
 
-	/** 获取UUID类型的序列 **/
+	/** 获取UUID类型的序列 去除 “-” 符号**/
 	public static String getUUIDSequence() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
+		return Generators.randomBasedGenerator().generate().toString().replaceAll("-", "");
 	}
 }

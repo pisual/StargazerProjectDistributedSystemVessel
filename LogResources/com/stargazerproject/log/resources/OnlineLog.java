@@ -19,31 +19,26 @@ public class OnlineLog implements Log{
 	@Override
 	public void DEBUG(Object object, String message) {
 		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.DEBUG))));
-		System.err.println("OnlineLog Debug # " + message);
 	}
 
 	@Override
 	public void INFO(Object object, String message) {
 		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.INFO))));
-		System.err.println("OnlineLog Info # " + message);
 	}
 
 	@Override
 	public void WARN(Object object, String message) {
 		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.WARN))));
-		System.err.println("OnlineLog Warn # " + message);
 	}
 
 	@Override
 	public void ERROR(Object object, String message) {
-		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.DEBUG))));
-		System.err.println("OnlineLog Error # " + message);
+		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.ERROR))));
 	}
 
 	@Override
 	public void FATAL(Object object, String message) {
 		queue.producer(Optional.of(new LogData(Optional.of(object.toString()), Optional.of(message), Optional.of(LogLevel.FATAL))));
-		System.err.println("OnlineLog Fatal # " + message);
 	}
 
 }

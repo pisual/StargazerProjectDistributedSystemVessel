@@ -10,7 +10,7 @@ public class LogConsumer implements QueueConsumer<LogData>{
 	
 	@Override
 	public void consumer(Optional<LogData> e) {
-		System.out.println(e.toString());
+		System.err.println("Stargazer System Report : " + e.get().toString());
 	}
 
 }

@@ -14,7 +14,7 @@ public class ServiceUtil {
 			while(serverState.getServerstate() == Boolean.FALSE){
 				try {
 					System.out.println("Stargazer ServiceControlSystem Report : Wait "+workInServiceState+" Start");
-					TimeUnit.SECONDS.sleep(1);
+					TimeUnit.SECONDS.sleep(3);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

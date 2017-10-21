@@ -6,13 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="MicroKernel"/>
-	<classpathentry kind="src" path="MicroKernelImpl"/>
-	<classpathentry kind="src" path="MicroKernelConfiguration"/>
-	<classpathentry kind="src" path="MicroKernelServer"/>
-	<classpathentry kind="src" path="MicroKernelResources"/>
-	<classpathentry kind="src" path="MicroKernelContainer"/>
-	<classpathentry kind="src" path="MicroKernelTest"/>
+	<classpathentry kind="src" path="Sequence"/>
+	<classpathentry kind="src" path="SequenceImpl"/>
+	<classpathentry kind="src" path="SequenceConfiguration"/>
+	<classpathentry kind="src" path="SequenceServer"/>
+	<classpathentry kind="src" path="SequenceResources"/>
+	<classpathentry kind="src" path="SequenceTest"/>
 	<classpathentry kind="src" path="UserInterface"/>
 	<classpathentry kind="src" path="UserInterfaceImpl"/>
 	<classpathentry kind="src" path="UserInterfaceConfiguration"/>

@@ -36,6 +36,7 @@ public class NodeNegotiateServer implements StanderServiceShell{
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
 		Optional<Negotiate> nodeNegotiate = BeanContainer.instance().getBean(Optional.of("nodenNegotiateShell"), Optional.class);
+		nodeNegotiate.get().start();
 		nodeNegotiateShell.initialize(nodeNegotiate);
 	}
 

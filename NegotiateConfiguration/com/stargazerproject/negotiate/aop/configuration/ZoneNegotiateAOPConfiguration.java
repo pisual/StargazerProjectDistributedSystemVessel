@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.service.WorkInServiceState;
 
 /** 
  *  @name BigCacheIndexCache的AOP
@@ -27,12 +26,6 @@ public class ZoneNegotiateAOPConfiguration {
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
-	/** @illustrate 获取 ServerControl接口
-	 *  @DeclareParents 这个接口为Spring后期织入
-	 * **/
-	@Autowired
-	@Qualifier("")
-	private WorkInServiceState bigCacheIndexCahceServerState;
 	
 	/** @construction 初始化构造 **/
 	private ZoneNegotiateAOPConfiguration() {}
