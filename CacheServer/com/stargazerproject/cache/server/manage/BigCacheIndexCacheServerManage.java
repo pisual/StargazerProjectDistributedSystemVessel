@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.Service;
 import com.stargazerproject.service.StanderServiceShell;
 
 /** 
@@ -20,6 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component
 @Qualifier("bigCacheIndexCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Service(value="bigCacheIndexCacheServerManage", order = 10)
 public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

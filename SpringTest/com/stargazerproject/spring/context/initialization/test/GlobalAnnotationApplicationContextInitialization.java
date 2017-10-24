@@ -40,6 +40,7 @@ import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage
 import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
+import com.stargazerproject.inject.impl.AnnotationScannerImpl;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
@@ -317,7 +318,10 @@ public class GlobalAnnotationApplicationContextInitialization {
 		BaseSequenceAOPConfiguration.class,
 		InitializationUUIDModel.class,
 		InjectParameterModel.class,
-		SequenceResourcesShell.class
+		SequenceResourcesShell.class,
+		
+		/**Depend AnnotationScannerImpl*/
+		AnnotationScannerImpl.class
 
 		);
 	} 

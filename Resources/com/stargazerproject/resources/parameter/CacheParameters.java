@@ -5,6 +5,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.stargazerproject.resources.Parameters;
+
 /** 
  *  @name 核心参数列表 CacheParameters
  *  @illustrate 系统所需的CacheParameters 参数
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component(value="cacheParameters")
 @Qualifier("cacheParameters")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Parameters(value="cacheParameters")
 public class CacheParameters {
 	
 	public CacheParameters() {}

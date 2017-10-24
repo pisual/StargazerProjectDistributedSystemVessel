@@ -1,116 +1,102 @@
 package com.stargazerproject.resources.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.inject.AnnotationScanner;
+import com.stargazerproject.log.LogMethod;
+import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
+@Component(value="serviceParameterList")
 @Qualifier("serviceParameterList")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdleService>>{
-	
-	/** @illustrate systemParameterCacheServerManage**/
+
 	@Autowired
-	@Qualifier("systemParameterCacheServerManage")
-	private AbstractIdleService systemParameterCacheServerManage;
+	@Qualifier("annotationScannerImpl")
+	private AnnotationScanner annotationScanner;
 	
-	/** @illustrate OrderCacheServerManage**/
+	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
-	@Qualifier("orderCacheServerManage")
-	private AbstractIdleService orderCacheServerManage;
-	
-	/** @illustrate localLogServerManage**/
-	@Autowired
-	@Qualifier("localLogServerManage")
-	private AbstractIdleService localLogServerManage;
-	
-	/** @illustrate logQueueServerManage**/
-	@Autowired
-	@Qualifier("logQueueServerManage")
-	private AbstractIdleService logQueueServerManage;
-	
-	/** @illustrate eventQueueServerManage**/
-	@Autowired
-	@Qualifier("eventQueueServerManage")
-	private AbstractIdleService eventQueueServerManage;
-	
-	/** @illustrate onlineLogServerManage**/
-	@Autowired
-	@Qualifier("onlineLogServerManage")
-	private AbstractIdleService onlineLogServerManage;
-	
-	/** @illustrate bigCacheIndexCacheServerManage**/
-	@Autowired
-	@Qualifier("bigCacheIndexCacheServerManage")
-	private AbstractIdleService bigCacheIndexCacheServerManage;
-	
-	/** @illustrate byteArrayCacheServerManage**/
-	@Autowired
-	@Qualifier("byteArrayCacheServerManage")
-	private AbstractIdleService byteArrayCacheServerManage;
-	
-	/** @illustrate orderExportQueueServerManage**/
-	@Autowired
-	@Qualifier("orderExportQueueServerManage")
-	private AbstractIdleService orderExportQueueServerManage;
-	
-	/** @illustrate orderMessageQueueManage**/
-	@Autowired
-	@Qualifier("orderMessageQueueManage")
-	private AbstractIdleService orderMessageQueueManage;
-	
-	/** @illustrate nodeNegotiateManage**/
-	@Autowired
-	@Qualifier("nodeNegotiateManage")
-	private AbstractIdleService nodeNegotiateManage;
-	
-	/** @illustrate frameUserInterfaceManage**/
-	@Autowired
-	@Qualifier("frameUserInterfaceManage")
-	private AbstractIdleService frameUserInterfaceManage;
-	
-	/** @illustrate cellsGenerateServerManage**/
-	@Autowired
-	@Qualifier("cellsGenerateServerManage")
-	private AbstractIdleService cellsGenerateServerManage;
+	@Qualifier("logRecord")
+	private LogMethod baseLog;
 	
 	/** @illustrate 内部服务列表**/
 	private List<AbstractIdleService> serviceList = new ArrayList<AbstractIdleService>();
 	
 	protected ServiceParameterList() {}
 	
-	@PostConstruct
 	private void serviceListInitialize(){
-		serviceList.add(localLogServerManage);
-		serviceList.add(bigCacheIndexCacheServerManage);
-		serviceList.add(systemParameterCacheServerManage);
-		serviceList.add(logQueueServerManage);
-		serviceList.add(onlineLogServerManage);
-		serviceList.add(eventQueueServerManage);
-		serviceList.add(orderCacheServerManage);
-		serviceList.add(orderExportQueueServerManage);
-		serviceList.add(byteArrayCacheServerManage);
-		serviceList.add(orderMessageQueueManage);
-	//	serviceList.add(frameUserInterfaceManage);
-		serviceList.add(nodeNegotiateManage);
-		serviceList.add(cellsGenerateServerManage);
+		try {
+			Multimap<Class<?>, Map.Entry<String, List<Object>>> scoreMultimap = annotationScanner.getClassAnnotationContent(Optional.of("com.stargazerproject"), Optional.of(com.stargazerproject.service.Service.class));
+			Multimap<Integer, String> serverLoadSequence = LinkedHashMultimap.create();
+			Map<Class<?>, Collection<Entry<String, List<Object>>>> servermap = scoreMultimap.asMap();
+			List<Class<?>> keyList = scoreMultimap.keys().stream().collect(Collectors.toList());
+			
+			for(int i=0;i<keyList.size();i++){
+				Collection<Entry<String, List<Object>>> single = servermap.get(keyList.get(i));
+				String name = "";
+				int order= 1;
+				for(int j=0; j<single.size(); j++){
+					Iterator<Entry<String, List<Object>>> singleit = single.iterator();
+					while(singleit.hasNext()){
+						Entry<String, List<Object>> anv = singleit.next();
+						if(anv.getKey().toString().equals("value")){
+							name = anv.getValue().get(0).toString();
+						}
+						else{
+							order = Integer.parseInt(anv.getValue().get(0).toString());
+						}
+					}
+				}
+				serverLoadSequence.put(order, name);
+			}
+			
+			
+			List<Integer> orderList = serverLoadSequence.asMap().keySet().stream().sorted().collect(Collectors.toList());
+		
+			System.out.println("############ " + serverLoadSequence.toString());
+			
+			
+			orderList.forEach(x -> serverLoadSequence.get(x).forEach(z -> serviceList.add((BeanContainer.instance().getBean(Optional.of(z), AbstractIdleService.class)))));
+			
+	//		serviceList.forEach(x -> System.out.println(x.toString()));
+//			scoreMultimap.values().stream().filter(x -> x.getKey().equals("value"))
+//			                               .map(z -> z.getValue().get(0).toString())
+//			                               .collect(Collectors.toList())
+//					              .forEach(s -> serviceList.add((BeanContainer.instance().getBean(Optional.of(s), AbstractIdleService.class))));
+		} catch (ClassNotFoundException e) {
+			baseLog.ERROR(this, e.getMessage());
+		} catch (IOException e) {
+			baseLog.ERROR(this, e.getMessage());
+		}
+		
 	}
 
 	@Override
 	@Bean(name="serviceListCharacteristic")
+	@Lazy(true)
 	public Optional<List<AbstractIdleService>> characteristic() {
+		serviceListInitialize();
 		return Optional.of(serviceList);
 	}
 }

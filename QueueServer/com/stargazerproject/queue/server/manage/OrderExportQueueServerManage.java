@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.Service;
 import com.stargazerproject.service.StanderServiceShell;
 
 /** 
@@ -17,9 +18,10 @@ import com.stargazerproject.service.StanderServiceShell;
  *  @illustrate OrderorderExportCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="orderExportQueueServerManage")
 @Qualifier("orderExportQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Service(value="orderExportQueueServerManage", order = 100)
 public class OrderExportQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

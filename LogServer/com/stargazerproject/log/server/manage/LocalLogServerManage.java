@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.Service;
 import com.stargazerproject.service.StanderServiceShell;
 
 /** 
@@ -17,9 +18,10 @@ import com.stargazerproject.service.StanderServiceShell;
  *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="localLogServerManage")
 @Qualifier("localLogServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Service(value="localLogServerManage", order = 1)
 public class LocalLogServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
@@ -31,8 +33,8 @@ public class LocalLogServerManage extends AbstractIdleService{
 	@Qualifier("localLogServerListener")
 	private Listener workInServiceControlListener;
 	
-	/** @construction 初始化构造 **/
-	public LocalLogServerManage() {}
+//	/** @construction 初始化构造 **/
+//	public LocalLogServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct

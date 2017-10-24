@@ -5,6 +5,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.stargazerproject.resources.Parameters;
+
 /** 
  *  @name queueParameters 核心参数列表
  *  @illustrate 系统所需的queueParameters 参数
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component(value="queueParameters")
 @Qualifier("queueParameters")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Parameters(value="queueParameters")
 public class QueueParameters {
 	
 	public QueueParameters() {}

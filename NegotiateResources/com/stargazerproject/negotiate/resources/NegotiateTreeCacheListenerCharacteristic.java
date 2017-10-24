@@ -12,15 +12,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 
-@Component(value="negotiateInjectParameterTreeCacheListener")
-@Qualifier("negotiateInjectParameterTreeCacheListener")
+@Component(value="negotiateTreeCacheListenerCharacteristic")
+@Qualifier("negotiateTreeCacheListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
+public class NegotiateTreeCacheListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
 
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -30,10 +29,6 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	protected Cache<String,String> systemParameterCahce;
-	
-	@Autowired
-	@Qualifier("byteArrayCache")
-	protected BigCache<String, byte[]> byteArrayCache;
 	
 	private TreeCacheListener treeCacheListener;
 
@@ -45,8 +40,7 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 		return Optional.of(treeCacheListener);
 	}
 	
-	
-	protected void zookeeeperConfigurationInitialize() {
+	private void zookeeeperConfigurationInitialize() {
 		treeCacheListener = new TreeCacheListener(){
 			@Override
 			public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {
@@ -55,8 +49,6 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 					baseLog.INFO(this, event.getData().getPath()+" Has Remove");
 					break;  
 				case NODE_UPDATED:  
-					systemParameterCahce.put(Optional.of("InjectParameterModel"), Optional.of("Continue"));
-					byteArrayCache.put(Optional.of("InjectParameterData"), event.getData().getData());
 					baseLog.INFO(this, event.getData().getPath()+" Has Ipdated");
 					break;  
 			    default:  

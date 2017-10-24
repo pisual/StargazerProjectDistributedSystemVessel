@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.Service;
 import com.stargazerproject.service.StanderServiceShell;
 
 /** 
@@ -20,6 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="frameUserInterfaceManage")
 @Qualifier("frameUserInterfaceManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+//@Service(value="frameUserInterfaceManage", order = 100)
 public class FrameUserInterfaceManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

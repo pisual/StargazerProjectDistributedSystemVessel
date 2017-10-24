@@ -1,6 +1,10 @@
 package com.stargazerproject.cache.impl.resources.shell;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,9 +15,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Multimap;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.inject.AnnotationScanner;
 import com.stargazerproject.log.LogMethod;
+import com.stargazerproject.resources.Parameters;
+import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name SystemParameter的Map初始化
@@ -30,28 +38,8 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	protected Cache<String, String> systemParameterCahceCharacteristic;
 	
 	@Autowired
-	@Qualifier("cacheParameters")
-	protected Object cacheParameters;
-	
-	@Autowired
-	@Qualifier("queueParameters")
-	protected Object queueParameters;
-	
-	@Autowired
-	@Qualifier("uiParameters")
-	protected Object uiParameters;
-	
-	@Autowired
-	@Qualifier("negotiateParameters")
-	protected Object negotiateParameters;
-	
-	@Autowired
-	@Qualifier("systemParameters")
-	protected Object systemParameters;
-	
-	@Autowired
-	@Qualifier("sequenceParameters")
-	protected Object sequenceParameters;
+	@Qualifier("annotationScannerImpl")
+	private AnnotationScanner annotationScanner;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -64,17 +52,30 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	@Bean(name="systemParameterCahceCharacteristicInitialize")
 	@Lazy(true)
 	public Optional<Cache<String, String>> characteristic() {
-		getParamentListFromClass(cacheParameters);
-		getParamentListFromClass(queueParameters);
-		getParamentListFromClass(uiParameters);
-		getParamentListFromClass(systemParameters);
-		getParamentListFromClass(negotiateParameters);
-		getParamentListFromClass(sequenceParameters);
+		getParamentListFromAnnotation();
 		return Optional.of(systemParameterCahceCharacteristic);
 	}
 	
 	/**
-	 * @illustrate 从CLass文件获取参数并注入到Mao列表
+	 * @illustrate 获取指令Annotation的Class
+	 * **/
+	private void getParamentListFromAnnotation(){
+		try {
+			Multimap<Class<?>, Map.Entry<String, List<Object>>> scoreMultimap = annotationScanner.getClassAnnotationContent(Optional.of("com.stargazerproject"), Optional.of(Parameters.class));
+			scoreMultimap.values().stream().filter(x -> x.getKey().equals("value"))
+			                               .map(z -> z.getValue().get(0).toString())
+			                               .collect(Collectors.toList())
+					              .forEach(s -> getParamentListFromClass(BeanContainer.instance().getBean(Optional.of(s), Object.class)));
+		} catch (ClassNotFoundException e) {
+			baseLog.ERROR(this, e.getMessage());
+		} catch (IOException e) {
+			baseLog.ERROR(this, e.getMessage());
+		}
+	
+	}
+	
+	/**
+	 * @illustrate 从CLass文件获取参数并注入到Map列表
 	 * **/
 	private void getParamentListFromClass(Object object){
 		try {
@@ -87,4 +88,5 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 			baseLog.ERROR(this, e.getLocalizedMessage());
 		}
 	}
+	
 }
