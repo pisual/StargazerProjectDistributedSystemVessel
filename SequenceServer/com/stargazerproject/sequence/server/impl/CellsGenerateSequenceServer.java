@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.sequence.Sequence;
+import com.stargazerproject.sequence.SequenceMethod;
 import com.stargazerproject.service.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -36,6 +37,11 @@ public class CellsGenerateSequenceServer implements StanderServiceShell{
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener");
 		Optional<Sequence> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
+		SequenceMethod initializationUUIDModel = BeanContainer.instance().getBean(Optional.of("initializationUUIDModel"), SequenceMethod.class);
+		SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
+		SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
+		sequenceImpl.get().addModel(Optional.of(initializationUUIDModel)).addModel(Optional.of(acquireParameterModel)).addModel(Optional.of(injectParameterModel));
+		sequenceImpl.get().startSequence();
 		sequence.initialize(sequenceImpl);
 	}
 

@@ -12,5 +12,7 @@ import java.lang.annotation.Target;
 public @interface Parameters {
 
 	String value() default "";
+	
+	int order() default 1;
 
 }

@@ -14,6 +14,11 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
 		negotiate.creatPersistentNode(nodeName, nodePath, nodeData);
 	}
+	
+	@Override
+	public void updateNodeData(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
+		negotiate.updateNodeData(nodeName, nodePath, nodeData);
+	}
 
 	@Override
 	public void creatEphemeralNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {

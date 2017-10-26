@@ -54,10 +54,10 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 				case NODE_REMOVED:  
 					baseLog.INFO(this, event.getData().getPath()+" Has Remove");
 					break;  
-				case NODE_UPDATED:  
-					systemParameterCahce.put(Optional.of("InjectParameterModel"), Optional.of("Continue"));
-					byteArrayCache.put(Optional.of("InjectParameterData"), event.getData().getData());
-					baseLog.INFO(this, event.getData().getPath()+" Has Ipdated");
+				case NODE_UPDATED:
+					byteArrayCache.put(Optional.of("AcquireParameterModel"), event.getData().getData());
+					systemParameterCahce.put(Optional.of("AcquireParameterModel"), Optional.of("Continue"));
+					baseLog.INFO(this, event.getData().getPath()+" Has Ipdated , Data : " + event.getData().getData());
 					break;  
 			    default:  
 			    	    break;  

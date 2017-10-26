@@ -55,6 +55,11 @@ public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negoti
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
 		negotiateNodeMethod.get().creatPersistentNode(nodeName, nodePath, nodeData);
 	}
+	
+	@Override
+	public void updateNodeData(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
+		negotiateNodeMethod.get().updateNodeData(nodeName, nodePath, nodeData);
+	}
 
 	@Override
 	public void creatEphemeralNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {

@@ -21,7 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="cellsGenerateServerManage")
 @Qualifier("cellsGenerateServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="cellsGenerateServerManage", order = 100)
+@Service(value="cellsGenerateServerManage", order = 99)
 public class CellsGenerateServerManage extends AbstractIdleService{
 	
 	/** @illustrate cellsGenerateSequenceServer的ServiceShell接口 **/

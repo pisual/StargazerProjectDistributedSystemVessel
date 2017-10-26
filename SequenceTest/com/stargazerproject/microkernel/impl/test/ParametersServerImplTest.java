@@ -13,7 +13,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class KernelSequenceImplTest {
+public class ParametersServerImplTest {
 	
 //	@Test
 //	public void SpringInit(){
@@ -39,12 +39,11 @@ public class KernelSequenceImplTest {
 		serviceManager.initialize(ServiceManagerInits);
 		ServiceControl serviceControl = BeanContainer.instance().getBean(Optional.of("moduleService"), ServiceControl.class);
 		serviceControl.startAllservice();
-//		Sequence kernelSequence = BeanContainer.instance().getBean(Optional.of("cellsGenerateSequence"), Sequence.class);
-//		SequenceMethod initializationUUIDModel = BeanContainer.instance().getBean(Optional.of("initializationUUIDModel"), SequenceMethod.class);
-//		SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
-//		SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
-//		kernelSequence.addModel(Optional.of(initializationUUIDModel)).addModel(Optional.of(acquireParameterModel)).addModel(Optional.of(injectParameterModel));
-//		kernelSequence.startSequence();
+		Sequence kernelSequence = BeanContainer.instance().getBean(Optional.of("cellsGenerateSequence"), Sequence.class);
+		SequenceMethod initializationUUIDModel = BeanContainer.instance().getBean(Optional.of("initializationUUIDModel"), SequenceMethod.class);
+		SequenceMethod cellsNodeParameterControlModel = BeanContainer.instance().getBean(Optional.of("cellsNodeParameterControlModel"), SequenceMethod.class);
+		kernelSequence.addModel(Optional.of(initializationUUIDModel)).addModel(Optional.of(cellsNodeParameterControlModel));
+		kernelSequence.startSequence();
 	}
 	
 }

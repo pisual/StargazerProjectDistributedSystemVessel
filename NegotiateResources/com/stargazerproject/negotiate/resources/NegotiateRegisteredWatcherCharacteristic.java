@@ -38,14 +38,14 @@ public class NegotiateRegisteredWatcherCharacteristic implements NegotiateRegist
 	
 	@Override
 	public <T> void registeredCirculationWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception {
-		 PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework.get(), "/" + nodePath.get() + "/" + nodeName.get(), true); 
+		 PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework.get(), nodePath.get() + nodeName.get(), true); 
 		 pathChildrenCache.getListenable().addListener((PathChildrenCacheListener)watch.get());
 		 pathChildrenCache.start();
 	}
 
 	@Override
 	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
-		TreeCache treeCache = new TreeCache(curatorFramework.get(), "/" + nodePath.get() + nodeName.get()); 
+		TreeCache treeCache = new TreeCache(curatorFramework.get(), nodePath.get() + nodeName.get()); 
 		treeCache.getListenable().addListener((TreeCacheListener)watch.get());
 		treeCache.start();
 	}

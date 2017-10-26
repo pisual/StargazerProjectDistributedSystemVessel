@@ -20,7 +20,7 @@ public class QueueParameters {
 	
 	public QueueParameters() {}
 	
-	//Event队列 Start
+	   //Event队列 Start
 		/**order Export 队列消费者数目**/
 		/** @illustrate 参数类 **/
 		private static final String Order_Export_Number_of_consumers = "1";

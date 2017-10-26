@@ -29,18 +29,19 @@ import com.stargazerproject.inject.AnnotationScanner;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AnnotationScannerImpl implements AnnotationScanner{
 
-	private TypeFilter typeFilters;
+	protected TypeFilter typeFilters;
 	private Multimap<Class<?>, Map.Entry<String, List<Object>>> scoreMultimap = LinkedHashMultimap.create();
-	private Class<? extends Annotation> annotation;
+	protected Class<? extends Annotation> annotation;
 
 	public AnnotationScannerImpl() {}
 
 	@Override
 	public Multimap<Class<?>, Map.Entry<String, List<Object>>> getClassAnnotationContent(Optional<String> packagesArg, Optional<Class<? extends Annotation>> annotationArg) throws IOException, ClassNotFoundException {
-		annotation = annotationArg.get();
 		typeFilterInitialization(annotationArg.get());
-		Resource[] resource = acquireResourceArray(packagesArg.get()); 
-		resourceTraversal(resource);
+		Resource[] resources = acquireResourceArray(packagesArg.get());
+		for(Resource resource : resources){
+			matchesEntityTypeFilter(resource);
+		}
 		return scoreMultimap;
 	}
 	
@@ -48,30 +49,18 @@ public class AnnotationScannerImpl implements AnnotationScanner{
 		return ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(packagesArg) + "/**/*.class";
 	}
 	
-	private void typeFilterInitialization(Class<? extends Annotation> annotationArg){
+	protected void typeFilterInitialization(Class<? extends Annotation> annotationArg){
 		typeFilters = new AnnotationTypeFilter(annotationArg, false);
+		annotation = annotationArg;
 	}
 	
-	private Resource[] acquireResourceArray(String packagesArg) throws IOException{
+	protected Resource[] acquireResourceArray(String packagesArg) throws IOException{
 		return new PathMatchingResourcePatternResolver().getResources(packagesPattern(packagesArg));
 	}
 	
-	private void resourceTraversal(Resource[] resources) throws ClassNotFoundException, IOException{
-		for (Resource resource : resources) {
-			if (resource.isReadable()) {
-				resourceMatching(resource);
-			}
-		}
-	}
-	
-	private void resourceMatching(Resource resource) throws IOException, ClassNotFoundException{
+	private void matchesEntityTypeFilter(Resource resource) throws IOException, ClassNotFoundException{
 		MetadataReaderFactory readerFactory = new CachingMetadataReaderFactory(new PathMatchingResourcePatternResolver());
 		MetadataReader reader = readerFactory.getMetadataReader(resource);
-		matchesEntityTypeFilter(reader, readerFactory);
-	}
-
-	
-	private void matchesEntityTypeFilter(MetadataReader reader, MetadataReaderFactory readerFactory) throws ClassNotFoundException, IOException {
 		if (typeFilters.match(reader, readerFactory)) {
 			Class<?> clazz = Class.forName(reader.getClassMetadata().getClassName());
 			reader.getAnnotationMetadata().getAllAnnotationAttributes(annotation.getName()).entrySet().stream().forEach(x -> scoreMultimap.put(clazz, x));

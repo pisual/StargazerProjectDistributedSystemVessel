@@ -16,6 +16,15 @@ public interface NegotiateNodeMethod {
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception;
 	
 	/**
+	 * @MethodName 更新节点数据
+	 * @param Optional<String> nodeName 节点名称
+	 *        Optional<byte[]> nodeData 节点数据
+	 * @throws Exception
+	 * @author Felixerio
+	 * **/
+	public void updateNodeData(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception;
+	
+	/**
 	 * @MethodName 注册临时节点数据
 	 * @param Optional<String> nodeName 节点名称
 	 *        Optional<byte[]> nodeData 节点数据

@@ -35,32 +35,37 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 	
 	@Override
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath.get() + nodeName.get(), nodeData.get());
+		curatorFramework.get().create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.get());
+	}
+	
+	@Override
+	public void updateNodeData(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
+		curatorFramework.get().setData().forPath( nodePath.get() + nodeName.get(), nodeData.get());
 	}
 
 	@Override
 	public void creatEphemeralNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath("/"+ nodePath.get() + nodeName.get(), nodeData.orNull());
+		curatorFramework.get().create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.orNull());
 	}
 
 	@Override
 	public void deleteNode(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		curatorFramework.get().delete().forPath("/" + nodePath.get() + nodeName.get());
+		curatorFramework.get().delete().forPath( nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public List<String> getPathNode(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return curatorFramework.get().getChildren().forPath("/" + nodePath.get() + nodeName.get());
+		return curatorFramework.get().getChildren().forPath( nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public byte[] getNodeData(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return curatorFramework.get().getData().forPath("/" + nodePath.get() + nodeName.get());
+		return curatorFramework.get().getData().forPath(nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return (null == curatorFramework.get().checkExists().forPath("/" + nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
+		return (null == curatorFramework.get().checkExists().forPath( nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
 	}
 
 }

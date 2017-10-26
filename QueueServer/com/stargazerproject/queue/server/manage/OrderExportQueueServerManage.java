@@ -21,7 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="orderExportQueueServerManage")
 @Qualifier("orderExportQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="orderExportQueueServerManage", order = 100)
+@Service(value="orderExportQueueServerManage", order = 101)
 public class OrderExportQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

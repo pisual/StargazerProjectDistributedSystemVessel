@@ -33,7 +33,7 @@ public class SequenceResourcesShell implements Sequence, BaseCharacteristic<Sequ
 
 	@Override
 	public SequenceTransaction addModel(Optional<SequenceMethod> sequenceMethod) {
-		scoreMultimap.put("sequenceMethod.get().getClass().getSimpleName()", sequenceMethod.get());
+		scoreMultimap.put(sequenceMethod.get().getClass().getSimpleName(), sequenceMethod.get());
 		return this;
 	}
 

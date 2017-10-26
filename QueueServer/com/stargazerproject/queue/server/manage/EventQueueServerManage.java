@@ -21,7 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="eventQueueServerManage")
 @Qualifier("eventQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="eventQueueServerManage", order = 100)
+@Service(value="eventQueueServerManage", order = 101)
 public class EventQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

@@ -41,6 +41,7 @@ import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.inject.impl.AnnotationScannerImpl;
+import com.stargazerproject.inject.impl.AnnotationClassSequenceScannerImpl;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
@@ -62,6 +63,7 @@ import com.stargazerproject.negotiate.resources.NegotiateLeaderMethodCharacteris
 import com.stargazerproject.negotiate.resources.NegotiateNodeCuratorListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateNodeMethodCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateNodePathChildrenCacheListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRegisteredWatcherCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRetryPolicyCharacteristic;
 import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
@@ -105,8 +107,10 @@ import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
 import com.stargazerproject.sequence.impl.CellsGenerateSequenceImpl;
+import com.stargazerproject.sequence.resources.CellsNodeParameterControlModel;
 import com.stargazerproject.sequence.resources.InitializationUUIDModel;
 import com.stargazerproject.sequence.resources.InjectParameterModel;
+import com.stargazerproject.sequence.resources.AcquireParameterModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
 import com.stargazerproject.sequence.server.impl.CellsGenerateSequenceServer;
 import com.stargazerproject.sequence.server.listener.impl.CellsGenerateServerListener;
@@ -190,6 +194,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NodeNegotiateListener.class,
 		NodeNegotiateManage.class,
 		NegotiateInjectParameterTreeCacheListenerCharacteristic.class,
+		NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic.class,
 		
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueueCallBackCharacteristic.class,
@@ -317,11 +322,14 @@ public class GlobalAnnotationApplicationContextInitialization {
 		CellsGenerateServerManage.class,
 		BaseSequenceAOPConfiguration.class,
 		InitializationUUIDModel.class,
-		InjectParameterModel.class,
+		AcquireParameterModel.class,
 		SequenceResourcesShell.class,
+		CellsNodeParameterControlModel.class,
+		InjectParameterModel.class,
 		
 		/**Depend AnnotationScannerImpl*/
-		AnnotationScannerImpl.class
+		AnnotationScannerImpl.class,
+		AnnotationClassSequenceScannerImpl.class
 
 		);
 	} 
