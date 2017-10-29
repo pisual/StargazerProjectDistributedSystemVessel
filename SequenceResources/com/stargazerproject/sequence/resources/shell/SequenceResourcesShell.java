@@ -32,14 +32,19 @@ public class SequenceResourcesShell implements Sequence, BaseCharacteristic<Sequ
 	}
 
 	@Override
-	public SequenceTransaction addModel(Optional<SequenceMethod> sequenceMethod) {
-		scoreMultimap.put(sequenceMethod.get().getClass().getSimpleName(), sequenceMethod.get());
+	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<SequenceMethod> sequenceMethod) {
+		scoreMultimap.put(sequenceGroup.get(), sequenceMethod.get());
 		return this;
 	}
 
 	@Override
-	public void startSequence() {
-		scoreMultimap.entries().stream().forEach(e -> e.getValue().method());
+	public void startSequence(Optional<String> sequenceGroup) {
+		scoreMultimap.get(sequenceGroup.get()).stream().forEach(e -> e.method());
+	}
+	
+	@Override
+	public void clear(Optional<String> sequenceGroup) {
+		scoreMultimap.removeAll(sequenceGroup.get());
 	}
 	
 }

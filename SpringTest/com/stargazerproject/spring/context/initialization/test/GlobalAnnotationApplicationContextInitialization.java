@@ -106,15 +106,15 @@ import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
-import com.stargazerproject.sequence.impl.CellsGenerateSequenceImpl;
+import com.stargazerproject.sequence.impl.BootInitializationSequenceImpl;
 import com.stargazerproject.sequence.resources.CellsNodeParameterControlModel;
 import com.stargazerproject.sequence.resources.InitializationCellsGroupModel;
 import com.stargazerproject.sequence.resources.InjectParameterModel;
 import com.stargazerproject.sequence.resources.AcquireParameterModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
-import com.stargazerproject.sequence.server.impl.CellsGenerateSequenceServer;
-import com.stargazerproject.sequence.server.listener.impl.CellsGenerateServerListener;
-import com.stargazerproject.sequence.server.manage.CellsGenerateServerManage;
+import com.stargazerproject.sequence.server.impl.BootInitializationSequenceServer;
+import com.stargazerproject.sequence.server.listener.impl.BootInitializationServerListener;
+import com.stargazerproject.sequence.server.manage.BootInitializationServerManage;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
@@ -316,10 +316,10 @@ public class GlobalAnnotationApplicationContextInitialization {
 		FrameUserInterfaceManage.class,
 		
 		/**Depend Sequence*/
-		CellsGenerateSequenceImpl.class,
-		CellsGenerateSequenceServer.class,
-		CellsGenerateServerListener.class,
-		CellsGenerateServerManage.class,
+		BootInitializationSequenceImpl.class,
+		BootInitializationSequenceServer.class,
+		BootInitializationServerListener.class,
+		BootInitializationServerManage.class,
 		BaseSequenceAOPConfiguration.class,
 		InitializationCellsGroupModel.class,
 		AcquireParameterModel.class,

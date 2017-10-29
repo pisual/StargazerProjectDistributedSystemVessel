@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.service.resources.ModuleService;
+package com.stargazerproject.service.resources;

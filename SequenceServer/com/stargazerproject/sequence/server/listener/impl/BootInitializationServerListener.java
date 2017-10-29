@@ -11,42 +11,42 @@ import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component(value="cellsGenerateServerListener")
-@Qualifier("cellsGenerateServerListener")
+@Component(value="bootInitializationServerListener")
+@Qualifier("bootInitializationServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class CellsGenerateServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class BootInitializationServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	
 	@Override
 	public void starting() {
 		ServiceUtil.dependOnDelay("localLogServerListener");
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : CellsGenerateServer Server Starting");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Starting");
 	}
 	
 	@Override
 	public void running() {
 		super.running();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : CellsGenerateServer Server Run");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : CellsGenerateServer Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
 		super.terminated(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : CellsGenerateServer Server Terminated");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : CellsGenerateServer Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Failed");
 	}
 	
 }

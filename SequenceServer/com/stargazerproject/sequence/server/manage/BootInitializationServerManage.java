@@ -18,23 +18,23 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
  *  @illustrate CellsGenerate服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="cellsGenerateServerManage")
-@Qualifier("cellsGenerateServerManage")
+@Component(value="bootInitializationServerManage")
+@Qualifier("bootInitializationServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="cellsGenerateServerManage", order = 99)
-public class CellsGenerateServerManage extends AbstractIdleService{
+@Services(value="bootInitializationServerManage", order = 99)
+public class BootInitializationServerManage extends AbstractIdleService{
 	
 	/** @illustrate cellsGenerateSequenceServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("cellsGenerateSequenceServer")
+	@Qualifier("bootInitializationSequenceServer")
 	private StanderServiceShell cellsGenerateSequenceServer;
 	
 	@Autowired
-	@Qualifier("cellsGenerateServerListener")
+	@Qualifier("bootInitializationServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public CellsGenerateServerManage() {}
+	public BootInitializationServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct

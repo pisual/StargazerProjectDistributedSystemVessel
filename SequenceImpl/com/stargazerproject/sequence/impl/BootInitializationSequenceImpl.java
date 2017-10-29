@@ -10,10 +10,10 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.base.impl.BaseSequence;
 
-@Component(value="cellsGenerateSequence")
+@Component(value="bootInitializationSequence")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("cellsGenerateSequence")
-public class CellsGenerateSequenceImpl extends BaseSequence implements StanderCharacteristicShell<Sequence>{
+@Qualifier("bootInitializationSequence")
+public class BootInitializationSequenceImpl extends BaseSequence implements StanderCharacteristicShell<Sequence>{
 
 	@Override
 	public void initialize(Optional<Sequence> sequenceArg) {

@@ -14,21 +14,21 @@ import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
- *  @name cellsGenerateSequence 服务的实现
+ *  @name BootInitializationSequenceServer 服务的实现
  *  @illustrate 继承于ServiceShell的cellsGenerateSequence相关服务实现
  *  @author Felixerio
  *  **/
-@Component(value="cellsGenerateSequenceServer")
-@Qualifier("cellsGenerateSequenceServer")
+@Component(value="bootInitializationSequenceServer")
+@Qualifier("bootInitializationSequenceServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class CellsGenerateSequenceServer implements StanderServiceShell{
+public class BootInitializationSequenceServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("cellsGenerateSequence")
+	@Qualifier("bootInitializationSequence")
 	private StanderCharacteristicShell<Sequence> sequence;
 	
 	/** @construction 初始化构造 **/
-	private CellsGenerateSequenceServer() {}
+	private BootInitializationSequenceServer() {}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
@@ -36,7 +36,7 @@ public class CellsGenerateSequenceServer implements StanderServiceShell{
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener");
 		Optional<Sequence> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
-		sequenceImpl.get().startSequence();
+		sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
 		sequence.initialize(sequenceImpl);
 	}
 

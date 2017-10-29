@@ -10,13 +10,18 @@ public abstract class BaseSequence implements Sequence{
 	protected Sequence sequence;
 
 	@Override
-	public void startSequence() {
-		sequence.startSequence();
+	public void startSequence(Optional<String> sequenceGroup) {
+		sequence.startSequence(sequenceGroup);
 	}
 
 	@Override
-	public SequenceTransaction addModel(Optional<SequenceMethod> kernelModel) {
-		return sequence.addModel(kernelModel);
+	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<SequenceMethod> sequenceMethod) {
+		return sequence.addModel(sequenceGroup, sequenceMethod);
+	}
+	
+	@Override
+	public void clear(Optional<String> sequenceGroup) {
+		sequence.clear(sequenceGroup);
 	}
 
 }

@@ -37,11 +37,13 @@ public class KernelSequenceImplTest {
 		
 		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 
-		Sequence kernelSequence = BeanContainer.instance().getBean(Optional.of("sequenceResourcesShell"), Sequence.class);
+		Sequence bootInitializationSequence = BeanContainer.instance().getBean(Optional.of("sequenceResourcesShell"), Sequence.class);
 		SequenceMethod initializationCellsGroupModel = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"), SequenceMethod.class);
 		SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
 		SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
-		kernelSequence.addModel(Optional.of(initializationCellsGroupModel)).addModel(Optional.of(acquireParameterModel)).addModel(Optional.of(injectParameterModel));
+		bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
+		                          .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
+		                          .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel));
 		
 		Optional<ServiceResources> serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), Optional.class);
 		List<String> serviceList = new ArrayList<String>();
@@ -52,21 +54,20 @@ public class KernelSequenceImplTest {
 		serviceList.add("onlineLogServerManage");
 		serviceList.add("bigCacheIndexCacheServerManage");
 		serviceList.add("byteArrayCacheServerManage");
+		serviceList.add("nodeNegotiateManage");
 		
-		serviceList.add("cellsGenerateServerManage");
+		serviceList.add("bootInitializationServerManage");
 
 		serviceList.add("eventQueueServerManage");
 		serviceList.add("orderExportQueueServerManage");
 		serviceList.add("orderCacheServerManage");
 		serviceList.add("orderMessageQueueManage");
-		serviceList.add("nodeNegotiateManage");
 		//serviceList.add("frameUserInterfaceManage");
 		serviceResources.get().initializationServiceList(Optional.of(serviceList));
 		
 		Optional<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), Optional.class);
 		serviceControl.get().startAllservice();		
 
-		
 	}
 	
 }
