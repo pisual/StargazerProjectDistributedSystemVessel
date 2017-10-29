@@ -17,7 +17,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.inject.AnnotationClassSequenceScanner;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.service.Service;
+import com.stargazerproject.service.baseinterface.Services;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="serviceParameterList")
@@ -41,7 +41,7 @@ public class ServiceParameterList implements BaseCharacteristic<List<AbstractIdl
 	
 	private void serviceListInitialize(){
 		try {
-			annotationClassSequenceScanner.sequenceClassName(Optional.of("com.stargazerproject"), Optional.of(Service.class))
+			annotationClassSequenceScanner.sequenceClassName(Optional.of("com.stargazerproject"), Optional.of(Services.class))
 			                              .forEach(x -> serviceList.add((BeanContainer.instance().getBean(Optional.of(x), AbstractIdleService.class))));;
 		} catch (ClassNotFoundException e) {
 			baseLog.ERROR(this, e.getMessage());

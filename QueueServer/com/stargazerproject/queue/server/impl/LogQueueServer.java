@@ -11,7 +11,7 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 

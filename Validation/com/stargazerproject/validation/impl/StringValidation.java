@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Preconditions;
 import com.stargazerproject.validation.StringCheck;
 
-@Component
+@Component(value="stringValidation")
 @Qualifier("stringValidation")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class StringValidation extends ObjectValidation implements StringCheck{

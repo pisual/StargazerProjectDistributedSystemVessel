@@ -1,4 +1,4 @@
-package com.stargazerproject.service;
+package com.stargazerproject.service.baseinterface;
 
 public interface StanderServiceShell {
 	public void startUp();

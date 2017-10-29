@@ -6,6 +6,23 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Service"/>
+	<classpathentry kind="src" path="ServerImpl"/>
+	<classpathentry kind="src" path="ServiceConfiguration"/>
+	<classpathentry kind="src" path="ServiceResources"/>
+	<classpathentry kind="src" path="ServerTest"/>
+	<classpathentry kind="src" path="Kernel"/>
+	<classpathentry kind="src" path="KernelImpl"/>
+	<classpathentry kind="src" path="KernelConfiguration"/>
+	<classpathentry kind="src" path="KernelServer"/>
+	<classpathentry kind="src" path="KernelResources"/>
+	<classpathentry kind="src" path="KernelTest"/>
+	<classpathentry kind="src" path="Exchange"/>
+	<classpathentry kind="src" path="ExchangeImpl"/>
+	<classpathentry kind="src" path="ExchangeResources"/>
+	<classpathentry kind="src" path="ExchangeConfiguration"/>
+	<classpathentry kind="src" path="ExchangeServer"/>
+	<classpathentry kind="src" path="ExchangeTest"/>
 	<classpathentry kind="src" path="Sequence"/>
 	<classpathentry kind="src" path="SequenceImpl"/>
 	<classpathentry kind="src" path="SequenceConfiguration"/>
@@ -48,12 +65,6 @@
 	<classpathentry kind="src" path="MessageQueueServer"/>
 	<classpathentry kind="src" path="MesasageQueueResources"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
-	<classpathentry kind="src" path="Exchange"/>
-	<classpathentry kind="src" path="ExchangeImpl"/>
-	<classpathentry kind="src" path="ExchangeResources"/>
-	<classpathentry kind="src" path="ExchangeConfiguration"/>
-	<classpathentry kind="src" path="ExchangeServer"/>
-	<classpathentry kind="src" path="ExchangeTest"/>
 	<classpathentry kind="src" path="Order"/>
 	<classpathentry kind="src" path="OrderImpl"/>
 	<classpathentry kind="src" path="OrderConfiguration"/>
@@ -65,9 +76,6 @@
 	<classpathentry kind="src" path="QueueResources"/>
 	<classpathentry kind="src" path="QueueServer"/>
 	<classpathentry kind="src" path="QueueTest"/>
-	<classpathentry kind="src" path="Service"/>
-	<classpathentry kind="src" path="ServiceConfiguration"/>
-	<classpathentry kind="src" path="ServiceResources"/>
 	<classpathentry kind="src" path="Inject"/>
 	<classpathentry kind="src" path="InjectImpl"/>
 	<classpathentry kind="src" path="Information"/>

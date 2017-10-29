@@ -1,4 +1,4 @@
-package com.stargazerproject.service;
+package com.stargazerproject.service.baseinterface;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Service {
+public @interface Services {
 
 	String value();
 	

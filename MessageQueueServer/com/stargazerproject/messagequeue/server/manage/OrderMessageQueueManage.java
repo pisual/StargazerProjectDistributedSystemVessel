@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.stargazerproject.service.Service;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.Services;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
  *  @name orderMessageQueue服务集中托管
@@ -21,7 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="orderMessageQueueManage")
 @Qualifier("orderMessageQueueManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="orderMessageQueueManage", order = 14)
+@Services(value="orderMessageQueueManage", order = 14)
 public class OrderMessageQueueManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

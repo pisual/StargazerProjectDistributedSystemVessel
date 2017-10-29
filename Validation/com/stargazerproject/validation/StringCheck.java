@@ -6,7 +6,7 @@ package com.stargazerproject.validation;
  *  @param <K> 需要校验的类型
  *  @author Felixerio
  *  **/
-public interface StringCheck {
+public interface StringCheck extends ObjectCheck{
 	
 	public StringCheck checkLenghtGreaterZero(final String source);
 	

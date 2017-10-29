@@ -1,6 +1,6 @@
-package com.stargazerproject.service.impl;
+package com.stargazerproject.service.base.impl;
 
-import com.stargazerproject.service.WorkInServiceState;
+import com.stargazerproject.service.baseinterface.WorkInServiceState;
 
 public class StandardWorkInServiceState extends StandardWorkInServiceListener implements WorkInServiceState{
 	

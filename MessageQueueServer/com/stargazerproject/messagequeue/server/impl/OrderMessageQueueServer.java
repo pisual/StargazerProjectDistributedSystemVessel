@@ -14,7 +14,7 @@ import com.stargazerproject.messagequeue.resources.OrderMessageQueueControlChara
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueSpringIntegrationPush;
 import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
 import com.stargazerproject.order.impl.Order;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 

@@ -3,7 +3,7 @@ package com.stargazerproject.service.util;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.service.WorkInServiceState;
+import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 public class ServiceUtil {

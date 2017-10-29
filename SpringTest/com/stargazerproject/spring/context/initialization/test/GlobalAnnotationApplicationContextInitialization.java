@@ -108,7 +108,7 @@ import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
 import com.stargazerproject.sequence.impl.CellsGenerateSequenceImpl;
 import com.stargazerproject.sequence.resources.CellsNodeParameterControlModel;
-import com.stargazerproject.sequence.resources.InitializationUUIDModel;
+import com.stargazerproject.sequence.resources.InitializationCellsGroupModel;
 import com.stargazerproject.sequence.resources.InjectParameterModel;
 import com.stargazerproject.sequence.resources.AcquireParameterModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
@@ -321,7 +321,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		CellsGenerateServerListener.class,
 		CellsGenerateServerManage.class,
 		BaseSequenceAOPConfiguration.class,
-		InitializationUUIDModel.class,
+		InitializationCellsGroupModel.class,
 		AcquireParameterModel.class,
 		SequenceResourcesShell.class,
 		CellsNodeParameterControlModel.class,

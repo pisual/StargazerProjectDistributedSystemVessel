@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.stargazerproject.service.Service;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.Services;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
  *  @name CellsGenerateServer服务集中托管
@@ -21,7 +21,7 @@ import com.stargazerproject.service.StanderServiceShell;
 @Component(value="cellsGenerateServerManage")
 @Qualifier("cellsGenerateServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="cellsGenerateServerManage", order = 99)
+@Services(value="cellsGenerateServerManage", order = 99)
 public class CellsGenerateServerManage extends AbstractIdleService{
 	
 	/** @illustrate cellsGenerateSequenceServer的ServiceShell接口 **/

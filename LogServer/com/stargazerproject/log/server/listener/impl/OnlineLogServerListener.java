@@ -5,9 +5,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.stargazerproject.service.WorkInServiceControl;
-import com.stargazerproject.service.WorkInServiceState;
-import com.stargazerproject.service.impl.StandardWorkInServiceState;
+import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
+import com.stargazerproject.service.baseinterface.WorkInServiceControl;
+import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
 @Component

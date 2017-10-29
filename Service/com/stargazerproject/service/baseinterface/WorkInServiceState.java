@@ -1,4 +1,4 @@
-package com.stargazerproject.service;
+package com.stargazerproject.service.baseinterface;
 
 public interface WorkInServiceState {
 	/** @illustrate 检测当前服务的状态 **/

@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.stargazerproject.service.Service;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
  *  @name frameUserInterfaceManage服务集中托管

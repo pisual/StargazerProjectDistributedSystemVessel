@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.stargazerproject.service.Service;
-import com.stargazerproject.service.StanderServiceShell;
+import com.stargazerproject.service.baseinterface.Services;
+import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
  *  @name OrderCache服务集中托管
  *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="byteArrayCacheServerManage")
 @Qualifier("byteArrayCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Service(value="byteArrayCacheServerManage", order = 11)
+@Services(value="byteArrayCacheServerManage", order = 11)
 public class ByteArrayCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

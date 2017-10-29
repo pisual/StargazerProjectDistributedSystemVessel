@@ -1,4 +1,4 @@
-package com.stargazerproject.service.impl;
+package com.stargazerproject.service.base.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.google.common.util.concurrent.Service.Listener;
 import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.service.WorkInServiceControl;
+import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 
 /** 
  *  @name 标准服务控制

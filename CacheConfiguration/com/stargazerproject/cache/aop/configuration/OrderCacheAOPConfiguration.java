@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.service.WorkInServiceState;
+import com.stargazerproject.service.baseinterface.WorkInServiceState;
 
 /** 
  *  @name OrderCache的AOP
