@@ -35,7 +35,7 @@ public class OrderCacheServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bootInitializationServerListener");
 		Optional<Cache<String, Order>> orderCache = BeanContainer.instance().getBean(Optional.of("orderCahceCharacteristicInitialize"), Optional.class);
 		orderCacheShell.initialize(orderCache);
 	}

@@ -1,4 +1,4 @@
-package com.stargazerproject.sequence.resources;
+package com.stargazerproject.sequence.model;
 
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;

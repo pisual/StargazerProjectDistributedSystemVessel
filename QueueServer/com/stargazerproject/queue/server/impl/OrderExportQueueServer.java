@@ -31,7 +31,7 @@ public class OrderExportQueueServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
+     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener", "bootInitializationServerListener");
 		Optional<Queue<Order>> queueArg = BeanContainer.instance().getBean(Optional.of("orderExportQueueCharacteristicInitialize"), Optional.class);
 		eventQueue.initialize(queueArg);
 		eventQueueControl.start();

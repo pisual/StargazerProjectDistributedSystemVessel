@@ -1,4 +1,4 @@
-package com.stargazerproject.sequence.resources;
+package com.stargazerproject.sequence.model;
 
 import java.lang.reflect.Field;
 

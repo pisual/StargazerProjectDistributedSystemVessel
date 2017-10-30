@@ -15,7 +15,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class KernelSequenceImplTest {
+public class ParametersClientImplTest {
 	
 //	@Test
 //	public void SpringInit(){
@@ -62,6 +62,7 @@ public class KernelSequenceImplTest {
 		serviceList.add("orderExportQueueServerManage");
 		serviceList.add("orderCacheServerManage");
 		serviceList.add("orderMessageQueueManage");
+		serviceList.add("standardServerManage");
 		//serviceList.add("frameUserInterfaceManage");
 		serviceResources.get().initializationServiceList(Optional.of(serviceList));
 		

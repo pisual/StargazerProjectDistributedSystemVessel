@@ -1,4 +1,4 @@
-package com.stargazerproject.queue.server.listener.impl;
+package com.stargazerproject.sequence.server.listener.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -11,42 +11,42 @@ import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component(value="orderExportQueueServerListener")
-@Qualifier("orderExportQueueServerListener")
+@Component(value="standardServerListener")
+@Qualifier("standardServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderExportQueueServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class StandardServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener", "bootInitializationServerListener");
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Starting");
+		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener", "bootInitializationServerListener");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Starting");
 	}
 	
 	@Override
 	public void running() {
 		super.running();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Run");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
 		super.terminated(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Terminated");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Failed");
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.stargazerproject.sequence.resources;
+package com.stargazerproject.sequence.model;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

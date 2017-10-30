@@ -107,14 +107,18 @@ import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
 import com.stargazerproject.sequence.impl.BootInitializationSequenceImpl;
-import com.stargazerproject.sequence.resources.CellsNodeParameterControlModel;
-import com.stargazerproject.sequence.resources.InitializationCellsGroupModel;
-import com.stargazerproject.sequence.resources.InjectParameterModel;
-import com.stargazerproject.sequence.resources.AcquireParameterModel;
+import com.stargazerproject.sequence.impl.StandardSequenceImpl;
+import com.stargazerproject.sequence.model.AcquireParameterModel;
+import com.stargazerproject.sequence.model.CellsNodeParameterControlModel;
+import com.stargazerproject.sequence.model.InitializationCellsGroupModel;
+import com.stargazerproject.sequence.model.InjectParameterModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
 import com.stargazerproject.sequence.server.impl.BootInitializationSequenceServer;
+import com.stargazerproject.sequence.server.impl.StandardSequenceServer;
 import com.stargazerproject.sequence.server.listener.impl.BootInitializationServerListener;
+import com.stargazerproject.sequence.server.listener.impl.StandardServerListener;
 import com.stargazerproject.sequence.server.manage.BootInitializationServerManage;
+import com.stargazerproject.sequence.server.manage.StandardServerManage;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
@@ -320,6 +324,10 @@ public class GlobalAnnotationApplicationContextInitialization {
 		BootInitializationSequenceServer.class,
 		BootInitializationServerListener.class,
 		BootInitializationServerManage.class,
+		StandardSequenceImpl.class,
+		StandardSequenceServer.class,
+		StandardServerListener.class,
+		StandardServerManage.class,
 		BaseSequenceAOPConfiguration.class,
 		InitializationCellsGroupModel.class,
 		AcquireParameterModel.class,

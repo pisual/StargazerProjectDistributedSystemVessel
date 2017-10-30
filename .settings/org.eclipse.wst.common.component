@@ -96,6 +96,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/KernelTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceModel"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>
