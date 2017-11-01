@@ -13,10 +13,10 @@ import com.stargazerproject.validation.ObjectCheck;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ObjectValidation implements ObjectCheck{
 	
-	protected ObjectValidation() {}
+	public ObjectValidation() {}
 
 	@Override
 	public void noNull(Object objectArg){
-		Preconditions.checkNotNull(objectArg,"The Arguement Is Null");
+		Preconditions.checkNotNull(objectArg, "The Arguement Is Null");
 	}
 }
