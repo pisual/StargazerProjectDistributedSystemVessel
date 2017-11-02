@@ -9,6 +9,7 @@ import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
 import com.stargazerproject.cache.impl.ByteArrayCache;
+import com.stargazerproject.cache.impl.InterProcessSemaphoreMutexCache;
 import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
 import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
@@ -109,7 +110,9 @@ import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfigurat
 import com.stargazerproject.sequence.impl.BootInitializationSequenceImpl;
 import com.stargazerproject.sequence.impl.StandardSequenceImpl;
 import com.stargazerproject.sequence.model.AcquireParameterModel;
+import com.stargazerproject.sequence.model.BuildGroupModel;
 import com.stargazerproject.sequence.model.CellsNodeParameterControlModel;
+import com.stargazerproject.sequence.model.DeletedParameterNodeModel;
 import com.stargazerproject.sequence.model.InitializationCellsGroupModel;
 import com.stargazerproject.sequence.model.InjectParameterModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
@@ -169,6 +172,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend ObjectParameterCache Class**/
 		ObjectParameterCache.class,
+		
+		/**Depend InterProcessSemaphoreMutexCache Class**/
+		InterProcessSemaphoreMutexCache.class,
 		
 		/**Depend LeaderLatchParameterCache Class**/
 		LeaderLatchParameterCache.class,
@@ -334,6 +340,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SequenceResourcesShell.class,
 		CellsNodeParameterControlModel.class,
 		InjectParameterModel.class,
+		BuildGroupModel.class,
+		DeletedParameterNodeModel.class,
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,

@@ -23,13 +23,15 @@ public class InitializationCellsGroupModel extends BaseSequenceModel{
 	
 	@Override
 	public Boolean method() {
+		String UUID = Sequence.getUUID();
 		if(systemParameter.get(Optional.of("Cells_Group")).equals(Optional.absent())){
-			systemParameter.put(Optional.of("Cells_Group"), Optional.of(Sequence.getUUID()+":"));
+			systemParameter.put(Optional.of("Cells_Group"), Optional.of(UUID + ":"));
 		}
 		else{
 			String originalParameter = systemParameter.get(Optional.of("Cells_UUID")).get();
-			systemParameter.put(Optional.of("Cells_Group"), Optional.of(originalParameter + ":" +Sequence.getUUID()));
+			systemParameter.put(Optional.of("Cells_Group"), Optional.of(originalParameter + ":" + UUID));
 		}
+		aggregateRootCache.put(Optional.of("This_Cells_UUID"), Optional.of(UUID));
 		log.INFO(this, "Cells_Group Initialization: " + systemParameter.get(Optional.of("Cells_Group")).get());
 		return Boolean.TRUE;
 	}

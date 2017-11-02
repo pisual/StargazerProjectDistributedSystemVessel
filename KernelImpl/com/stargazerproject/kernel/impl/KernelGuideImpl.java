@@ -16,9 +16,11 @@ public class KernelGuideImpl implements KernelGuide{
 	
 	private static List<String> serviceList = new ArrayList<String>();
 	private static KernelGuide kernelGuide = new KernelGuideImpl();
+	private static String Cells_Kind = "Cells_Master";
 
 	@Override
 	public KernelGuide differentiation() {
+		Cells_Kind = System.getProperty("Cells_Kind");
 		return kernelGuide;
 	}
 
@@ -41,15 +43,42 @@ public class KernelGuideImpl implements KernelGuide{
 	}
 
 	@Override
-	public KernelGuide startBootSequence() {
+	public KernelGuide loadBootSequence() {
 		serviceList.add("bootInitializationServerManage");
 		Sequence bootInitializationSequence = BeanContainer.instance().getBean(Optional.of("sequenceResourcesShell"), Sequence.class);
-		SequenceMethod initializationCellsGroupModel = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"), SequenceMethod.class);
-		SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
-		SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
-		bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
-		                          .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
-		                          .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel));
+		
+		switch (Cells_Kind) {
+		case "Cells_Master":
+			
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			System.out.println("################  Cells_Master ############");
+			
+			break;
+	    
+		case "Cells_Child":
+		
+		   SequenceMethod initializationCellsGroupModel = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"), SequenceMethod.class);
+		   SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
+		   SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
+		   SequenceMethod deletedParameterNodeModel = BeanContainer.instance().getBean(Optional.of("deletedParameterNodeModel"), SequenceMethod.class);
+		   SequenceMethod buildGroupModel = BeanContainer.instance().getBean(Optional.of("buildGroupModel"), SequenceMethod.class);
+		   bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
+		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
+		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel))
+		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(deletedParameterNodeModel))
+		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(buildGroupModel));
+		   
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			System.out.println("################  Cells_Master ############");
+		  break;
+		  
+		default:
+			break;
+		}
 		return kernelGuide;
 	}
 
@@ -60,12 +89,16 @@ public class KernelGuideImpl implements KernelGuide{
 		serviceList.add("orderCacheServerManage");
 		serviceList.add("orderMessageQueueManage");
 		serviceList.add("standardServerManage");
-		serviceList.add("frameUserInterfaceManage");
+//		serviceList.add("frameUserInterfaceManage");
 		return kernelGuide;
 	}
 
-	@Override
-	public KernelGuide startBaseSequence() {
+	
+	private KernelGuide startBaseSequence() {
+		Sequence standardSequence = BeanContainer.instance().getBean(Optional.of("standardSequence"), Sequence.class);
+		SequenceMethod cellsNodeParameterControlModel = BeanContainer.instance().getBean(Optional.of("cellsNodeParameterControlModel"), SequenceMethod.class);
+		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(cellsNodeParameterControlModel));
+		standardSequence.startSequence(Optional.of("cellsNodeParameterControlModel"));
 		return kernelGuide;
 	}
 
@@ -74,7 +107,10 @@ public class KernelGuideImpl implements KernelGuide{
 		Optional<ServiceResources> serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), Optional.class);
 		serviceResources.get().initializationServiceList(Optional.of(serviceList));
 		Optional<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), Optional.class);
-		serviceControl.get().startAllservice();		
+		serviceControl.get().startAllservice();
+		if(Cells_Kind.equals("Cells_Master")){
+			startBaseSequence();
+		}
 		return kernelGuide;
 	}
 

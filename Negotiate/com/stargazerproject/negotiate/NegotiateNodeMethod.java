@@ -68,4 +68,24 @@ public interface NegotiateNodeMethod {
 	 * **/
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception;
 	
+	/**
+	 * @MethodName 创建锁
+	 * @param 创建锁
+	 * @return Boolean.True :创建锁成功
+	 *         Boolean.False : 创建锁失败
+	 * @throws Exception 
+	 * @author Felixerio
+	 * **/
+	public boolean creatLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception;
+	
+	/**
+	 * @MethodName 释放锁
+	 * @param  释放锁
+	 * @return Boolean.True : 释放锁成功
+	 *         Boolean.False :  释放锁失败
+	 * @throws Exception 
+	 * @author Felixerio
+	 * **/
+	public void releaseLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception;
+	
 }

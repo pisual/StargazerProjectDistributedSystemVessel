@@ -1,7 +1,6 @@
 package com.stargazerproject.negotiate.resources;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +52,12 @@ public class NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCha
 		pathChildrenCacheListener = new PathChildrenCacheListener() {
 			@Override
 			public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
-				ChildData data = event.getData();
 				switch (event.getType()) {
 				case CHILD_ADDED:
 					log.INFO(this, "CHILD_ADDED : " + event.getData().getData());
 					byte[] byteArray = SerializableUtil.serialize(new InjectParameters());
 					nodeNegotiate.updateNodeData(Optional.of(event.getData().getPath()), Optional.of(""),Optional.of(byteArray));
+					System.out.println("初始化节点参数 " + event.getData().getPath());
 					break;
 				case CHILD_REMOVED:
 					log.INFO(this, "CHILD_REMOVED : " + event.getData());

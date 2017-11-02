@@ -19,6 +19,8 @@ public abstract class BaseSequenceModel implements SequenceMethod{
 	@Qualifier("logRecord")
 	protected LogMethod log;
 	
+	protected Cache<String,String> aggregateRootCache;
+	
 	private boolean waitmethod = Boolean.FALSE;
 	
 	public BaseSequenceModel() {}
@@ -35,5 +37,10 @@ public abstract class BaseSequenceModel implements SequenceMethod{
 	@Override
 	public Optional<Boolean> getWaitMethod() {
 		return Optional.of(waitmethod);
+	}
+	
+	@Override
+	public void setAggregateRootCache(Optional<Cache<String,String>> cache){
+		aggregateRootCache = cache.get();
 	}
 }

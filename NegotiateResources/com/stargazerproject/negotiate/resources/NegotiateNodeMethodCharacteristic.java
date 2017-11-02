@@ -1,10 +1,13 @@
 package com.stargazerproject.negotiate.resources;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.recipes.locks.InterProcessSemaphoreMutex;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs.Ids;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateNodeMethod;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -23,6 +27,10 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, BaseCharacteristic<NegotiateNodeMethod>{
 
 	private Optional<CuratorFramework> curatorFramework;
+	
+	@Autowired
+	@Qualifier("interProcessSemaphoreMutexCache")
+	private Cache<String, InterProcessSemaphoreMutex> interProcessSemaphoreMutexCache;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -67,5 +75,22 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return (null == curatorFramework.get().checkExists().forPath( nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
 	}
-
+	
+	@Override
+	public boolean creatLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		InterProcessSemaphoreMutex interProcessSemaphoreMutex = new InterProcessSemaphoreMutex(curatorFramework.get(), nodePath.get() + nodeName.get());
+		if(interProcessSemaphoreMutex.acquire(1, TimeUnit.SECONDS) == Boolean.TRUE){
+			interProcessSemaphoreMutexCache.put(Optional.of(nodePath.get() + nodeName.get()), Optional.of(interProcessSemaphoreMutex));
+			return Boolean.TRUE;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	@Override
+	public void releaseLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		InterProcessSemaphoreMutex interProcessSemaphoreMutex = interProcessSemaphoreMutexCache.get(Optional.of(nodePath.get() + nodeName.get())).get();
+		interProcessSemaphoreMutex.release();
+	}
 }

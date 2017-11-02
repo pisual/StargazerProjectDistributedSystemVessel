@@ -47,7 +47,7 @@ public class InjectParameterModel extends BaseSequenceModel{
 			for(Field valueField : valueFields){
 				valueField.setAccessible(true);
 				systemParameter.put(Optional.of(valueField.getName()), Optional.of(valueField.get(valueField.getName()).toString()));
-				log.DEBUG(this, "Afresh Load Parameters ，Key : " + valueField.getName() + "  Value : " + valueField.get(valueField.getName()).toString());
+	//			log.DEBUG(this, "Afresh Load Parameters ，Key : " + valueField.getName() + "  Value : " + valueField.get(valueField.getName()).toString());
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			log.ERROR(this, e.getLocalizedMessage());

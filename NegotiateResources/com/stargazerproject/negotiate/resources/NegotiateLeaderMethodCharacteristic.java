@@ -32,9 +32,9 @@ public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMetho
 	private LeaderLatch leaderLatch;
 	
 	private void leaderLatchInitialization(Optional<String> nodeName, Optional<String> nodePath, Optional<LeaderLatchListener> leaderLatchListener){
-		leaderLatch = new LeaderLatch(curatorFramework.get(), "/" + nodePath.get() + "/" + nodeName.get());
+		leaderLatch = new LeaderLatch(curatorFramework.get(), nodePath.get() + nodeName.get());
 		leaderLatch.addListener(leaderLatchListener.get());
-		objectParameterCache.put(Optional.of(nodePath.get() + "/" + nodeName.get()), Optional.of(leaderLatch));
+		objectParameterCache.put(Optional.of(nodePath.get() + nodeName.get()), Optional.of(leaderLatch));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,12 +53,12 @@ public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMetho
 
 	@Override
 	public void giveUpLeader(Optional<String> nodeName, Optional<String> nodePath) throws IOException {
-		objectParameterCache.get(Optional.of(nodePath.get() + "/" + nodeName.get())).get().close();;
+		objectParameterCache.get(Optional.of(nodePath.get() + nodeName.get())).get().close();;
 	}
 
 	@Override
 	public String getSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return objectParameterCache.get(Optional.of(nodePath.get() + "/" + nodeName.get())).get().getLeader().getId();
+		return objectParameterCache.get(Optional.of(nodePath.get() + nodeName.get())).get().getLeader().getId();
 	}
 
 }

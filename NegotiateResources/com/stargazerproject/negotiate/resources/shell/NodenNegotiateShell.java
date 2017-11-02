@@ -110,5 +110,15 @@ public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negoti
 	public String getSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return negotiateLeaderMethod.get().getSelectLeader(nodeName, nodePath);
 	}
+	
+	@Override
+	public boolean creatLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		return negotiateNodeMethod.get().creatLock(nodeName, nodePath);
+	}
+	
+	@Override
+	public void releaseLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		negotiateNodeMethod.get().releaseLock(nodeName, nodePath);
+	}
 
 }

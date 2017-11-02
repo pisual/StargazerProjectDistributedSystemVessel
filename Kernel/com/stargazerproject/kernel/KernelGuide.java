@@ -32,19 +32,13 @@ public interface KernelGuide {
 	* @name 启动引导序列
 	* @illustrate 完成系统核心引导启动功能
 	* **/
-	public KernelGuide startBootSequence();
+	public KernelGuide loadBootSequence();
 	
 	/**
 	* @name 启动模块服务
 	* @illustrate 启动其他模块级别服务
 	* **/
 	public KernelGuide loadModelServer();
-	
-	/**
-	* @name 启动基础序列
-	* @illustrate 完成系统启动的最后的工作
-	* **/
-	public KernelGuide startBaseSequence();
 	
 	/**
 	* @name 启动基础序列

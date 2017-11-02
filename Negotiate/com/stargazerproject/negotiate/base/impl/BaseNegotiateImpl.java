@@ -69,6 +69,16 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 	public String getSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return negotiate.getSelectLeader(nodeName, nodePath);
 	}
+	
+	@Override
+	public boolean creatLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		return negotiate.creatLock(nodeName, nodePath);
+	}
+	
+	@Override
+	public void releaseLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
+		negotiate.releaseLock(nodeName, nodePath);
+	}
 
 	@Override
 	public void start() {
