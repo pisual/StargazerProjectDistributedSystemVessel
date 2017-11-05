@@ -53,6 +53,9 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 				switch (event.getType()) {  
 				case NODE_REMOVED:  
 					baseLog.INFO(this, event.getData().getPath()+" Has Remove");
+					break;
+				case NODE_ADDED:  
+					baseLog.INFO(this, event.getData().getPath()+" Has NODE_ADDED");
 					break;  
 				case NODE_UPDATED:
 					byteArrayCache.put(Optional.of("AcquireParameterModel"), event.getData().getData());

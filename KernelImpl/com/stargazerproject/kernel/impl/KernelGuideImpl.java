@@ -97,7 +97,9 @@ public class KernelGuideImpl implements KernelGuide{
 	private KernelGuide startBaseSequence() {
 		Sequence standardSequence = BeanContainer.instance().getBean(Optional.of("standardSequence"), Sequence.class);
 		SequenceMethod cellsNodeParameterControlModel = BeanContainer.instance().getBean(Optional.of("cellsNodeParameterControlModel"), SequenceMethod.class);
-		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(cellsNodeParameterControlModel));
+		SequenceMethod createBaseNodeModel = BeanContainer.instance().getBean(Optional.of("createBaseNodeModel"), SequenceMethod.class);
+		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(createBaseNodeModel))
+		                .addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(cellsNodeParameterControlModel));
 		standardSequence.startSequence(Optional.of("cellsNodeParameterControlModel"));
 		return kernelGuide;
 	}

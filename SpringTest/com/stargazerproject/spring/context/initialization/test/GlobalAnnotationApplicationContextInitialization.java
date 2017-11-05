@@ -112,6 +112,7 @@ import com.stargazerproject.sequence.impl.StandardSequenceImpl;
 import com.stargazerproject.sequence.model.AcquireParameterModel;
 import com.stargazerproject.sequence.model.BuildGroupModel;
 import com.stargazerproject.sequence.model.CellsNodeParameterControlModel;
+import com.stargazerproject.sequence.model.CreateBaseNodeModel;
 import com.stargazerproject.sequence.model.DeletedParameterNodeModel;
 import com.stargazerproject.sequence.model.InitializationCellsGroupModel;
 import com.stargazerproject.sequence.model.InjectParameterModel;
@@ -342,6 +343,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		InjectParameterModel.class,
 		BuildGroupModel.class,
 		DeletedParameterNodeModel.class,
+		CreateBaseNodeModel.class,
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,

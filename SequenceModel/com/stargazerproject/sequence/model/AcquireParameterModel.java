@@ -30,9 +30,9 @@ public class AcquireParameterModel extends BaseSequenceModel{
 	@Override
 	public Boolean method() {
 		try {
-			nodeNegotiate.creatEphemeralNode(aggregateRootCache.get(Optional.of("This_Cells_UUID")), Optional.of("/System/EdenCells/"), Optional.absent());
 			Optional<CuratorListener> negotiateNodeCuratorListenerCharacteristic = BeanContainer.instance().getBean(Optional.of("negotiateInjectParameterTreeCacheListenerCharacteristic"), Optional.class);
 			nodeNegotiate.registeredSingleWatcher(aggregateRootCache.get(Optional.of("This_Cells_UUID")), Optional.of("/System/EdenCells/"), negotiateNodeCuratorListenerCharacteristic);
+			nodeNegotiate.creatEphemeralNode(aggregateRootCache.get(Optional.of("This_Cells_UUID")), Optional.of("/System/EdenCells/"), Optional.absent());
 			return true;
 		} catch (Exception e) {
 			log.ERROR(this, e.getMessage());

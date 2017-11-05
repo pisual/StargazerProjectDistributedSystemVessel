@@ -1,5 +1,7 @@
 package com.stargazerproject.negotiate.resources;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
@@ -55,6 +57,7 @@ public class NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCha
 				switch (event.getType()) {
 				case CHILD_ADDED:
 					log.INFO(this, "CHILD_ADDED : " + event.getData().getData());
+					TimeUnit.SECONDS.sleep(1);
 					byte[] byteArray = SerializableUtil.serialize(new InjectParameters());
 					nodeNegotiate.updateNodeData(Optional.of(event.getData().getPath()), Optional.of(""),Optional.of(byteArray));
 					System.out.println("初始化节点参数 " + event.getData().getPath());
