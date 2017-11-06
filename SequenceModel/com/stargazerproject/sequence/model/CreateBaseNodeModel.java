@@ -27,10 +27,21 @@ public class CreateBaseNodeModel extends BaseSequenceModel{
 	public Boolean method() {
 		try {
 			
+			if(nodeNegotiate.checkNodeExists(Optional.of(""), Optional.of("/System")) != Boolean.TRUE){
+				nodeNegotiate.creatPersistentNode(Optional.of(""), Optional.of("/System"), Optional.absent());
+				log.INFO(this, "Create Ephemeral Node : /System");
+			}
+			
 			if(nodeNegotiate.checkNodeExists(Optional.of("EdenCells"), Optional.of("/System/")) != Boolean.TRUE){
 				nodeNegotiate.creatPersistentNode(Optional.of("EdenCells"), Optional.of("/System/"), Optional.absent());
 				log.INFO(this, "Create Ephemeral Node : /System/EdenCells");
 			}
+			
+			if(nodeNegotiate.checkNodeExists(Optional.of(""), Optional.of("/Master_Cells")) != Boolean.TRUE){
+				nodeNegotiate.creatPersistentNode(Optional.of(""), Optional.of("/Master_Cells"), Optional.absent());
+				log.INFO(this, "Create Ephemeral Node : /Master_Cells");
+			}
+			
 			if(nodeNegotiate.checkNodeExists(Optional.of("List"), Optional.of("/Master_Cells/")) != Boolean.TRUE){
 				nodeNegotiate.creatPersistentNode(Optional.of("List"), Optional.of("/Master_Cells/"), Optional.absent());
 				log.INFO(this, "Create Ephemeral Node : /Master_Cells/List");

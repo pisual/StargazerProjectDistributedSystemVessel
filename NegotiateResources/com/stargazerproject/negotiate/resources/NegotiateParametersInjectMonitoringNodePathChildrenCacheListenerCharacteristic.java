@@ -60,10 +60,11 @@ public class NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCha
 					TimeUnit.SECONDS.sleep(1);
 					byte[] byteArray = SerializableUtil.serialize(new InjectParameters());
 					nodeNegotiate.updateNodeData(Optional.of(event.getData().getPath()), Optional.of(""),Optional.of(byteArray));
-					System.out.println("初始化节点参数 " + event.getData().getPath());
+					log.INFO(this, "初始化节点参数 " + event.getData().getPath());
 					break;
 				case CHILD_REMOVED:
-					log.INFO(this, "CHILD_REMOVED : " + event.getData());
+					nodeNegotiate.deleteNode(Optional.of(event.getData().getPath().substring(event.getData().getPath().lastIndexOf("/"))),Optional.of("/Master_Cells/List"));
+					log.INFO(this, event.getData().getPath()+" Has Remove, Deletes the primary node operation");
 					break;
 				case CHILD_UPDATED:
 					System.out.println("CHILD_UPDATED : ");

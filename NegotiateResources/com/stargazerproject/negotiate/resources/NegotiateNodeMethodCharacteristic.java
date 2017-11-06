@@ -58,7 +58,7 @@ public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, B
 
 	@Override
 	public void deleteNode(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		curatorFramework.get().delete().forPath( nodePath.get() + nodeName.get());
+		curatorFramework.get().delete().deletingChildrenIfNeeded().forPath(nodePath.get() + nodeName.get());
 	}
 
 	@Override

@@ -67,7 +67,6 @@ public class KernelGuideImpl implements KernelGuide{
 		   bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
 		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
 		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel))
-		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(deletedParameterNodeModel))
 		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(buildGroupModel));
 		   
 			System.out.println("");

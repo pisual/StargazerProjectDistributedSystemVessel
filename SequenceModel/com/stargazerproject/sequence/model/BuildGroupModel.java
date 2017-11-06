@@ -32,12 +32,13 @@ public class BuildGroupModel extends BaseSequenceModel{
 	public Boolean method() {
 		try {
 			nodeNegotiate.creatPersistentNode(aggregateRootCache.get(Optional.of("This_Cells_UUID")), Optional.of("/Master_Cells/List/"), Optional.absent());
-				System.out.println("开会匹配");
+				System.out.println("开始匹配");
+				TimeUnit.SECONDS.sleep(randomInt(1,120));
 				if(nodeNegotiate.creatLock(aggregateRootCache.get(Optional.of("This_Cells_UUID")), Optional.of("/Master_Cells/List/"))){
 					while(true){
-						TimeUnit.SECONDS.sleep(randomInt(1,10));
+					TimeUnit.SECONDS.sleep(randomInt(1,10));
 					List<String> pathNodeList = nodeNegotiate.getPathNode(Optional.of(""), Optional.of("/Master_Cells/List"));
-					if(pathNodeList.size() == 1){
+					if(pathNodeList.size() < 2){
 						System.out.println("节点数目不足");
 						continue;
 					}
@@ -45,12 +46,21 @@ public class BuildGroupModel extends BaseSequenceModel{
 					for(String pathNode : pathNodeList){
 						if(matchingAlgorithm(origin, pathNode, 2).equals(Boolean.TRUE)){
 							System.out.println("Find Mathcing Node : " + pathNode);
-							return true;
+							if(nodeNegotiate.creatLock(Optional.of(""), Optional.of("/Master_Cells/List/" + pathNode))){
+								System.out.println("尝试加锁成功");
+								return true;
+							}
+							else{
+								System.out.println("尝试加锁失败");
+							}
 						}
 					}
 					
 					}
 					
+				}
+				else{
+					System.out.println("已经被加锁，进入建组模式");
 				}
 			return true;
 			
@@ -70,7 +80,7 @@ public class BuildGroupModel extends BaseSequenceModel{
 			return Boolean.TRUE;
 		}
 		else{
-			System.out.println("不匹配 " + origin.substring(origin.length() - matchLenght + 1) + "   " + target.substring(target.length() - matchLenght +1));
+		//	System.out.println("不匹配 " + origin.substring(origin.length() - matchLenght + 1) + "   " + target.substring(target.length() - matchLenght +1));
 			return Boolean.FALSE;
 		}
 	}

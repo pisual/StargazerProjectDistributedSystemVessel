@@ -16,7 +16,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="cellsNodeParameterControlModel")
 @Qualifier("cellsNodeParameterControlModel")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class CellsNodeParameterControlModel extends BaseSequenceModel{
+public class CellsNodeCloseListenerModel extends BaseSequenceModel{
 	
 	@Autowired
 	@Qualifier("nodenNegotiate")
@@ -26,8 +26,9 @@ public class CellsNodeParameterControlModel extends BaseSequenceModel{
 	@Qualifier("systemParameterCahce")
 	protected Cache<String,String> systemParameterCahce;
 
-	public CellsNodeParameterControlModel() {
+	public CellsNodeCloseListenerModel() {
 		super();
+		waitMethod();
 		}
 	
 	@SuppressWarnings("unchecked")
@@ -36,6 +37,7 @@ public class CellsNodeParameterControlModel extends BaseSequenceModel{
 		try {
 			Optional<PathChildrenCacheListener> negotiateParametersInjectMonitoringNodePathChildrenCacheListener = BeanContainer.instance().getBean(Optional.of("negotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic"), Optional.class);
 			nodeNegotiate.registeredCirculationWatcher(Optional.of("/System/EdenCells"), Optional.of(""), negotiateParametersInjectMonitoringNodePathChildrenCacheListener);
+			systemParameterCahce.put(Optional.of("CellsNodeParameterControlModel"), Optional.of("Continue"));
 			return true;
 		} catch (Exception e) {
 			log.ERROR(this, e.getMessage());

@@ -33,6 +33,10 @@ public class LogData {
 		logLevel = logLevelArg.get();
 	}
 	
+	public Optional<LogLevel> logLevel(){
+		return Optional.of(logLevel);
+	}
+	
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)

@@ -16,24 +16,28 @@ import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
+import com.stargazerproject.negotiate.Negotiate;
 
 @Component(value="negotiateInjectParameterTreeCacheListener")
 @Qualifier("negotiateInjectParameterTreeCacheListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
 
-	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
 	@Autowired
-	@Qualifier("systemParameterCahce")
-	protected Cache<String,String> systemParameterCahce;
+	@Qualifier("nodenNegotiate")
+	private Negotiate nodeNegotiate;
 	
 	@Autowired
 	@Qualifier("byteArrayCache")
 	protected BigCache<String, byte[]> byteArrayCache;
+	
+	@Autowired
+	@Qualifier("systemParameterCahce")
+	protected Cache<String,String> systemParameterCahce;
 	
 	private TreeCacheListener treeCacheListener;
 
