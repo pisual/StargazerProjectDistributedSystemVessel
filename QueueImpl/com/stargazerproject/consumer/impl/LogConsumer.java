@@ -11,7 +11,7 @@ public class LogConsumer implements QueueConsumer<LogData>{
 	
 	@Override
 	public void consumer(Optional<LogData> e) {
-		if(e.get().logLevel().equals(LogLevel.ERROR) || (e.get().logLevel().equals(LogLevel.FATAL))){
+		if(e.get().logLevel().get().equals(LogLevel.ERROR) || (e.get().logLevel().get().equals(LogLevel.FATAL))){
 			System.err.println("Stargazer System Report : " + e.get().toString());
 		}
 		else{
