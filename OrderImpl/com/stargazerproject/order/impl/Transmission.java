@@ -6,7 +6,6 @@ import com.stargazerproject.order.Target;
 
 
 /** 指令传输 **/
-@SuppressWarnings("unused")
 public final class Transmission{
 	/** 指令发出地址 **/
 	private Target source;

@@ -45,7 +45,7 @@ public final class Order extends ID implements Entity<Order>{
 	* @illustrate 切分事务到缓存队列
 	* @param Segmentation<Event> 缓存队列
 	* **/
-	public void segmentation(Segmentation<Optional<Event>> segmentation){
+	public void segmentation(Optional<Segmentation<Optional<Event>>> segmentation){
 		transaction.segmentationMethod(segmentation);
 		state = State.Execute;
 	}

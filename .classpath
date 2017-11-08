@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Bus"/>
+	<classpathentry kind="src" path="BusImpl"/>
+	<classpathentry kind="src" path="BusConfiguration"/>
+	<classpathentry kind="src" path="BusResources"/>
+	<classpathentry kind="src" path="BusServer"/>
+	<classpathentry kind="src" path="BusTest"/>
 	<classpathentry kind="src" path="Service"/>
 	<classpathentry kind="src" path="ServerImpl"/>
 	<classpathentry kind="src" path="ServiceConfiguration"/>

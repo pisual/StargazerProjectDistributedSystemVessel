@@ -95,7 +95,7 @@ public class OrderQueueAndCacheTest {
 	public void orderSegmentation() {
 			for (int i = 0; i < 2; i++) {
 				cache.put(orderList.get(i).IDSequence(), Optional.of(orderList.get(i)));
-				orderList.get(i).segmentation(segmentation);
+				orderList.get(i).segmentation(Optional.of(segmentation));
 		}
 		log.INFO(this, "百万级Order切分创建完成");
 	}

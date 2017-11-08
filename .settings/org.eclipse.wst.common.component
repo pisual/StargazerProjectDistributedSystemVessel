@@ -97,6 +97,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceModel"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Bus"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusServer"/>
         <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>
