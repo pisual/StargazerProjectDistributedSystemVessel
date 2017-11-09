@@ -13,4 +13,6 @@ public interface BusObserver<T> {
 	
 	public Optional<T> resultEvent();
 	
+	public void skip();
+	
 }

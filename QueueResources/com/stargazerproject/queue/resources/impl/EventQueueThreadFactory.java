@@ -9,6 +9,6 @@ import com.stargazerproject.queue.resources.QueuethreadFactory;
 
 @Component
 @Qualifier("eventQueueThreadFactory")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EventQueueThreadFactory extends QueuethreadFactory{
 }

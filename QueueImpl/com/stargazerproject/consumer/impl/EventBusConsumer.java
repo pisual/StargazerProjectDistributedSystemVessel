@@ -10,8 +10,7 @@ import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueConsumer;
 
-
-public class EventConsumer implements QueueConsumer<Event>{
+public class EventBusConsumer implements QueueConsumer<Event>{
 
 	@Autowired
 	@Qualifier("eventExecute")
@@ -20,9 +19,8 @@ public class EventConsumer implements QueueConsumer<Event>{
 	@Autowired
 	@Qualifier("logQueue")
 	public Queue<LogData> logQueue;
-
 	
-	public EventConsumer() {}
+	public EventBusConsumer() {}
 	
 	@Override
 	public void consumer(Optional<Event> e) {

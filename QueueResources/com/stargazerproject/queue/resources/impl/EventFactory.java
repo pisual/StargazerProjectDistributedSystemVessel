@@ -10,7 +10,7 @@ import com.stargazerproject.queue.resources.QueueEventFactory;
 
 @Component
 @Qualifier("eventFactory")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EventFactory extends QueueEventFactory<EventQueueEvent>{
 	@Override
 	public EventQueueEvent newInstance() {

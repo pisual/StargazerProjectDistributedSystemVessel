@@ -4,7 +4,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.order.Target;
 
-@SuppressWarnings("unused")
 public class AddressTarget implements Target{
 	
 	/** 指令IP **/

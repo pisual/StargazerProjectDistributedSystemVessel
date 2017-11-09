@@ -2,12 +2,11 @@ package com.stargazerproject.sequence.base.impl;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.sequence.Sequence;
-import com.stargazerproject.sequence.SequenceMethod;
 import com.stargazerproject.sequence.SequenceTransaction;
 
-public abstract class BaseSequence implements Sequence{
+public abstract class BaseSequence<K> implements Sequence<K>{
 	
-	protected Sequence sequence;
+	protected Sequence<K> sequence;
 
 	@Override
 	public void startSequence(Optional<String> sequenceGroup) {
@@ -15,8 +14,8 @@ public abstract class BaseSequence implements Sequence{
 	}
 
 	@Override
-	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<SequenceMethod> sequenceMethod) {
-		return sequence.addModel(sequenceGroup, sequenceMethod);
+	public SequenceTransaction<K> addModel(Optional<String> sequenceGroup, Optional<K> event) {
+		return sequence.addModel(sequenceGroup, event);
 	}
 	
 	@Override

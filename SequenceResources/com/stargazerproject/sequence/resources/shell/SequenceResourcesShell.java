@@ -15,6 +15,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.SequenceMethod;
 import com.stargazerproject.sequence.SequenceTransaction;
@@ -23,7 +24,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="sequenceResourcesShell")
 @Qualifier("sequenceResourcesShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class SequenceResourcesShell implements Sequence, BaseCharacteristic<Sequence>{
+public class SequenceResourcesShell implements Sequence<Event>, BaseCharacteristic<Sequence<Event>>{
 	
 	private Multimap<String, SequenceMethod> scoreMultimap = LinkedHashMultimap.create(); 
 	private Map<String, Cache<String,String>> aggregateRootCacheMap = new HashMap<String, Cache<String,String>>();
@@ -39,7 +40,7 @@ public class SequenceResourcesShell implements Sequence, BaseCharacteristic<Sequ
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<SequenceMethod> sequenceMethod) {
+	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<Event> event) {
 		if(null == aggregateRootCacheMap.get(sequenceGroup.get())){
 			Cache<String,String> cache = BeanContainer.instance().getBean(Optional.of("objectParameterCache"), Cache.class);
 			aggregateRootCacheMap.put(sequenceGroup.get(), cache);

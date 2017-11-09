@@ -15,4 +15,9 @@ public class EventBusObserver extends BusObserverImpl<Event>{
 		return event.isComplete();
 	}
 
+	@Override
+	public void skip() {
+		event.skipEvent();
+	}
+
 }

@@ -38,6 +38,15 @@ public class QueueParameters {
 		private static final String Receive_Event_Size_of_bufferSize = "65536";
 		//Event队列 End
 		
+		//Event队列 Start
+		/**接收Event队列消费者数目**/
+		/** @illustrate 参数类 **/
+		public static final String Receive_Event_Bus_Number_of_consumers = "4";
+		/**接收Event队列缓存**/
+		/** @illustrate 参数类 **/
+		private static final String Receive_Event_Bus_Size_of_bufferSize = "65536";
+		//Event队列 End
+		
 		//系统核心日志队列配置 Start
 		/**系统核心日志队列消费者数目**/
 		/** @illustrate 参数类 **/

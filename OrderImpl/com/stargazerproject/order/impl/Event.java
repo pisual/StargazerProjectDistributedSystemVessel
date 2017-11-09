@@ -11,13 +11,15 @@ import com.stargazerproject.order.Result;
  *  @illustrate 带有ID变量的可追踪的实体，由外界进行序列注入
  *  @author Felixerio
  *  **/
-public final class Event extends ID{
+public class Event extends ID{
 	
 	/** @illustrate 事件参数接口,需要注入baseMapUnit **/
 	public Cache<String, String> parameter;
 	
 	/** @illustrate 事件结果接口**/
 	private Result result;
+	
+	private Boolean waitExecutionState = Boolean.TRUE;
 
 	/** @illustrate  加参数初始化 **/
 	public Event(Optional<String> idArg, Optional<Cache<String, String>> parameterArg) {
@@ -35,6 +37,14 @@ public final class Event extends ID{
 		if(execute.get().executeEvent(Optional.of(parameter)))
 		   {result.Complete();}
 		result.Complete();
+	}
+	
+	public void skipEvent(){
+		waitExecutionState = Boolean.FALSE;
+	}
+	
+	public Optional<Boolean> waitExecutionState(){
+		return Optional.of(waitExecutionState);
 	}
 	
 	@Override

@@ -3,8 +3,11 @@ package com.stargazerproject.spring.context.initialization.test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
+import com.google.common.eventbus.EventBus;
 import com.stargazer.segmentation.impl.EventExecuteImpl;
 import com.stargazer.segmentation.impl.EventSegmentation;
+import com.stargazerproject.bus.resources.EventBusBlockMethodCharacteristic;
+import com.stargazerproject.bus.resources.EventBusNoBlockMethodCharacteristic;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
@@ -40,9 +43,10 @@ import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
+import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
-import com.stargazerproject.inject.impl.AnnotationScannerImpl;
 import com.stargazerproject.inject.impl.AnnotationClassSequenceScannerImpl;
+import com.stargazerproject.inject.impl.AnnotationScannerImpl;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
@@ -71,9 +75,11 @@ import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
 import com.stargazerproject.negotiate.server.impl.NodeNegotiateServer;
 import com.stargazerproject.negotiate.server.listener.impl.NodeNegotiateListener;
 import com.stargazerproject.negotiate.server.manage.NodeNegotiateManage;
+import com.stargazerproject.queue.impl.EventBusQueue;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.OrderExportQueue;
+import com.stargazerproject.queue.impl.resources.shell.EventBusDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.LogDisruptorShell;
 import com.stargazerproject.queue.impl.resources.shell.OrderExportDisruptorShell;
@@ -90,12 +96,15 @@ import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
 import com.stargazerproject.queue.resources.impl.OrderExportEventFactory;
 import com.stargazerproject.queue.resources.impl.OrderExportHandler;
 import com.stargazerproject.queue.resources.impl.OrderExportThreadFactory;
+import com.stargazerproject.queue.server.impl.EventBusQueueServer;
 import com.stargazerproject.queue.server.impl.EventQueueServer;
 import com.stargazerproject.queue.server.impl.LogQueueServer;
 import com.stargazerproject.queue.server.impl.OrderExportQueueServer;
+import com.stargazerproject.queue.server.listener.impl.EventBusQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.OrderExportQueueServerListener;
+import com.stargazerproject.queue.server.manage.EventBusQueueServerManage;
 import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.queue.server.manage.OrderExportQueueServerManage;
@@ -245,6 +254,14 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventResultMergeHandler.class,
 		CleanEventHandler.class,
 		
+		/**Depend EventBusQueue**/
+		EventBusQueue.class,
+		EventBusDisruptorShell.class,
+		EventBusQueueServer.class,
+		EventBusQueueServerListener.class,
+		EventBusQueueServerManage.class,
+		EventBusConsumer.class,
+		
 		/**Depend LogCache**/
 		LogQueue.class,
 		LogDisruptorShell.class,
@@ -347,7 +364,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,
-		AnnotationClassSequenceScannerImpl.class
+		AnnotationClassSequenceScannerImpl.class,
+		
+		/**Depend Bus**/
+		EventBus.class,
+		EventBusBlockMethodCharacteristic.class,
+		EventBusNoBlockMethodCharacteristic.class
 
 		);
 	} 
