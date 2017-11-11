@@ -31,7 +31,7 @@ public class EventBusQueueServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener","bootInitializationServerListener");
+     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		Optional<Queue<Event>> queueArg = BeanContainer.instance().getBean(Optional.of("eventBusQueueCharacteristicInitialize"), Optional.class);
 		eventQueue.initialize(queueArg);
 		eventQueueControl.start();

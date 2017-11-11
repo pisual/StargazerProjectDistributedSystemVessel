@@ -1,7 +1,7 @@
 package com.stargazerproject.sequence.resources.shell;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.bus.Bus;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
-import com.stargazerproject.sequence.SequenceMethod;
 import com.stargazerproject.sequence.SequenceTransaction;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
@@ -26,37 +26,33 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class SequenceResourcesShell implements Sequence<Event>, BaseCharacteristic<Sequence<Event>>{
 	
-	private Multimap<String, SequenceMethod> scoreMultimap = LinkedHashMultimap.create(); 
-	private Map<String, Cache<String,String>> aggregateRootCacheMap = new HashMap<String, Cache<String,String>>();
+	private Bus<Event> bus;
+	
+	private Multimap<String, Event> scoreMultimap = LinkedHashMultimap.create(); 
 	
 	public SequenceResourcesShell() {}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Bean(name="sequenceResourcesCharacteristic")
 	@Lazy(true)
-	public Optional<Sequence> characteristic() {
+	public Optional<Sequence<Event>> characteristic() {
+		bus = BeanContainer.instance().getBean(Optional.of("eventBusImpl"), Bus.class);
 		return Optional.of(this);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public SequenceTransaction addModel(Optional<String> sequenceGroup, Optional<Event> event) {
-		if(null == aggregateRootCacheMap.get(sequenceGroup.get())){
-			Cache<String,String> cache = BeanContainer.instance().getBean(Optional.of("objectParameterCache"), Cache.class);
-			aggregateRootCacheMap.put(sequenceGroup.get(), cache);
-			sequenceMethod.get().setAggregateRootCache(Optional.of(cache));
-		}
-		else{
-			Cache<String,String> cache = aggregateRootCacheMap.get(sequenceGroup.get());
-			sequenceMethod.get().setAggregateRootCache(Optional.of(cache));
-		}
-		scoreMultimap.put(sequenceGroup.get(), sequenceMethod.get());
+	public SequenceTransaction<Event> addModel(Optional<String> sequenceGroup, Optional<Event> event) {
+		scoreMultimap.put(sequenceGroup.get(), event.get());
 		return this;
 	}
 
 	@Override
-	public void startSequence(Optional<String> sequenceGroup) {
-		scoreMultimap.get(sequenceGroup.get()).stream().forEach(e -> e.method());
+	public void startSequence(Optional<String> sequenceGroup) throws BusEventTimeoutException{
+		Collection<Event> events = scoreMultimap.get(sequenceGroup.get());
+		for(Event event : events){
+			bus.push(Optional.of(event), Optional.of(TimeUnit.SECONDS), Optional.of(10));
+		}
 	}
 	
 	@Override

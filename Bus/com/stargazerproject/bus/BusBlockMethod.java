@@ -19,6 +19,6 @@ public interface BusBlockMethod<T> {
 	* @param <T> 指令
 	* @return 返回指令
 	* **/
-	public Optional<T> push(Optional<T> busEvent, TimeUnit timeUnit, int timeout)throws BusEventTimeoutException;
+	public Optional<T> push(Optional<T> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout)throws BusEventTimeoutException;
 	
 }

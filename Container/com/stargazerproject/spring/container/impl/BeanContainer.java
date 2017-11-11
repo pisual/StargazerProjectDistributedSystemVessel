@@ -1,5 +1,6 @@
 package com.stargazerproject.spring.container.impl;
 
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
@@ -23,21 +24,10 @@ public class BeanContainer extends GlobalApplicationContext implements BeanContr
 	}
 	
 	@Override
-	public void setBean(Optional<String> className, Optional<Scope> scope, Class<?> ClassArg) {
+	public void setBean(Optional<Class<?>> classArg) {
 		BeanDefinitionRegistry beanFactory = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
-		//beanFactory.registerBeanDefinition(className.get(), BeanDefinitionBuilder.genericBeanDefinition(ClassArg).setScope("singleton").getBeanDefinition());
-		//beanFactory.autowireBean(ClassArg);
-	//	beanFactory.createBean(ClassArg,1, false);
-	//	beanFactory.registerSingleton(className.get(), ClassArg);
-	//	beanFactory.autowireBean(ClassArg);
-	//	beanFactory.autowireBeanProperties(ClassArg, 1, true);
-	//	ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanFactory);
-    //    scanner.scan("com.stargazerproject.messagequeue");
-        applicationContext.getAutowireCapableBeanFactory().createBean(ClassArg);
-//        applicationContext
-		System.out.println("#############################");
-		//beanFactory
-		
+		beanFactory.registerBeanDefinition("initializationCellsGroupModel", BeanDefinitionBuilder.genericBeanDefinition(classArg.get()).setScope("singleton").getBeanDefinition());
+		System.out.println("注入");
 	}
 	
 	@Override

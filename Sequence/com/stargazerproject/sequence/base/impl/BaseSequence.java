@@ -1,6 +1,7 @@
 package com.stargazerproject.sequence.base.impl;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.SequenceTransaction;
 
@@ -9,7 +10,7 @@ public abstract class BaseSequence<K> implements Sequence<K>{
 	protected Sequence<K> sequence;
 
 	@Override
-	public void startSequence(Optional<String> sequenceGroup) {
+	public void startSequence(Optional<String> sequenceGroup) throws BusEventTimeoutException {
 		sequence.startSequence(sequenceGroup);
 	}
 

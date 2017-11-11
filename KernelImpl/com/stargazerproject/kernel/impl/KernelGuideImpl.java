@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.kernel.KernelGuide;
+import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
-import com.stargazerproject.sequence.SequenceMethod;
 import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.ServiceResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
+import com.stargazerproject.util.SequenceUtil;
 
 public class KernelGuideImpl implements KernelGuide{
 	
@@ -39,6 +43,8 @@ public class KernelGuideImpl implements KernelGuide{
 		serviceList.add("bigCacheIndexCacheServerManage");
 		serviceList.add("byteArrayCacheServerManage");
 		serviceList.add("nodeNegotiateManage");
+		serviceList.add("eventBusQueueServerManage");
+		serviceList.add("eventBusServerManage");
 		return kernelGuide;
 	}
 
@@ -49,29 +55,23 @@ public class KernelGuideImpl implements KernelGuide{
 		
 		switch (Cells_Kind) {
 		case "Cells_Master":
-			
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
+
 			System.out.println("################  Cells_Master ############");
 			
 			break;
 	    
 		case "Cells_Child":
 		
-		   SequenceMethod initializationCellsGroupModel = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"), SequenceMethod.class);
-		   SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
-		   SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
-		   SequenceMethod deletedParameterNodeModel = BeanContainer.instance().getBean(Optional.of("deletedParameterNodeModel"), SequenceMethod.class);
-		   SequenceMethod buildGroupModel = BeanContainer.instance().getBean(Optional.of("buildGroupModel"), SequenceMethod.class);
-		   bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
-		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
-		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel))
-		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(buildGroupModel));
-		   
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
+//		   SequenceMethod initializationCellsGroupModel = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"), SequenceMethod.class);
+//		   SequenceMethod acquireParameterModel = BeanContainer.instance().getBean(Optional.of("acquireParameterModel"), SequenceMethod.class);
+//		   SequenceMethod injectParameterModel = BeanContainer.instance().getBean(Optional.of("injectParameterModel"), SequenceMethod.class);
+//		   SequenceMethod deletedParameterNodeModel = BeanContainer.instance().getBean(Optional.of("deletedParameterNodeModel"), SequenceMethod.class);
+//		   SequenceMethod buildGroupModel = BeanContainer.instance().getBean(Optional.of("buildGroupModel"), SequenceMethod.class);
+//		   bootInitializationSequence.addModel(Optional.of("bootInitializationSequence"), Optional.of(initializationCellsGroupModel))
+//		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(acquireParameterModel))
+//		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(injectParameterModel))
+//		                             .addModel(Optional.of("bootInitializationSequence"), Optional.of(buildGroupModel));
+//		   
 			System.out.println("################  Cells_Master ############");
 		  break;
 		  
@@ -95,11 +95,23 @@ public class KernelGuideImpl implements KernelGuide{
 	
 	private KernelGuide startBaseSequence() {
 		Sequence standardSequence = BeanContainer.instance().getBean(Optional.of("standardSequence"), Sequence.class);
-		SequenceMethod cellsNodeParameterControlModel = BeanContainer.instance().getBean(Optional.of("cellsNodeParameterControlModel"), SequenceMethod.class);
-		SequenceMethod createBaseNodeModel = BeanContainer.instance().getBean(Optional.of("createBaseNodeModel"), SequenceMethod.class);
-		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(createBaseNodeModel))
-		                .addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(cellsNodeParameterControlModel));
-		standardSequence.startSequence(Optional.of("cellsNodeParameterControlModel"));
+		Cache<String, String> cache = new OrderParameterCache();
+		cache.put(Optional.of("CellsMethodName"), Optional.of("registerSequenceBeanModel"));
+		Event registerSequenceBeanModel = new Event(Optional.of(SequenceUtil.getUUID()), Optional.of(cache));
+		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(registerSequenceBeanModel));
+		
+		
+			Cache<String, String> cache2 = new OrderParameterCache();
+			cache2.put(Optional.of("CellsMethodName"), Optional.of("initializationCellsGroupModel"));
+			Event initializationCellsGroupModel = new Event(Optional.of(SequenceUtil.getUUID()), Optional.of(cache2));
+			standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(initializationCellsGroupModel));
+			
+		
+		try {
+			standardSequence.startSequence(Optional.of("cellsNodeParameterControlModel"));
+		} catch (BusEventTimeoutException e) {
+			e.printStackTrace();
+		}
 		return kernelGuide;
 	}
 

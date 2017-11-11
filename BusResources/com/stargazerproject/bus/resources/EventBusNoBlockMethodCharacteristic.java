@@ -45,7 +45,7 @@ public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Eve
 	}
 
 	@Override
-	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, TimeUnit timeUnit, int timeout) {
+	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
 		BusObserver<Event> eventBusObserver = new EventBusObserver(busEvent);
 		event.producer(busEvent);
 		return Optional.of(eventBusObserver);

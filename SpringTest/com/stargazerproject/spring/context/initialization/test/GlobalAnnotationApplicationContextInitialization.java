@@ -3,11 +3,16 @@ package com.stargazerproject.spring.context.initialization.test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
-import com.google.common.eventbus.EventBus;
+import com.stargazer.segmentation.impl.EventBusExecuteImpl;
 import com.stargazer.segmentation.impl.EventExecuteImpl;
 import com.stargazer.segmentation.impl.EventSegmentation;
+import com.stargazerproject.bus.impl.EventBus;
 import com.stargazerproject.bus.resources.EventBusBlockMethodCharacteristic;
 import com.stargazerproject.bus.resources.EventBusNoBlockMethodCharacteristic;
+import com.stargazerproject.bus.resources.shell.EventBusResourcesShell;
+import com.stargazerproject.bus.server.impl.EventBusServer;
+import com.stargazerproject.bus.server.listener.impl.EventBusServerListener;
+import com.stargazerproject.bus.server.manage.EventBusServerManage;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
@@ -86,6 +91,7 @@ import com.stargazerproject.queue.impl.resources.shell.OrderExportDisruptorShell
 import com.stargazerproject.queue.resources.impl.CleanEventHandler;
 import com.stargazerproject.queue.resources.impl.CleanLogHandler;
 import com.stargazerproject.queue.resources.impl.CleanOrderExportHandler;
+import com.stargazerproject.queue.resources.impl.EventBusHandler;
 import com.stargazerproject.queue.resources.impl.EventFactory;
 import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.queue.resources.impl.EventQueueThreadFactory;
@@ -118,13 +124,7 @@ import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
 import com.stargazerproject.sequence.impl.BootInitializationSequenceImpl;
 import com.stargazerproject.sequence.impl.StandardSequenceImpl;
-import com.stargazerproject.sequence.model.AcquireParameterModel;
-import com.stargazerproject.sequence.model.BuildGroupModel;
-import com.stargazerproject.sequence.model.CellsNodeParameterControlModel;
-import com.stargazerproject.sequence.model.CreateBaseNodeModel;
-import com.stargazerproject.sequence.model.DeletedParameterNodeModel;
-import com.stargazerproject.sequence.model.InitializationCellsGroupModel;
-import com.stargazerproject.sequence.model.InjectParameterModel;
+import com.stargazerproject.sequence.model.RegisterSequenceBeanModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
 import com.stargazerproject.sequence.server.impl.BootInitializationSequenceServer;
 import com.stargazerproject.sequence.server.impl.StandardSequenceServer;
@@ -261,6 +261,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventBusQueueServerListener.class,
 		EventBusQueueServerManage.class,
 		EventBusConsumer.class,
+		EventBusHandler.class,
 		
 		/**Depend LogCache**/
 		LogQueue.class,
@@ -312,6 +313,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		EventSegmentation.class,
 		EventExecuteImpl.class,
+		EventBusExecuteImpl.class,
 		
 		StandardCellsTransactionImpl.class,
 		HystrixConfigurationS.class,
@@ -353,14 +355,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		StandardServerListener.class,
 		StandardServerManage.class,
 		BaseSequenceAOPConfiguration.class,
-		InitializationCellsGroupModel.class,
-		AcquireParameterModel.class,
+		RegisterSequenceBeanModel.class,
 		SequenceResourcesShell.class,
-		CellsNodeParameterControlModel.class,
-		InjectParameterModel.class,
-		BuildGroupModel.class,
-		DeletedParameterNodeModel.class,
-		CreateBaseNodeModel.class,
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,
@@ -369,7 +365,11 @@ public class GlobalAnnotationApplicationContextInitialization {
 		/**Depend Bus**/
 		EventBus.class,
 		EventBusBlockMethodCharacteristic.class,
-		EventBusNoBlockMethodCharacteristic.class
+		EventBusNoBlockMethodCharacteristic.class,
+		EventBusResourcesShell.class,
+		EventBusServer.class,
+		EventBusServerListener.class,
+		EventBusServerManage.class
 
 		);
 	} 

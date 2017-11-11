@@ -11,16 +11,15 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cell.CellsTransaction;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="eventExecute")
-@Qualifier("eventExecute")
+@Component(value="eventBusExecute")
+@Qualifier("eventBusExecute")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventExecuteImpl implements EventExecute{
+public class EventBusExecuteImpl implements EventExecute{
 	
 	@Override
 	public Boolean executeEvent(Optional<Cache<String, String>> parameter) {
-		CellsTransaction<String, String> cellsTransaction = BeanContainer.instance().getBean(Optional.of("initializationCellsGroupModel"),CellsTransaction.class);
+		CellsTransaction<String, String> cellsTransaction = BeanContainer.instance().getBean(parameter.get().get(Optional.of("CellsMethodName")), CellsTransaction.class);
 		cellsTransaction.method(parameter);
-		
 		return Boolean.TRUE;
 	}
 	

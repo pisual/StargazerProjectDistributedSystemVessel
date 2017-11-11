@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
+import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
@@ -25,7 +27,7 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("bootInitializationSequence")
-	private StanderCharacteristicShell<Sequence> sequence;
+	private StanderCharacteristicShell<Sequence<Event>> sequence;
 	
 	/** @construction 初始化构造 **/
 	private BootInitializationSequenceServer() {}
@@ -34,9 +36,13 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener");
-		Optional<Sequence> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
-		sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
+		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener", "eventBusQueueServerListener");
+		Optional<Sequence<Event>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
+		try {
+			sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
+		} catch (BusEventTimeoutException e) {
+			e.printStackTrace();
+		}
 		sequence.initialize(sequenceImpl);
 	}
 

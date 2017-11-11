@@ -18,7 +18,7 @@ public class StandardServerListener extends StandardWorkInServiceState implement
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener", "bootInitializationServerListener");
+		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener", "bootInitializationServerListener", "eventBusQueueServerListener", "eventBusServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : standardServerListenerServer Server Starting");
 	}
 	

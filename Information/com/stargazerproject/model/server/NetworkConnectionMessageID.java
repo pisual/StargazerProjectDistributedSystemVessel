@@ -2,7 +2,7 @@ package com.stargazerproject.model.server;
 
 import java.io.Serializable;
 
-import com.stargazerproject.util.Sequence;
+import com.stargazerproject.util.SequenceUtil;
 
 public class NetworkConnectionMessageID implements Serializable {
 	private static final long serialVersionUID = -5439866570231398413L;
@@ -11,7 +11,7 @@ public class NetworkConnectionMessageID implements Serializable {
 	protected String id;
 
 	public NetworkConnectionMessageID() {
-		this.id = Sequence.getUUIDSequence();
+		this.id = SequenceUtil.getUUIDSequence();
 	}
 	
 	public NetworkConnectionMessageID(String id) {

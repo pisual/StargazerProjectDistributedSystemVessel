@@ -11,9 +11,9 @@ import com.stargazerproject.bus.base.impl.BusImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.order.impl.Event;
 
-@Component(value="eventBus")
+@Component(value="eventBusImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("eventBus")
+@Qualifier("eventBusImpl")
 public class EventBus extends BusImpl<Event> implements StanderCharacteristicShell<Bus<Event>>{
 
 	public EventBus() {super();}

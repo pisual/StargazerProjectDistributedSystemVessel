@@ -26,7 +26,7 @@ import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
-import com.stargazerproject.queue.resources.impl.EventHandler;
+import com.stargazerproject.queue.resources.impl.EventBusHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="eventBusDisruptorShell")
@@ -76,9 +76,9 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	
 	private void handleEvents(){
 		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Receive_Event_Bus_Number_of_consumers")).get());
-		handler = new EventHandler[logConsumersNumber];
+		handler = new EventBusHandler[logConsumersNumber];
 		for(int i=0; i<logConsumersNumber; i++){
-			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), com.lmax.disruptor.WorkHandler.class);
+			handler[i] = BeanContainer.instance().getBean(Optional.of("eventBusHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
 	}
 	

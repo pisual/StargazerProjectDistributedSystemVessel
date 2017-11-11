@@ -42,10 +42,10 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 	}
 
 	@Override
-	public Optional<Event> push(Optional<Event> busEvent, TimeUnit timeUnit, int timeout) throws BusEventTimeoutException {
+	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
 		event.producer(busEvent);
-		for(int i=0; i<timeout; i++){
-			sleep(timeUnit);
+		for(int i=0; i<timeout.get(); i++){
+			sleep(timeUnit.get());
 			if(busEvent.get().isComplete()){
 				return busEvent;
 			}

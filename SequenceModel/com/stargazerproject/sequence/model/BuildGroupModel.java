@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.negotiate.Negotiate;
 import com.stargazerproject.sequence.base.impl.BaseSequenceModel;
-import com.stargazerproject.util.Sequence;
+import com.stargazerproject.util.SequenceUtil;
 
 @Component(value="buildGroupModel")
 @Qualifier("buildGroupModel")
@@ -50,7 +50,7 @@ public class BuildGroupModel extends BaseSequenceModel{
 					
 					    for(int i=0; i<20; i++){
 						
-						String origin = Sequence.getUUID();	
+						String origin = SequenceUtil.getUUID();	
 						for(String pathNode : pathNodeList){
 							if(matchingAlgorithm(origin, pathNode, 2).equals(Boolean.TRUE)){
 								if(pathNode == aggregateRootCache.get(Optional.of("This_Cells_UUID")).get()){

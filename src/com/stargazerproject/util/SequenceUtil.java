@@ -2,7 +2,7 @@ package com.stargazerproject.util;
 
 import com.fasterxml.uuid.Generators;
 
-public class Sequence {
+public class SequenceUtil {
 	/** 获取标准UUID **/
 	public static String getUUID() {
 		return Generators.randomBasedGenerator().generate().toString();
