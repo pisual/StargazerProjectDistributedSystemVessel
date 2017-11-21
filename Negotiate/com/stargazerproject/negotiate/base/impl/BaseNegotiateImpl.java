@@ -46,13 +46,13 @@ public abstract class BaseNegotiateImpl implements Negotiate{
 	}
 
 	@Override
-	public <T> void registeredCirculationWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception {
-		negotiate.registeredCirculationWatcher(nodeName, nodePath, watch);
+	public <T> void registeredWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<String> watchName, Optional<T> watch) throws Exception {
+		negotiate.registeredWatcher(nodeName, nodePath, watchName, watch);
 	}
-
+	
 	@Override
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
-		negotiate.registeredSingleWatcher(nodeName, nodePath, watch);
+	public <T> void removeWatcher(Optional<String> watchName) throws Exception {
+		negotiate.removeWatcher(watchName);
 	}
 
 	@Override

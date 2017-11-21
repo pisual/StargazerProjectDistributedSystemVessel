@@ -62,8 +62,7 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 					baseLog.INFO(this, event.getData().getPath()+" Has NODE_ADDED");
 					break;  
 				case NODE_UPDATED:
-					byteArrayCache.put(Optional.of("AcquireParameterModel"), event.getData().getData());
-					systemParameterCahce.put(Optional.of("AcquireParameterModel"), Optional.of("Continue"));
+					byteArrayCache.put(Optional.of("AcquireCellsParameter"), event.getData().getData());
 					baseLog.INFO(this, event.getData().getPath()+" Has Ipdated , Data : " + event.getData().getData());
 					break;  
 			    default:  

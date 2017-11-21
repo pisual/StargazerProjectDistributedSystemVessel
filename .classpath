@@ -59,6 +59,7 @@
 	<classpathentry kind="src" path="CellsConfiguration"/>
 	<classpathentry kind="src" path="CellResources"/>
 	<classpathentry kind="src" path="CellServer"/>
+	<classpathentry kind="src" path="CellInjectMethod"/>
 	<classpathentry kind="src" path="CellTest"/>
 	<classpathentry kind="src" path="Log"/>
 	<classpathentry kind="src" path="LogImpl"/>

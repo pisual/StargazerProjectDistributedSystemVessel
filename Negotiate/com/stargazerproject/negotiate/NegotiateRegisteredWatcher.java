@@ -10,13 +10,13 @@ public interface NegotiateRegisteredWatcher{
 	 * @throws Exception
 	 * @author Felixerio
 	 * **/
-	public <T> void registeredCirculationWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception;
+	public <T> void registeredWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<String> watchName, Optional<T> watch) throws Exception;
 	
 	/**
 	 * @MethodName 注册单次触发的监听器
 	 * @param SingleWatcher 监听器组合配置
 	 * @author Felixerio
 	 * **/
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch)throws Exception;
+	public <T> void removeWatcher(Optional<String> watchName) throws Exception;
 	
 }

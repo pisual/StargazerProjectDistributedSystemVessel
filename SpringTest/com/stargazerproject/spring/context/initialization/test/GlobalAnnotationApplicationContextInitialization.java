@@ -22,6 +22,7 @@ import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
 import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.cache.impl.TreeCacheCache;
 import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
 import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheConfigurationCharacteristic;
 import com.stargazerproject.cache.impl.resources.ByteArrayCacheCacheManagerCharacteristic;
@@ -48,6 +49,7 @@ import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
 import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
+import com.stargazerproject.cell.method.sequence.RegisterSequenceBeanModel;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.inject.impl.AnnotationClassSequenceScannerImpl;
@@ -124,7 +126,6 @@ import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.sequence.aop.configuration.BaseSequenceAOPConfiguration;
 import com.stargazerproject.sequence.impl.BootInitializationSequenceImpl;
 import com.stargazerproject.sequence.impl.StandardSequenceImpl;
-import com.stargazerproject.sequence.model.RegisterSequenceBeanModel;
 import com.stargazerproject.sequence.resources.shell.SequenceResourcesShell;
 import com.stargazerproject.sequence.server.impl.BootInitializationSequenceServer;
 import com.stargazerproject.sequence.server.impl.StandardSequenceServer;
@@ -188,6 +189,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend LeaderLatchParameterCache Class**/
 		LeaderLatchParameterCache.class,
+		
+		/**Depend TreeCacheCache Class**/
+		TreeCacheCache.class,
 
      /******Depend Configuration Class******/
 		/**Depend OrderQueueMessage**/

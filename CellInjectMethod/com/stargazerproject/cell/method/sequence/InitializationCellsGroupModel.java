@@ -1,6 +1,4 @@
-package com.stargazerproject.sequence.model;
-
-import java.util.concurrent.TimeUnit;
+package com.stargazerproject.cell.method.sequence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +16,7 @@ import com.stargazerproject.util.SequenceUtil;
 
 /** 
  *  @name Cell生成ID序列组
- *  @illustrate Cells生成序列的第一步，生成UUID组，UUID组的格式为  XXX:XXX,使用：来进行组分割
+ *  @illustrate Cells生成UUID序列
  *  @author Felixerio
  *  **/
 @Component(value="initializationCellsGroupModel")
@@ -37,8 +35,17 @@ public class InitializationCellsGroupModel implements CellsTransaction<String, S
 	
 	public InitializationCellsGroupModel() { super(); }
 	
+	/**
+	* @name 熔断器包裹的方法
+	* @illustrate 熔断器包裹的方法
+	* @param Optional<Cache<String, String>> cache
+	* **/
 	@Override
-	@HystrixCommand(fallbackMethod = "fallBack", groupKey="TestMethod", commandProperties = {
+	@HystrixCommand(commandKey = "initializationCellsGroupModel", 
+	                fallbackMethod = "fallBack", 
+	                groupKey="initializationCellsGroupModel", 
+	                threadPoolKey = "initializationCellsGroupModel",
+	                commandProperties = {
     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")})
 	public boolean method(Optional<Cache<String, String>> cache) {
 		systemParameter.put(Optional.of("This_Cells_UUID"), Optional.of(SequenceUtil.getUUID()));
@@ -46,9 +53,20 @@ public class InitializationCellsGroupModel implements CellsTransaction<String, S
 		return Boolean.TRUE;
 	}
 	
+	/**
+	* @name 熔断器包裹的方法的备用方法
+	* @illustrate 熔断器包裹的方法
+	* @param Optional<Cache<String, String>> cache
+	* @param Throwable throwable
+	* **/
 	public boolean fallBack(Optional<Cache<String, String>> cache, Throwable throwable){
-		System.out.println("InitializationCellsGroupModel 事务包裹fallBack");
-		return Boolean.TRUE;
+		if(null == throwable){
+			log.WARN(this, "Event FallBack : TimeOut");
+		}
+		else{
+			log.WARN(this, "Event FallBack : " + throwable.getMessage());
+		}
+		return Boolean.FALSE;
     }
 	
 }

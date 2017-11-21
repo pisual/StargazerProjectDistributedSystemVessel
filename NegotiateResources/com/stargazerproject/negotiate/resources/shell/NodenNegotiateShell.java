@@ -30,6 +30,7 @@ public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negoti
 	private Optional<NegotiateNodeMethod> negotiateNodeMethod;
 	private Optional<NegotiateRegisteredWatcher> negotiateRegisteredWatcher;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@Bean(name="nodenNegotiateShell")
 	@Lazy(true)
@@ -85,15 +86,15 @@ public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negoti
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return negotiateNodeMethod.get().checkNodeExists(nodeName, nodePath);
 	}
-
+	
 	@Override
-	public <T> void registeredCirculationWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception {
-		negotiateRegisteredWatcher.get().registeredCirculationWatcher(nodeName, nodePath, watch);
+	public <T> void registeredWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<String> watchName, Optional<T> watch) throws Exception {
+		negotiateRegisteredWatcher.get().registeredWatcher(nodeName, nodePath, watchName, watch);
 	}
-
+	
 	@Override
-	public <T> void registeredSingleWatcher(Optional<String> nodeName, Optional<String> nodePath, Optional<T> watch) throws Exception{
-		negotiateRegisteredWatcher.get().registeredSingleWatcher(nodeName, nodePath, watch);
+	public <T> void removeWatcher(Optional<String> watchName) throws Exception {
+		negotiateRegisteredWatcher.get().removeWatcher(watchName);
 	}
 
 	@Override
