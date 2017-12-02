@@ -1,5 +1,6 @@
 package com.stargazerproject.cache.aop.configuration;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,6 +14,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Optional;
+import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.log.LogMethod;
 
 /** 
@@ -31,6 +36,10 @@ public class ParametersInjectAOPConfiguration {
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
+	@Autowired
+	@Qualifier("systemParameterCahce")
+	private Cache<String,String> cache;
+	
 	/** @construction 初始化构造 **/
 	private ParametersInjectAOPConfiguration() {}
 	
@@ -42,19 +51,32 @@ public class ParametersInjectAOPConfiguration {
 	@Around("characteristicMethod")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 		try {
+			System.out.println("AOP 注入");
 			Object object = proceedingJoinPoint.getThis();
+			Field[] field = object.getClass().getDeclaredFields();
+			for(int i = 0 ; i < field.length; i++){  
+		    	   if(field[i].isAnnotationPresent(NeededInject.class)){
+		    		   field[i].setAccessible(true);
+		    		   try {
+		    				NeededInject neededInject = field[i].getAnnotation(NeededInject.class);
+		    				switch (neededInject.type()) {
+							case "SystemParametersCache":
+								System.out.println("注入 " + cache.get(Optional.of(field[i].getName())).get());
+								field[i].set(object, cache.get(Optional.of(field[i].getName())).get());
+								break;
+
+							default:
+								break;
+							}
+		    				
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+		    		   }
+	    	       }
 			
-			Field[] fs = object.getClass().getDeclaredFields();
-			
-		       for(int i = 0 ; i < fs.length; i++){  
-		    	   Field f = fs[i];  
-		       f.setAccessible(true); //设置些属性是可以访问的  
-		       
-		       f.getName();
-		       
-		       f.set(object, "");
-		    	   
-		       }
 			
 			proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
@@ -62,7 +84,5 @@ public class ParametersInjectAOPConfiguration {
 			throw throwable;
 		}
 	}
+	}
 	
-	
-	
-}

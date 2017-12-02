@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -26,23 +27,23 @@ import com.stargazerproject.order.impl.Order;
 public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<LoadingCache<String,Order>>{
 	
 	/** @name 缓存最大数目 **/
-	@NeededInject
+	@NeededInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_MaxSize;
 	
 	/** @name 缓存初始化数目 **/
-	@NeededInject
+	@NeededInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_InitialSize;
 	
 	/** @name 缓存并行级别 **/
-	@NeededInject
+	@NeededInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel;
 	
 	/** @name 缓存非读销毁时间 **/
-	@NeededInject
+	@NeededInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime;
 	
 	/** @name 缓存非写销毁时间 **/
-	@NeededInject
+	@NeededInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime;
 	
 	/**
@@ -75,7 +76,7 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	* @name 常规初始化
 	* @illustrate 基于外部参数进行注入
 	* **/
-	private OrderCacheLoadingCacheCharacteristic(String Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg,
+	public OrderCacheLoadingCacheCharacteristic(String Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg,
 			                                     String Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg,
 			                                     String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg,
 			                                     String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg,
@@ -110,5 +111,15 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	
 	private Integer getIntegerParameter(String value){
 		return Integer.parseInt(value);
+	}
+	
+	@Override
+	public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("Parameters_Module_Kernel_Cache_OrderCache_MaxSize", Parameters_Module_Kernel_Cache_OrderCache_MaxSize)
+                .add("Parameters_Module_Kernel_Cache_OrderCache_InitialSize", Parameters_Module_Kernel_Cache_OrderCache_InitialSize)
+                .add("Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel", Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel)
+                .add("Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime", Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime)
+                .add("Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime", Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime).toString();
 	}
 }
