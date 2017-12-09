@@ -18,7 +18,7 @@ public class OrderCacheServerListener extends StandardWorkInServiceState impleme
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bootInitializationServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : Server Starting");
 	}
 	

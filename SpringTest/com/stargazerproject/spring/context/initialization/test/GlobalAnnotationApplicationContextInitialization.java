@@ -14,6 +14,7 @@ import com.stargazerproject.bus.server.impl.EventBusServer;
 import com.stargazerproject.bus.server.listener.impl.EventBusServerListener;
 import com.stargazerproject.bus.server.manage.EventBusServerManage;
 import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
+import com.stargazerproject.cache.aop.configuration.ParametersInjectAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
 import com.stargazerproject.cache.impl.ByteArrayCache;
@@ -180,6 +181,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NegotiateParameters.class,
 		SystemParameters.class,
 		SequenceParameters.class,
+		ParametersInjectAOPConfiguration.class,
 		
 		/**Depend ObjectParameterCache Class**/
 		ObjectParameterCache.class,
@@ -349,18 +351,18 @@ public class GlobalAnnotationApplicationContextInitialization {
 		FrameUserInterfaceListener.class,
 		FrameUserInterfaceManage.class,
 		
-		/**Depend Sequence*/
-		BootInitializationSequenceImpl.class,
-		BootInitializationSequenceServer.class,
-		BootInitializationServerListener.class,
-		BootInitializationServerManage.class,
-		StandardSequenceImpl.class,
-		StandardSequenceServer.class,
-		StandardServerListener.class,
-		StandardServerManage.class,
-		BaseSequenceAOPConfiguration.class,
-		RegisterSequenceBeanModel.class,
-		SequenceResourcesShell.class,
+//		/**Depend Sequence*/
+//		BootInitializationSequenceImpl.class,
+//		BootInitializationSequenceServer.class,
+//		BootInitializationServerListener.class,
+//		BootInitializationServerManage.class,
+//		StandardSequenceImpl.class,
+//		StandardSequenceServer.class,
+//		StandardServerListener.class,
+//		StandardServerManage.class,
+//		BaseSequenceAOPConfiguration.class,
+//		RegisterSequenceBeanModel.class,
+//		SequenceResourcesShell.class,
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,

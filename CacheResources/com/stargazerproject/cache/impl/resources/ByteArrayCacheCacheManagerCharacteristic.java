@@ -1,8 +1,6 @@
 package com.stargazerproject.cache.impl.resources;
 
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.config.Configuration;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -12,18 +10,39 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.config.Configuration;
 
 @Component(value="byteArrayCacheCacheManager")
 @Qualifier("byteArrayCacheCacheManager")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteristic<CacheManager>{
 
-	private CacheManager manager;
+	@Autowired
+	@Qualifier("byteArrayCacheConfiguration")
+	private BaseCharacteristic<Configuration> byteArrayCacheConfigurationCharacteristic;
 	
-	private Optional<Configuration> cacheConfiguration;
+	private Configuration cacheConfiguration;
+	
+	private CacheManager manager;
 
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private ByteArrayCacheCacheManagerCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public ByteArrayCacheCacheManagerCharacteristic(Optional<Configuration> byteArrayCacheConfigurationCharacteristic) {
+		cacheConfiguration = byteArrayCacheConfigurationCharacteristic.get();
+	}
 	
 	@Override
 	@Bean(name="byteArrayCacheCacheManagerCharacteristic")
@@ -33,10 +52,10 @@ public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteris
 		return Optional.of(manager);
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	private void initializatioCacheManager(){
-		cacheConfiguration= BeanContainer.instance().getBean(Optional.of("byteArrayCacheConfigurationCharacteristic"),Optional.class);
-		manager = CacheManager.create(cacheConfiguration.get());
+		cacheConfiguration= byteArrayCacheConfigurationCharacteristic.characteristic().get();
+		manager = CacheManager.create(cacheConfiguration);
 	}
 	
 }

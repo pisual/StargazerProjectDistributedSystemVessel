@@ -14,9 +14,9 @@ import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.order.impl.Order;
 
-@Component
-@Qualifier("tOrderCacheRemovalListener")
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Component(value="orderCacheRemovalListener")
+@Qualifier("orderCacheRemovalListener")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheRemovalListenerCharacteristic implements BaseCharacteristic<RemovalListener<String, Order>>{
 
 	private RemovalListener<String, Order> removalListener;

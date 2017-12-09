@@ -2,6 +2,7 @@ package com.stargazerproject.cache.impl.resources.shell;
 
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,6 @@ import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name Order缓存
@@ -32,6 +32,10 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristic<Cache<String, Order>>{
 
+	@Autowired
+	@Qualifier("orderCacheLoadingCache")
+	private BaseCharacteristic<LoadingCache<String,Order>> loadingCacheBaseCharacteristic;
+	
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/
 	protected Optional<LoadingCache<String, Order>> loadingCache;
 	
@@ -42,7 +46,7 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 	@Bean(name="orderCahceCharacteristicInitialize")
 	@Lazy(true)
 	public Optional<Cache<String, Order>> characteristic() {
-		loadingCache = BeanContainer.instance().getBean(Optional.of("orderCacheLoadingCacheCharacteristic"), Optional.class);
+		loadingCache = loadingCacheBaseCharacteristic.characteristic();
 		return Optional.of(this);
 	}
 	

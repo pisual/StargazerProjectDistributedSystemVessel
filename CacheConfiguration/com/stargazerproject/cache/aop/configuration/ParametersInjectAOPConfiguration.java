@@ -1,6 +1,5 @@
 package com.stargazerproject.cache.aop.configuration;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.annotation.NeededInject;
-import com.stargazerproject.cache.impl.resources.OrderCacheLoadingCacheCharacteristic;
 import com.stargazerproject.log.LogMethod;
 
 /** 
@@ -44,17 +42,18 @@ public class ParametersInjectAOPConfiguration {
 	private ParametersInjectAOPConfiguration() {}
 	
 	/** @illustrate orderCache 中的Set方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.characteristic.BaseCharacteristic.characteristic())")
+	@Pointcut ("execution(* com.stargazerproject.characteristic.BaseCharacteristic.characteristic()) && bean(orderCacheLoadingCache)")
 	public void characteristicMethod(){}
 	
 	/** @illustrate orderCache 中的Set的AOP切点的具体方法**/
-	@Around("characteristicMethod")
+	@Around("characteristicMethod()")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 		try {
 			System.out.println("AOP 注入");
-			Object object = proceedingJoinPoint.getThis();
+			Object object = proceedingJoinPoint.getTarget();
 			Field[] field = object.getClass().getDeclaredFields();
-			for(int i = 0 ; i < field.length; i++){  
+			for(int i = 0 ; i < field.length; i++){
+				System.out.println("get " + field[i].getName());
 		    	   if(field[i].isAnnotationPresent(NeededInject.class)){
 		    		   field[i].setAccessible(true);
 		    		   try {
@@ -66,6 +65,7 @@ public class ParametersInjectAOPConfiguration {
 								break;
 
 							default:
+								System.out.println("default");
 								break;
 							}
 		    				

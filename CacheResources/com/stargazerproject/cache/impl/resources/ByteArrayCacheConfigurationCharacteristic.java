@@ -1,10 +1,6 @@
 package com.stargazerproject.cache.impl.resources;
 
-import javax.annotation.Resource;
-
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -15,15 +11,19 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.Configuration;
+
 @Component(value="byteArrayCacheConfiguration")
 @Qualifier("byteArrayCacheConfiguration")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheConfigurationCharacteristic implements BaseCharacteristic<Configuration>{
-
-	private Configuration configuration;
 	
-	@Resource(name="byteArrayCacheCacheConfigurationCharacteristic")
-	private Optional<CacheConfiguration> cacheConfiguration;
+	@Autowired
+	@Qualifier("byteArrayCacheCache")
+	private BaseCharacteristic<CacheConfiguration> cacheConfiguration;
+	
+	private Configuration configuration;
 
 	private ByteArrayCacheConfigurationCharacteristic() {}
 	
@@ -42,7 +42,7 @@ public class ByteArrayCacheConfigurationCharacteristic implements BaseCharacteri
 		configuration.updateCheck(true)
 		             .monitoring(Configuration.Monitoring.AUTODETECT)
 	                 .name("byteArrayCache")
-	                 .addCache(cacheConfiguration.get());
+	                 .addCache(cacheConfiguration.characteristic().get());
 	}
 	
 }

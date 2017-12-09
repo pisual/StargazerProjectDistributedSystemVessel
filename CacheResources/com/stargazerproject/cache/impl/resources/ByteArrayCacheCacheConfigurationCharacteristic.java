@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 
-@Component(value="byteArrayCacheCacheConfiguration")
-@Qualifier("byteArrayCacheCacheConfiguration")
+@Component(value="byteArrayCacheCache")
+@Qualifier("byteArrayCacheCache")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheCacheConfigurationCharacteristic implements BaseCharacteristic<CacheConfiguration>{
 
 	private CacheConfiguration cacheConfiguration;
 
-	private ByteArrayCacheCacheConfigurationCharacteristic() {}
+	public ByteArrayCacheCacheConfigurationCharacteristic() {}
 	
 	@Override
 	@Bean(name="byteArrayCacheCacheConfigurationCharacteristic")

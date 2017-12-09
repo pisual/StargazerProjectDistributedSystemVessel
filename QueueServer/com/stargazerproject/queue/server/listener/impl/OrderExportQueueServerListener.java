@@ -18,7 +18,7 @@ public class OrderExportQueueServerListener extends StandardWorkInServiceState i
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener", "bootInitializationServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Starting");
 	}
 	

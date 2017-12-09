@@ -18,7 +18,7 @@ public class EventQueueServerListener extends StandardWorkInServiceState impleme
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener", "bootInitializationServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Starting");
 	}
 	

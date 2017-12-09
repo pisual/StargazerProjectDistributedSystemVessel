@@ -2,12 +2,9 @@ package com.stargazerproject.cache.impl.resources;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -50,15 +47,17 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	* @name cacheLoader
 	* @illustrate Guava cacheLoader
 	* **/
-	@Resource(name="OrderCacheCacheLoaderCharacteristic")
-	private Optional<CacheLoader<String, Order>> cacheLoader;
+	@Autowired
+	@Qualifier("orderCacheCacheLoader")
+	private BaseCharacteristic<CacheLoader<String, Order>> cacheLoader;
 	
 	/**
 	* @name removalListener
 	* @illustrate 移除监听器
 	* **/
-	@Resource(name="OrderCacheRemovalListenerCharacteristic")
-	private Optional<RemovalListener<String, Order>> removalListener;
+	@Autowired
+	@Qualifier("orderCacheRemovalListener")
+	private BaseCharacteristic<RemovalListener<String, Order>> removalListener;
 	
 	/**
 	* @name LoadingCache
@@ -67,31 +66,32 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	private LoadingCache<String,Order> loadingCache;
 
 	/**
-	* @name Springs使用的初始化
-	* @illustrate 基于AOP进行参数注入
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
+	@SuppressWarnings("unused")
 	private OrderCacheLoadingCacheCharacteristic() {}
 	
 	/**
-	* @name 常规初始化
+	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public OrderCacheLoadingCacheCharacteristic(String Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg,
-			                                     String Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg,
-			                                     String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg,
-			                                     String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg,
-			                                     String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg) {
+	public OrderCacheLoadingCacheCharacteristic(Optional<String> Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg,
+			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg,
+			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg,
+			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg,
+			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg) {
 		
-		Parameters_Module_Kernel_Cache_OrderCache_MaxSize = Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg;
-		Parameters_Module_Kernel_Cache_OrderCache_InitialSize = Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg;
-		Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel = Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg;
-		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg;
-		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg;
+		Parameters_Module_Kernel_Cache_OrderCache_MaxSize = Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg.get();
+		Parameters_Module_Kernel_Cache_OrderCache_InitialSize = Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg.get();
+		Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel = Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg.get();
+		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg.get();
+		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg.get();
 	}
 	
 	@Override
-	@Bean(name="orderCacheLoadingCacheCharacteristic")
-	@Lazy(true)
 	public Optional<LoadingCache<String, Order>> characteristic() {
 		loadingCacheBuilder();
 		return Optional.of(loadingCache);
@@ -105,8 +105,8 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 					   .initialCapacity(getIntegerParameter(Parameters_Module_Kernel_Cache_OrderCache_InitialSize))
 					   .maximumSize(getIntegerParameter(Parameters_Module_Kernel_Cache_OrderCache_MaxSize))
 					   .expireAfterAccess(getIntegerParameter(Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime), TimeUnit.MILLISECONDS)
-					   .removalListener(removalListener.get())
-					   .build(cacheLoader.get());
+					   .removalListener(removalListener.characteristic().get())
+					   .build(cacheLoader.characteristic().get());
 	     }
 	
 	private Integer getIntegerParameter(String value){

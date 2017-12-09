@@ -13,14 +13,14 @@ import com.google.common.cache.CacheLoader;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 
-@Component
-@Qualifier("OrderCacheCacheLoader")
+@Component(value="orderCacheCacheLoader")
+@Qualifier("orderCacheCacheLoader")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheCacheLoaderCharacteristic implements BaseCharacteristic<CacheLoader<String, Order>>{
 
 	private CacheLoader<String, Order> cacheLoader;
 
-	private OrderCacheCacheLoaderCharacteristic() {}
+	public OrderCacheCacheLoaderCharacteristic() {}
 	
 	@Override
 	@Bean(name="OrderCacheCacheLoaderCharacteristic")
