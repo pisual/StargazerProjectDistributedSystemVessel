@@ -34,10 +34,25 @@ public class BigCacheIndexCahceShell implements BaseCharacteristic<Cache<String,
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private BigCacheIndexCahceShell() {}
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public BigCacheIndexCahceShell(Optional<Cache<String, Map<String, Integer>>> bigCacheIndexCahceCharacteristicArg){
+		bigCacheIndexCahceCharacteristic = bigCacheIndexCahceCharacteristicArg.get();
+	}
+	
 	@Override
-	@Bean(name="bigCacheIndexCahceCharacteristicInitialize")
+	@Bean(name="bigCacheIndexCahceCharacteristic")
 	@Lazy(true)
 	public Optional<Cache<String, Map<String, Integer>>> characteristic() {
 		return Optional.of(bigCacheIndexCahceCharacteristic);

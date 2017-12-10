@@ -42,7 +42,26 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	@Qualifier("logRecord")
 	private LogMethod baseLog;
 	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private SystemParameterCahceShell() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public SystemParameterCahceShell(Optional<LogMethod> baseLogArg,
+			                         Optional<Cache<String, String>> systemParameterCahceCharacteristicArg,
+			                         Optional<AnnotationClassSequenceScanner> annotationClassSequenceScannerArg) {
+		baseLog = baseLogArg.get();
+		annotationClassSequenceScanner = annotationClassSequenceScannerArg.get();
+		systemParameterCahceCharacteristic = systemParameterCahceCharacteristicArg.get();
+	}
 	
 	@Override
 	@Bean(name="systemParameterCahceCharacteristicInitialize")

@@ -1,9 +1,6 @@
 package com.stargazerproject.cache.impl.resources.shell;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -14,18 +11,40 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.characteristic.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 @Component(value="ByteArrayCacheShell")
 @Qualifier("byteArrayCacheShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheShell implements BigCache<String,byte[]>, BaseCharacteristic<BigCache<String,byte[]>>{
+public class ByteArrayCacheShell implements BigCache<String, byte[]>, BaseCharacteristic<BigCache<String, byte[]>>{
 	
-	private Optional<CacheManager> manager;
+	@Autowired
+	@Qualifier("byteArrayCacheCacheManager")
+	private BaseCharacteristic<CacheManager> byteArrayCacheCacheManager;
+	
+	private CacheManager manager;
 	
 	private Cache cache;
 	
-	public ByteArrayCacheShell() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private ByteArrayCacheShell() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public ByteArrayCacheShell(Optional<BaseCharacteristic<CacheManager>> byteArrayCacheCacheManagerArg) {
+		byteArrayCacheCacheManager = byteArrayCacheCacheManagerArg.get();
+	}
 
 	@Override
 	public void put(Optional<String> key, byte[] value) {
@@ -47,14 +66,12 @@ public class ByteArrayCacheShell implements BigCache<String,byte[]>, BaseCharact
 		cache.remove(key.get());
 	}
 
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	@Bean(name="byteArrayCacheInitialize")
 	@Lazy(true)
 	public Optional<BigCache<String, byte[]>> characteristic() {
-		manager= BeanContainer.instance().getBean(Optional.of("byteArrayCacheCacheManagerCharacteristic"),Optional.class);
-		cache = manager.get().getCache("byteArrayCache");
+		manager= byteArrayCacheCacheManager.characteristic().get();
+		cache = manager.getCache("byteArrayCache");
 		return Optional.of(this);
 	}
 

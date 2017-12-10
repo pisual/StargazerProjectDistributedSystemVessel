@@ -39,8 +39,22 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/
 	protected Optional<LoadingCache<String, Order>> loadingCache;
 	
-	/** @construction 初始化构造 **/
-	public OrderCahceShell() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private OrderCahceShell() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderCahceShell(Optional<BaseCharacteristic<LoadingCache<String,Order>>> loadingCacheBaseCharacteristicArg) {
+		loadingCacheBaseCharacteristic = loadingCacheBaseCharacteristicArg.get();
+	}
 	
 	@Override
 	@Bean(name="orderCahceCharacteristicInitialize")
