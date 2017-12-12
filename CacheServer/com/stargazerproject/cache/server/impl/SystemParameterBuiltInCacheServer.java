@@ -1,17 +1,18 @@
 package com.stargazerproject.cache.server.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name OrderCache服务的实现
@@ -24,19 +25,36 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class SystemParameterBuiltInCacheServer implements StanderServiceShell{
 	
 	@Autowired
+	@Qualifier("systemParameterCahceShell")
+	private BaseCharacteristic<Cache<String, String>> systemParameterCahceShell;
+	
+	@Autowired
 	@Qualifier("systemParameterCahce")
 	private StanderCharacteristicShell<Cache<String,String>> SystemParameterCache;
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private SystemParameterBuiltInCacheServer() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public SystemParameterBuiltInCacheServer(Optional<BaseCharacteristic<Cache<String, String>>> systemParameterCahceShellArg, Optional<StanderCharacteristicShell<Cache<String,String>>> SystemParameterCacheArg){
+		systemParameterCahceShell = systemParameterCahceShellArg.get();
+		SystemParameterCache = SystemParameterCacheArg.get();
+	}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener");
-		Optional<Cache<String, String>> mapArg = BeanContainer.instance().getBean(Optional.of("systemParameterCahceCharacteristicInitialize"), Optional.class);
-		SystemParameterCache.initialize(mapArg);
+		SystemParameterCache.initialize(systemParameterCahceShell.characteristic());
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

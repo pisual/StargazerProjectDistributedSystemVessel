@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name OrderCache服务的实现
@@ -25,19 +25,36 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class OrderCacheServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("orderCache")
-	private StanderCharacteristicShell<Cache<String, Order>> orderCacheShell;
+	@Qualifier("orderCahceShell")
+	private BaseCharacteristic<Cache<String, Order>> orderCahceShell;
 	
-	/** @construction 初始化构造 **/
+	@Autowired
+	@Qualifier("orderCache")
+	private StanderCharacteristicShell<Cache<String, Order>> orderCache;
+	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private OrderCacheServer() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderCacheServer(Optional<BaseCharacteristic<Cache<String, Order>>> orderCahceShellArg, Optional<StanderCharacteristicShell<Cache<String, Order>>> orderCacheArg){
+		orderCahceShell = orderCahceShellArg.get();
+		orderCache = orderCacheArg.get();
+	}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
-		Optional<Cache<String, Order>> orderCache = BeanContainer.instance().getBean(Optional.of("orderCahceCharacteristicInitialize"), Optional.class);
-		orderCacheShell.initialize(orderCache);
+		orderCache.initialize(orderCahceShell.characteristic());
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

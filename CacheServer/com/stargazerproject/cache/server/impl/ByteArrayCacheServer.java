@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.BigCache;
+import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name OrderCache服务的实现
@@ -24,19 +24,36 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class ByteArrayCacheServer implements StanderServiceShell{
 	
 	@Autowired
+	@Qualifier("ByteArrayCacheShell")
+	private BaseCharacteristic<BigCache<String, byte[]>> ByteArrayCacheShell;
+	
+	@Autowired
 	@Qualifier("byteArrayCache")
 	private StanderCharacteristicShell<BigCache<String, byte[]>> byteArrayCache;
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private ByteArrayCacheServer() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public ByteArrayCacheServer(Optional<BaseCharacteristic<BigCache<String, byte[]>>> ByteArrayCacheShellArg, Optional<StanderCharacteristicShell<BigCache<String, byte[]>>> byteArrayCacheArg){
+		ByteArrayCacheShell = ByteArrayCacheShellArg.get();
+		byteArrayCache = byteArrayCacheArg.get();
+	}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
-		Optional<BigCache<String, byte[]>> bigCache = BeanContainer.instance().getBean(Optional.of("byteArrayCacheInitialize"), Optional.class);
-		byteArrayCache.initialize(bigCache);
+		byteArrayCache.initialize(ByteArrayCacheShell.characteristic());
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

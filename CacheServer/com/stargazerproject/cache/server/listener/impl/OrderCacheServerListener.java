@@ -11,10 +11,18 @@ import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
+@Component(value="orderCacheServerListener")
 @Qualifier("orderCacheServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderCacheServerListener() {
+		super();
+	}
 	
 	@Override
 	public void starting() {

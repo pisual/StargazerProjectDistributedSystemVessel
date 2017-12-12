@@ -11,10 +11,18 @@ import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
 import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
+@Component(value="byteArrayCacheServerListener")
 @Qualifier("byteArrayCacheServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public ByteArrayCacheServerListener() {
+		super();
+	}
 	
 	@Override
 	public void starting() {
