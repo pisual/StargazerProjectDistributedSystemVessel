@@ -20,6 +20,10 @@ public class OrderCacheCacheLoaderCharacteristic implements BaseCharacteristic<C
 
 	private CacheLoader<String, Order> cacheLoader;
 
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public OrderCacheCacheLoaderCharacteristic() {}
 	
 	@Override

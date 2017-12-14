@@ -19,6 +19,12 @@ public class SystemParameterCahceCharacteristic implements Cache<String, String>
 	/** @illustrate SystemParameterCache(系统参数缓存)需要的特征(Map<String, String>)接口 **/
 	protected Map<String, String> map = new ConcurrentSkipListMap<String, String>();
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public SystemParameterCahceCharacteristic() {}
+	
 	@Override
 	public void put(Optional<String> key, Optional<String> value) {
 		map.put(key.get(), value.get());

@@ -20,6 +20,10 @@ public class ByteArrayCacheCacheConfigurationCharacteristic implements BaseChara
 
 	private CacheConfiguration cacheConfiguration;
 
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public ByteArrayCacheCacheConfigurationCharacteristic() {}
 	
 	@Override

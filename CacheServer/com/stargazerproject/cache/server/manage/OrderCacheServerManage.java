@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.stargazerproject.service.baseinterface.Services;
@@ -33,8 +34,23 @@ public class OrderCacheServerManage extends AbstractIdleService{
 	@Qualifier("orderCacheServerListener")
 	private Listener workInServiceControlListener;
 	
-	/** @construction 初始化构造 **/
-	public OrderCacheServerManage() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private OrderCacheServerManage() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderCacheServerManage(Optional<StanderServiceShell> orderCacheServerArg, Optional<Listener> workInServiceControlListenerArg) {
+		orderCacheServer = orderCacheServerArg.get();
+		workInServiceControlListener = workInServiceControlListenerArg.get();
+	}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct

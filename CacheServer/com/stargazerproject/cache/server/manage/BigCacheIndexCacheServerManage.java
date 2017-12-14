@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.stargazerproject.service.baseinterface.Services;
@@ -18,7 +19,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
  *  @illustrate bigCacheIndexCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="bigCacheIndexCacheServerManage")
 @Qualifier("bigCacheIndexCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Services(value="bigCacheIndexCacheServerManage", order = 10)
@@ -33,8 +34,23 @@ public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	@Qualifier("bigCacheIndexCacheServerListener")
 	private Listener workInServiceControlListener;
 	
-	/** @construction 初始化构造 **/
-	public BigCacheIndexCacheServerManage() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private BigCacheIndexCacheServerManage() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public BigCacheIndexCacheServerManage(Optional<StanderServiceShell> bigCacheIndexCacheBuiltInCacheServerArg, Optional<Listener> workInServiceControlListenerArg) {
+		bigCacheIndexCacheBuiltInCacheServer = bigCacheIndexCacheBuiltInCacheServerArg.get();
+		workInServiceControlListener = workInServiceControlListenerArg.get();
+	}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct

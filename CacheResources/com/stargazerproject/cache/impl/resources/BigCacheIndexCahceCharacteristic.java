@@ -19,6 +19,10 @@ public class BigCacheIndexCahceCharacteristic implements Cache<String, Map<Strin
 	/** @illustrate bigCacheIndexCahce 需要的特征(Map<String, Integer>)接口 **/
 	protected Map<String, Map<String, Integer>> map = new ConcurrentSkipListMap<String, Map<String, Integer>>();
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public BigCacheIndexCahceCharacteristic() {}
 	
 	@Override

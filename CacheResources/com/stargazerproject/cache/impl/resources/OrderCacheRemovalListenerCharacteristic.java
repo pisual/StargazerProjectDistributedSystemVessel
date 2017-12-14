@@ -25,8 +25,21 @@ public class OrderCacheRemovalListenerCharacteristic implements BaseCharacterist
 	@Qualifier("logRecord")
 	private LogMethod log;
 	
-	public OrderCacheRemovalListenerCharacteristic() {
-		initializationRemovalListener();
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private OrderCacheRemovalListenerCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderCacheRemovalListenerCharacteristic(Optional<LogMethod> logArg) {
+		log = logArg.get();
 	}
 	
 	@Override
@@ -35,7 +48,6 @@ public class OrderCacheRemovalListenerCharacteristic implements BaseCharacterist
 		initializationRemovalListener();
 		return Optional.of(removalListener);
 	}
-	
 	
 	private void initializationRemovalListener(){
 		removalListener = new RemovalListener<String, Order>(){
