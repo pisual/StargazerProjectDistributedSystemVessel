@@ -22,7 +22,10 @@ import com.stargazerproject.queue.base.impl.StandQueue;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LogQueue extends StandQueue<LogData> implements StanderCharacteristicShell<Queue<LogData>>{
 
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	protected LogQueue() {}
 
 	@Override

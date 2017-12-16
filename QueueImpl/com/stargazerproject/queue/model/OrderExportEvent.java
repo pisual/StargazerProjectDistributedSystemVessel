@@ -13,6 +13,12 @@ public class OrderExportEvent {
 	
 	private Order order;
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderExportEvent() {}
+	
     public Order getOrder() {
 		return order;
 	}

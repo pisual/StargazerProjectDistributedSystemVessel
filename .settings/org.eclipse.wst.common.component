@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="StargazerProjectDistributedSystemVessel">
+    <wb-module deploy-name="StargazerProjectStargazerCloudSystem">
         <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
@@ -104,7 +104,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellInjectMethod"/>
-        <property name="java-output-path" value="/StargazerProjectDistributedSystemVessel/WebRoot/WEB-INF/classes"/>
+        <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>
 </project-modules>

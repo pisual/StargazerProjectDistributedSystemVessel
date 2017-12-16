@@ -22,7 +22,10 @@ import com.stargazerproject.queue.base.impl.StandQueue;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class EventQueue extends StandQueue<Event> implements StanderCharacteristicShell<Queue<Event>>{
 
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	protected EventQueue() {}
 
 	@Override

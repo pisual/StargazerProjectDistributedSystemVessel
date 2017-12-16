@@ -14,7 +14,7 @@ import com.stargazerproject.queue.model.EventQueueEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="cleanEventHandler")
 @Qualifier("cleanEventHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CleanEventHandler implements WorkHandler<EventQueueEvent> {

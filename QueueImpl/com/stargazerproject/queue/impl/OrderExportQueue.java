@@ -30,7 +30,10 @@ import com.stargazerproject.queue.base.impl.StandQueue;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderExportQueue extends StandQueue<Order> implements StanderCharacteristicShell<Queue<Order>>{
 
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	protected OrderExportQueue() {}
 
 	@Override

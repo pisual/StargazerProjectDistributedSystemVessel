@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
+import com.stargazer.segmentation.EventExecute;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.queue.model.EventQueueEvent;
 
@@ -21,8 +22,11 @@ import com.stargazerproject.queue.model.EventQueueEvent;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EventBusHandler extends EventBusConsumer implements WorkHandler<EventQueueEvent> {
 	
-	/** @construction 初始化构造 **/
-	public EventBusHandler() {}
+	private EventBusHandler(){}
+	
+	public EventBusHandler(Optional<EventExecute> executeArg) {
+		super(executeArg);
+	}
 
 	@Override
 	public void onEvent(EventQueueEvent event){

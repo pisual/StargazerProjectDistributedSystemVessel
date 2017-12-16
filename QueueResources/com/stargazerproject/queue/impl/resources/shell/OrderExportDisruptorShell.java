@@ -20,7 +20,7 @@ import com.lmax.disruptor.PhasedBackoffWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
@@ -29,10 +29,18 @@ import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.OrderExportHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
+@Component(value="orderExportDisruptorShell")
 @Qualifier("orderExportDisruptorShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderExportEvent> implements BaseCharacteristic<Queue<Order>>{
+	
+	/** @name Order Export队列的缓存数目 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Order_Export_Size_of_bufferSize;
+	
+	/** @name Order Export队列的消费者数目 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Order_Export_Number_of_consumers;
 	
 	@Autowired
 	@Qualifier("orderExportEventFactory")
@@ -43,15 +51,33 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	private ThreadFactory threadFactory;
 	
 	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> cache;
-	
-	
-	@Autowired
 	@Qualifier("cleanOrderExportHandler")
 	private WorkHandler<OrderExportEvent> cleanOrderExportHandler;
 	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private OrderExportDisruptorShell() {
+		super.translator = new EventTranslatorOneArg<OrderExportEvent, Order>() {
+			public void translateTo(OrderExportEvent orderExportEvent, long sequence, Order order) {
+				orderExportEvent.setOrder(order);
+			}
+		};
+	}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderExportDisruptorShell(Optional<EventFactory<OrderExportEvent>> orderExportEventFactoryArg, Optional<ThreadFactory> threadFactoryArg, Optional<WorkHandler<OrderExportEvent>> cleanOrderExportHandlerArg) {
+		orderExportEventFactory =orderExportEventFactoryArg.get();
+		threadFactory = threadFactoryArg.get();
+		cleanOrderExportHandler = cleanOrderExportHandlerArg.get();
+		
 		super.translator = new EventTranslatorOneArg<OrderExportEvent, Order>() {
 			public void translateTo(OrderExportEvent orderExportEvent, long sequence, Order order) {
 				orderExportEvent.setOrder(order);
@@ -69,17 +95,19 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	}
 	
 	private void disruptorInitialization(){
-		Integer bufferSize = Integer.parseInt(cache.get(Optional.of("Order_Export_Size_of_bufferSize")).get());
-		disruptor = new Disruptor<OrderExportEvent>(orderExportEventFactory, bufferSize, Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
+		disruptor = new Disruptor<OrderExportEvent>(orderExportEventFactory, getIntegerParameter(Order_Export_Size_of_bufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanOrderExportHandler);
 	}
 	
 	private void handleEvents(){
-		Integer logConsumersNumber = Integer.parseInt(cache.get(Optional.of("Order_Export_Number_of_consumers")).get());
-		handler = new OrderExportHandler[logConsumersNumber];
-		for(int i=0; i<logConsumersNumber; i++){
+		handler = new OrderExportHandler[getIntegerParameter(Order_Export_Number_of_consumers)];
+		for(int i=0; i<getIntegerParameter(Order_Export_Number_of_consumers); i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("orderExportHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
+	}
+	
+	private Integer getIntegerParameter(String value){
+		return Integer.parseInt(value);
 	}
 	
 }
