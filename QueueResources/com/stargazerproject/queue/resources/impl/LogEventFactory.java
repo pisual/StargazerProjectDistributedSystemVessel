@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.stargazerproject.queue.model.LogQueueEvent;
 import com.stargazerproject.queue.resources.QueueEventFactory;
 
-@Component
+@Component(value="logEventFactory")
 @Qualifier("logEventFactory")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LogEventFactory extends QueueEventFactory<LogQueueEvent>{

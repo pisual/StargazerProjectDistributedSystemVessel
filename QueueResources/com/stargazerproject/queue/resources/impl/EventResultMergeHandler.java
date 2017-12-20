@@ -20,7 +20,7 @@ import com.stargazerproject.queue.model.EventQueueEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="eventResultMergeHandler")
 @Qualifier("eventResultMergeHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EventResultMergeHandler implements WorkHandler<EventQueueEvent> {
@@ -33,8 +33,26 @@ public class EventResultMergeHandler implements WorkHandler<EventQueueEvent> {
 	@Qualifier("OrderExportQueue")
 	private Queue<Order> OrderExportQueue;
 	
-	/** @construction 初始化构造 **/
-	public EventResultMergeHandler() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private EventResultMergeHandler() {
+		super();
+	}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public EventResultMergeHandler(Optional<Cache<String, Order>> cacheArg, Optional<Queue<Order>> OrderExportQueueArg){
+		super();
+		cache = cacheArg.get();
+		OrderExportQueue = OrderExportQueueArg.get();
+	}
 
 	@Override
 	public void onEvent(EventQueueEvent event){

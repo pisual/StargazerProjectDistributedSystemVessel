@@ -19,7 +19,10 @@ import com.stargazerproject.queue.model.EventQueueEvent;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CleanEventHandler implements WorkHandler<EventQueueEvent> {
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public CleanEventHandler() {}
 
 	@Override

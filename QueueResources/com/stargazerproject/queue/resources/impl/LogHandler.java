@@ -16,13 +16,18 @@ import com.stargazerproject.queue.model.LogQueueEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="logHandler")
 @Qualifier("logHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LogHandler extends LogConsumer implements WorkHandler<LogQueueEvent>{
 	
-	/** @construction 初始化构造 **/
-	public LogHandler() {}
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public LogHandler() {
+		super();
+	}
 
 	@Override
 	public void onEvent(LogQueueEvent event){

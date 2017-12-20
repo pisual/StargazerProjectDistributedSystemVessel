@@ -7,19 +7,23 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
+@Component(value="eventQueueServer")
 @Qualifier("eventQueueServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class EventQueueServer implements StanderServiceShell{
 
+	@Autowired
+	@Qualifier("eventDisruptorShell")
+	private BaseCharacteristic<Queue<Event>> eventDisruptorShell;
+	
 	@Autowired
 	@Qualifier("eventQueue")
 	private StanderCharacteristicShell<Queue<Event>> eventQueue;
@@ -28,12 +32,29 @@ public class EventQueueServer implements StanderServiceShell{
 	@Qualifier("eventQueue")
 	private QueueControl<Event> eventQueueControl;
 	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private EventQueueServer() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public EventQueueServer(Optional<BaseCharacteristic<Queue<Event>>> eventDisruptorShellArg, Optional<StanderCharacteristicShell<Queue<Event>>> eventQueueArg, Optional<QueueControl<Event>> eventQueueControlArg) {
+		eventDisruptorShell = eventDisruptorShellArg.get();
+		eventQueueControl = eventQueueControlArg.get();
+		eventQueue = eventQueueArg.get();
+	}
+	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
      	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		Optional<Queue<Event>> queueArg = BeanContainer.instance().getBean(Optional.of("eventQueueCharacteristicInitialize"), Optional.class);
-		eventQueue.initialize(queueArg);
+		eventQueue.initialize(eventDisruptorShell.characteristic());
 		eventQueueControl.start();
 	}
 

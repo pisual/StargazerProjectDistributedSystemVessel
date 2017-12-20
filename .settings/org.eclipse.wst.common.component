@@ -104,6 +104,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellInjectMethod"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Check"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

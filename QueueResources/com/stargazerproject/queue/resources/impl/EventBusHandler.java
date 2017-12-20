@@ -22,8 +22,21 @@ import com.stargazerproject.queue.model.EventQueueEvent;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class EventBusHandler extends EventBusConsumer implements WorkHandler<EventQueueEvent> {
 	
-	private EventBusHandler(){}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private EventBusHandler(){
+		super();
+	}
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public EventBusHandler(Optional<EventExecute> executeArg) {
 		super(executeArg);
 	}

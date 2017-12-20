@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
+import com.stargazer.segmentation.EventExecute;
 import com.stargazerproject.consumer.impl.OrderExportConsumer;
 import com.stargazerproject.queue.model.OrderExportEvent;
 
@@ -16,13 +17,29 @@ import com.stargazerproject.queue.model.OrderExportEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="orderExportHandler")
 @Qualifier("orderExportHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class OrderExportHandler extends OrderExportConsumer implements WorkHandler<OrderExportEvent> {
 	
-	/** @construction 初始化构造 **/
-	public OrderExportHandler() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private OrderExportHandler(){
+		super();
+	}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OrderExportHandler(Optional<EventExecute> executeArg) {
+		super(executeArg);
+	}
 
 	@Override
 	public void onEvent(OrderExportEvent event){

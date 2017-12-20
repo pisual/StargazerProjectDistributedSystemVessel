@@ -14,12 +14,15 @@ import com.stargazerproject.queue.model.OrderExportEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="cleanOrderExportHandler")
 @Qualifier("cleanOrderExportHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CleanOrderExportHandler implements WorkHandler<OrderExportEvent> {
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public CleanOrderExportHandler() {}
 
 	@Override

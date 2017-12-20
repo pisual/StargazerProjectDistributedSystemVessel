@@ -14,12 +14,15 @@ import com.stargazerproject.queue.model.LogQueueEvent;
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="cleanLogHandler")
 @Qualifier("cleanLogHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CleanLogHandler implements WorkHandler<LogQueueEvent> {
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
 	public CleanLogHandler() {}
 
 	@Override
