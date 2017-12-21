@@ -16,7 +16,9 @@ import com.stargazerproject.order.impl.Event;
 @Qualifier("eventBusImpl")
 public class EventBus extends BusImpl<Event> implements StanderCharacteristicShell<Bus<Event>>{
 
-	public EventBus() {super();}
+	public EventBus() {
+		super();
+		}
 
 	@Override
 	public void initialize(Optional<Bus<Event>> busArg) {
