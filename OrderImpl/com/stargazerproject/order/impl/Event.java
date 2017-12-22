@@ -39,6 +39,7 @@ public class Event extends ID{
 		result.Complete();
 	}
 	
+	/** @illustrate  跳过此事件 并将指令置于未完成的状态**/
 	public void skipEvent(){
 		waitExecutionState = Boolean.FALSE;
 	}

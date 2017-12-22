@@ -1,5 +1,7 @@
 package com.stargazer.segmentation.impl;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -8,8 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
+import com.stargazerproject.bus.BusBlockMethod;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.order.impl.Event;
-import com.stargazerproject.queue.Queue;
 
 @Component(value="eventSegmentation")
 @Qualifier("eventSegmentation")
@@ -17,11 +20,15 @@ import com.stargazerproject.queue.Queue;
 public class EventBusSegmentation implements Segmentation<Optional<Event>>{
 	
 	@Autowired
-	@Qualifier("eventQueue")
-	public Queue<Event> eventQueue;
+	@Qualifier("eventBusBlockMethod")
+	private BusBlockMethod<Event> eventBusBlockMethod;
 	
 	@Override
 	public void batchSegmentation(Optional<Event> event) {
-		eventQueue.producer(event);
+		try {
+			eventBusBlockMethod.push(event, Optional.of(TimeUnit.SECONDS), Optional.of(10));
+		} catch (BusEventTimeoutException e) {
+			event.get().skipEvent();
+		}
 	}
 }

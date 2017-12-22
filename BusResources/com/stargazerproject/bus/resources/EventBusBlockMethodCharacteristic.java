@@ -47,10 +47,8 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 		for(int i=0; i<timeout.get(); i++){
 			sleep(timeUnit.get());
 			if(busEvent.get().isComplete()){
-				System.out.println("完成");
 				return busEvent;
 			}
-			System.out.println("未完成");
 		}
 		l️og.WARN(busEvent.get(), " Event Not completed at the specified time");
 		throw new BusEventTimeoutException(event.toString()+"Event Not completed at the specified time");

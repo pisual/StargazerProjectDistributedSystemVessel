@@ -1,9 +1,7 @@
 package com.stargazerproject.sequence.resources.shell;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.characteristic.BaseCharacteristic;
@@ -29,6 +28,10 @@ public class SequenceResourcesShell implements Sequence<Order>, BaseCharacterist
 	@Autowired
 	@Qualifier("eventBusImpl")
 	private Bus<Event> bus;
+	
+	@Autowired
+	@Qualifier("eventSegmentation")
+	private Segmentation<Optional<Event>> eventSegmentation;
 	
 	private Map<String, Order> orderTemporaryDepositMap = new HashMap<String, Order>();
 	
@@ -49,10 +52,7 @@ public class SequenceResourcesShell implements Sequence<Order>, BaseCharacterist
 	@Override
 	public void startSequence(Optional<String> sequenceGroup) throws BusEventTimeoutException{
 		Order order = orderTemporaryDepositMap.get(sequenceGroup.get());
-		
-		for(Event event : events){
-			bus.push(Optional.of(event), Optional.of(TimeUnit.SECONDS), Optional.of(10));
-		}
+		order.segmentation(Optional.of(eventSegmentation));
 	}
 	
 	@Override
