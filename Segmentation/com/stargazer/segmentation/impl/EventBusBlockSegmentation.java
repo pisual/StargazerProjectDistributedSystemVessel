@@ -14,10 +14,10 @@ import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.order.impl.Event;
 
-@Component(value="eventSegmentation")
-@Qualifier("eventSegmentation")
+@Component(value="eventBusBlockSegmentation")
+@Qualifier("eventBusBlockSegmentation")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusSegmentation implements Segmentation<Optional<Event>>{
+public class EventBusBlockSegmentation implements Segmentation<Optional<Event>>{
 	
 	@Autowired
 	@Qualifier("eventBusBlockMethod")

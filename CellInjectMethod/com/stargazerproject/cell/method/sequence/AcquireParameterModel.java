@@ -11,6 +11,7 @@ import com.google.common.base.Optional;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.cell.CellsTransaction;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
@@ -21,9 +22,13 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AcquireParameterModel implements CellsTransaction<String, String>{
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	protected Cache<String,String> systemParameter;
+	/** @name 聚合根ID **/
+	@NeededInject(type="OrderCache")
+	private static String OrderID;
+	
+	/** @name 聚合根ID **/
+	@NeededInject(type="SystemParametersCache")
+	private static String initializationNodePath;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -51,9 +56,9 @@ public class AcquireParameterModel implements CellsTransaction<String, String>{
 	public boolean method(Optional<Cache<String, String>> cache){
 	try {
 		Optional<CuratorListener> negotiateNodeCuratorListenerCharacteristic = BeanContainer.instance().getBean(Optional.of("negotiateInjectParameterTreeCacheListenerCharacteristic"), Optional.class);
-		nodeNegotiate.registeredSingleWatcher(systemParameter.get(Optional.of("This_Cells_UUID")), Optional.of("/System/EdenCells/"), negotiateNodeCuratorListenerCharacteristic);
-		nodeNegotiate.creatEphemeralNode(systemParameter.get(Optional.of("This_Cells_UUID")), Optional.of("/System/EdenCells/"), Optional.absent());
-		log.INFO(this, "acquireParameterModel Complete: " + systemParameter.get(Optional.of("This_Cells_UUID")).get());
+		nodeNegotiate.registeredWatcher(Optional.of(OrderID), Optional.of(initializationNodePath), Optional.of("AcquireParameterModelListener"), negotiateNodeCuratorListenerCharacteristic);
+		nodeNegotiate.creatEphemeralNode(Optional.of(OrderID), Optional.of(initializationNodePath), Optional.absent());
+		log.INFO(this, "acquireParameterModel Complete: " + Optional.of(OrderID).get());
 		return Boolean.TRUE;
 	} catch (Exception e) {
 		log.ERROR(this, e.getMessage());
