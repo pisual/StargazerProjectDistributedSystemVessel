@@ -23,15 +23,15 @@ import com.stargazerproject.util.SequenceUtil;
 @Qualifier("initializationCellsGroupModel")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class InitializationCellsGroupModel implements CellsTransaction<String, String>{
-
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	protected Cache<String,String> systemParameter;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
-	protected LogMethod log;
+	private LogMethod log;
+	
+	@Autowired
+	@Qualifier("shareCache")
+	private Cache<String,String> shareCache;
 	
 	public InitializationCellsGroupModel() { super(); }
 	
@@ -48,8 +48,8 @@ public class InitializationCellsGroupModel implements CellsTransaction<String, S
 	                commandProperties = {
     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")})
 	public boolean method(Optional<Cache<String, String>> cache) {
-		systemParameter.put(Optional.of("This_Cells_UUID"), Optional.of(SequenceUtil.getUUID()));
-		log.INFO(this, "This_Cells_UUID Initialization: " + systemParameter.get(Optional.of("This_Cells_UUID")).get());
+		cache.get().put(Optional.of("OrderID"), Optional.of(SequenceUtil.getUUID()));
+		log.INFO(this, "This_Cells_UUID Initialization: " + cache.get().get(Optional.of("OrderID")).get());
 		return Boolean.TRUE;
 	}
 	

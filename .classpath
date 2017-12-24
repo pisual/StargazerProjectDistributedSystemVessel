@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Check"/>
+	<classpathentry kind="src" path="CheckImpl"/>
+	<classpathentry kind="src" path="CheckConfiguration"/>
+	<classpathentry kind="src" path="CheckResources"/>
+	<classpathentry kind="src" path="CheckServer"/>
+	<classpathentry kind="src" path="CheckTest"/>
 	<classpathentry kind="src" path="Bus"/>
 	<classpathentry kind="src" path="BusImpl"/>
 	<classpathentry kind="src" path="BusConfiguration"/>
@@ -106,7 +112,6 @@
 	<classpathentry kind="src" path="SpringTest"/>
 	<classpathentry kind="src" path="StargazerTest"/>
 	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
-	<classpathentry kind="src" path="Check"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

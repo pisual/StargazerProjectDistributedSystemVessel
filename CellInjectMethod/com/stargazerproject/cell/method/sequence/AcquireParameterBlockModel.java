@@ -65,11 +65,11 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 	* @illustrate 基于外部参数进行注入
 	* **/
 	public AcquireParameterBlockModel(Optional<LogMethod> logArg, 
-			                     Optional<Negotiate> nodeNegotiateArg, 
-			                     Optional<BigCache<String, byte[]>> byteArrayCacheArg, 
-			                     Optional<BaseCharacteristic<TreeCacheListener>> negotiateInjectParameterTreeCacheListenerArg, 
-			                     Optional<String> OrderIDArg, 
-			                     Optional<String> initializationNodePathArg) {
+			                          Optional<Negotiate> nodeNegotiateArg, 
+			                          Optional<BigCache<String, byte[]>> byteArrayCacheArg, 
+			                          Optional<BaseCharacteristic<TreeCacheListener>> negotiateInjectParameterTreeCacheListenerArg, 
+			                          Optional<String> OrderIDArg, 
+			                          Optional<String> initializationNodePathArg) {
 		super();
 		log = logArg.get();
 		OrderID = OrderIDArg.get();
@@ -107,7 +107,8 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 	public void blockMethod() {
 		while(true){
 			if(byteArrayCache.get(Optional.of("AcquireCellsParameter")).equals(Optional.absent())){
-			}else{
+			}
+			else{
 				log.INFO(this, "acquireParameterModel Complete: " + Optional.of(OrderID).get());
 				break;
 			}
