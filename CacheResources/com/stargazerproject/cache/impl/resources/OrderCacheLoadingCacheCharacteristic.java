@@ -82,13 +82,19 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg,
 			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg,
 			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg,
-			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg) {
+			                                    Optional<String> Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg,
+			                                    Optional<BaseCharacteristic<CacheLoader<String, Order>>> cacheLoaderArg,
+			                                    Optional<BaseCharacteristic<RemovalListener<String, Order>>> removalListenerArg,
+			                                    Optional<LoadingCache<String,Order>> loadingCacheArg) {
 		
 		Parameters_Module_Kernel_Cache_OrderCache_MaxSize = Parameters_Module_Kernel_Cache_OrderCache_MaxSizeArg.get();
 		Parameters_Module_Kernel_Cache_OrderCache_InitialSize = Parameters_Module_Kernel_Cache_OrderCache_InitialSizeArg.get();
 		Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel = Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevelArg.get();
 		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTimeArg.get();
 		Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime = Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTimeArg.get();
+		cacheLoader = cacheLoaderArg.get();
+		loadingCache = loadingCacheArg.get();
+		removalListener = removalListenerArg.get();
 	}
 	
 	@Override
