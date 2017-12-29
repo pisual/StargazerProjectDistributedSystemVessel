@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.sequence.Sequence;

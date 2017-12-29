@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.messagequeue.MessageQueueControl;

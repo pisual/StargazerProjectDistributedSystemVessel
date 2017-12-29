@@ -1,4 +1,4 @@
-package com.stargazerproject.characteristic;
+package com.stargazerproject.interfaces.characteristic.shell;
 
 import com.google.common.base.Optional;
 

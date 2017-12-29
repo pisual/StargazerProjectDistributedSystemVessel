@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.inject.AnnotationClassSequenceScanner;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.resources.Parameters;
 import com.stargazerproject.spring.container.impl.BeanContainer;

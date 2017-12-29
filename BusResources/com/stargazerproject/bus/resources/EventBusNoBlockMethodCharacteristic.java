@@ -15,7 +15,7 @@ import com.stargazerproject.bus.BusEventListen;
 import com.stargazerproject.bus.BusNoBlockMethod;
 import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.impl.EventBusObserver;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;

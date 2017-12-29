@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.BigCache;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;

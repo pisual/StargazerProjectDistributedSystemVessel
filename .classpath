@@ -26,20 +26,20 @@
 	<classpathentry kind="src" path="Kernel"/>
 	<classpathentry kind="src" path="KernelImpl"/>
 	<classpathentry kind="src" path="KernelConfiguration"/>
-	<classpathentry kind="src" path="KernelServer"/>
 	<classpathentry kind="src" path="KernelResources"/>
+	<classpathentry kind="src" path="KernelServer"/>
 	<classpathentry kind="src" path="KernelTest"/>
 	<classpathentry kind="src" path="Exchange"/>
 	<classpathentry kind="src" path="ExchangeImpl"/>
-	<classpathentry kind="src" path="ExchangeResources"/>
 	<classpathentry kind="src" path="ExchangeConfiguration"/>
+	<classpathentry kind="src" path="ExchangeResources"/>
 	<classpathentry kind="src" path="ExchangeServer"/>
 	<classpathentry kind="src" path="ExchangeTest"/>
 	<classpathentry kind="src" path="Sequence"/>
 	<classpathentry kind="src" path="SequenceImpl"/>
 	<classpathentry kind="src" path="SequenceConfiguration"/>
-	<classpathentry kind="src" path="SequenceServer"/>
 	<classpathentry kind="src" path="SequenceResources"/>
+	<classpathentry kind="src" path="SequenceServer"/>
 	<classpathentry kind="src" path="SequenceModel"/>
 	<classpathentry kind="src" path="SequenceTest"/>
 	<classpathentry kind="src" path="UserInterface"/>
@@ -48,6 +48,7 @@
 	<classpathentry kind="src" path="UserInterfaceResources"/>
 	<classpathentry kind="src" path="UserInterfaceServer"/>
 	<classpathentry kind="src" path="UserInterfaceTest"/>
+	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
 	<classpathentry kind="src" path="Cache"/>
 	<classpathentry kind="src" path="CacheImpl"/>
 	<classpathentry kind="src" path="CacheConfiguration"/>
@@ -56,8 +57,8 @@
 	<classpathentry kind="src" path="CacheTest"/>
 	<classpathentry kind="src" path="Negotiate"/>
 	<classpathentry kind="src" path="NegotiateImpl"/>
-	<classpathentry kind="src" path="NegotiateResources"/>
 	<classpathentry kind="src" path="NegotiateConfiguration"/>
+	<classpathentry kind="src" path="NegotiateResources"/>
 	<classpathentry kind="src" path="NegotiateServer"/>
 	<classpathentry kind="src" path="NegotiateTest"/>
 	<classpathentry kind="src" path="Cell"/>
@@ -76,8 +77,8 @@
 	<classpathentry kind="src" path="MesasageQueue"/>
 	<classpathentry kind="src" path="MesasageQueueImpl"/>
 	<classpathentry kind="src" path="MesasageQueueConfiguration"/>
-	<classpathentry kind="src" path="MessageQueueServer"/>
 	<classpathentry kind="src" path="MesasageQueueResources"/>
+	<classpathentry kind="src" path="MessageQueueServer"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
 	<classpathentry kind="src" path="Order"/>
 	<classpathentry kind="src" path="OrderImpl"/>
@@ -92,26 +93,45 @@
 	<classpathentry kind="src" path="QueueTest"/>
 	<classpathentry kind="src" path="Inject"/>
 	<classpathentry kind="src" path="InjectImpl"/>
+	<classpathentry kind="src" path="InjectConfiguration"/>
+	<classpathentry kind="src" path="InjectResources"/>
+	<classpathentry kind="src" path="InjectServer"/>
+	<classpathentry kind="src" path="InjectTest"/>
 	<classpathentry kind="src" path="Information"/>
+	<classpathentry kind="src" path="InformationImpl"/>
 	<classpathentry kind="src" path="InformationConfiguration"/>
+	<classpathentry kind="src" path="InformationResources"/>
+	<classpathentry kind="src" path="InformationServer"/>
+	<classpathentry kind="src" path="InformationTest"/>
 	<classpathentry kind="src" path="Resources"/>
+	<classpathentry kind="src" path="ResourcesImpl"/>
 	<classpathentry kind="src" path="ResourcesConfiguration"/>
+	<classpathentry kind="src" path="ResourcesResources"/>
+	<classpathentry kind="src" path="ResourcesServer"/>
 	<classpathentry kind="src" path="ResourcesTest"/>
 	<classpathentry kind="src" path="Segmentation"/>
+	<classpathentry kind="src" path="SegmentationImpl"/>
 	<classpathentry kind="src" path="SegmentationConfiguration"/>
+	<classpathentry kind="src" path="SegmentationResources"/>
+	<classpathentry kind="src" path="SegmentationServer"/>
+	<classpathentry kind="src" path="SegmentationTest"/>
 	<classpathentry kind="src" path="Validation"/>
+	<classpathentry kind="src" path="ValidationImpl"/>
 	<classpathentry kind="src" path="ValidationConfiguration"/>
+	<classpathentry kind="src" path="ValidationResources"/>
+	<classpathentry kind="src" path="ValidationServer"/>
 	<classpathentry kind="src" path="ValidationTest"/>
-	<classpathentry kind="src" path="Characteristic"/>
+	<classpathentry kind="src" path="Arithmetic"/>
+	<classpathentry kind="src" path="ArithmeticImpl"/>
+	<classpathentry kind="src" path="ArithmeticConfiguration"/>
+	<classpathentry kind="src" path="ArithmeticResources"/>
+	<classpathentry kind="src" path="ArithmeticServer"/>
+	<classpathentry kind="src" path="ArithmeticTest"/>
 	<classpathentry kind="src" path="Container"/>
 	<classpathentry kind="src" path="Disruptor"/>
 	<classpathentry kind="src" path="Shell"/>
-	<classpathentry kind="src" path="Arithmetic"/>
-	<classpathentry kind="src" path="ArithmeticImpl"/>
-	<classpathentry kind="src" path="ServiceTest"/>
 	<classpathentry kind="src" path="SpringTest"/>
 	<classpathentry kind="src" path="StargazerTest"/>
-	<classpathentry kind="src" path="StargazerUIAssaultLilys"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

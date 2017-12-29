@@ -15,10 +15,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellsConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Characteristic"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Container"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Disruptor"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Information"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/InformationConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Log"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/LogConfiguration"/>
@@ -47,7 +45,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Service"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServiceConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServiceResources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServiceTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Shell"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SpringTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/StargazerTest"/>
@@ -110,6 +107,29 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CheckResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CheckServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CheckTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InjectTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InformationImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InformationResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InformationServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/InformationTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Information"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ResourcesImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ResourcesResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ResourcesServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SegmentationImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SegmentationResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SegmentationServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SegmentationTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticTest"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

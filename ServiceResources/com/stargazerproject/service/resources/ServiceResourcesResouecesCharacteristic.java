@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.ServiceResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 

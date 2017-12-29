@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
-import com.stargazerproject.characteristic.BaseCharacteristic;
 import com.stargazerproject.inject.AnnotationClassSequenceScanner;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.service.baseinterface.Services;
 import com.stargazerproject.spring.container.impl.BeanContainer;

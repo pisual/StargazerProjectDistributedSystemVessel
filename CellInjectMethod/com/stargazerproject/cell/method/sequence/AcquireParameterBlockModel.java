@@ -15,7 +15,7 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.cell.CellsBlockMethod;
 import com.stargazerproject.cell.CellsTransaction;
-import com.stargazerproject.characteristic.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
 
