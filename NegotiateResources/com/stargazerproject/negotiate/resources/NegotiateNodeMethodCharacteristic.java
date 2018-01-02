@@ -10,76 +10,100 @@ import org.apache.zookeeper.ZooDefs.Ids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateNodeMethod;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="negotiateNodeMethod")
-@Qualifier("negotiateNodeMethod")
+@Component(value="negotiateNodeMethodCharacteristic")
+@Qualifier("negotiateNodeMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, BaseCharacteristic<NegotiateNodeMethod>{
 
-	private Optional<CuratorFramework> curatorFramework;
+	/** @name 创建锁的超时时间 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Negotiate_Mode_Lock_CreatLockOutTime;
+	
+	@Autowired
+	@Qualifier("negotiateCuratorFrameworkCharacteristic")
+	private BaseCharacteristic<CuratorFramework> negotiateCuratorFrameworkCharacteristic;
 	
 	@Autowired
 	@Qualifier("interProcessSemaphoreMutexCache")
 	private Cache<String, InterProcessSemaphoreMutex> interProcessSemaphoreMutexCache;
 	
-	@SuppressWarnings("unchecked")
+	private CuratorFramework curatorFramework;
+	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private NegotiateNodeMethodCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateNodeMethodCharacteristic(Optional<BaseCharacteristic<CuratorFramework>> negotiateCuratorFrameworkCharacteristicArg,
+											Optional<Cache<String, InterProcessSemaphoreMutex>> interProcessSemaphoreMutexCacheArg,
+											Optional<String> Kernel_Negotiate_Mode_Lock_CreatLockOutTimeArg) {
+		Kernel_Negotiate_Mode_Lock_CreatLockOutTime = Kernel_Negotiate_Mode_Lock_CreatLockOutTimeArg.get();
+		negotiateCuratorFrameworkCharacteristic = negotiateCuratorFrameworkCharacteristicArg.get();
+		interProcessSemaphoreMutexCache = interProcessSemaphoreMutexCacheArg.get();
+	}
+	
 	@Override
-	@Bean(name="negotiateNodeMethodCharacteristic")
-	@Lazy(true)
 	public Optional<NegotiateNodeMethod> characteristic() {
-		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
+		curatorFramework = negotiateCuratorFrameworkCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 	
 	@Override
 	public void creatPersistentNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.orNull());
+		curatorFramework.create().withMode(CreateMode.PERSISTENT).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.orNull());
 	}
 	
 	@Override
 	public void updateNodeData(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().setData().forPath( nodePath.get() + nodeName.get(), nodeData.get());
+		curatorFramework.setData().forPath(nodePath.get() + nodeName.get(), nodeData.get());
 	}
 
 	@Override
 	public void creatEphemeralNode(Optional<String> nodeName, Optional<String> nodePath, Optional<byte[]> nodeData) throws Exception {
-		curatorFramework.get().create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.orNull());
+		curatorFramework.create().withMode(CreateMode.EPHEMERAL).withACL(Ids.OPEN_ACL_UNSAFE).forPath( nodePath.get() + nodeName.get(), nodeData.orNull());
 	}
 
 	@Override
 	public void deleteNode(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		curatorFramework.get().delete().deletingChildrenIfNeeded().forPath(nodePath.get() + nodeName.get());
+		curatorFramework.delete().deletingChildrenIfNeeded().forPath(nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public List<String> getPathNode(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return curatorFramework.get().getChildren().forPath( nodePath.get() + nodeName.get());
+		return curatorFramework.getChildren().forPath( nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public byte[] getNodeData(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return curatorFramework.get().getData().forPath(nodePath.get() + nodeName.get());
+		return curatorFramework.getData().forPath(nodePath.get() + nodeName.get());
 	}
 
 	@Override
 	public boolean checkNodeExists(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		return (null == curatorFramework.get().checkExists().forPath( nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
+		return (null == curatorFramework.checkExists().forPath( nodePath.get() + nodeName.get()))?Boolean.FALSE:Boolean.TRUE;
 	}
 	
 	@Override
 	public boolean creatLock(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
-		InterProcessSemaphoreMutex interProcessSemaphoreMutex = new InterProcessSemaphoreMutex(curatorFramework.get(), nodePath.get() + nodeName.get());
-		if(interProcessSemaphoreMutex.acquire(1, TimeUnit.SECONDS) == Boolean.TRUE){
+		InterProcessSemaphoreMutex interProcessSemaphoreMutex = new InterProcessSemaphoreMutex(curatorFramework, nodePath.get() + nodeName.get());
+		if(interProcessSemaphoreMutex.acquire(Integer.parseInt(Kernel_Negotiate_Mode_Lock_CreatLockOutTime), TimeUnit.SECONDS) == Boolean.TRUE){
 			interProcessSemaphoreMutexCache.put(Optional.of(nodePath.get() + nodeName.get()), Optional.of(interProcessSemaphoreMutex));
 			return Boolean.TRUE;
 		}

@@ -18,11 +18,11 @@ import com.stargazerproject.order.impl.Order;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheRemovalListenerCharacteristic implements BaseCharacteristic<RemovalListener<String, Order>>{
 
-	private RemovalListener<String, Order> removalListener;
-	
 	@Autowired
 	@Qualifier("logRecord")
 	private LogMethod log;
+	
+	private RemovalListener<String, Order> removalListener;
 	
 	/**
 	* @name Springs使用的初始化构造

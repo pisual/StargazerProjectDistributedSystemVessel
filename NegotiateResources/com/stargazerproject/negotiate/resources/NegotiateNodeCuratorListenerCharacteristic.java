@@ -5,24 +5,26 @@ import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.framework.api.CuratorListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
-@Component(value="negotiateNodeCuratorListener")
+@Component(value="negotiateNodeCuratorListenerCharacteristic")
 @Qualifier("negotiateNodeCuratorListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateNodeCuratorListenerCharacteristic implements BaseCharacteristic<CuratorListener>{
 
 	private CuratorListener curatorListener;
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateNodeCuratorListenerCharacteristic() {}
+	
 	@Override
-	@Bean(name="negotiateNodeCuratorListenerCharacteristic")
-	@Lazy(true)
 	public Optional<CuratorListener> characteristic() {
 		zookeeeperConfigurationInitialize();
 		return Optional.of(curatorListener);

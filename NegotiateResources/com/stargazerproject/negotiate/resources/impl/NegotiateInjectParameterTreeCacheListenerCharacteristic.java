@@ -1,4 +1,4 @@
-package com.stargazerproject.negotiate.resources;
+package com.stargazerproject.negotiate.resources.impl;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.TreeCacheEvent;
@@ -6,14 +6,11 @@ import org.apache.curator.framework.recipes.cache.TreeCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.BigCache;
-import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
@@ -35,22 +32,16 @@ public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements 
 	@Qualifier("byteArrayCache")
 	protected BigCache<String, byte[]> byteArrayCache;
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	protected Cache<String,String> systemParameterCahce;
-	
 	private TreeCacheListener treeCacheListener;
 
 	@Override
-	@Bean(name="negotiateInjectParameterTreeCacheListenerCharacteristic")
-	@Lazy(true)
 	public Optional<TreeCacheListener> characteristic() {
-		zookeeeperConfigurationInitialize();
+		treeCacheListenerConfigurationInitialize();
 		return Optional.of(treeCacheListener);
 	}
 	
 	
-	protected void zookeeeperConfigurationInitialize() {
+	protected void treeCacheListenerConfigurationInitialize() {
 		treeCacheListener = new TreeCacheListener(){
 			@Override
 			public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {

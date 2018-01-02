@@ -25,11 +25,15 @@ public class NegotiateParameters {
 	    /** @illustrate Zookeeper集群主机 **/
 	    private static final String Kernel_Negotiate_Connection_Host = "127.0.0.1:2181";
 		/** @illustrate 重新连接策略间隔时间 **/
-		private static final String Zookeeeper_Retry_Policy_Base_Sleep_Time_Ms = "1000";
-		/**重新连接策略尝试数目**/
-		/** @illustrate 参数类 **/
+		private static final String Kernel_Negotiate_Connection_RetryPolicySleepTime = "1000";
+		/**@illustrate 重新连接策略尝试次数**/
 		private static final String Kernel_Negotiate_Connection_RetryConnectTime = "20";
 		//Zookeeper配置 End
+		
+	    //Curator配置 Start
+	    /** @illustrate 创建锁的超时时间 **/
+		private static final String Kernel_Negotiate_Mode_Lock_CreatLockOutTime = "1";
+		//Curator配置 End
 		
 	    //路径配置 Start
 	    /** @illustrate 根路径 **/

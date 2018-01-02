@@ -35,7 +35,7 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 	private BaseCharacteristic<LoadingCache<String,Order>> loadingCacheBaseCharacteristic;
 	
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/
-	protected Optional<LoadingCache<String, Order>> loadingCache;
+	protected LoadingCache<String, Order> loadingCache;
 	
 	/**
 	* @name Springs使用的初始化构造
@@ -56,19 +56,19 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 	
 	@Override
 	public Optional<Cache<String, Order>> characteristic() {
-		loadingCache = loadingCacheBaseCharacteristic.characteristic();
+		loadingCache = loadingCacheBaseCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 	
 	@Override
 	public void put(Optional<String> key, Optional<Order> value) {
-		loadingCache.get().put(key.get(), value.get());
+		loadingCache.put(key.get(), value.get());
 	}
 
 	@Override
 	public Optional<Order> get(Optional<String> key) {
 		try {
-			return Optional.of(loadingCache.get().get(key.get()));
+			return Optional.of(loadingCache.get(key.get()));
 		} catch (ExecutionException e) {
 			throw new NullPointerException("Stargazer ServiceControlServer Report :  Key : "+key.get()+" Value is Null");
 		}
@@ -76,7 +76,7 @@ public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristi
 
 	@Override
 	public void remove(Optional<String> key) {
-		loadingCache.get().invalidate(key.get());
+		loadingCache.invalidate(key.get());
 	}
 
 }

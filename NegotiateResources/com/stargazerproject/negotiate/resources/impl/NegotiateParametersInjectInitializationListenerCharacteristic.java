@@ -1,19 +1,18 @@
-package com.stargazerproject.negotiate.resources;
+package com.stargazerproject.negotiate.resources.impl;
 
 import java.util.concurrent.TimeUnit;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.cache.TreeCacheEvent;
+import org.apache.curator.framework.recipes.cache.TreeCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
@@ -25,65 +24,53 @@ import com.stargazerproject.util.SerializableUtil;
  *  @illustrate 监听指定目录下节点的注册，一旦注册，根据相应规则注入参数
  *  @author Felixerio
  *  **/
-@Component(value="negotiateParametersInjectMonitoringNodePathChildrenCacheListener")
-@Qualifier("negotiateParametersInjectMonitoringNodePathChildrenCacheListener")
+@Component(value="negotiateParametersInjectInitializationListenerCharacteristic")
+@Qualifier("negotiateParametersInjectInitializationListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic implements BaseCharacteristic<PathChildrenCacheListener>{
+public class NegotiateParametersInjectInitializationListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
+	
+	/** @name 建组区路径 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Negotiate_BasePath_ZoneNodePath;
 	
 	@Autowired
 	@Qualifier("nodenNegotiate")
 	private Negotiate nodeNegotiate;
 	
-	private PathChildrenCacheListener pathChildrenCacheListener;
-	
-	public NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic() {}
-	
 	@Autowired
 	@Qualifier("logRecord")
 	protected LogMethod log;
 	
-	@Override
-	@Bean(name="negotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic")
-	@Lazy(true)
-	public Optional<PathChildrenCacheListener> characteristic() {
-		zookeeeperConfigurationInitialize();
-		return Optional.of(pathChildrenCacheListener);
+	private TreeCacheListener treeCacheListener;
+	
+	public NegotiateParametersInjectInitializationListenerCharacteristic() {
 	}
 	
-	private void zookeeeperConfigurationInitialize() {
-		pathChildrenCacheListener = new PathChildrenCacheListener() {
+	@Override
+	public Optional<TreeCacheListener> characteristic() {
+		treeCacheListenerConfigurationInitialize();
+		return Optional.of(treeCacheListener);
+	}
+	
+	protected void treeCacheListenerConfigurationInitialize() {
+		treeCacheListener = new TreeCacheListener(){
 			@Override
-			public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
-				switch (event.getType()) {
-				case CHILD_ADDED:
-					log.INFO(this, "CHILD_ADDED : " + event.getData().getData());
+			public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {
+				switch (event.getType()) {  
+				case NODE_REMOVED:  
+					nodeNegotiate.deleteNode(Optional.of(event.getData().getPath().substring(event.getData().getPath().lastIndexOf("/"))), Optional.of(Kernel_Negotiate_BasePath_ZoneNodePath));
+					log.INFO(this, event.getData().getPath()+" Has Remove, Deletes the primary node operation");
+					break;
+				case NODE_ADDED:  
+					log.INFO(this, "The node is detected to be added : " + event.getData().getData());
 					TimeUnit.SECONDS.sleep(1);
 					byte[] byteArray = SerializableUtil.serialize(new InjectParameters());
 					nodeNegotiate.updateNodeData(Optional.of(event.getData().getPath()), Optional.of(""),Optional.of(byteArray));
-					log.INFO(this, "初始化节点参数 " + event.getData().getPath());
-					break;
-				case CHILD_REMOVED:
-					nodeNegotiate.deleteNode(Optional.of(event.getData().getPath().substring(event.getData().getPath().lastIndexOf("/"))),Optional.of("/Master_Cells/List"));
-					log.INFO(this, event.getData().getPath()+" Has Remove, Deletes the primary node operation");
-					break;
-				case CHILD_UPDATED:
-					System.out.println("CHILD_UPDATED : ");
-					break;
-				case CONNECTION_SUSPENDED:
-					System.out.println("CONNECTION_SUSPENDED: ");
-					break;
-				case CONNECTION_RECONNECTED:
-					System.out.println("CONNECTION_RECONNECTED : ");
-					break;
-				case CONNECTION_LOST:
-					System.out.println("CONNECTION_LOST : ");
-					break;
-				case INITIALIZED:
-					System.out.println("INITIALIZED : ");
-					break;
-				default:
-					break;
-				}
+					log.INFO(this, "The newly added node has been placed in the parameters " + event.getData().getPath());
+					break;  
+			    default:  
+			    	    break;  
+                  }  
 			}
 		};
 	}

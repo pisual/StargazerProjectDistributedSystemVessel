@@ -2,16 +2,13 @@ package com.stargazerproject.negotiate.resources;
 
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="negotiateRetryPolicyCharacteristic")
@@ -19,26 +16,46 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateRetryPolicyCharacteristic implements BaseCharacteristic<RetryPolicy>{
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> systemParameter;
+	/**@illustrate 重新连接策略尝试数目**/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Negotiate_Connection_RetryPolicySleepTime;
+	
+	/**@illustrate 重新连接策略尝试次数**/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Negotiate_Connection_RetryConnectTime;
+	
 	private RetryPolicy retryPolicy;
 	
-	public NegotiateRetryPolicyCharacteristic() {}
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private NegotiateRetryPolicyCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateRetryPolicyCharacteristic(Optional<String> Kernel_Negotiate_Connection_RetryPolicySleepTimeArg,
+											 Optional<String> Kernel_Negotiate_Connection_RetryConnectTimeArg) {
+		Kernel_Negotiate_Connection_RetryPolicySleepTime = Kernel_Negotiate_Connection_RetryPolicySleepTimeArg.get();
+		Kernel_Negotiate_Connection_RetryConnectTime = Kernel_Negotiate_Connection_RetryConnectTimeArg.get();
+	}
 
 	@Override
-	@Bean(name="negotiateRetryPolicyCharacteristic")
-	@Lazy(true)
 	public Optional<RetryPolicy> characteristic() {
 		retryPolicyInitialization();
 		return Optional.of(retryPolicy);
 	}
 	
 	private void retryPolicyInitialization(){
-		 retryPolicy = new ExponentialBackoffRetry(getIntegerParameter("Zookeeeper_Retry_Policy_Base_Sleep_Time_Ms"), getIntegerParameter("Zookeeeper_Retry_Policy_Retry_Connect_Number"));
+		 retryPolicy = new ExponentialBackoffRetry(getIntegerParameter(Kernel_Negotiate_Connection_RetryPolicySleepTime), getIntegerParameter(Kernel_Negotiate_Connection_RetryConnectTime));
 	}
 
 	private Integer getIntegerParameter(String key){
-		return Integer.parseInt(systemParameter.get(Optional.of(key)).get());
+		return Integer.parseInt(key);
 	}
 }

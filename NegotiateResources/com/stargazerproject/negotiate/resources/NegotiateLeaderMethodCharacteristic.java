@@ -31,9 +31,24 @@ public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMetho
 	
 	private LeaderLatch leaderLatch;
 	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private NegotiateLeaderMethodCharacteristic() {}
 	
-	public NegotiateLeaderMethodCharacteristic(Optional<Cache<String, LeaderLatch>> objectParameterCache) {}
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateLeaderMethodCharacteristic(Optional<Cache<String, LeaderLatch>> objectParameterCacheArg,
+			                                   Optional<BaseCharacteristic<CuratorFramework>> negotiateCuratorFrameworkCharacteristicArg) {
+		objectParameterCache = objectParameterCacheArg.get();
+		negotiateCuratorFrameworkCharacteristic = negotiateCuratorFrameworkCharacteristicArg.get();
+	}
 
 	@Override
 	public Optional<NegotiateLeaderMethod> characteristic() {

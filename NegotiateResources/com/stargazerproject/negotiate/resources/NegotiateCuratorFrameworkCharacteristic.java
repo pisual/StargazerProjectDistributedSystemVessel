@@ -19,7 +19,7 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateCuratorFrameworkCharacteristic implements BaseCharacteristic<CuratorFramework>{
 	
-	/** @name 缓存最大数目 **/
+	/** @name Zookeeper主机 **/
 	@NeededInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Connection_Host;
 	
@@ -32,6 +32,27 @@ public class NegotiateCuratorFrameworkCharacteristic implements BaseCharacterist
 	private BaseCharacteristic<ConnectionStateListener> negotiateConnectionStateListenerCharacteristic;
 	
 	protected CuratorFramework curatorFramework;
+	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private NegotiateCuratorFrameworkCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateCuratorFrameworkCharacteristic(Optional<BaseCharacteristic<RetryPolicy>> negotiateRetryPolicyCharacteristicArg, 
+			                                       Optional<BaseCharacteristic<ConnectionStateListener>> negotiateConnectionStateListenerCharacteristicArg, 
+			                                       Optional<String> Kernel_Negotiate_Connection_HostArg) {
+		Kernel_Negotiate_Connection_Host = Kernel_Negotiate_Connection_HostArg.get();
+		negotiateRetryPolicyCharacteristic = negotiateRetryPolicyCharacteristicArg.get();
+		negotiateConnectionStateListenerCharacteristic = negotiateConnectionStateListenerCharacteristicArg.get();
+	}
 	
 	@Override
 	public Optional<CuratorFramework> characteristic() {
