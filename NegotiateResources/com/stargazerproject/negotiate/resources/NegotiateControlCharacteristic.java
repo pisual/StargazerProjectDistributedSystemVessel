@@ -1,41 +1,55 @@
 package com.stargazerproject.negotiate.resources;
 
 import org.apache.curator.framework.CuratorFramework;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateControl;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="negotiateControl")
-@Qualifier("negotiateControl")
+@Component(value="negotiateControlCharacteristic")
+@Qualifier("negotiateControlCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateControlCharacteristic implements NegotiateControl, BaseCharacteristic<NegotiateControl>{
-
-	private Optional<CuratorFramework> curatorFramework;
+	
+	@Autowired
+	@Qualifier("negotiateCuratorFrameworkCharacteristic")
+	private BaseCharacteristic<CuratorFramework> negotiateCuratorFrameworkCharacteristic;
+	
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
+	private NegotiateControlCharacteristic() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public NegotiateControlCharacteristic(Optional<BaseCharacteristic<CuratorFramework>> negotiateCuratorFrameworkArg) {
+		negotiateCuratorFrameworkCharacteristic = negotiateCuratorFrameworkArg.get();
+	}
 	
 	@Override
-	@Bean(name="negotiateControlCharacteristic")
-	@Lazy(true)
 	public Optional<NegotiateControl> characteristic() {
-		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
 		return Optional.of(this);
 	}
 
 	@Override
 	public void start() {
-		curatorFramework.get().start();
+		negotiateCuratorFrameworkCharacteristic.characteristic().get().start();
 	}
 
 	@Override
 	public void close() {
-		curatorFramework.get().close();
+		negotiateCuratorFrameworkCharacteristic.characteristic().get().close();
 	}
 
 }

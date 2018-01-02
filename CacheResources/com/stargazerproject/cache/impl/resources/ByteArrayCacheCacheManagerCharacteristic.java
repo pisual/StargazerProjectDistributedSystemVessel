@@ -3,8 +3,6 @@ package com.stargazerproject.cache.impl.resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +12,13 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.config.Configuration;
 
-@Component(value="byteArrayCacheCacheManager")
-@Qualifier("byteArrayCacheCacheManager")
+@Component(value="byteArrayCacheCacheManagerCharacteristic")
+@Qualifier("byteArrayCacheCacheManagerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteristic<CacheManager>{
 
 	@Autowired
-	@Qualifier("byteArrayCacheConfiguration")
+	@Qualifier("byteArrayCacheConfigurationCharacteristic")
 	private BaseCharacteristic<Configuration> byteArrayCacheConfigurationCharacteristic;
 	
 	private Configuration cacheConfiguration;
@@ -45,8 +43,6 @@ public class ByteArrayCacheCacheManagerCharacteristic implements BaseCharacteris
 	}
 	
 	@Override
-	@Bean(name="byteArrayCacheCacheManagerCharacteristic")
-	@Lazy(true)
 	public Optional<CacheManager> characteristic() {
 		initializatioCacheManager();
 		return Optional.of(manager);

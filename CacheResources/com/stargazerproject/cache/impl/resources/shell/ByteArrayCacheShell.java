@@ -3,8 +3,6 @@ package com.stargazerproject.cache.impl.resources.shell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +20,7 @@ import net.sf.ehcache.Element;
 public class ByteArrayCacheShell implements BigCache<String, byte[]>, BaseCharacteristic<BigCache<String, byte[]>>{
 	
 	@Autowired
-	@Qualifier("byteArrayCacheCacheManager")
+	@Qualifier("byteArrayCacheCacheManagerCharacteristic")
 	private BaseCharacteristic<CacheManager> byteArrayCacheCacheManager;
 	
 	private CacheManager manager;
@@ -67,8 +65,6 @@ public class ByteArrayCacheShell implements BigCache<String, byte[]>, BaseCharac
 	}
 
 	@Override
-	@Bean(name="byteArrayCacheInitialize")
-	@Lazy(true)
 	public Optional<BigCache<String, byte[]>> characteristic() {
 		manager= byteArrayCacheCacheManager.characteristic().get();
 		cache = manager.getCache("byteArrayCache");

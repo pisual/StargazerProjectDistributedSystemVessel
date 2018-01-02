@@ -3,7 +3,6 @@ package com.stargazerproject.cache.impl.resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +13,8 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderCacheRemovalListener")
-@Qualifier("orderCacheRemovalListener")
+@Component(value="orderCacheRemovalListenerCharacteristic")
+@Qualifier("orderCacheRemovalListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheRemovalListenerCharacteristic implements BaseCharacteristic<RemovalListener<String, Order>>{
 
@@ -43,7 +42,6 @@ public class OrderCacheRemovalListenerCharacteristic implements BaseCharacterist
 	}
 	
 	@Override
-	@Bean(name="OrderCacheRemovalListenerCharacteristic")
 	public Optional<RemovalListener<String, Order>> characteristic() {
 		initializationRemovalListener();
 		return Optional.of(removalListener);

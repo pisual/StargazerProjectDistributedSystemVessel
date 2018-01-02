@@ -5,8 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -52,8 +50,6 @@ public class BigCacheIndexCahceShell implements BaseCharacteristic<Cache<String,
 	}
 	
 	@Override
-	@Bean(name="bigCacheIndexCahceCharacteristic")
-	@Lazy(true)
 	public Optional<Cache<String, Map<String, Integer>>> characteristic() {
 		return Optional.of(bigCacheIndexCahceCharacteristic);
 	}

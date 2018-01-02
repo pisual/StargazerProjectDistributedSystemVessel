@@ -18,8 +18,8 @@ import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderCacheLoadingCache")
-@Qualifier("orderCacheLoadingCache")
+@Component(value="orderCacheLoadingCacheCharacteristic")
+@Qualifier("orderCacheLoadingCacheCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<LoadingCache<String,Order>>{
 	
@@ -48,7 +48,7 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	* @illustrate Guava cacheLoader
 	* **/
 	@Autowired
-	@Qualifier("orderCacheCacheLoader")
+	@Qualifier("orderCacheCacheLoaderCharacteristic")
 	private BaseCharacteristic<CacheLoader<String, Order>> cacheLoader;
 	
 	/**
@@ -56,7 +56,7 @@ public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<
 	* @illustrate 移除监听器
 	* **/
 	@Autowired
-	@Qualifier("orderCacheRemovalListener")
+	@Qualifier("orderCacheRemovalListenerCharacteristic")
 	private BaseCharacteristic<RemovalListener<String, Order>> removalListener;
 	
 	/**

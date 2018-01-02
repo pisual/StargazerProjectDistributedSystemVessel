@@ -25,12 +25,12 @@ import com.stargazerproject.service.util.ServiceUtil;
 public class OrderCacheServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("orderCahceShell")
-	private BaseCharacteristic<Cache<String, Order>> orderCahceShell;
-	
-	@Autowired
 	@Qualifier("orderCache")
 	private StanderCharacteristicShell<Cache<String, Order>> orderCache;
+	
+	@Autowired
+	@Qualifier("orderCahceShell")
+	private BaseCharacteristic<Cache<String, Order>> orderCahceShell;
 	
 	/**
 	* @name Springs使用的初始化构造

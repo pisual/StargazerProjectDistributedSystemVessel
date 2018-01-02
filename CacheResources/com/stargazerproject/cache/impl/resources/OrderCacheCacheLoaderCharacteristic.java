@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +12,8 @@ import com.google.common.cache.CacheLoader;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderCacheCacheLoader")
-@Qualifier("orderCacheCacheLoader")
+@Component(value="orderCacheCacheLoaderCharacteristic")
+@Qualifier("orderCacheCacheLoaderCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderCacheCacheLoaderCharacteristic implements BaseCharacteristic<CacheLoader<String, Order>>{
 
@@ -27,7 +26,6 @@ public class OrderCacheCacheLoaderCharacteristic implements BaseCharacteristic<C
 	public OrderCacheCacheLoaderCharacteristic() {}
 	
 	@Override
-	@Bean(name="OrderCacheCacheLoaderCharacteristic")
 	public Optional<CacheLoader<String, Order>> characteristic() {
 		initializationCacheLoader();
 		return Optional.of(cacheLoader);

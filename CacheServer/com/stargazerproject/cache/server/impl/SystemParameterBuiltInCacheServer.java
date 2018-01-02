@@ -25,12 +25,12 @@ import com.stargazerproject.service.util.ServiceUtil;
 public class SystemParameterBuiltInCacheServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("systemParameterCahceShell")
-	private BaseCharacteristic<Cache<String, String>> systemParameterCahceShell;
-	
-	@Autowired
 	@Qualifier("systemParameterCahce")
 	private StanderCharacteristicShell<Cache<String,String>> SystemParameterCache;
+	
+	@Autowired
+	@Qualifier("systemParameterCahceShell")
+	private BaseCharacteristic<Cache<String, String>> systemParameterCahceShell;
 	
 	/**
 	* @name Springs使用的初始化构造

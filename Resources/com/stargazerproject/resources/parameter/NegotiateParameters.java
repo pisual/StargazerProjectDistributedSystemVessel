@@ -16,19 +16,27 @@ import com.stargazerproject.resources.Parameters;
 @Qualifier("negotiateParameters")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Parameters(value="negotiateParameters")
+@SuppressWarnings("unused")
 public class NegotiateParameters {
 	
 	public NegotiateParameters() {}
 	
 	    //Zookeeper配置 Start
-	    /**Zookeeper集群连接主机**/
-	    /** @illustrate 参数类 **/
-	    private static final String Zookeeeper_Connect_Host = "127.0.0.1:2181";
-		/**重新连接策略间隔时间**/
-		/** @illustrate 参数类 **/
+	    /** @illustrate Zookeeper集群主机 **/
+	    private static final String Kernel_Negotiate_Connection_Host = "127.0.0.1:2181";
+		/** @illustrate 重新连接策略间隔时间 **/
 		private static final String Zookeeeper_Retry_Policy_Base_Sleep_Time_Ms = "1000";
 		/**重新连接策略尝试数目**/
 		/** @illustrate 参数类 **/
-		private static final String Zookeeeper_Retry_Policy_Retry_Connect_Number = "100";
+		private static final String Kernel_Negotiate_Connection_RetryConnectTime = "20";
 		//Zookeeper配置 End
+		
+	    //路径配置 Start
+	    /** @illustrate 根路径 **/
+	    private static final String Kernel_Negotiate_BasePath_RootPath = "/System";
+	    /** @illustrate 新生区路径 **/
+	    private static final String Kernel_Negotiate_BasePath_EdenNodePath = Kernel_Negotiate_BasePath_RootPath + "/EdenCells";
+	    /** @illustrate 建组区路径 **/
+	    private static final String Kernel_Negotiate_BasePath_ZoneNodePath = Kernel_Negotiate_BasePath_RootPath + "/ZoneCells";
+	    //路径配置 End
 }

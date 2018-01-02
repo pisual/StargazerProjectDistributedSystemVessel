@@ -69,15 +69,15 @@ import com.stargazerproject.negotiate.impl.ZoneNegotiateImpl;
 import com.stargazerproject.negotiate.resources.NegotiateConnectionStateListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateControlCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateCuratorFrameworkCharacteristic;
-import com.stargazerproject.negotiate.resources.NegotiateInjectParameterTreeCacheListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateLeaderLeaderLatchListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateLeaderMethodCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateNodeCuratorListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateNodeMethodCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateNodePathChildrenCacheListenerCharacteristic;
-import com.stargazerproject.negotiate.resources.NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRegisteredWatcherCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRetryPolicyCharacteristic;
+import com.stargazerproject.negotiate.resources.impl.NegotiateInjectParameterTreeCacheListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.impl.NegotiateParametersInjectInitializationListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
 import com.stargazerproject.negotiate.server.impl.NodeNegotiateServer;
 import com.stargazerproject.negotiate.server.listener.impl.NodeNegotiateListener;
@@ -209,7 +209,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NodeNegotiateListener.class,
 		NodeNegotiateManage.class,
 		NegotiateInjectParameterTreeCacheListenerCharacteristic.class,
-		NegotiateParametersInjectMonitoringNodePathChildrenCacheListenerCharacteristic.class,
+		NegotiateParametersInjectInitializationListenerCharacteristic.class,
 		
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueueCallBackCharacteristic.class,

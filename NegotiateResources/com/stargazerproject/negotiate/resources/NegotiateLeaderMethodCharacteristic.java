@@ -8,8 +8,6 @@ import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +15,9 @@ import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateLeaderMethod;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="negotiateLeaderMethod")
-@Qualifier("negotiateLeaderMethod")
+@Component(value="negotiateLeaderMethodCharacteristic")
+@Qualifier("negotiateLeaderMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMethod, BaseCharacteristic<NegotiateLeaderMethod>{
 
@@ -28,21 +25,18 @@ public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMetho
 	@Qualifier("leaderLatchParameterCache")
 	private Cache<String, LeaderLatch> objectParameterCache;
 	
-	private Optional<CuratorFramework> curatorFramework;
+	@Autowired
+	@Qualifier("negotiateCuratorFrameworkCharacteristic")
+	private BaseCharacteristic<CuratorFramework> negotiateCuratorFrameworkCharacteristic;
+	
 	private LeaderLatch leaderLatch;
 	
-	private void leaderLatchInitialization(Optional<String> nodeName, Optional<String> nodePath, Optional<LeaderLatchListener> leaderLatchListener){
-		leaderLatch = new LeaderLatch(curatorFramework.get(), nodePath.get() + nodeName.get());
-		leaderLatch.addListener(leaderLatchListener.get());
-		objectParameterCache.put(Optional.of(nodePath.get() + nodeName.get()), Optional.of(leaderLatch));
-	}
+	private NegotiateLeaderMethodCharacteristic() {}
+	
+	public NegotiateLeaderMethodCharacteristic(Optional<Cache<String, LeaderLatch>> objectParameterCache) {}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="negotiateLeaderMethodCharacteristic")
-	@Lazy(true)
 	public Optional<NegotiateLeaderMethod> characteristic() {
-		curatorFramework = BeanContainer.instance().getBean(Optional.of("negotiateCuratorFrameworkCharacteristic"), Optional.class);
 		return Optional.of(this);
 	}
 
@@ -59,6 +53,12 @@ public class NegotiateLeaderMethodCharacteristic implements NegotiateLeaderMetho
 	@Override
 	public String getSelectLeader(Optional<String> nodeName, Optional<String> nodePath) throws Exception {
 		return objectParameterCache.get(Optional.of(nodePath.get() + nodeName.get())).get().getLeader().getId();
+	}
+	
+	private void leaderLatchInitialization(Optional<String> nodeName, Optional<String> nodePath, Optional<LeaderLatchListener> leaderLatchListener){
+		leaderLatch = new LeaderLatch(negotiateCuratorFrameworkCharacteristic.characteristic().get(), nodePath.get() + nodeName.get());
+		leaderLatch.addListener(leaderLatchListener.get());
+		objectParameterCache.put(Optional.of(nodePath.get() + nodeName.get()), Optional.of(leaderLatch));
 	}
 
 }

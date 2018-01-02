@@ -30,7 +30,7 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 	
 	/** @name 聚合根ID **/
 	@NeededInject(type="SystemParametersCache")
-	private static String initializationNodePath;
+	private static String Kernel_Negotiate_BasePath_EdenNodePath;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -69,13 +69,13 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 			                          Optional<BigCache<String, byte[]>> byteArrayCacheArg, 
 			                          Optional<BaseCharacteristic<TreeCacheListener>> negotiateInjectParameterTreeCacheListenerArg, 
 			                          Optional<String> OrderIDArg, 
-			                          Optional<String> initializationNodePathArg) {
+			                          Optional<String> Kernel_Negotiate_BasePath_EdenNodePathArg) {
 		super();
 		log = logArg.get();
 		OrderID = OrderIDArg.get();
 		nodeNegotiate = nodeNegotiateArg.get();
 		byteArrayCache = byteArrayCacheArg.get();
-		initializationNodePath = initializationNodePathArg.get();
+		Kernel_Negotiate_BasePath_EdenNodePath = Kernel_Negotiate_BasePath_EdenNodePathArg.get();
 		negotiateInjectParameterTreeCacheListener = negotiateInjectParameterTreeCacheListenerArg.get();
 		}
 	
@@ -132,12 +132,12 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
     }
 	
 	private void registeredNodeWatch() throws Exception{
-		nodeNegotiate.registeredWatcher(Optional.of(OrderID), Optional.of(initializationNodePath), Optional.of("AcquireParameterModelListener"), negotiateInjectParameterTreeCacheListener.characteristic());
+		nodeNegotiate.registeredWatcher(Optional.of(OrderID), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("AcquireParameterModelListener"), negotiateInjectParameterTreeCacheListener.characteristic());
 		log.INFO(this, "acquireParameterModel creatEphemeralNode Complete: " + Optional.of(OrderID).get());
 	}
 	
 	private void registeredNode() throws Exception{
-		nodeNegotiate.creatEphemeralNode(Optional.of(OrderID), Optional.of(initializationNodePath), Optional.absent());
+		nodeNegotiate.creatEphemeralNode(Optional.of(OrderID), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.absent());
 		log.INFO(this, "acquireParameterModel creatEphemeralNode Complete: " + Optional.of(OrderID).get() + " , Start Block Method");
 	}
 	

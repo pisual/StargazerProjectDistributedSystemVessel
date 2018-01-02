@@ -24,12 +24,12 @@ import com.stargazerproject.service.util.ServiceUtil;
 public class ByteArrayCacheServer implements StanderServiceShell{
 	
 	@Autowired
-	@Qualifier("ByteArrayCacheShell")
-	private BaseCharacteristic<BigCache<String, byte[]>> ByteArrayCacheShell;
-	
-	@Autowired
 	@Qualifier("byteArrayCache")
 	private StanderCharacteristicShell<BigCache<String, byte[]>> byteArrayCache;
+	
+	@Autowired
+	@Qualifier("ByteArrayCacheShell")
+	private BaseCharacteristic<BigCache<String, byte[]>> ByteArrayCacheShell;
 	
 	/**
 	* @name Springs使用的初始化构造

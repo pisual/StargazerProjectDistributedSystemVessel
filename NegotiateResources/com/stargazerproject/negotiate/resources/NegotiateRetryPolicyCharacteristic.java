@@ -14,8 +14,8 @@ import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
-@Component(value="negotiateRetryPolicy")
-@Qualifier("negotiateRetryPolicy")
+@Component(value="negotiateRetryPolicyCharacteristic")
+@Qualifier("negotiateRetryPolicyCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NegotiateRetryPolicyCharacteristic implements BaseCharacteristic<RetryPolicy>{
 	

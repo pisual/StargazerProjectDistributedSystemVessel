@@ -1,5 +1,7 @@
 package com.stargazerproject.cell.method.sequence;
 
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.cache.TreeCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -10,8 +12,12 @@ import com.google.common.base.Optional;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.cell.CellsTransaction;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
+import com.stargazerproject.negotiate.Negotiate;
+import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.util.SequenceUtil;
 
 /** 
@@ -19,17 +25,29 @@ import com.stargazerproject.util.SequenceUtil;
  *  @illustrate Cells生成UUID序列
  *  @author Felixerio
  *  **/
-@Component(value="initializationCellsGroupModel")
-@Qualifier("initializationCellsGroupModel")
+@Component(value="parameterInitializationModel")
+@Qualifier("parameterInitializationModel")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class InitializationCellsGroupModel implements CellsTransaction<String, String>{
+public class ParameterInitializationModel implements CellsTransaction<String, String>{
+	
+	/** @name 新生区路径 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Negotiate_BasePath_EdenNodePath;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
 	@Qualifier("logRecord")
 	private LogMethod log;
 	
-	public InitializationCellsGroupModel() { 
+	@Autowired
+	@Qualifier("nodenNegotiate")
+	private Negotiate nodeNegotiate;
+	
+	@Autowired
+	@Qualifier("negotiateParametersInjectInitializationListenerCharacteristic")
+	private BaseCharacteristic<TreeCacheListener> negotiateParametersInjectInitializationListener;
+	
+	public ParameterInitializationModel() { 
 		super(); 
 		}
 	
@@ -39,16 +57,20 @@ public class InitializationCellsGroupModel implements CellsTransaction<String, S
 	* @param Optional<Cache<String, String>> cache
 	* **/
 	@Override
-	@HystrixCommand(commandKey = "initializationCellsGroupModel", 
+	@HystrixCommand(commandKey = "parameterInitializationModel", 
 	                fallbackMethod = "fallBack", 
-	                groupKey="initializationCellsGroupModel", 
-	                threadPoolKey = "initializationCellsGroupModel",
+	                groupKey="parameterInitializationModel", 
+	                threadPoolKey = "parameterInitializationModel",
 	                commandProperties = {
     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")})
 	public boolean method(Optional<Cache<String, String>> cache) {
-		cache.get().put(Optional.of("OrderID"), Optional.of(SequenceUtil.getUUID()));
-		log.INFO(this, "This_Cells_UUID Initialization: " + cache.get().get(Optional.of("OrderID")).get());
-		return Boolean.TRUE;
+		try {
+			nodeNegotiate.registeredWatcher(Optional.of(""), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("parameterInitializationModel"), negotiateParametersInjectInitializationListener.characteristic());
+			return true;
+		} catch (Exception e) {
+			log.ERROR(this, e.getMessage());
+			return false;
+		}
 	}
 	
 	/**
