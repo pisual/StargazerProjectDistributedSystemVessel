@@ -26,7 +26,7 @@ public class OnlineLogServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("onlineLog")
+	@Qualifier("onlineLogRecordServer")
 	private StanderServiceShell OnlineLogServer;
 	
 	@Autowired

@@ -6,31 +6,32 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Optional;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.log.Log;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.service.util.ServiceUtil;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component
+@Component(value="onlineLogRecordServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("onlineLog")
+@Qualifier("onlineLogRecordServer")
 public class OnlineLogRecordServer implements StanderServiceShell{
 
 	@Autowired
 	@Qualifier("logRecord")
 	private StanderCharacteristicShell<Log> logCharacteristic;
 	
+	@Autowired
+	@Qualifier("onlineLogShell")
+	private BaseCharacteristic<Log> localLogShell;
+	
 	/** @construction 初始化构造 **/
 	private OnlineLogRecordServer() {}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("localLogServerListener","systemParameterCacheServerListener","logQueueServerListener");
-		Optional<Log> log = BeanContainer.instance().getBean(Optional.of("onlineLogCharacteristicInitialize"), Optional.class);
-		logCharacteristic.initialize(log);
+		logCharacteristic.initialize(localLogShell.characteristic());
 	}
 
 	@Override

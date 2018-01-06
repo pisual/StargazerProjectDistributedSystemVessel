@@ -42,7 +42,7 @@ public class ParametersInjectAOPConfiguration {
 	private ParametersInjectAOPConfiguration() {}
 	
 	/** @illustrate orderCache 中的Set方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.characteristic.BaseCharacteristic.characteristic()) && bean(orderCacheLoadingCache)")
+	@Pointcut ("execution(* com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic.characteristic()) && bean(orderCacheLoadingCacheCharacteristic)")
 	public void characteristicMethod(){}
 	
 	/** @illustrate orderCache 中的Set的AOP切点的具体方法**/

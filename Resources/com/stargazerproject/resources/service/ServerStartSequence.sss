@@ -1,4 +1,36 @@
-/**StargazerServerSequenceFile**/
+/**
+   Name：StargazerServerSequenceFile
+   中文命名：观星者服务序列文件
+   文件格式： .sss 或 .SSS
+   
+   模型一（并行启动）：
+      说明：允许组内并行启动
+   领域模型：
+            服务体系模型：
+   		               Map{key : (Integer)Layer ; value : {(Boolean)LayerState ; *(List<Map>){(String)ServerName; (Boolean)ServerState}}}
+   		    服务依赖查询模型：（生成模型）
+   		               Map<String, Integer>{key : name ; value:DependLayer}   		    
+            
+            名词解释：
+                    Integer Layer : 启动层
+                    Boolean LayerState : 启动状态
+                    String ServerName : 服务命名
+                   	Boolean ServerState : 服务启动状态
+            	
+   生成模型：
+            {Server name, 
+            parameter:{
+            ItselfLayer : 1
+            DependLayer : 0
+            }
+            }     	
+   模型二：
+         说明： 每一个服务只需要查询列表前一个的状态(单方向启动)
+      领域模型： Map{name, ServerState}	
+      名词解释： 
+               Boolean ServerState : 服务启动状态
+            		
+**/
 
 {systemParameterCacheServerManage}
 {localLogServerManage}

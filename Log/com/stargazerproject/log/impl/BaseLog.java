@@ -3,15 +3,12 @@ package com.stargazerproject.log.impl;
 import com.stargazerproject.log.Log;
 import com.stargazerproject.log.LogControl;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.log.resources.BasicLog;
 
-public abstract class BaseLog implements LogMethod, LogControl{
+public class BaseLog implements LogMethod, LogControl{
 	
 	protected Log log;
 	
-	protected BaseLog() {
-		log = new BasicLog();
-	}
+	protected BaseLog() {}
 
 	@Override
 	public void DEBUG(Object object, String message) {

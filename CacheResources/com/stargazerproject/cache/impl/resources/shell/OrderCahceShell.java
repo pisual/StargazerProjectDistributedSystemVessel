@@ -31,7 +31,7 @@ import com.stargazerproject.order.impl.Order;
 public class OrderCahceShell implements  Cache<String, Order>, BaseCharacteristic<Cache<String, Order>>{
 
 	@Autowired
-	@Qualifier("orderCacheLoadingCache")
+	@Qualifier("orderCacheLoadingCacheCharacteristic")
 	private BaseCharacteristic<LoadingCache<String,Order>> loadingCacheBaseCharacteristic;
 	
 	/** @illustrate 通用LoadingCache Guava 缓存接口 **/

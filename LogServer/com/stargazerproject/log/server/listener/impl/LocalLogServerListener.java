@@ -16,6 +16,12 @@ import com.stargazerproject.service.baseinterface.WorkInServiceState;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LocalLogServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public LocalLogServerListener() {}
+	
 	/** @illustrate 启动服务 **/
 	@Override
 	public void starting() {

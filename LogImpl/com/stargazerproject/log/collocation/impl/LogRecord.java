@@ -15,11 +15,11 @@ import com.stargazerproject.log.impl.BaseLog;
  *  @illustrate 以开发级别进行日志的处理，全量处理
  *  @author Felixerio
  *  **/
-@Component
+@Component(value="logRecord")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Qualifier("logRecord")
 public class LogRecord extends BaseLog implements StanderCharacteristicShell<Log>{
-
+	
 	public LogRecord() {
 		super();
 	}
