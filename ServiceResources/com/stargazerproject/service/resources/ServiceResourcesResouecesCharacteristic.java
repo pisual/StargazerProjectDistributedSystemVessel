@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,16 +14,14 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.ServiceResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="serviceResourcesResoueces")
-@Qualifier("serviceResourcesResoueces")
+@Component(value="serviceResourcesResouecesCharacteristic")
+@Qualifier("serviceResourcesResouecesCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ServiceResourcesResouecesCharacteristic implements ServiceResources, BaseCharacteristic<ServiceResources> {
 	
 	private Optional<List<AbstractIdleService>> serviceList;
 	
 	@Override
-	@Bean(name="serviceResourcesResouecesCharacteristic")
-	@Lazy(true)
 	public Optional<ServiceResources> characteristic() {
 		return Optional.of(this);
 	}

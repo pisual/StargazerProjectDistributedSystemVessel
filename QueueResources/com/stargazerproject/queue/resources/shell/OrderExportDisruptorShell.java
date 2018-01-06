@@ -1,4 +1,4 @@
-package com.stargazerproject.queue.impl.resources.shell;
+package com.stargazerproject.queue.resources.shell;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -7,8 +7,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -86,8 +84,6 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	}
 	
 	@Override
-	@Bean(name="orderExportQueueCharacteristicInitialize")
-	@Lazy(true)
 	public Optional<Queue<Order>> characteristic() {
 		handleEvents();
 		disruptorInitialization();

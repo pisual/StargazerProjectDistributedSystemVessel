@@ -41,7 +41,9 @@ public class LocalLogServerManage extends AbstractIdleService{
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private LocalLogServerManage() {}
+	private LocalLogServerManage() {
+		super();
+	}
 	
 	/**
 	* @name 常规初始化构造

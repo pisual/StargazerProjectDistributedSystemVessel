@@ -42,25 +42,34 @@ public class ParametersInjectAOPConfiguration {
 	private ParametersInjectAOPConfiguration() {}
 	
 	/** @illustrate orderCache 中的Set方法的AOP切点**/
-	@Pointcut ("execution(* com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic.characteristic()) && bean(orderCacheLoadingCacheCharacteristic)")
+	@Pointcut ("execution(* com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic.characteristic())")
 	public void characteristicMethod(){}
+	
+
+//    + " && bean(negotiateConnectionStateListenerCharacteristic)"
+//    + " && bean(negotiateCuratorFrameworkCharacteristic)"
+//    + " && bean(negotiateNodeMethodCharacteristic)"
+//    + " && bean(negotiateRetryPolicyCharacteristic)"
+//    + " && bean(negotiateParametersInjectInitializationListenerCharacteristic)"
+//    + " && bean(eventBusDisruptorShell)"
+//    + " && bean(eventDisruptorShell)"
+//    + " && bean(orderExportDisruptorShell)"
+//    + " && bean(orderCacheLoadingCacheCharacteristic)"
 	
 	/** @illustrate orderCache 中的Set的AOP切点的具体方法**/
 	@Around("characteristicMethod()")
-	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+	public Object setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 		try {
-			System.out.println("AOP 注入");
 			Object object = proceedingJoinPoint.getTarget();
 			Field[] field = object.getClass().getDeclaredFields();
 			for(int i = 0 ; i < field.length; i++){
-				System.out.println("get " + field[i].getName());
 		    	   if(field[i].isAnnotationPresent(NeededInject.class)){
 		    		   field[i].setAccessible(true);
 		    		   try {
 		    				NeededInject neededInject = field[i].getAnnotation(NeededInject.class);
 		    				switch (neededInject.type()) {
 							case "SystemParametersCache":
-								System.out.println("注入 " + cache.get(Optional.of(field[i].getName())).get());
+								System.out.println("注入 " + field[i].getName() + " : " + cache.get(Optional.of(field[i].getName())).get());
 								field[i].set(object, cache.get(Optional.of(field[i].getName())).get());
 								break;
 
@@ -77,8 +86,7 @@ public class ParametersInjectAOPConfiguration {
 		    		   }
 	    	       }
 			
-			
-			proceedingJoinPoint.proceed();
+			return proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
 			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
 			throw throwable;

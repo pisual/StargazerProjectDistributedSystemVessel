@@ -2,10 +2,9 @@ package com.stargazerproject.service.resources.shell;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,46 +14,51 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.ServiceResources;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="serverShell")
 @Qualifier("serverShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ServerShell implements Server, BaseCharacteristic<Server>{
 	
-	private Optional<ServiceControl> serviceControl;
-	private Optional<ServiceResources> serviceResources;
+	@Autowired
+	@Qualifier("serviceControlResourcesCharacteristic")
+	private BaseCharacteristic<ServiceControl> serviceControlResourcesCharacteristic;
+	
+	@Autowired
+	@Qualifier("serviceResourcesResouecesCharacteristic")
+	private BaseCharacteristic<ServiceResources> serviceResourcesResouecesCharacteristic;
+	
+	private ServiceControl serviceControl;
+	
+	private ServiceResources serviceResources;
 	
 	public ServerShell() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="serverShellCharacteristic")
-	@Lazy(true)
 	public Optional<Server> characteristic() {
-		serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), Optional.class);
-		serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), Optional.class);
+		serviceControl = serviceControlResourcesCharacteristic.characteristic().get();
+		serviceResources = serviceResourcesResouecesCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 
 	@Override
 	public void startAllservice() {
-		serviceControl.get().startAllservice();
+		serviceControl.startAllservice();
 	}
 
 	@Override
 	public void stopAllService() {
-		serviceControl.get().stopAllService();
+		serviceControl.stopAllService();
 	}
 
 	@Override
 	public Optional<List<AbstractIdleService>> allServiceList() {
-		return serviceResources.get().allServiceList();
+		return serviceResources.allServiceList();
 	}
 
 	@Override
 	public void initializationServiceList(Optional<List<String>> serviceList) {
-		serviceResources.get().initializationServiceList(serviceList);
+		serviceResources.initializationServiceList(serviceList);
 	}
 
 }

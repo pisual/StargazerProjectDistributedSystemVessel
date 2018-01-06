@@ -1,12 +1,10 @@
-package com.stargazerproject.queue.impl.resources.shell;
+package com.stargazerproject.queue.resources.shell;
 
 import java.util.concurrent.ThreadFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +32,8 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
  *  **/
-@Component(value="logQueueShell")
-@Qualifier("logQueueShell")
+@Component(value="logDisruptorShell")
+@Qualifier("logDisruptorShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEvent> implements BaseCharacteristic<Queue<LogData>>{
 	
@@ -91,8 +89,6 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEven
 	}
 	
 	@Override
-	@Bean(name="logQueueCharacteristicInitialize")
-	@Lazy(true)
 	public Optional<Queue<LogData>> characteristic() {
 		handleEvents();
 		disruptorInitialization();

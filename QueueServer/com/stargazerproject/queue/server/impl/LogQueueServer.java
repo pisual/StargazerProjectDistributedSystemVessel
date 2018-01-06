@@ -21,8 +21,8 @@ import com.stargazerproject.service.util.ServiceUtil;
 public class LogQueueServer implements StanderServiceShell{
 
 	@Autowired
-	@Qualifier("logQueueShell")
-	private BaseCharacteristic<Queue<LogData>> logQueueShell;
+	@Qualifier("logDisruptorShell")
+	private BaseCharacteristic<Queue<LogData>> logDisruptorShell;
 	
 	@Autowired
 	@Qualifier("logQueue")
@@ -47,14 +47,14 @@ public class LogQueueServer implements StanderServiceShell{
 	* **/
 	public LogQueueServer(Optional<BaseCharacteristic<Queue<LogData>>> logQueueShellArg, Optional<StanderCharacteristicShell<Queue<LogData>>> logQueueArg, Optional<QueueControl<LogData>> logQueueControlArg) {
 		logQueueControl = logQueueControlArg.get();
-		logQueueShell = logQueueShellArg.get();
+		logDisruptorShell = logQueueShellArg.get();
 		logQueue = logQueueArg.get();
 	}
 	
 	@Override
 	public void startUp() {
      	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
-		logQueue.initialize(logQueueShell.characteristic());
+     	logQueue.initialize(logDisruptorShell.characteristic());
 		logQueueControl.start();
 	}
 

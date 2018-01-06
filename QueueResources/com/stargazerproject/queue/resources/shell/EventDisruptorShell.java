@@ -1,4 +1,4 @@
-package com.stargazerproject.queue.impl.resources.shell;
+package com.stargazerproject.queue.resources.shell;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -7,8 +7,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,21 +24,21 @@ import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
-import com.stargazerproject.queue.resources.impl.EventBusHandler;
+import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="eventBusDisruptorShell")
-@Qualifier("eventBusDisruptorShell")
+@Component(value="eventDisruptorShell")
+@Qualifier("eventDisruptorShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEvent> implements BaseCharacteristic<Queue<Event>>{
+public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEvent> implements BaseCharacteristic<Queue<Event>>{
 	
-	/** @name 接收EventBus队列的缓存数目 **/
+	/** @name 接收Event队列的缓存数目 **/
 	@NeededInject(type="SystemParametersCache")
-	private static String Receive_Event_Bus_Size_of_bufferSize;
+	private static String Receive_Event_Size_of_bufferSize;
 	
-	/** @name 接收EventBus队列的消费者数目 **/
+	/** @name 接收Event队列的消费者数目 **/
 	@NeededInject(type="SystemParametersCache")
-	private static String Receive_Event_Bus_Number_of_consumers;
+	private static String Receive_Event_Number_of_consumers;
 	
 	@Autowired
 	@Qualifier("eventFactory")
@@ -49,6 +47,10 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	@Autowired
 	@Qualifier("eventQueueThreadFactory")
 	private ThreadFactory threadFactory;
+	
+	@Autowired
+	@Qualifier("eventResultMergeHandler")
+	private WorkHandler<EventQueueEvent> eventResultMergeHandler;
 	
 	@Autowired
 	@Qualifier("cleanEventHandler")
@@ -61,7 +63,7 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private EventBusDisruptorShell() {
+	private EventDisruptorShell() {
 		super.translator = new EventTranslatorOneArg<EventQueueEvent, Event>() {
 			public void translateTo(EventQueueEvent eventQueueEvent, long sequence, Event event) {
 				eventQueueEvent.setEvent(event);
@@ -73,7 +75,7 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public EventBusDisruptorShell(Optional<ThreadFactory> threadFactoryArg, Optional<EventFactory<EventQueueEvent>> eventFactoryArg, Optional<WorkHandler<EventQueueEvent>> cleanEventHandlerArg) {
+	public EventDisruptorShell(Optional<ThreadFactory> threadFactoryArg, Optional<EventFactory<EventQueueEvent>> eventFactoryArg, Optional<WorkHandler<EventQueueEvent>> cleanEventHandlerArg) {
 		eventFactory = eventFactoryArg.get();
 		threadFactory = threadFactoryArg.get();
 		cleanEventHandler = cleanEventHandlerArg.get();
@@ -86,8 +88,6 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	}
 	
 	@Override
-	@Bean(name="eventBusQueueCharacteristicInitialize")
-	@Lazy(true)
 	public Optional<Queue<Event>> characteristic() {
 		handleEvents();
 		disruptorInitialization();
@@ -95,15 +95,15 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	}
 	
 	private void disruptorInitialization(){
-		disruptor = new Disruptor<EventQueueEvent>(eventFactory, getIntegerParameter(Receive_Event_Bus_Size_of_bufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
+		disruptor = new Disruptor<EventQueueEvent>(eventFactory, getIntegerParameter(Receive_Event_Size_of_bufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
 	//	disruptor.setDefaultExceptionHandler(new EventOutTimeExceptionHandler<EventQueueEvent>());
-		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanEventHandler);
+		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(eventResultMergeHandler).thenHandleEventsWithWorkerPool(cleanEventHandler);
 	}
 	
 	private void handleEvents(){
-		handler = new EventBusHandler[getIntegerParameter(Receive_Event_Bus_Number_of_consumers)];
-		for(int i=0; i<getIntegerParameter(Receive_Event_Bus_Number_of_consumers); i++){
-			handler[i] = BeanContainer.instance().getBean(Optional.of("eventBusHandler"), com.lmax.disruptor.WorkHandler.class);
+		handler = new EventHandler[getIntegerParameter(Receive_Event_Number_of_consumers)];
+		for(int i=0; i<getIntegerParameter(Receive_Event_Number_of_consumers); i++){
+			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
 	}
 	

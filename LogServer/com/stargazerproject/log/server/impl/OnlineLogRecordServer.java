@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.log.Log;
@@ -25,8 +26,23 @@ public class OnlineLogRecordServer implements StanderServiceShell{
 	@Qualifier("onlineLogShell")
 	private BaseCharacteristic<Log> localLogShell;
 	
-	/** @construction 初始化构造 **/
+	/**
+	* @name Springs使用的初始化构造
+	* @illustrate 
+	*             @Autowired    自动注入
+	*             @NeededInject 基于AOP进行最终获取时候的参数注入
+	* **/
+	@SuppressWarnings("unused")
 	private OnlineLogRecordServer() {}
+	
+	/**
+	* @name 常规初始化构造
+	* @illustrate 基于外部参数进行注入
+	* **/
+	public OnlineLogRecordServer(Optional<StanderCharacteristicShell<Log>> logCharacteristicArg, Optional<BaseCharacteristic<Log>> localLogShellArg) {
+		logCharacteristic = logCharacteristicArg.get();
+		localLogShell =localLogShellArg.get();
+	}
 	
 	@Override
 	public void startUp() {

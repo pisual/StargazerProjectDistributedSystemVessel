@@ -37,7 +37,7 @@ public class NodeNegotiateServer implements StanderServiceShell{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
+		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener", "byteArrayCacheServerListener");
 		Optional<Negotiate> nodeNegotiateResources = nodenNegotiateShell.characteristic();
 		nodeNegotiateResources.get().start();
 		nodeNegotiate.initialize(nodeNegotiateResources);

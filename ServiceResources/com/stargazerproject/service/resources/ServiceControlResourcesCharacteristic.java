@@ -1,9 +1,8 @@
 package com.stargazerproject.service.resources;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,23 +13,24 @@ import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.ServiceResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="serviceControlResources")
-@Qualifier("serviceControlResources")
+@Component(value="serviceControlResourcesCharacteristic")
+@Qualifier("serviceControlResourcesCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ServiceControlResourcesCharacteristic implements ServiceControl, BaseCharacteristic<ServiceControl>{
 	
+	@Autowired
+	@Qualifier("serviceResourcesResouecesCharacteristic")
+	private BaseCharacteristic<ServiceResources> serviceResourcesResouecesCharacteristic;
+	
 	private ServiceManager serviceManager;
-	private Optional<ServiceResources> serviceResources;
+	private ServiceResources serviceResources;
 	
 	public ServiceControlResourcesCharacteristic() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="serviceControlResourcesCharacteristic")
-	@Lazy(true)
 	public Optional<ServiceControl> characteristic() {
-		serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), Optional.class);
-		serviceManager = new ServiceManager(serviceResources.get().allServiceList().get());
+		serviceResources = serviceResourcesResouecesCharacteristic.characteristic().get();
+		serviceManager = new ServiceManager(serviceResources.allServiceList().get());
 		return Optional.of(this);
 	}
 

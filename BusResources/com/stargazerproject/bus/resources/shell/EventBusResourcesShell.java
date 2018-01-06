@@ -2,10 +2,9 @@ package com.stargazerproject.bus.resources.shell;
 
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,36 +17,41 @@ import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Event;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="eventBusResourcesShell")
 @Qualifier("eventBusResourcesShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class EventBusResourcesShell implements Bus<Event>, BaseCharacteristic<Bus<Event>>{
 	
-	private Optional<BusBlockMethod<Event>> busBlockMethod;
-	private Optional<BusNoBlockMethod<Event>> busNoBlockMethod;
+	@Autowired
+	@Qualifier("eventBusBlockMethodCharacteristic")
+	private BaseCharacteristic<BusBlockMethod<Event>> eventBusBlockMethodCharacteristic;
+	
+	@Autowired
+	@Qualifier("eventBusNoBlockMethodCharacteristic")
+	private BaseCharacteristic<BusNoBlockMethod<Event>> eventBusNoBlockMethodCharacteristic;
+	
+	private BusBlockMethod<Event> busBlockMethod;
+	
+	private BusNoBlockMethod<Event> busNoBlockMethod;
 	
 	public EventBusResourcesShell() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="eventBusResourcesCharacteristic")
-	@Lazy(true)
 	public Optional<Bus<Event>> characteristic() {
-		busBlockMethod = BeanContainer.instance().getBean(Optional.of("eventBusBlockMethodCharacteristic"), Optional.class);
-		busNoBlockMethod = BeanContainer.instance().getBean(Optional.of("eventBusNoBlockMethodCharacteristic"), Optional.class);
+		busBlockMethod = eventBusBlockMethodCharacteristic.characteristic().get();
+		busNoBlockMethod = eventBusNoBlockMethodCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 
 	@Override
 	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
-		return busBlockMethod.get().push(busEvent, timeUnit, timeout);
+		return busBlockMethod.push(busEvent, timeUnit, timeout);
 	}
 	
 	@Override
 	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
-		return busNoBlockMethod.get().pushNoBlock(busEvent, BusEventListen, timeUnit, timeout);
+		return busNoBlockMethod.pushNoBlock(busEvent, BusEventListen, timeUnit, timeout);
 	}
 
 	@Override

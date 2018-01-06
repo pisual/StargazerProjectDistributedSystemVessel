@@ -3,7 +3,6 @@ package com.stargazerproject.messagequeue.resources;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -11,21 +10,28 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeededInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueuePush;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderMessageQueuePush")
-@Qualifier("orderMessageQueuePush")
+@Component(value="orderMessageQueuePushCharacteristic")
+@Qualifier("orderMessageQueuePushCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Order>, BaseCharacteristic<MessageQueuePush<Order>>{
+	
+	/** @illustrate 系统ID  **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_System_CellsID;
+	
+	/** @illustrate 消息队列集群地址 **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Queue_OrderMessage_KafkaBinderBrokers;
 	
 	@Autowired
 	@Qualifier("systemParameterCahce")
@@ -40,8 +46,6 @@ public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Ord
 	public OrderMessageQueuePushCharacteristic() {}
 	
 	@Override
-	@Bean(name="orderMessageQueuePushCharacteristic")
-	@Lazy(true)
 	public Optional<MessageQueuePush<Order>> characteristic() {
 		producerInitialization();
 		return Optional.of(this);
@@ -58,8 +62,8 @@ public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Ord
 	
 	private Properties producerProperties() {
 		Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, systemParameter.get(Optional.of("Kafka_Binder_Brokers")).get());
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, systemParameter.get(Optional.of("Cells_UUID")).get());
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Kernel_Queue_OrderMessage_KafkaBinderBrokers);
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, Kernel_System_CellsID);
 	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
 	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.BytesSerializer");
 		return props;

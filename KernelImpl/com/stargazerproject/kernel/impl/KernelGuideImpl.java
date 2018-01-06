@@ -7,6 +7,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.impl.OrderParameterCache;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.kernel.KernelGuide;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
@@ -43,8 +44,8 @@ public class KernelGuideImpl implements KernelGuide{
 		serviceList.add("bigCacheIndexCacheServerManage");
 		serviceList.add("byteArrayCacheServerManage");
 		serviceList.add("nodeNegotiateManage");
-		serviceList.add("eventBusQueueServerManage");
-		serviceList.add("eventBusServerManage");
+//		serviceList.add("eventBusQueueServerManage");
+//		serviceList.add("eventBusServerManage");
 		return kernelGuide;
 	}
 
@@ -83,10 +84,10 @@ public class KernelGuideImpl implements KernelGuide{
 
 	@Override
 	public KernelGuide loadModelServer() {
-		serviceList.add("eventQueueServerManage");
-		serviceList.add("orderExportQueueServerManage");
-		serviceList.add("orderCacheServerManage");
-		serviceList.add("orderMessageQueueManage");
+//		serviceList.add("eventQueueServerManage");
+//		serviceList.add("orderExportQueueServerManage");
+//		serviceList.add("orderCacheServerManage");
+//		serviceList.add("orderMessageQueueManage");
 //		serviceList.add("standardServerManage");
 //		serviceList.add("frameUserInterfaceManage");
 		return kernelGuide;
@@ -117,10 +118,10 @@ public class KernelGuideImpl implements KernelGuide{
 
 	@Override
 	public KernelGuide startKernelGuide() {
-		Optional<ServiceResources> serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), Optional.class);
-		serviceResources.get().initializationServiceList(Optional.of(serviceList));
-		Optional<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), Optional.class);
-		serviceControl.get().startAllservice();
+		BaseCharacteristic<ServiceResources> serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), BaseCharacteristic.class);
+		serviceResources.characteristic().get().initializationServiceList(Optional.of(serviceList));
+		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), BaseCharacteristic.class);
+		serviceControl.characteristic().get().startAllservice();
 //		if(Cells_Kind.equals("Cells_Master")){
 //			startBaseSequence();
 //		}

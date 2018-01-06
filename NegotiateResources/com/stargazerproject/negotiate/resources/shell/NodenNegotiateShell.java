@@ -3,6 +3,7 @@ package com.stargazerproject.negotiate.resources.shell;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -21,14 +22,28 @@ import com.stargazerproject.negotiate.NegotiateRegisteredWatcher;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class NodenNegotiateShell implements Negotiate, BaseCharacteristic<Negotiate>{
 
+	@Autowired
+	@Qualifier("negotiateControlCharacteristic")
 	private BaseCharacteristic<NegotiateControl> negotiateControlCharacteristic;
+	
+	@Autowired
+	@Qualifier("negotiateNodeMethodCharacteristic")
 	private BaseCharacteristic<NegotiateNodeMethod> negotiateNodeMethodCharacteristic;
+	
+	@Autowired
+	@Qualifier("negotiateLeaderMethodCharacteristic")
 	private BaseCharacteristic<NegotiateLeaderMethod> negotiateLeaderMethodCharacteristic;
+	
+	@Autowired
+	@Qualifier("negotiateRegisteredWatcherCharacteristic")
 	private BaseCharacteristic<NegotiateRegisteredWatcher> negotiateRegisteredWatcherCharacteristic;
 	
 	private NegotiateControl negotiateControl;
+	
 	private NegotiateNodeMethod negotiateNodeMethod;
+	
 	private NegotiateLeaderMethod negotiateLeaderMethod;
+	
 	private NegotiateRegisteredWatcher negotiateRegisteredWatcher;
 	
 	/**

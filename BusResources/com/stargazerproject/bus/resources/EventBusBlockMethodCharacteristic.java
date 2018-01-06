@@ -5,8 +5,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +15,9 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
-@Component(value="eventBusBlockMethod")
-@Qualifier("eventBusBlockMethod")
+@Component(value="eventBusBlockMethodCharacteristic")
+@Qualifier("eventBusBlockMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>, BaseCharacteristic<BusBlockMethod<Event>>{
 
@@ -28,16 +25,16 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 	@Qualifier("logRecord")
 	protected LogMethod l️og;
 	
+	@Autowired
+	@Qualifier("eventBusQueue")
 	private Queue<Event> event;
 	
-	public EventBusBlockMethodCharacteristic() {super();}
+	public EventBusBlockMethodCharacteristic() {
+		super();
+		}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="eventBusBlockMethodCharacteristic")
-	@Lazy(true)
 	public Optional<BusBlockMethod<Event>> characteristic() {
-		event = BeanContainer.instance().getBean(Optional.of("eventBusQueue"), Queue.class);
 		return Optional.of(this);
 	}
 
