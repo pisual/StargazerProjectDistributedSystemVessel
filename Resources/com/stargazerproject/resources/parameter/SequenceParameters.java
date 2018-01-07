@@ -16,6 +16,7 @@ import com.stargazerproject.resources.Parameters;
 @Qualifier("sequenceParameters")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Parameters(value="sequenceParameters")
+@SuppressWarnings("unused")
 public class SequenceParameters {
 	
 	public SequenceParameters() {}

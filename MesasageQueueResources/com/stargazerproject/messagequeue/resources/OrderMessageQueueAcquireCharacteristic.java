@@ -20,8 +20,8 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.order.impl.Order;
 
-@Component(value="orderMessageQueueAcquire")
-@Qualifier("orderMessageQueueAcquire")
+@Component(value="orderMessageQueueAcquireCharacteristic")
+@Qualifier("orderMessageQueueAcquireCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class OrderMessageQueueAcquireCharacteristic implements MessageQueueAcquire<Order>, BaseCharacteristic<MessageQueueAcquire<Order>>{
 

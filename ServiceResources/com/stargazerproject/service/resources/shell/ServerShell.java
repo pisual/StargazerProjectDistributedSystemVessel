@@ -13,7 +13,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.ServiceResources;
+import com.stargazerproject.service.ServiceAnnotationResources;
 
 @Component(value="serverShell")
 @Qualifier("serverShell")
@@ -26,11 +26,11 @@ public class ServerShell implements Server, BaseCharacteristic<Server>{
 	
 	@Autowired
 	@Qualifier("serviceResourcesResouecesCharacteristic")
-	private BaseCharacteristic<ServiceResources> serviceResourcesResouecesCharacteristic;
+	private BaseCharacteristic<ServiceAnnotationResources> serviceResourcesResouecesCharacteristic;
 	
 	private ServiceControl serviceControl;
 	
-	private ServiceResources serviceResources;
+	private ServiceAnnotationResources serviceResources;
 	
 	public ServerShell() {}
 	

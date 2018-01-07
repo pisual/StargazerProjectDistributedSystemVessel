@@ -13,7 +13,6 @@ import com.stargazerproject.bus.resources.shell.EventBusResourcesShell;
 import com.stargazerproject.bus.server.impl.EventBusServer;
 import com.stargazerproject.bus.server.listener.impl.EventBusServerListener;
 import com.stargazerproject.bus.server.manage.EventBusServerManage;
-import com.stargazerproject.cache.aop.configuration.OrderCacheAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.ParametersInjectAOPConfiguration;
 import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
@@ -48,8 +47,6 @@ import com.stargazerproject.cache.server.manage.BigCacheIndexCacheServerManage;
 import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
-import com.stargazerproject.cell.aopconfiguration.HystrixConfigurationS;
-import com.stargazerproject.cell.impl.StandardCellsTransactionImpl;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.inject.impl.AnnotationClassSequenceScannerImpl;
@@ -124,31 +121,6 @@ import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
-import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
-import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
-import com.stargazerproject.userinterface.resources.LogoClickListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
-import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
-import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
-import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
-import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
-import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceManage;
 
 @SpringBootApplication
 @PropertySource(value="Spring.properties")
@@ -185,10 +157,15 @@ public class GlobalAnnotationApplicationContextInitialization {
 
      /******Depend Configuration Class******/
 		/**Depend OrderQueueMessage**/
-//		OrderMessageQueue.class,
-//		OrderMessageQueueServer.class,
-//		OrderMessageQueueListener.class,
-//		OrderMessageQueueManage.class,
+		OrderMessageQueue.class,
+		OrderMessageQueueServer.class,
+		OrderMessageQueueListener.class,
+		OrderMessageQueueManage.class,
+		OrderMessageQueueAcquireCharacteristic.class,
+		OrderMessageQueueControlCharacteristic.class,
+		OrderMessageQueuePushCharacteristic.class,
+		OrderMessageQueueShall.class,
+		OrderMessageQueueCallBackCharacteristic.class,
 		
 		/**Depend nodenNegotiate*/
 		NodenNegotiateImpl.class,
@@ -208,14 +185,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NodeNegotiateManage.class,
 		NegotiateInjectParameterTreeCacheListenerCharacteristic.class,
 		NegotiateParametersInjectInitializationListenerCharacteristic.class,
-		
-//		/**Depend OrderQueueMessage**/
-//		OrderMessageQueueCallBackCharacteristic.class,
-//		OrderMessageQueueAcquireCharacteristic.class,
-//		OrderMessageQueueControlCharacteristic.class,
-//		OrderMessageQueuePushCharacteristic.class,
-//		OrderMessageQueueShall.class,
-		
+
 		/**Depend BigCacheIndexCahce**/
 		BigCacheIndexCahce.class,
 		BigCacheIndexCahceCharacteristic.class,
@@ -234,27 +204,27 @@ public class GlobalAnnotationApplicationContextInitialization {
 		ByteArrayCacheServerListener.class,
 		ByteArrayCacheServerManage.class,
 		
-//		/**Depend EventQueue**/
-//		EventQueue.class,
-//		EventDisruptorShell.class,
-//		EventFactory.class,
-//		EventHandler.class,
-//		EventQueueThreadFactory.class,
-//		EventQueueServer.class,
-//		EventQueueServerListener.class,
-//		EventQueueServerManage.class,
-//		EventConsumer.class,
-//		EventResultMergeHandler.class,
-//		CleanEventHandler.class,
-//		
-//		/**Depend EventBusQueue**/
-//		EventBusQueue.class,
-//		EventBusDisruptorShell.class,
-//		EventBusQueueServer.class,
-//		EventBusQueueServerListener.class,
-//		EventBusQueueServerManage.class,
-//		EventBusConsumer.class,
-//		EventBusHandler.class,
+		/**Depend EventQueue**/
+		EventQueue.class,
+		EventDisruptorShell.class,
+		EventFactory.class,
+		EventHandler.class,
+		EventQueueThreadFactory.class,
+		EventQueueServer.class,
+		EventQueueServerListener.class,
+		EventQueueServerManage.class,
+		EventConsumer.class,
+		EventResultMergeHandler.class,
+		CleanEventHandler.class,
+		
+		/**Depend EventBusQueue**/
+		EventBusQueue.class,
+		EventBusDisruptorShell.class,
+		EventBusQueueServer.class,
+		EventBusQueueServerListener.class,
+		EventBusQueueServerManage.class,
+		EventBusConsumer.class,
+		EventBusHandler.class,
 		
 		/**Depend LogCache**/
 		LogQueue.class,
@@ -267,27 +237,27 @@ public class GlobalAnnotationApplicationContextInitialization {
 		LogQueueServerManage.class,
 		CleanLogHandler.class,
 		
-//		/**Depend LogCache**/
-//		OrderExportQueue.class,
-//		OrderExportDisruptorShell.class,
-//		OrderExportEventFactory.class,
-//		OrderExportHandler.class,
-//		OrderExportThreadFactory.class,
-//		OrderExportQueueServer.class,
-//		OrderExportQueueServerListener.class,
-//		OrderExportQueueServerManage.class,
-//		CleanOrderExportHandler.class,
-//		
-//		/**Depend OrderCache**/
-//		OrderCache.class,
-//		OrderCacheCacheLoaderCharacteristic.class,
-//		OrderCacheLoadingCacheCharacteristic.class,
-//		OrderCacheRemovalListenerCharacteristic.class,
-//		OrderCahceShell.class,
-//		OrderCacheServer.class,
-//		OrderCacheServerListener.class,
-//		OrderCacheServerManage.class,
-//		
+		/**Depend LogCache**/
+		OrderExportQueue.class,
+		OrderExportDisruptorShell.class,
+		OrderExportEventFactory.class,
+		OrderExportHandler.class,
+		OrderExportThreadFactory.class,
+		OrderExportQueueServer.class,
+		OrderExportQueueServerListener.class,
+		OrderExportQueueServerManage.class,
+		CleanOrderExportHandler.class,
+		
+		/**Depend OrderCache**/
+		OrderCache.class,
+		OrderCacheCacheLoaderCharacteristic.class,
+		OrderCacheLoadingCacheCharacteristic.class,
+		OrderCacheRemovalListenerCharacteristic.class,
+		OrderCahceShell.class,
+		OrderCacheServer.class,
+		OrderCacheServerListener.class,
+		OrderCacheServerManage.class,
+		
 		/**Depend AOP**/
 //		OrderCacheAOPConfiguration.class,
 		SystemParameterAOPConfiguration.class,
@@ -304,9 +274,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		/**Depend Service**/
 		GroupServiceConfiguration.class,
 		
-//		EventSegmentation.class,
-//		EventExecuteImpl.class,
-//		EventBusExecuteImpl.class,
+		EventSegmentation.class,
+		EventExecuteImpl.class,
+		EventBusExecuteImpl.class,
 		
 //		StandardCellsTransactionImpl.class,
 //		HystrixConfigurationS.class,
@@ -353,16 +323,16 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend AnnotationScannerImpl*/
 		AnnotationScannerImpl.class,
-		AnnotationClassSequenceScannerImpl.class
+		AnnotationClassSequenceScannerImpl.class,
 		
-//		/**Depend Bus**/
-//		EventBus.class,
-//		EventBusBlockMethodCharacteristic.class,
-//		EventBusNoBlockMethodCharacteristic.class,
-//		EventBusResourcesShell.class,
-//		EventBusServer.class,
-//		EventBusServerListener.class,
-//		EventBusServerManage.class
+		/**Depend Bus**/
+		EventBus.class,
+		EventBusBlockMethodCharacteristic.class,
+		EventBusNoBlockMethodCharacteristic.class,
+		EventBusResourcesShell.class,
+		EventBusServer.class,
+		EventBusServerListener.class,
+		EventBusServerManage.class
 
 		);
 	} 

@@ -75,5 +75,9 @@ public class QueueParameters {
 		private static final String Kernel_Queue_OrderMessage_KEY_DESERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.StringDeserializer";
 		/** @illustrate VALUE_DESERIALIZER_CLASS_CONFIG **/
 		private static final String Kernel_Queue_OrderMessage_VALUE_DESERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.BytesDeserializer";
+		/** @illustrate KEY_SERIALIZER_CLASS_CONFIG **/
+		private static final String Kernel_Queue_OrderMessage_KEY_SERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.StringSerializer";
+		/** @illustrate VALUE_SERIALIZER_CLASS_CONFIG **/
+		private static final String Kernel_Queue_OrderMessage_VALUE_SERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.BytesSerializer";
 		//Kafka消息队配置 End
 }

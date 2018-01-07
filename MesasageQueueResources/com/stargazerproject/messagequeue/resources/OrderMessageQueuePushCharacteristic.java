@@ -33,12 +33,20 @@ public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Ord
 	@NeededInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KafkaBinderBrokers;
 	
+	/** @illustrate KEY_SERIALIZER_CLASS_CONFIG **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Queue_OrderMessage_KEY_SERIALIZER_CLASS_CONFIG;
+	
+	/** @illustrate VALUE_SERIALIZER_CLASS_CONFIG **/
+	@NeededInject(type="SystemParametersCache")
+	private static String Kernel_Queue_OrderMessage_VALUE_SERIALIZER_CLASS_CONFIG;
+	
 	@Autowired
 	@Qualifier("systemParameterCahce")
 	private Cache<String,String> systemParameter;
 	
 	@Autowired
-	@Qualifier("orderMessageQueueCallBack")
+	@Qualifier("orderMessageQueueCallBackCharacteristic")
 	private Callback orderMessageQueueCallBack;
 	
 	private KafkaProducer<String, Order> producer;
@@ -62,10 +70,10 @@ public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Ord
 	
 	private Properties producerProperties() {
 		Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Kernel_Queue_OrderMessage_KafkaBinderBrokers);
         props.put(ProducerConfig.CLIENT_ID_CONFIG, Kernel_System_CellsID);
-	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.BytesSerializer");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Kernel_Queue_OrderMessage_KafkaBinderBrokers);
+	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, Kernel_Queue_OrderMessage_KEY_SERIALIZER_CLASS_CONFIG);
+	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, Kernel_Queue_OrderMessage_VALUE_SERIALIZER_CLASS_CONFIG);
 		return props;
 	}
 

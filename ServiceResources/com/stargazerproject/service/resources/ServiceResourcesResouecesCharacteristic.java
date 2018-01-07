@@ -11,18 +11,18 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.service.ServiceResources;
+import com.stargazerproject.service.ServiceAnnotationResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="serviceResourcesResouecesCharacteristic")
 @Qualifier("serviceResourcesResouecesCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ServiceResourcesResouecesCharacteristic implements ServiceResources, BaseCharacteristic<ServiceResources> {
+public class ServiceResourcesResouecesCharacteristic implements ServiceAnnotationResources, BaseCharacteristic<ServiceAnnotationResources> {
 	
 	private Optional<List<AbstractIdleService>> serviceList;
 	
 	@Override
-	public Optional<ServiceResources> characteristic() {
+	public Optional<ServiceAnnotationResources> characteristic() {
 		return Optional.of(this);
 	}
 

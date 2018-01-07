@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
 import com.google.common.util.concurrent.ServiceManager;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.ServiceResources;
+import com.stargazerproject.service.ServiceAnnotationResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 @Component(value="serviceControlResourcesCharacteristic")
@@ -20,10 +20,10 @@ public class ServiceControlResourcesCharacteristic implements ServiceControl, Ba
 	
 	@Autowired
 	@Qualifier("serviceResourcesResouecesCharacteristic")
-	private BaseCharacteristic<ServiceResources> serviceResourcesResouecesCharacteristic;
+	private BaseCharacteristic<ServiceAnnotationResources> serviceResourcesResouecesCharacteristic;
 	
 	private ServiceManager serviceManager;
-	private ServiceResources serviceResources;
+	private ServiceAnnotationResources serviceResources;
 	
 	public ServiceControlResourcesCharacteristic() {}
 	

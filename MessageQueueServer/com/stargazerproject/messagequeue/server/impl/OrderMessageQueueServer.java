@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.order.impl.Order;
@@ -26,18 +27,20 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("orderMessageQueue")
-	private StanderCharacteristicShell<MessageQueue<Order>> orderMessageQueueShell;
+	private StanderCharacteristicShell<MessageQueue<Order>> orderMessageQueue;
+	
+	@Autowired
+	@Qualifier("orderMessageQueueShall")
+	private BaseCharacteristic<MessageQueue<Order>> orderMessageQueueShall;
 	
 	/** @construction 初始化构造 **/
 	private OrderMessageQueueServer() {}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
 		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
-		Optional<MessageQueue<Order>> orderMessageQueue = BeanContainer.instance().getBean(Optional.of("orderMessageQueueCharacteristicInitialize"), Optional.class);
-		orderMessageQueueShell.initialize(orderMessageQueue);
+		orderMessageQueue.initialize(orderMessageQueueShall.characteristic());
 		
 		/**Topic Initialization**/
 	//	orderMessageQueue.get().join();

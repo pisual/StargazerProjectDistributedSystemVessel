@@ -10,7 +10,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
  *  @illustrate Server 初始化服务列表
  *  @author Felixerio
  *  **/
-public interface ServiceResources {
+public interface ServiceAnnotationResources {
 	public Optional<List<AbstractIdleService>> allServiceList();
 	public void initializationServiceList(Optional<List<String>> serviceList);
 }

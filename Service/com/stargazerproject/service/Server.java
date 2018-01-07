@@ -1,5 +1,5 @@
 package com.stargazerproject.service;
 
-public interface Server extends ServiceControl, ServiceResources {
+public interface Server extends ServiceControl, ServiceAnnotationResources {
 
 }

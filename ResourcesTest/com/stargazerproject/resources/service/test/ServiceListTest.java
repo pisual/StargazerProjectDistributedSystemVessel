@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.stargazerproject.cache.configuration.GroupCacheConfiguration;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.resources.configuration.GroupResourcesConfiguration;
-import com.stargazerproject.service.ServiceResources;
+import com.stargazerproject.service.ServiceAnnotationResources;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.test.pattern.WorkInTest;
 
@@ -23,7 +23,7 @@ public class ServiceListTest implements WorkInTest{
 	
 	@Autowired
 	@Qualifier("serviceList")
-	private ServiceResources serviceListMethod;
+	private ServiceAnnotationResources serviceListMethod;
 	
 	static{
 		System.setProperty("spring.profiles.active","develop");

@@ -16,6 +16,7 @@ import com.stargazerproject.resources.Parameters;
 @Qualifier("uiParameters")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Parameters(value="uiParameters")
+@SuppressWarnings("unused")
 public class UIParameters {
 	
 	/** @illustrate 全局根路径 **/
