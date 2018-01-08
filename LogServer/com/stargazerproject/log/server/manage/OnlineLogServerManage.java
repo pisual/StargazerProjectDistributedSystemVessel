@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="onlineLogServerManage")
 @Qualifier("onlineLogServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="onlineLogServerManage", order = 6)
+@Services(value="onlineLogServerManage", order = 4)
 public class OnlineLogServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

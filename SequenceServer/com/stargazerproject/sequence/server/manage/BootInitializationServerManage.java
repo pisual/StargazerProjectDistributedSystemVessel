@@ -21,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="bootInitializationServerManage")
 @Qualifier("bootInitializationServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="bootInitializationServerManage", order = 99)
+//@Services(value="bootInitializationServerManage", order = 99)
 public class BootInitializationServerManage extends AbstractIdleService{
 	
 	/** @illustrate cellsGenerateSequenceServer的ServiceShell接口 **/

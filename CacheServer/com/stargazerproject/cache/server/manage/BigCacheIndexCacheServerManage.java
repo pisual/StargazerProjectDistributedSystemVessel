@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="bigCacheIndexCacheServerManage")
 @Qualifier("bigCacheIndexCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="bigCacheIndexCacheServerManage", order = 10)
+@Services(value="bigCacheIndexCacheServerManage", order = 5)
 public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

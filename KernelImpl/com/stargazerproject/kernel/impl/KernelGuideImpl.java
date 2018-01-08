@@ -4,18 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.bus.exception.BusEventTimeoutException;
-import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.kernel.KernelGuide;
-import com.stargazerproject.order.impl.Event;
-import com.stargazerproject.sequence.Sequence;
+import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.ServiceAnnotationResources;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
-import com.stargazerproject.util.SequenceUtil;
 
 public class KernelGuideImpl implements KernelGuide{
 	
@@ -118,13 +112,12 @@ public class KernelGuideImpl implements KernelGuide{
 
 	@Override
 	public KernelGuide startKernelGuide() {
-		BaseCharacteristic<ServiceAnnotationResources> serviceResources = BeanContainer.instance().getBean(Optional.of("serviceResourcesResouecesCharacteristic"), BaseCharacteristic.class);
-		serviceResources.characteristic().get().initializationServiceList(Optional.of(serviceList));
-		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlResourcesCharacteristic"), BaseCharacteristic.class);
-		serviceControl.characteristic().get().startAllservice();
-//		if(Cells_Kind.equals("Cells_Master")){
-//			startBaseSequence();
-//		}
+		BaseCharacteristic<ServerInitialization> serverInitialization = BeanContainer.instance().getBean(Optional.of("serverInitializationCharacteristic"), BaseCharacteristic.class);
+		serverInitialization.characteristic().get().initializationFromAnnotationsScan();
+
+		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlCharacteristic"), BaseCharacteristic.class);
+		serviceControl.characteristic().get().startAllservice();;
+
 		return kernelGuide;
 	}
 

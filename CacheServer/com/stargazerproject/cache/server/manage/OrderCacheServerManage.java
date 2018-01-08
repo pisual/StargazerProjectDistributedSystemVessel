@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="orderCacheServerManage")
 @Qualifier("orderCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="orderCacheServerManage", order = 12)
+@Services(value="orderCacheServerManage", order = 7)
 public class OrderCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

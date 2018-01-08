@@ -69,7 +69,7 @@ public class ParametersInjectAOPConfiguration {
 		    				NeededInject neededInject = field[i].getAnnotation(NeededInject.class);
 		    				switch (neededInject.type()) {
 							case "SystemParametersCache":
-								System.out.println("注入 " + field[i].getName() + " : " + cache.get(Optional.of(field[i].getName())).get());
+//								System.out.println("注入 " + field[i].getName() + " : " + cache.get(Optional.of(field[i].getName())).get());
 								field[i].set(object, cache.get(Optional.of(field[i].getName())).get());
 								break;
 

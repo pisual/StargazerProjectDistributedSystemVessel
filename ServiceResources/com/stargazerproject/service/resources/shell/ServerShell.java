@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.google.common.util.concurrent.AbstractIdleService;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.service.Server;
+import com.stargazerproject.service.ServerDepend;
+import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.ServiceAnnotationResources;
 
 @Component(value="serverShell")
 @Qualifier("serverShell")
@@ -21,23 +21,30 @@ import com.stargazerproject.service.ServiceAnnotationResources;
 public class ServerShell implements Server, BaseCharacteristic<Server>{
 	
 	@Autowired
-	@Qualifier("serviceControlResourcesCharacteristic")
-	private BaseCharacteristic<ServiceControl> serviceControlResourcesCharacteristic;
+	@Qualifier("serviceControlCharacteristic")
+	private BaseCharacteristic<ServiceControl> serviceControlCharacteristic;
 	
 	@Autowired
-	@Qualifier("serviceResourcesResouecesCharacteristic")
-	private BaseCharacteristic<ServiceAnnotationResources> serviceResourcesResouecesCharacteristic;
+	@Qualifier("serverInitializationCharacteristic")
+	private BaseCharacteristic<ServerInitialization> serverInitializationCharacteristic;
+	
+	@Autowired
+	@Qualifier("serverDependCharacteristic")
+	private BaseCharacteristic<ServerDepend> serverDependCharacteristic;
 	
 	private ServiceControl serviceControl;
 	
-	private ServiceAnnotationResources serviceResources;
+	private ServerInitialization serverInitialization;
+	
+	private ServerDepend serverDepend;
 	
 	public ServerShell() {}
 	
 	@Override
 	public Optional<Server> characteristic() {
-		serviceControl = serviceControlResourcesCharacteristic.characteristic().get();
-		serviceResources = serviceResourcesResouecesCharacteristic.characteristic().get();
+		serverDepend = serverDependCharacteristic.characteristic().get();
+		serviceControl = serviceControlCharacteristic.characteristic().get();
+		serverInitialization = serverInitializationCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 
@@ -52,13 +59,18 @@ public class ServerShell implements Server, BaseCharacteristic<Server>{
 	}
 
 	@Override
-	public Optional<List<AbstractIdleService>> allServiceList() {
-		return serviceResources.allServiceList();
+	public Optional<Boolean> dependOnDelay(Optional<String> workInServiceStates) {
+		return serverDepend.dependOnDelay(workInServiceStates);
 	}
 
 	@Override
-	public void initializationServiceList(Optional<List<String>> serviceList) {
-		serviceResources.initializationServiceList(serviceList);
+	public Optional<List<String>> initializationFromSequenceFile(Optional<String> filePath) {
+		return serverInitialization.initializationFromSequenceFile(filePath);
+	}
+
+	@Override
+	public Optional<List<String>> initializationFromAnnotationsScan() {
+		return serverInitialization.initializationFromAnnotationsScan();
 	}
 
 }

@@ -13,7 +13,7 @@ public class ServiceUtil {
 			WorkInServiceState serverState = BeanContainer.instance().getBean(Optional.of(workInServiceState), WorkInServiceState.class);
 			while(serverState.getServerstate() == Boolean.FALSE){
 				try {
-				//	System.out.println("Stargazer ServiceControlSystem Report : Wait "+workInServiceState+" Start");
+					System.out.println("Stargazer ServiceControlSystem Report : Wait "+workInServiceState+" Start");
 					TimeUnit.SECONDS.sleep(3);
 				} catch (InterruptedException e) {
 					e.printStackTrace();

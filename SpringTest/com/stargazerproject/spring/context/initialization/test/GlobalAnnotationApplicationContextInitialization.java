@@ -21,6 +21,7 @@ import com.stargazerproject.cache.impl.InterProcessSemaphoreMutexCache;
 import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
 import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
+import com.stargazerproject.cache.impl.ServerCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
 import com.stargazerproject.cache.impl.TreeCacheCache;
 import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
@@ -120,6 +121,10 @@ import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
+import com.stargazerproject.service.resources.ServerDependCharacteristic;
+import com.stargazerproject.service.resources.ServerInitializationCharacteristic;
+import com.stargazerproject.service.resources.ServiceControlCharacteristic;
+import com.stargazerproject.service.resources.shell.ServerShell;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 
 @SpringBootApplication
@@ -154,6 +159,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend TreeCacheCache Class**/
 		TreeCacheCache.class,
+		
+		/**Depend ServerCache Class**/
+		ServerCache.class,
 
      /******Depend Configuration Class******/
 		/**Depend OrderQueueMessage**/
@@ -166,6 +174,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		OrderMessageQueuePushCharacteristic.class,
 		OrderMessageQueueShall.class,
 		OrderMessageQueueCallBackCharacteristic.class,
+		
+		/**Depend Server*/
+		ServerDependCharacteristic.class,
+		ServerInitializationCharacteristic.class,
+		ServiceControlCharacteristic.class,
+		ServerShell.class,
 		
 		/**Depend nodenNegotiate*/
 		NodenNegotiateImpl.class,
