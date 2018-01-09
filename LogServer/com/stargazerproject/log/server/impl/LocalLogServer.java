@@ -12,10 +12,10 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.log.Log;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
-@Component(value="localLogRecordServer")
+@Component(value="localLogServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("localLogRecordServer")
-public class LocalLogRecordServer implements StanderServiceShell{
+@Qualifier("localLogServer")
+public class LocalLogServer implements StanderServiceShell{
 
 	@Autowired
 	@Qualifier("logRecord")
@@ -32,13 +32,13 @@ public class LocalLogRecordServer implements StanderServiceShell{
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private LocalLogRecordServer() {}
+	private LocalLogServer() {}
 	
 	/**
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public LocalLogRecordServer(Optional<StanderCharacteristicShell<Log>> logCharacteristicArg, Optional<BaseCharacteristic<Log>> localLogShellArg) {
+	public LocalLogServer(Optional<StanderCharacteristicShell<Log>> logCharacteristicArg, Optional<BaseCharacteristic<Log>> localLogShellArg) {
 		logCharacteristic = logCharacteristicArg.get();
 		localLogShell = localLogShellArg.get();
 	}

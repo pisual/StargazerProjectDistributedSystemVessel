@@ -36,10 +36,10 @@ import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
-import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheServer;
 import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
-import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.SystemParameterCacheServer;
 import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
@@ -60,8 +60,8 @@ import com.stargazerproject.messagequeue.resources.OrderMessageQueueControlChara
 import com.stargazerproject.messagequeue.resources.OrderMessageQueuePushCharacteristic;
 import com.stargazerproject.messagequeue.resources.shell.OrderMessageQueueShall;
 import com.stargazerproject.messagequeue.server.impl.OrderMessageQueueServer;
-import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueListener;
-import com.stargazerproject.messagequeue.server.manage.OrderMessageQueueManage;
+import com.stargazerproject.messagequeue.server.listener.impl.OrderMessageQueueServerListener;
+import com.stargazerproject.messagequeue.server.manage.OrderMessageQueueServerManage;
 import com.stargazerproject.negotiate.impl.NodenNegotiateImpl;
 import com.stargazerproject.negotiate.impl.ZoneNegotiateImpl;
 import com.stargazerproject.negotiate.resources.NegotiateConnectionStateListenerCharacteristic;
@@ -78,7 +78,7 @@ import com.stargazerproject.negotiate.resources.impl.NegotiateParametersInjectIn
 import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
 import com.stargazerproject.negotiate.server.impl.NodeNegotiateServer;
 import com.stargazerproject.negotiate.server.listener.impl.NodeNegotiateListener;
-import com.stargazerproject.negotiate.server.manage.NodeNegotiateManage;
+import com.stargazerproject.negotiate.server.manage.NodeNegotiateServerManage;
 import com.stargazerproject.queue.impl.EventBusQueue;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
@@ -120,6 +120,7 @@ import com.stargazerproject.resources.parameter.SequenceParameters;
 import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
+import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.service.resources.ServerDependCharacteristic;
 import com.stargazerproject.service.resources.ServerInitializationCharacteristic;
@@ -140,7 +141,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		SystemParameterCahce.class,
 		SystemParameterCahceCharacteristic.class,
 		SystemParameterCahceShell.class,
-		SystemParameterBuiltInCacheServer.class,
+		SystemParameterCacheServer.class,
 		SystemParameterCacheServerListener.class,
 		SystemParameterCacheServerManage.class,
 		NegotiateParameters.class,
@@ -167,8 +168,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueue.class,
 		OrderMessageQueueServer.class,
-		OrderMessageQueueListener.class,
-		OrderMessageQueueManage.class,
+		OrderMessageQueueServerListener.class,
+		OrderMessageQueueServerManage.class,
 		OrderMessageQueueAcquireCharacteristic.class,
 		OrderMessageQueueControlCharacteristic.class,
 		OrderMessageQueuePushCharacteristic.class,
@@ -180,6 +181,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		ServerInitializationCharacteristic.class,
 		ServiceControlCharacteristic.class,
 		ServerShell.class,
+		ServerDependDetectionAOPConfiguration.class,
 		
 		/**Depend nodenNegotiate*/
 		NodenNegotiateImpl.class,
@@ -196,7 +198,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NodenNegotiateShell.class,
 		NodeNegotiateServer.class,
 		NodeNegotiateListener.class,
-		NodeNegotiateManage.class,
+		NodeNegotiateServerManage.class,
 		NegotiateInjectParameterTreeCacheListenerCharacteristic.class,
 		NegotiateParametersInjectInitializationListenerCharacteristic.class,
 
@@ -204,7 +206,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		BigCacheIndexCahce.class,
 		BigCacheIndexCahceCharacteristic.class,
 		BigCacheIndexCahceShell.class,
-		BigCacheIndexCacheBuiltInCacheServer.class,
+		BigCacheIndexCacheServer.class,
 		BigCacheIndexCacheServerListener.class,
 		BigCacheIndexCacheServerManage.class,
 		

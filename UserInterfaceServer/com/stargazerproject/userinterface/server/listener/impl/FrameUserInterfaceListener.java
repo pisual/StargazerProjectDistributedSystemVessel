@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component
 @Qualifier("frameUserInterfaceListener")
@@ -18,7 +17,6 @@ public class FrameUserInterfaceListener extends StandardWorkInServiceState imple
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : frameUserInterfaceListener Server Starting");
 	}
 	

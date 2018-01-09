@@ -5,9 +5,13 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.kernel.KernelGuide;
+import com.stargazerproject.log.Log;
+import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
+import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationApplicationContextInitialization;
 
@@ -112,8 +116,20 @@ public class KernelGuideImpl implements KernelGuide{
 
 	@Override
 	public KernelGuide startKernelGuide() {
+		
+		BaseCharacteristic<Server> serverShell = BeanContainer.instance().getBean(Optional.of("serverShell"), BaseCharacteristic.class);
+		StanderCharacteristicShell<Server> server =  BeanContainer.instance().getBean(Optional.of("kernelService"), StanderCharacteristicShell.class);
+		server.initialize(serverShell.characteristic());
+		
 		BaseCharacteristic<ServerInitialization> serverInitialization = BeanContainer.instance().getBean(Optional.of("serverInitializationCharacteristic"), BaseCharacteristic.class);
 		serverInitialization.characteristic().get().initializationFromAnnotationsScan();
+		
+		ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
+		serverDependDetectionAOPConfiguration.initializationServerSequenceMap();
+		
+		StanderCharacteristicShell<Log> logRecord =  BeanContainer.instance().getBean(Optional.of("logRecord"), StanderCharacteristicShell.class);
+		BaseCharacteristic<Log> logRecordShell = BeanContainer.instance().getBean(Optional.of("localLogShell"), BaseCharacteristic.class);
+		logRecord.initialize(logRecordShell.characteristic());
 
 		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlCharacteristic"), BaseCharacteristic.class);
 		serviceControl.characteristic().get().startAllservice();;

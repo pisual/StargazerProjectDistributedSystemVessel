@@ -12,7 +12,6 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
@@ -39,7 +38,6 @@ public class OrderMessageQueueServer implements StanderServiceShell{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
 		orderMessageQueue.initialize(orderMessageQueueShall.characteristic());
 		
 		/**Topic Initialization**/

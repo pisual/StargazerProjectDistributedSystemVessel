@@ -21,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="eventBusServerManage")
 @Qualifier("eventBusServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="eventBusServerManage", order = 12)
+//@Services(value="eventBusServerManage", order = 12)
 public class EventBusServerManage extends AbstractIdleService{
 	
 	/** @illustrate standardSequenceServer的ServiceShell接口 **/

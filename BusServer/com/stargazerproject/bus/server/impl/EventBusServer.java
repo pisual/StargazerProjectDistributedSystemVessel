@@ -11,7 +11,6 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 
 /** 
  *  @name StandardSequenceServer 服务的实现
@@ -37,7 +36,6 @@ public class EventBusServer implements StanderServiceShell{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	public void startUp() {
-		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener");
 		eventBus.initialize(eventBusResourcesShell.characteristic());
 	}
 

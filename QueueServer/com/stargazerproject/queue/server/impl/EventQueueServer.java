@@ -13,7 +13,6 @@ import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="eventQueueServer")
 @Qualifier("eventQueueServer")
@@ -53,7 +52,6 @@ public class EventQueueServer implements StanderServiceShell{
 	
 	@Override
 	public void startUp() {
-     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		eventQueue.initialize(eventDisruptorShell.characteristic());
 		eventQueueControl.start();
 	}

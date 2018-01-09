@@ -27,7 +27,7 @@ public class LocalLogServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("localLogRecordServer")
+	@Qualifier("localLogServer")
 	private StanderServiceShell LocalLogServer;
 	
 	@Autowired

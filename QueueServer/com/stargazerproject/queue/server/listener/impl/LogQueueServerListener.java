@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="logQueueServerListener")
 @Qualifier("logQueueServerListener")
@@ -26,7 +25,6 @@ public class LogQueueServerListener extends StandardWorkInServiceState implement
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : LogQueue Server Starting");
 	}
 	

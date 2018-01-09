@@ -38,7 +38,7 @@ public class ServerInitializationCharacteristic implements ServerInitialization,
 	}
 	
 	@Override
-	public Optional<List<String>> initializationFromAnnotationsScan() {
+	public Optional<List<String>> initializationFromAnnotationsScan() {		
 		serviceParameterList.characteristic().get().stream().map(x -> x.replace("Manage", "")).collect(Collectors.toList())
 		                                           .stream().forEach(x -> serverCache.put(Optional.of(x), Optional.of(Boolean.FALSE)));
 		return serviceParameterList.characteristic();

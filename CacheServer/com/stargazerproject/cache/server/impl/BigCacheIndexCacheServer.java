@@ -13,17 +13,16 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 
 /** 
  *  @name bigCacheIndexCache服务的实现
  *  @illustrate 继承于ServiceShell的bigCacheIndexCache相关服务实现
  *  @author Felixerio
  *  **/
-@Component(value="bigCacheIndexCacheBuiltInCacheServer")
-@Qualifier("bigCacheIndexCacheBuiltInCacheServer")
+@Component(value="bigCacheIndexCacheServer")
+@Qualifier("bigCacheIndexCacheServer")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class BigCacheIndexCacheBuiltInCacheServer implements StanderServiceShell{
+public class BigCacheIndexCacheServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("bigCacheIndexCahce")
@@ -42,13 +41,13 @@ public class BigCacheIndexCacheBuiltInCacheServer implements StanderServiceShell
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private BigCacheIndexCacheBuiltInCacheServer() {}
+	private BigCacheIndexCacheServer() {}
 	
 	/**
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public BigCacheIndexCacheBuiltInCacheServer(Optional<StanderCharacteristicShell<Cache<String, Map<String, Integer>>>> bigCacheIndexCahceArg,
+	public BigCacheIndexCacheServer(Optional<StanderCharacteristicShell<Cache<String, Map<String, Integer>>>> bigCacheIndexCahceArg,
 			                                    Optional<BaseCharacteristic<Cache<String, Map<String, Integer>>>> bigCacheIndexCahceShellArg) {
 	
 		bigCacheIndexCahce = bigCacheIndexCahceArg.get();
@@ -58,7 +57,6 @@ public class BigCacheIndexCacheBuiltInCacheServer implements StanderServiceShell
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	public void startUp() {
-		ServiceUtil.dependOnDelay("localLogServerListener");
 		bigCacheIndexCahceCharacteristic = bigCacheIndexCahceShell.characteristic().get();
 		bigCacheIndexCahce.initialize(Optional.of(bigCacheIndexCahceCharacteristic));
 	}

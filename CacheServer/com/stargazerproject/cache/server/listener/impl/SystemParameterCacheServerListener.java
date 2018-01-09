@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="systemParameterCacheServerListener")
 @Qualifier("systemParameterCacheServerListener")
@@ -26,7 +25,6 @@ public class SystemParameterCacheServerListener extends StandardWorkInServiceSta
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : SystemParameterCache Server Starting");
 	}
 	

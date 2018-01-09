@@ -10,7 +10,6 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.negotiate.Negotiate;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
@@ -34,7 +33,6 @@ public class ZoneNegotiateServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
 		Optional<Negotiate> zoneNegotiate = BeanContainer.instance().getBean(Optional.of("zoneNegotiateInitialize"), Optional.class);
 		zoneNegotiateShell.initialize(zoneNegotiate);
 	}

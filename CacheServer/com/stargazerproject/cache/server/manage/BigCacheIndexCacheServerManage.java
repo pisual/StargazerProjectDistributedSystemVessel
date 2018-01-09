@@ -27,7 +27,7 @@ public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("bigCacheIndexCacheBuiltInCacheServer")
+	@Qualifier("bigCacheIndexCacheServer")
 	private StanderServiceShell bigCacheIndexCacheBuiltInCacheServer;
 	
 	@Autowired

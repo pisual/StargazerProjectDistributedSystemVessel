@@ -27,7 +27,7 @@ public class SystemParameterCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("systemParameterBuiltInCacheServer")
+	@Qualifier("systemParameterCacheServer")
 	private StanderServiceShell systemParameterCacheServer;
 	
 	@Autowired

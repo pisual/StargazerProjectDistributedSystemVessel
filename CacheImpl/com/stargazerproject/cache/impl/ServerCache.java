@@ -2,6 +2,7 @@ package com.stargazerproject.cache.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -13,7 +14,7 @@ import com.stargazerproject.cache.Cache;
 
 @Component(value="serverCache")
 @Qualifier("serverCache")
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class ServerCache implements Cache<String, Boolean>{
 	
 	private Map<String, Boolean> cache = new HashMap<String, Boolean>();

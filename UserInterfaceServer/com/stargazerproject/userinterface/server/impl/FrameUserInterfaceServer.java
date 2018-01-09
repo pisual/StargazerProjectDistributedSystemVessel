@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.userinterface.extend.AssaultLilysUserInterface;
-import com.stargazerproject.userinterface.extend.MainFrameAssaultLilysUserInterface;
 
 /** 
  *  @name frameUserInterface服务的实现
@@ -37,7 +35,6 @@ public class FrameUserInterfaceServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
 		Optional<AssaultLilysUserInterface> assaultLilysUserInterface = BeanContainer.instance().getBean(Optional.of("assaultLilysUserInterfaceShallCharacteristic"), Optional.class);
 		zoneNegotiateShell.initialize(assaultLilysUserInterface);
 		//****样品展示代码Start

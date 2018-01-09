@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="orderCacheServerListener")
 @Qualifier("orderCacheServerListener")
@@ -26,8 +25,7 @@ public class OrderCacheServerListener extends StandardWorkInServiceState impleme
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : Server Starting");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderCache Server Starting");
 	}
 	
 	@Override

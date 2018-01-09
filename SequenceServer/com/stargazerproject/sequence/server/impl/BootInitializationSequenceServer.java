@@ -12,7 +12,6 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
@@ -36,7 +35,6 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener", "eventBusQueueServerListener");
 		Optional<Sequence<Event>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
 		try {
 			sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));

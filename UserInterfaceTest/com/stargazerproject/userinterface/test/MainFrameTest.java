@@ -27,10 +27,10 @@ import com.stargazerproject.cache.impl.resources.shell.BigCacheIndexCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.ByteArrayCacheShell;
 import com.stargazerproject.cache.impl.resources.shell.OrderCahceShell;
 import com.stargazerproject.cache.impl.resources.shell.SystemParameterCahceShell;
-import com.stargazerproject.cache.server.impl.BigCacheIndexCacheBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.BigCacheIndexCacheServer;
 import com.stargazerproject.cache.server.impl.ByteArrayCacheServer;
 import com.stargazerproject.cache.server.impl.OrderCacheServer;
-import com.stargazerproject.cache.server.impl.SystemParameterBuiltInCacheServer;
+import com.stargazerproject.cache.server.impl.SystemParameterCacheServer;
 import com.stargazerproject.cache.server.listener.impl.BigCacheIndexCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.ByteArrayCacheServerListener;
 import com.stargazerproject.cache.server.listener.impl.OrderCacheServerListener;
@@ -120,7 +120,7 @@ public class MainFrameTest {
 		SystemParameterCahce.class,
 		SystemParameterCahceCharacteristic.class,
 		SystemParameterCahceShell.class,
-		SystemParameterBuiltInCacheServer.class,
+		SystemParameterCacheServer.class,
 		SystemParameterCacheServerListener.class,
 		SystemParameterCacheServerManage.class,
 
@@ -130,7 +130,7 @@ public class MainFrameTest {
 		BigCacheIndexCahce.class,
 		BigCacheIndexCahceCharacteristic.class,
 		BigCacheIndexCahceShell.class,
-		BigCacheIndexCacheBuiltInCacheServer.class,
+		BigCacheIndexCacheServer.class,
 		BigCacheIndexCacheServerListener.class,
 		BigCacheIndexCacheServerManage.class,
 		

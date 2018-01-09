@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="eventBusServerListener")
 @Qualifier("eventBusServerListener")
@@ -18,7 +17,6 @@ public class EventBusServerListener extends StandardWorkInServiceState implement
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("localLogServerListener", "systemParameterCacheServerListener", "byteArrayCacheServerListener", "nodeNegotiateServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventBusServer Server Starting");
 	}
 	

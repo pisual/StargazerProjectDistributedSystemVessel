@@ -13,7 +13,6 @@ import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="logQueueServer")
 @Qualifier("logQueueServer")
@@ -53,7 +52,6 @@ public class LogQueueServer implements StanderServiceShell{
 	
 	@Override
 	public void startUp() {
-     	ServiceUtil.dependOnDelay("systemParameterCacheServerListener","localLogServerListener");
      	logQueue.initialize(logDisruptorShell.characteristic());
 		logQueueControl.start();
 	}

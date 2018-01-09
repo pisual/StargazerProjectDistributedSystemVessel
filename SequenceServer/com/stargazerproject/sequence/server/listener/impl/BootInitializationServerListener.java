@@ -9,7 +9,6 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
 @Component(value="bootInitializationServerListener")
 @Qualifier("bootInitializationServerListener")
@@ -18,7 +17,6 @@ public class BootInitializationServerListener extends StandardWorkInServiceState
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bootInitializationServer Server Starting");
 	}
 	

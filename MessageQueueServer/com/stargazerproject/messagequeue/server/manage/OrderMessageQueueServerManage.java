@@ -1,4 +1,4 @@
-package com.stargazerproject.negotiate.server.manage;
+package com.stargazerproject.messagequeue.server.manage;
 
 import javax.annotation.PostConstruct;
 
@@ -14,27 +14,27 @@ import com.stargazerproject.service.baseinterface.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
- *  @name nodeNegotiate服务集中托管
- *  @illustrate nodeNegotiate服务集中托管，继承于Guava的AbstractIdleService
+ *  @name orderMessageQueue服务集中托管
+ *  @illustrate orderMessageQueue服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="nodeNegotiateManage")
-@Qualifier("nodeNegotiateManage")
+@Component(value="orderMessageQueueServerManage")
+@Qualifier("orderMessageQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="nodeNegotiateManage", order = 11)
-public class NodeNegotiateManage extends AbstractIdleService{
+@Services(value="orderMessageQueueServerManage", order = 7)
+public class OrderMessageQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("nodeNegotiateServer")
-	private StanderServiceShell nodeNegotiateServer;
+	@Qualifier("orderMessageQueueServer")
+	private StanderServiceShell orderMessageQueueServer;
 	
 	@Autowired
-	@Qualifier("nodeNegotiateServerListener")
+	@Qualifier("orderMessageQueueServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public NodeNegotiateManage() {}
+	public OrderMessageQueueServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct
@@ -45,13 +45,13 @@ public class NodeNegotiateManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		nodeNegotiateServer.startUp();
+		orderMessageQueueServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		nodeNegotiateServer.shutDown();
+		orderMessageQueueServer.shutDown();
 	}
 
 }

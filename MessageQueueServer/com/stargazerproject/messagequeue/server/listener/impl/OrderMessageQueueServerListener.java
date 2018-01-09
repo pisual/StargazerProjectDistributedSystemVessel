@@ -9,16 +9,14 @@ import com.google.common.util.concurrent.Service.State;
 import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
 import com.stargazerproject.service.baseinterface.WorkInServiceControl;
 import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.service.util.ServiceUtil;
 
-@Component
-@Qualifier("orderMessageQueueListener")
+@Component(value="orderMessageQueueServerListener")
+@Qualifier("orderMessageQueueServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class OrderMessageQueueServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
 	
 	@Override
 	public void starting() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener");
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : orderMessageQueueListener Server Starting");
 	}
 	

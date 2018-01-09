@@ -13,7 +13,6 @@ import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.ServiceManager;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
@@ -23,8 +22,8 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class ServiceControlCharacteristic implements ServiceControl, BaseCharacteristic<ServiceControl>{
 	
 	@Autowired
-	@Qualifier("serverInitializationCharacteristic")
-	private BaseCharacteristic<ServerInitialization> serverInitializationCharacteristic;
+	@Qualifier("serviceParameterList")
+	private BaseCharacteristic<List<String>> serviceParameterList;
 	
 	private ServiceManager serviceManager;
 	
@@ -32,8 +31,8 @@ public class ServiceControlCharacteristic implements ServiceControl, BaseCharact
 	
 	@Override
 	public Optional<ServiceControl> characteristic() {
-		Optional<List<String>> serviceListArg = serverInitializationCharacteristic.characteristic().get().initializationFromAnnotationsScan();
-		serviceManager = new ServiceManager(serviceListConvertToAbstractIdleServiceList(serviceListArg).get());
+		List<String> serviceListArg = serviceParameterList.characteristic().get();
+		serviceManager = new ServiceManager(serviceListConvertToAbstractIdleServiceList(Optional.of(serviceListArg)).get());
 		return Optional.of(this);
 	}
 

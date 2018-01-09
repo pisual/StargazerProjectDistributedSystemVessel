@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -20,6 +21,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.stargazerproject.inject.AnnotationClassSequenceScanner;
+import com.stargazerproject.service.baseinterface.Services;
 
 @Component(value="annotationClassSequenceScannerImpl")
 @Qualifier("annotationClassSequenceScannerImpl")

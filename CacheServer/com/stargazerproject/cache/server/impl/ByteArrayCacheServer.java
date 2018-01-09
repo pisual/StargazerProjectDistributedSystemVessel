@@ -11,7 +11,6 @@ import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.service.util.ServiceUtil;
 
 /** 
  *  @name OrderCache服务的实现
@@ -52,7 +51,6 @@ public class ByteArrayCacheServer implements StanderServiceShell{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	public void startUp() {
-		ServiceUtil.dependOnDelay("systemParameterCacheServerListener", "localLogServerListener", "bigCacheIndexCacheServerListener");
 		byteArrayCache.initialize(ByteArrayCacheShell.characteristic());
 	}
 
