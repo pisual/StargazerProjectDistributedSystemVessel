@@ -15,9 +15,8 @@ import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
- *  @name Cell生成ID序列组
- *  @illustrate Cells生成序列的第一步，生成UUID组，UUID组的格式为  XXX:XXX,使用：来进行组分割
- *  @author Felixerio
+ *  @name 模拟远程注入Cells Method的过程
+ *  @illustrate 模拟远程注入Cells Method的过程
  *  **/
 @Component(value="registerSequenceBeanModel")
 @Qualifier("registerSequenceBeanModel")

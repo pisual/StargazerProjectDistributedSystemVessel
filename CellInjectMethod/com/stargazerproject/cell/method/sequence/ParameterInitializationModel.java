@@ -1,6 +1,5 @@
 package com.stargazerproject.cell.method.sequence;
 
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.framework.recipes.cache.TreeCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,8 +16,6 @@ import com.stargazerproject.cell.CellsTransaction;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
-import com.stargazerproject.spring.container.impl.BeanContainer;
-import com.stargazerproject.util.SequenceUtil;
 
 /** 
  *  @name Cell生成ID序列组
@@ -45,7 +42,7 @@ public class ParameterInitializationModel implements CellsTransaction<String, St
 	
 	@Autowired
 	@Qualifier("negotiateParametersInjectInitializationListenerCharacteristic")
-	private BaseCharacteristic<TreeCacheListener> negotiateParametersInjectInitializationListener;
+	private BaseCharacteristic<TreeCacheListener> negotiateParametersInjectInitializationListenerCharacteristic;
 	
 	public ParameterInitializationModel() { 
 		super(); 
@@ -65,7 +62,7 @@ public class ParameterInitializationModel implements CellsTransaction<String, St
     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")})
 	public boolean method(Optional<Cache<String, String>> cache) {
 		try {
-			nodeNegotiate.registeredWatcher(Optional.of(""), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("parameterInitializationModel"), negotiateParametersInjectInitializationListener.characteristic());
+			nodeNegotiate.registeredWatcher(Optional.of(""), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("parameterInitializationModel"), negotiateParametersInjectInitializationListenerCharacteristic.characteristic());
 			return true;
 		} catch (Exception e) {
 			log.ERROR(this, e.getMessage());

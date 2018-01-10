@@ -40,7 +40,6 @@
 	<classpathentry kind="src" path="SequenceConfiguration"/>
 	<classpathentry kind="src" path="SequenceResources"/>
 	<classpathentry kind="src" path="SequenceServer"/>
-	<classpathentry kind="src" path="SequenceModel"/>
 	<classpathentry kind="src" path="SequenceTest"/>
 	<classpathentry kind="src" path="UserInterface"/>
 	<classpathentry kind="src" path="UserInterfaceImpl"/>

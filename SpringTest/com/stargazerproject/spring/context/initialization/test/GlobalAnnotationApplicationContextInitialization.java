@@ -72,7 +72,7 @@ import com.stargazerproject.negotiate.resources.NegotiateNodeCuratorListenerChar
 import com.stargazerproject.negotiate.resources.NegotiateNodeMethodCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRegisteredWatcherCharacteristic;
 import com.stargazerproject.negotiate.resources.NegotiateRetryPolicyCharacteristic;
-import com.stargazerproject.negotiate.resources.impl.NegotiateInjectParameterTreeCacheListenerCharacteristic;
+import com.stargazerproject.negotiate.resources.impl.NegotiateInjectParameterMonitorListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.impl.NegotiateParametersInjectInitializationListenerCharacteristic;
 import com.stargazerproject.negotiate.resources.shell.NodenNegotiateShell;
 import com.stargazerproject.negotiate.server.impl.NodeNegotiateServer;
@@ -198,7 +198,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NodeNegotiateServer.class,
 		NodeNegotiateListener.class,
 		NodeNegotiateServerManage.class,
-		NegotiateInjectParameterTreeCacheListenerCharacteristic.class,
+		NegotiateInjectParameterMonitorListenerCharacteristic.class,
 		NegotiateParametersInjectInitializationListenerCharacteristic.class,
 
 		/**Depend BigCacheIndexCahce**/

@@ -93,7 +93,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/KernelTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ServerTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SequenceModel"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Bus"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/BusConfiguration"/>

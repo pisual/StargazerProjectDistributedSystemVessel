@@ -46,8 +46,8 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 	protected BigCache<String, byte[]> byteArrayCache;
 	
 	@Autowired
-	@Qualifier("negotiateInjectParameterTreeCacheListener")
-	private BaseCharacteristic<TreeCacheListener> negotiateInjectParameterTreeCacheListener;
+	@Qualifier("negotiateInjectParameterMonitorListenerCharacteristic")
+	private BaseCharacteristic<TreeCacheListener> negotiateInjectParameterMonitorListenerCharacteristic;
 
 	/**
 	* @name Springs使用的初始化构造
@@ -67,7 +67,7 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 	public AcquireParameterBlockModel(Optional<LogMethod> logArg, 
 			                          Optional<Negotiate> nodeNegotiateArg, 
 			                          Optional<BigCache<String, byte[]>> byteArrayCacheArg, 
-			                          Optional<BaseCharacteristic<TreeCacheListener>> negotiateInjectParameterTreeCacheListenerArg, 
+			                          Optional<BaseCharacteristic<TreeCacheListener>> negotiateInjectParameterMonitorListenerCharacteristicArg, 
 			                          Optional<String> OrderIDArg, 
 			                          Optional<String> Kernel_Negotiate_BasePath_EdenNodePathArg) {
 		super();
@@ -76,7 +76,7 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 		nodeNegotiate = nodeNegotiateArg.get();
 		byteArrayCache = byteArrayCacheArg.get();
 		Kernel_Negotiate_BasePath_EdenNodePath = Kernel_Negotiate_BasePath_EdenNodePathArg.get();
-		negotiateInjectParameterTreeCacheListener = negotiateInjectParameterTreeCacheListenerArg.get();
+		negotiateInjectParameterMonitorListenerCharacteristic = negotiateInjectParameterMonitorListenerCharacteristicArg.get();
 		}
 	
 	/**
@@ -96,6 +96,7 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
 		registeredNodeWatch();
 		registeredNode();
 		blockMethod();
+		deleteNodeWatch();
 		return Boolean.TRUE;
 	} catch (Exception e) {
 		log.ERROR(this, e.getMessage());
@@ -132,8 +133,13 @@ public class AcquireParameterBlockModel implements CellsTransaction<String, Stri
     }
 	
 	private void registeredNodeWatch() throws Exception{
-		nodeNegotiate.registeredWatcher(Optional.of(OrderID), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("AcquireParameterModelListener"), negotiateInjectParameterTreeCacheListener.characteristic());
+		nodeNegotiate.registeredWatcher(Optional.of(OrderID), Optional.of(Kernel_Negotiate_BasePath_EdenNodePath), Optional.of("AcquireParameterModelListener"), negotiateInjectParameterMonitorListenerCharacteristic.characteristic());
 		log.INFO(this, "acquireParameterModel creatEphemeralNode Complete: " + Optional.of(OrderID).get());
+	}
+	
+	private void deleteNodeWatch() throws Exception{
+		nodeNegotiate.removeWatcher(Optional.of("AcquireParameterModelListener"));
+		log.INFO(this, "acquireParameterModel removeWatcher Complete: " + Optional.of(OrderID).get());
 	}
 	
 	private void registeredNode() throws Exception{

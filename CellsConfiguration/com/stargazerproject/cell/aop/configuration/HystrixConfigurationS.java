@@ -1,4 +1,4 @@
-package com.stargazerproject.cell.aopconfiguration;
+package com.stargazerproject.cell.aop.configuration;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

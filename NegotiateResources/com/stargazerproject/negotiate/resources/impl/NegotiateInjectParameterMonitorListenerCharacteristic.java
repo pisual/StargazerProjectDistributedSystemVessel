@@ -15,10 +15,10 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
 
-@Component(value="negotiateInjectParameterTreeCacheListener")
-@Qualifier("negotiateInjectParameterTreeCacheListener")
+@Component(value="negotiateInjectParameterMonitorListenerCharacteristic")
+@Qualifier("negotiateInjectParameterMonitorListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class NegotiateInjectParameterTreeCacheListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
+public class NegotiateInjectParameterMonitorListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
 
 	@Autowired
 	@Qualifier("logRecord")
