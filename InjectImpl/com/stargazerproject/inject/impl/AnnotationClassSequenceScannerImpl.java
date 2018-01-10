@@ -21,7 +21,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.stargazerproject.inject.AnnotationClassSequenceScanner;
-import com.stargazerproject.service.baseinterface.Services;
+import com.stargazerproject.service.annotation.Services;
 
 @Component(value="annotationClassSequenceScannerImpl")
 @Qualifier("annotationClassSequenceScannerImpl")

@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.Service.State;
-import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
-import com.stargazerproject.service.baseinterface.WorkInServiceControl;
-import com.stargazerproject.service.baseinterface.WorkInServiceState;
+import com.stargazerproject.service.base.impl.StandardWorkInServiceListener;
 
-@Component
+@Component(value="zoneNegotiateListener")
 @Qualifier("zoneNegotiateListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ZoneNegotiateListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class ZoneNegotiateListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {

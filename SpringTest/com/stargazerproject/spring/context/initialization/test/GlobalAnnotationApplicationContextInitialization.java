@@ -14,7 +14,6 @@ import com.stargazerproject.bus.server.impl.EventBusServer;
 import com.stargazerproject.bus.server.listener.impl.EventBusServerListener;
 import com.stargazerproject.bus.server.manage.EventBusServerManage;
 import com.stargazerproject.cache.aop.configuration.ParametersInjectAOPConfiguration;
-import com.stargazerproject.cache.aop.configuration.SystemParameterAOPConfiguration;
 import com.stargazerproject.cache.impl.BigCacheIndexCahce;
 import com.stargazerproject.cache.impl.ByteArrayCache;
 import com.stargazerproject.cache.impl.InterProcessSemaphoreMutexCache;
@@ -273,10 +272,6 @@ public class GlobalAnnotationApplicationContextInitialization {
 		OrderCacheServer.class,
 		OrderCacheServerListener.class,
 		OrderCacheServerManage.class,
-		
-		/**Depend AOP**/
-//		OrderCacheAOPConfiguration.class,
-		SystemParameterAOPConfiguration.class,
 		
 		/**Depend Resources**/
 		CacheParameters.class,

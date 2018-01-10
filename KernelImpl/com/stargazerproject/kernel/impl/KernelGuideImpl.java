@@ -124,8 +124,8 @@ public class KernelGuideImpl implements KernelGuide{
 		BaseCharacteristic<ServerInitialization> serverInitialization = BeanContainer.instance().getBean(Optional.of("serverInitializationCharacteristic"), BaseCharacteristic.class);
 		serverInitialization.characteristic().get().initializationFromAnnotationsScan();
 		
-		ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
-		serverDependDetectionAOPConfiguration.initializationServerSequenceMap();
+	//	ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
+	//	serverDependDetectionAOPConfiguration.initializationServerSequenceMap();
 		
 		StanderCharacteristicShell<Log> logRecord =  BeanContainer.instance().getBean(Optional.of("logRecord"), StanderCharacteristicShell.class);
 		BaseCharacteristic<Log> logRecordShell = BeanContainer.instance().getBean(Optional.of("localLogShell"), BaseCharacteristic.class);

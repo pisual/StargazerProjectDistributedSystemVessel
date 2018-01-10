@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.Service.State;
-import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
-import com.stargazerproject.service.baseinterface.WorkInServiceControl;
-import com.stargazerproject.service.baseinterface.WorkInServiceState;
+import com.stargazerproject.service.base.impl.StandardWorkInServiceListener;
 
 @Component(value="byteArrayCacheServerListener")
 @Qualifier("byteArrayCacheServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ByteArrayCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class ByteArrayCacheServerListener extends StandardWorkInServiceListener{
 
 	/**
 	* @name 常规初始化构造

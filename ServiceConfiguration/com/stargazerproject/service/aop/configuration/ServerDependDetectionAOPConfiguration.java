@@ -3,6 +3,8 @@ package com.stargazerproject.service.aop.configuration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,8 +24,6 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServerDepend;
-import com.stargazerproject.service.baseinterface.WorkInServiceState;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
  *  @name 针对被NeededInject标注的注解进行参数注入
@@ -40,10 +40,6 @@ public class ServerDependDetectionAOPConfiguration {
 	@Autowired
 	@Qualifier("kernelService")
 	private Server server;
-	
-	@Autowired
-	@Qualifier("logRecord")
-	private LogMethod baseLog;
 	
 	@Autowired
 	@Qualifier("serverCache")
@@ -66,11 +62,12 @@ public class ServerDependDetectionAOPConfiguration {
 	/** @construction 初始化构造 **/
 	private ServerDependDetectionAOPConfiguration() {}
 	
-	public void initializationServerSequenceMap(){
+	@PostConstruct
+	private void initializationServerSequenceMap(){
 		List<String> serverList = serviceParameterList.characteristic().get();
 		for(int i=1; i<=serverList.size(); i++){
 			String servername = serverList.get(i-1).replace("Manage", "");
-			servername = servername.substring(0, 1).toLowerCase() + servername.substring(1, servername.length());
+			servername = firstChartoLowerCase(servername);
 			serverSequenceMap.put(i, servername);
 		}
 	}
@@ -82,18 +79,15 @@ public class ServerDependDetectionAOPConfiguration {
 	/** @illustrate StanderServiceShell 中的Set的AOP切点的具体方法**/
 	@Around("startUpMethod()")
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
-		String serverName = proceedingJoinPoint.getTarget().getClass().getSimpleName();
-		serverName = serverName.substring(0, 1).toLowerCase() + serverName.substring(1, serverName.length());
-		while(dependOnDelay(Optional.of(serverName)).get() == Boolean.FALSE){
-			try {
-				TimeUnit.MICROSECONDS.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			}
+		String servername = proceedingJoinPoint.getTarget().getClass().getSimpleName();
+		servername = firstChartoLowerCase(servername);
+		
+		while(dependOnDelay(Optional.of(servername)).get() == Boolean.FALSE){
+			TimeUnit.MICROSECONDS.sleep(100);
+		}
 		
 		proceedingJoinPoint.proceed();
-		cache.put(Optional.of(serverName), Optional.of(Boolean.TRUE));
+		cache.put(Optional.of(servername), Optional.of(Boolean.TRUE));
 		}
 	
 	private Optional<Boolean> dependOnDelay(Optional<String> serverName){
@@ -106,6 +100,10 @@ public class ServerDependDetectionAOPConfiguration {
 			String beforeServer = serverSequenceMap.get(beforeIndex);
 			return cache.get(Optional.of(beforeServer));
 		}
+	}
+	
+	private String firstChartoLowerCase(String servername){
+		return servername.substring(0, 1).toLowerCase() + servername.substring(1, servername.length());
 	}
 
 }

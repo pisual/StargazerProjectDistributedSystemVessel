@@ -1,4 +1,4 @@
-package com.stargazerproject.service.baseinterface;
+package com.stargazerproject.service.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

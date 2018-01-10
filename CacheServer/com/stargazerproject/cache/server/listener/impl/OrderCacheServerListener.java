@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.Service.State;
-import com.stargazerproject.service.base.impl.StandardWorkInServiceState;
-import com.stargazerproject.service.baseinterface.WorkInServiceControl;
-import com.stargazerproject.service.baseinterface.WorkInServiceState;
+import com.stargazerproject.service.base.impl.StandardWorkInServiceListener;
 
 @Component(value="orderCacheServerListener")
 @Qualifier("orderCacheServerListener")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderCacheServerListener extends StandardWorkInServiceState implements WorkInServiceState, WorkInServiceControl{
+public class OrderCacheServerListener extends StandardWorkInServiceListener{
 	
 	/**
 	* @name 常规初始化构造
