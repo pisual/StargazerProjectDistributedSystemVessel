@@ -5,7 +5,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.stargazerproject.resources.Parameters;
+import com.stargazerproject.resources.annotation.Parameters;
 
 /** 
  *  @name uiParameters 核心参数列表

@@ -1,4 +1,4 @@
-package com.stargazerproject.resources;
+package com.stargazerproject.resources.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

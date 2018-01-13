@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.annotation.AnnotationsScanner;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.inject.AnnotationClassSequenceScanner;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.resources.Parameters;
+import com.stargazerproject.resources.annotation.Parameters;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /** 
@@ -32,8 +32,8 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	protected Cache<String, String> systemParameterCahceCharacteristic;
 	
 	@Autowired
-	@Qualifier("annotationClassSequenceScannerImpl")
-	private AnnotationClassSequenceScanner annotationClassSequenceScanner;
+	@Qualifier("annotationsImpl")
+	private AnnotationsScanner annotationsScanner;
 	
 	/** @illustrate 获取Log(日志)接口 **/
 	@Autowired
@@ -55,9 +55,9 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	* **/
 	public SystemParameterCahceShell(Optional<LogMethod> baseLogArg,
 			                         Optional<Cache<String, String>> systemParameterCahceCharacteristicArg,
-			                         Optional<AnnotationClassSequenceScanner> annotationClassSequenceScannerArg) {
+			                         Optional<AnnotationsScanner> annotationsScannerArg) {
 		baseLog = baseLogArg.get();
-		annotationClassSequenceScanner = annotationClassSequenceScannerArg.get();
+		annotationsScanner = annotationsScannerArg.get();
 		systemParameterCahceCharacteristic = systemParameterCahceCharacteristicArg.get();
 	}
 	
@@ -72,8 +72,8 @@ public class SystemParameterCahceShell implements BaseCharacteristic<Cache<Strin
 	 * **/
 	private void getParamentListFromAnnotation(){
 		try {
-			annotationClassSequenceScanner.sequenceClassName(Optional.of("com.stargazerproject"), Optional.of(Parameters.class))
-			                              .forEach(x -> getParamentListFromClass((BeanContainer.instance().getBean(Optional.of(x), Object.class))));;
+			annotationsScanner.acquireAppointAnnotationAttributeValue(Optional.of("com.stargazerproject"), Optional.of(Parameters.class), Optional.of("value")).get()
+			                  .forEach(x -> getParamentListFromClass((BeanContainer.instance().getBean(Optional.of(x), Object.class))));
 		} catch (ClassNotFoundException e) {
 			baseLog.ERROR(this, e.getMessage());
 		} catch (IOException e) {

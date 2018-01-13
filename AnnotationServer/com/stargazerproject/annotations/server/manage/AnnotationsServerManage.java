@@ -1,4 +1,4 @@
-package com.stargazerproject.messagequeue.server.manage;
+package com.stargazerproject.annotations.server.manage;
 
 import javax.annotation.PostConstruct;
 
@@ -14,27 +14,27 @@ import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
- *  @name orderMessageQueue服务集中托管
- *  @illustrate orderMessageQueue服务集中托管，继承于Guava的AbstractIdleService
+ *  @name StandardServerManage服务集中托管
+ *  @illustrate CellsGenerate服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="orderMessageQueueServerManage")
-@Qualifier("orderMessageQueueServerManage")
+@Component(value="annotationsServerManage")
+@Qualifier("annotationsServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="orderMessageQueueServerManage", order = 8)
-public class OrderMessageQueueServerManage extends AbstractIdleService{
+@Services(value="annotationsServerManage", order = 0)
+public class AnnotationsServerManage extends AbstractIdleService{
 	
-	/** @illustrate orderCacheServer的ServiceShell接口 **/
+	/** @illustrate standardSequenceServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("orderMessageQueueServer")
-	private StanderServiceShell orderMessageQueueServer;
+	@Qualifier("annotationsServer")
+	private StanderServiceShell standardSequenceServer;
 	
 	@Autowired
-	@Qualifier("orderMessageQueueServerListener")
+	@Qualifier("annotationsServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public OrderMessageQueueServerManage() {}
+	public AnnotationsServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct
@@ -45,13 +45,12 @@ public class OrderMessageQueueServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		orderMessageQueueServer.startUp();
+		standardSequenceServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		orderMessageQueueServer.shutDown();
+		standardSequenceServer.shutDown();
 	}
-
 }

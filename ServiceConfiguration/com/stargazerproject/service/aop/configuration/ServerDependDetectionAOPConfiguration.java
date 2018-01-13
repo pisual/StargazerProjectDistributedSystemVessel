@@ -3,8 +3,6 @@ package com.stargazerproject.service.aop.configuration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +19,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServerDepend;
 
@@ -61,9 +58,8 @@ public class ServerDependDetectionAOPConfiguration {
 	
 	/** @construction 初始化构造 **/
 	private ServerDependDetectionAOPConfiguration() {}
-	
-	@PostConstruct
-	private void initializationServerSequenceMap(){
+
+	public void initializationServerSequenceListMap(){
 		List<String> serverList = serviceParameterList.characteristic().get();
 		for(int i=1; i<=serverList.size(); i++){
 			String servername = serverList.get(i-1).replace("Manage", "");
@@ -83,7 +79,7 @@ public class ServerDependDetectionAOPConfiguration {
 		servername = firstChartoLowerCase(servername);
 		
 		while(dependOnDelay(Optional.of(servername)).get() == Boolean.FALSE){
-			TimeUnit.MICROSECONDS.sleep(100);
+			TimeUnit.SECONDS.sleep(1);
 		}
 		
 		proceedingJoinPoint.proceed();

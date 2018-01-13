@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.stargazerproject.cache.annotation.NeededInject;
-import com.stargazerproject.resources.Parameters;
+import com.stargazerproject.resources.annotation.Parameters;
 
 /** 
  *  @name queueParameters 核心参数列表

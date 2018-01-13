@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Annotation"/>
+	<classpathentry kind="src" path="AnnotationImpl"/>
+	<classpathentry kind="src" path="AnnotationConfiguration"/>
+	<classpathentry kind="src" path="AnnotationResources"/>
+	<classpathentry kind="src" path="AnnotationServer"/>
+	<classpathentry kind="src" path="AnnotationTest"/>
 	<classpathentry kind="src" path="Check"/>
 	<classpathentry kind="src" path="CheckImpl"/>
 	<classpathentry kind="src" path="CheckConfiguration"/>

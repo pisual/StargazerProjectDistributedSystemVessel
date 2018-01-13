@@ -31,13 +31,13 @@ public class ServiceControlCharacteristic implements ServiceControl, BaseCharact
 	
 	@Override
 	public Optional<ServiceControl> characteristic() {
-		List<String> serviceListArg = serviceParameterList.characteristic().get();
-		serviceManager = new ServiceManager(serviceListConvertToAbstractIdleServiceList(Optional.of(serviceListArg)).get());
 		return Optional.of(this);
 	}
 
 	@Override
 	public void startAllservice() {
+		List<String> serviceListArg = serviceParameterList.characteristic().get();
+		serviceManager = new ServiceManager(serviceListConvertToAbstractIdleServiceList(Optional.of(serviceListArg)).get());
 		serviceManager.startAsync().awaitHealthy();
 	}
 

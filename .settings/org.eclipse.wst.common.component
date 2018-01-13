@@ -129,6 +129,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ArithmeticTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Annotation"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationTest"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

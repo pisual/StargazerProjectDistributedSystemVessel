@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.annotation.Annotations;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.kernel.KernelGuide;
@@ -115,7 +116,13 @@ public class KernelGuideImpl implements KernelGuide{
 //	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public KernelGuide startKernelGuide() {
+		
+		/**预先加载**/
+		StanderCharacteristicShell<Annotations> annotationsImpl =  BeanContainer.instance().getBean(Optional.of("annotationsImpl"), StanderCharacteristicShell.class);
+		BaseCharacteristic<Annotations> annotationsShell = BeanContainer.instance().getBean(Optional.of("annotationsShell"), BaseCharacteristic.class);
+		annotationsImpl.initialize(annotationsShell.characteristic());
 		
 		BaseCharacteristic<Server> serverShell = BeanContainer.instance().getBean(Optional.of("serverShell"), BaseCharacteristic.class);
 		StanderCharacteristicShell<Server> server =  BeanContainer.instance().getBean(Optional.of("kernelService"), StanderCharacteristicShell.class);
@@ -124,8 +131,8 @@ public class KernelGuideImpl implements KernelGuide{
 		BaseCharacteristic<ServerInitialization> serverInitialization = BeanContainer.instance().getBean(Optional.of("serverInitializationCharacteristic"), BaseCharacteristic.class);
 		serverInitialization.characteristic().get().initializationFromAnnotationsScan();
 		
-	//	ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
-	//	serverDependDetectionAOPConfiguration.initializationServerSequenceMap();
+		ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
+		serverDependDetectionAOPConfiguration.initializationServerSequenceListMap();
 		
 		StanderCharacteristicShell<Log> logRecord =  BeanContainer.instance().getBean(Optional.of("logRecord"), StanderCharacteristicShell.class);
 		BaseCharacteristic<Log> logRecordShell = BeanContainer.instance().getBean(Optional.of("localLogShell"), BaseCharacteristic.class);

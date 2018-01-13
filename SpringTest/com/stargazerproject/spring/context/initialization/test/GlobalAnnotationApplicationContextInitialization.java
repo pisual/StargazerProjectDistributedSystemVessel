@@ -6,6 +6,12 @@ import org.springframework.context.annotation.PropertySource;
 import com.stargazer.segmentation.impl.EventBusExecuteImpl;
 import com.stargazer.segmentation.impl.EventExecuteImpl;
 import com.stargazer.segmentation.impl.EventSegmentation;
+import com.stargazerproject.annotation.impl.AnnotationsImpl;
+import com.stargazerproject.annotation.resources.AnnotationsScannerResourcesCharacteristic;
+import com.stargazerproject.annotation.resources.shell.AnnotationsShell;
+import com.stargazerproject.annotations.server.impl.AnnotationsServer;
+import com.stargazerproject.annotations.server.listener.impl.AnnotationsServerListener;
+import com.stargazerproject.annotations.server.manage.AnnotationsServerManage;
 import com.stargazerproject.bus.impl.EventBus;
 import com.stargazerproject.bus.resources.EventBusBlockMethodCharacteristic;
 import com.stargazerproject.bus.resources.EventBusNoBlockMethodCharacteristic;
@@ -49,8 +55,6 @@ import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
-import com.stargazerproject.inject.impl.AnnotationClassSequenceScannerImpl;
-import com.stargazerproject.inject.impl.AnnotationScannerImpl;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
@@ -332,9 +336,13 @@ public class GlobalAnnotationApplicationContextInitialization {
 //		RegisterSequenceBeanModel.class,
 //		SequenceResourcesShell.class,
 		
-		/**Depend AnnotationScannerImpl*/
-		AnnotationScannerImpl.class,
-		AnnotationClassSequenceScannerImpl.class,
+		/**Depend AnnotationImpl*/
+		AnnotationsImpl.class,
+		AnnotationsScannerResourcesCharacteristic.class,
+		AnnotationsShell.class,
+		AnnotationsServer.class,
+		AnnotationsServerListener.class,
+		AnnotationsServerManage.class,
 		
 		/**Depend Bus**/
 		EventBus.class,
