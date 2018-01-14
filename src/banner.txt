@@ -8,5 +8,5 @@
          \/           \/     /_____/     \/      \/    \/                             \______|    \/     \/      
                                                 StargazerProject 观星者计划
                                                 https://github.com/pisual
-                                                   Distributed System
+                                                      Cloud System
 Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}

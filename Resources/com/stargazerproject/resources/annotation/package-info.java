@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.resources;
+package com.stargazerproject.resources.annotation;

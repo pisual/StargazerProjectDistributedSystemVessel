@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Inject"/>
+	<classpathentry kind="src" path="InjectImpl"/>
+	<classpathentry kind="src" path="InjectConfiguration"/>
+	<classpathentry kind="src" path="InjectResources"/>
+	<classpathentry kind="src" path="InjectServer"/>
+	<classpathentry kind="src" path="InjectTest"/>
 	<classpathentry kind="src" path="Annotation"/>
 	<classpathentry kind="src" path="AnnotationImpl"/>
 	<classpathentry kind="src" path="AnnotationConfiguration"/>
@@ -96,12 +102,6 @@
 	<classpathentry kind="src" path="QueueResources"/>
 	<classpathentry kind="src" path="QueueServer"/>
 	<classpathentry kind="src" path="QueueTest"/>
-	<classpathentry kind="src" path="Inject"/>
-	<classpathentry kind="src" path="InjectImpl"/>
-	<classpathentry kind="src" path="InjectConfiguration"/>
-	<classpathentry kind="src" path="InjectResources"/>
-	<classpathentry kind="src" path="InjectServer"/>
-	<classpathentry kind="src" path="InjectTest"/>
 	<classpathentry kind="src" path="Information"/>
 	<classpathentry kind="src" path="InformationImpl"/>
 	<classpathentry kind="src" path="InformationConfiguration"/>
