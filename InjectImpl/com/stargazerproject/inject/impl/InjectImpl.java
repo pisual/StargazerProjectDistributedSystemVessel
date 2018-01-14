@@ -29,7 +29,7 @@ public class InjectImpl implements Inject, StanderCharacteristicShell<Inject>{
 	}
 
 	@Override
-	public Optional<List<Class<?>>> searchAppointAnnotation(Optional<String> packagesArg, Optional<Class<? extends Annotation>> annotationArg){
+	public Optional<List<Class<?>>> searchAppointAnnotation(Optional<String> packagesArg, Optional<Class<? extends Annotation>> annotationArg)  throws ClassNotFoundException, IOException {
 		return inject.searchAppointAnnotation(packagesArg, annotationArg);
 	}
 

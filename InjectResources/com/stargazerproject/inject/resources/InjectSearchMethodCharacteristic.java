@@ -8,15 +8,20 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Multimap;
+import com.stargazerproject.annotation.AnnotationsScanner;
 import com.stargazerproject.inject.InjectSearchMethod;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
@@ -24,6 +29,10 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Qualifier("injectSearchMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class InjectSearchMethodCharacteristic implements InjectSearchMethod, BaseCharacteristic<InjectSearchMethod>{
+	
+	@Autowired
+	@Qualifier("annotationsImpl")
+	private AnnotationsScanner annotationsScanner;
 	
 	public InjectSearchMethodCharacteristic() {}
 	
@@ -42,8 +51,10 @@ public class InjectSearchMethodCharacteristic implements InjectSearchMethod, Bas
 	}
 
 	@Override
-	public Optional<List<Class<?>>> searchAppointAnnotation(Optional<String> packagesArg, Optional<Class<? extends Annotation>> annotationArg) {
-		return null;
+	public Optional<List<Class<?>>> searchAppointAnnotation(Optional<String> packagesArg, Optional<Class<? extends Annotation>> annotationArg) throws ClassNotFoundException, IOException {
+		Multimap<Class<?>, Map.Entry<String, List<Object>>> classMap =  annotationsScanner.scannerAnnotation(packagesArg, annotationArg).get();
+		List<Class<?>> classList = classMap.keys().stream().collect(Collectors.toList());
+		return Optional.of(classList);
 	}
 	
 	private Optional<URL> fileUrl(Optional<String> absolutePath) throws MalformedURLException{
