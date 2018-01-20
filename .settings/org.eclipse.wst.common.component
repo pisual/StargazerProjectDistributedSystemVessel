@@ -135,6 +135,18 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnnotationTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Analysis"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnalysisImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnalysisConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnalysisResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnalysisServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/AnalysisTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Serializable"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableTest"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

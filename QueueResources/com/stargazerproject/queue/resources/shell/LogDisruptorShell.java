@@ -15,7 +15,7 @@ import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.model.LogData;
 import com.stargazerproject.queue.Queue;
@@ -38,11 +38,11 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEvent> implements BaseCharacteristic<Queue<LogData>>{
 	
 	/** @name 接收Log队列的缓存数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Receive_Log_Size_of_bufferSize;
 	
 	/** @name 接收Log队列的消费者数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Receive_Log_Number_of_consumers;
 	
 	@Autowired

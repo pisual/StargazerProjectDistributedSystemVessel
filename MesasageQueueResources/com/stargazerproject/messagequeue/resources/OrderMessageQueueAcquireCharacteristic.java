@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.order.impl.Order;
@@ -26,35 +26,35 @@ import com.stargazerproject.order.impl.Order;
 public class OrderMessageQueueAcquireCharacteristic implements MessageQueueAcquire<Order>, BaseCharacteristic<MessageQueueAcquire<Order>>{
 
 	/** @illustrate 消息队列集群地址 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KafkaBinderBrokers;
 	
 	/** @illustrate 系统ID  **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_System_CellsID;
 	
 	/** @illustrate ENABLE_AUTO_COMMIT_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_ENABLE_AUTO_COMMIT_CONFIG;
 	
 	/** @illustrate AUTO_COMMIT_INTERVAL_MS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_AUTO_COMMIT_INTERVAL_MS_CONFIG;
 	
 	/** @illustrate SESSION_TIMEOUT_MS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_SESSION_TIMEOUT_MS_CONFIG;
 	
 	/** @illustrate MAX_POLL_RECORDS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_MAX_POLL_RECORDS_CONFIG;
 	
 	/** @illustrate KEY_DESERIALIZER_CLASS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KEY_DESERIALIZER_CLASS_CONFIG;
 	
 	/** @illustrate VALUE_DESERIALIZER_CLASS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_VALUE_DESERIALIZER_CLASS_CONFIG;
 	
 	private KafkaConsumer<String, Order> consumer;

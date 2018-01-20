@@ -12,7 +12,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.stargazerproject.cache.BigCache;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.cell.CellsBlockMethod;
 import com.stargazerproject.cell.CellsTransaction;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
@@ -25,11 +25,11 @@ import com.stargazerproject.negotiate.Negotiate;
 public class AcquireParameterBlockModel implements CellsTransaction<String, String>, CellsBlockMethod{
 	
 	/** @name 聚合根ID **/
-	@NeededInject(type="OrderCache")
+	@NeedInject(type="OrderCache")
 	private static String OrderID;
 	
 	/** @name 聚合根ID **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_BasePath_EdenNodePath;
 	
 	/** @illustrate 获取Log(日志)接口 **/

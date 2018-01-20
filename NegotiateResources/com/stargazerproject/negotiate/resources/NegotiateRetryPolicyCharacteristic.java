@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="negotiateRetryPolicyCharacteristic")
@@ -17,11 +17,11 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 public class NegotiateRetryPolicyCharacteristic implements BaseCharacteristic<RetryPolicy>{
 	
 	/**@illustrate 重新连接策略尝试数目**/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Connection_RetryPolicySleepTime;
 	
 	/**@illustrate 重新连接策略尝试次数**/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Connection_RetryConnectTime;
 	
 	private RetryPolicy retryPolicy;

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.log.LogMethod;
 
 /** 
@@ -63,10 +63,10 @@ public class ParametersInjectAOPConfiguration {
 			Object object = proceedingJoinPoint.getTarget();
 			Field[] field = object.getClass().getDeclaredFields();
 			for(int i = 0 ; i < field.length; i++){
-		    	   if(field[i].isAnnotationPresent(NeededInject.class)){
+		    	   if(field[i].isAnnotationPresent(NeedInject.class)){
 		    		   field[i].setAccessible(true);
 		    		   try {
-		    				NeededInject neededInject = field[i].getAnnotation(NeededInject.class);
+		    				NeedInject neededInject = field[i].getAnnotation(NeedInject.class);
 		    				switch (neededInject.type()) {
 							case "SystemParametersCache":
 //								System.out.println("注入 " + field[i].getName() + " : " + cache.get(Optional.of(field[i].getName())).get());

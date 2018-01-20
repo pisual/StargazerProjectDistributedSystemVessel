@@ -3,9 +3,9 @@ package com.stargazerproject.spring.context.initialization.test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
-import com.stargazer.segmentation.impl.EventBusExecuteImpl;
-import com.stargazer.segmentation.impl.EventExecuteImpl;
 import com.stargazer.segmentation.impl.EventSegmentation;
+import com.stargazerproject.analysis.impl.EventAnalysisImpl;
+import com.stargazerproject.analysis.impl.EventBusAnalysisImpl;
 import com.stargazerproject.annotation.impl.AnnotationsImpl;
 import com.stargazerproject.annotation.resources.AnnotationsScannerResourcesCharacteristic;
 import com.stargazerproject.annotation.resources.shell.AnnotationsShell;
@@ -55,6 +55,13 @@ import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
+import com.stargazerproject.inject.impl.InjectImpl;
+import com.stargazerproject.inject.resources.InjectClassMethodCharacteristic;
+import com.stargazerproject.inject.resources.InjectSearchMethodCharacteristic;
+import com.stargazerproject.inject.resources.shell.InjectShell;
+import com.stargazerproject.inject.server.impl.InjectServer;
+import com.stargazerproject.inject.server.listener.impl.InjectServerListener;
+import com.stargazerproject.inject.server.manage.InjectServerManage;
 import com.stargazerproject.log.configuration.GroupLogConfiguration;
 import com.stargazerproject.messagequeue.impl.OrderMessageQueue;
 import com.stargazerproject.messagequeue.resources.OrderMessageQueueAcquireCharacteristic;
@@ -290,8 +297,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		GroupServiceConfiguration.class,
 		
 		EventSegmentation.class,
-		EventExecuteImpl.class,
-		EventBusExecuteImpl.class,
+		EventAnalysisImpl.class,
+		EventBusAnalysisImpl.class,
 		
 //		StandardCellsTransactionImpl.class,
 //		HystrixConfigurationS.class,
@@ -351,7 +358,16 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventBusResourcesShell.class,
 		EventBusServer.class,
 		EventBusServerListener.class,
-		EventBusServerManage.class
+		EventBusServerManage.class,
+		
+		/**Depend Inject**/
+		InjectImpl.class,
+		InjectClassMethodCharacteristic.class,
+		InjectSearchMethodCharacteristic.class,
+		InjectShell.class,
+		InjectServer.class,
+		InjectServerListener.class,
+		InjectServerManage.class
 
 		);
 	} 

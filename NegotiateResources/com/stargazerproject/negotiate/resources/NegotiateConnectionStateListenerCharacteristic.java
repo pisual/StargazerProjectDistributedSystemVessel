@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="negotiateConnectionStateListenerCharacteristic")
@@ -16,7 +16,7 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 public class NegotiateConnectionStateListenerCharacteristic implements ConnectionStateListener, BaseCharacteristic<ConnectionStateListener>{
 	
 	/**@illustrate 重新连接策略尝试数目**/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Connection_RetryConnectTime;
 	
 	/**

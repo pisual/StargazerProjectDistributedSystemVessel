@@ -18,7 +18,7 @@ import com.lmax.disruptor.PhasedBackoffWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.Queue;
@@ -33,11 +33,11 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEvent> implements BaseCharacteristic<Queue<Event>>{
 	
 	/** @name 接收Event队列的缓存数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Receive_Event_Size_of_bufferSize;
 	
 	/** @name 接收Event队列的消费者数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Receive_Event_Number_of_consumers;
 	
 	@Autowired

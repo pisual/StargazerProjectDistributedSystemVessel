@@ -2,7 +2,7 @@ package com.stargazerproject.order.impl;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazer.segmentation.EventExecute;
+import com.stargazerproject.analysis.EventAnalysis;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.order.Result;
 
@@ -32,11 +32,11 @@ public class Event extends ID{
 	}
 
 	/** @illustrate  开始执行事件 **/
-	public void startEvent(Optional<EventExecute> execute) {
+	public void startEvent(Optional<EventAnalysis> eventAnalysis) {
 		result = new ResultVoid();
-		if(execute.get().executeEvent(Optional.of(parameter)))
-		   {result.Complete();}
-		result.Complete();
+		if(eventAnalysis.get().analysis(Optional.of(parameter)).get()){
+			result.Complete();
+			}
 	}
 	
 	/** @illustrate  跳过此事件 并将指令置于未完成的状态**/

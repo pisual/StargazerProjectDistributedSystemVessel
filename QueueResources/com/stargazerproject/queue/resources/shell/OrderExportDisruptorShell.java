@@ -18,7 +18,7 @@ import com.lmax.disruptor.PhasedBackoffWaitStrategy;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
@@ -33,11 +33,11 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderExportEvent> implements BaseCharacteristic<Queue<Order>>{
 	
 	/** @name Order Export队列的缓存数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Order_Export_Size_of_bufferSize;
 	
 	/** @name Order Export队列的消费者数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Order_Export_Number_of_consumers;
 	
 	@Autowired

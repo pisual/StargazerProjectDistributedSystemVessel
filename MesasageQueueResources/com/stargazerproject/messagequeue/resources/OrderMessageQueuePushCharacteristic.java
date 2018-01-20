@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueuePush;
 import com.stargazerproject.order.impl.Order;
@@ -26,19 +26,19 @@ import com.stargazerproject.order.impl.Order;
 public class OrderMessageQueuePushCharacteristic implements MessageQueuePush<Order>, BaseCharacteristic<MessageQueuePush<Order>>{
 	
 	/** @illustrate 系统ID  **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_System_CellsID;
 	
 	/** @illustrate 消息队列集群地址 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KafkaBinderBrokers;
 	
 	/** @illustrate KEY_SERIALIZER_CLASS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KEY_SERIALIZER_CLASS_CONFIG;
 	
 	/** @illustrate VALUE_SERIALIZER_CLASS_CONFIG **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_VALUE_SERIALIZER_CLASS_CONFIG;
 	
 	@Autowired

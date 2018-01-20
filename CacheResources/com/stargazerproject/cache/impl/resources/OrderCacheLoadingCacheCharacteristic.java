@@ -14,7 +14,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.order.impl.Order;
 
@@ -24,23 +24,23 @@ import com.stargazerproject.order.impl.Order;
 public class OrderCacheLoadingCacheCharacteristic implements BaseCharacteristic<LoadingCache<String,Order>>{
 	
 	/** @name 缓存最大数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_MaxSize;
 	
 	/** @name 缓存初始化数目 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_InitialSize;
 	
 	/** @name 缓存并行级别 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel;
 	
 	/** @name 缓存非读销毁时间 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterReadTime;
 	
 	/** @name 缓存非写销毁时间 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime;
 	
 	/**

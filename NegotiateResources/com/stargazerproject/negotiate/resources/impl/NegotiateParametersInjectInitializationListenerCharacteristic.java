@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
@@ -30,7 +30,7 @@ import com.stargazerproject.util.SerializableUtil;
 public class NegotiateParametersInjectInitializationListenerCharacteristic implements BaseCharacteristic<TreeCacheListener>{
 	
 	/** @name 建组区路径 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_BasePath_ZoneNodePath;
 	
 	@Autowired

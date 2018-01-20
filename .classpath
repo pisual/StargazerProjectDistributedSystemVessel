@@ -6,6 +6,24 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Serializable"/>
+	<classpathentry kind="src" path="SerializableImpl"/>
+	<classpathentry kind="src" path="SerializableConfiguration"/>
+	<classpathentry kind="src" path="SerializableResources"/>
+	<classpathentry kind="src" path="SerializableServer"/>
+	<classpathentry kind="src" path="SerializableTest"/>
+	<classpathentry kind="src" path="Analysis"/>
+	<classpathentry kind="src" path="AnalysisImpl"/>
+	<classpathentry kind="src" path="AnalysisConfiguration"/>
+	<classpathentry kind="src" path="AnalysisResources"/>
+	<classpathentry kind="src" path="AnalysisServer"/>
+	<classpathentry kind="src" path="AnalysisTest"/>
+	<classpathentry kind="src" path="Information"/>
+	<classpathentry kind="src" path="InformationImpl"/>
+	<classpathentry kind="src" path="InformationConfiguration"/>
+	<classpathentry kind="src" path="InformationResources"/>
+	<classpathentry kind="src" path="InformationServer"/>
+	<classpathentry kind="src" path="InformationTest"/>
 	<classpathentry kind="src" path="Inject"/>
 	<classpathentry kind="src" path="InjectImpl"/>
 	<classpathentry kind="src" path="InjectConfiguration"/>
@@ -102,12 +120,6 @@
 	<classpathentry kind="src" path="QueueResources"/>
 	<classpathentry kind="src" path="QueueServer"/>
 	<classpathentry kind="src" path="QueueTest"/>
-	<classpathentry kind="src" path="Information"/>
-	<classpathentry kind="src" path="InformationImpl"/>
-	<classpathentry kind="src" path="InformationConfiguration"/>
-	<classpathentry kind="src" path="InformationResources"/>
-	<classpathentry kind="src" path="InformationServer"/>
-	<classpathentry kind="src" path="InformationTest"/>
 	<classpathentry kind="src" path="Resources"/>
 	<classpathentry kind="src" path="ResourcesImpl"/>
 	<classpathentry kind="src" path="ResourcesConfiguration"/>

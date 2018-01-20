@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazer.segmentation.EventExecute;
+import com.stargazerproject.analysis.EventAnalysis;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.queue.QueueConsumer;
 
@@ -18,7 +18,7 @@ public class EventConsumer implements QueueConsumer<Event>{
 
 	@Autowired
 	@Qualifier("eventExecute")
-	private EventExecute execute;
+	private EventAnalysis execute;
 
 	/**
 	* @name Springs使用的初始化构造
@@ -32,7 +32,7 @@ public class EventConsumer implements QueueConsumer<Event>{
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public EventConsumer(Optional<EventExecute> executeArg) {
+	public EventConsumer(Optional<EventAnalysis> executeArg) {
 		execute = executeArg.get();
 	}
 	@Override

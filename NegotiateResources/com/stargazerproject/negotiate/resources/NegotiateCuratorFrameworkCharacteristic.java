@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="negotiateCuratorFrameworkCharacteristic")
@@ -20,7 +20,7 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 public class NegotiateCuratorFrameworkCharacteristic implements BaseCharacteristic<CuratorFramework>{
 	
 	/** @name Zookeeper主机 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Connection_Host;
 	
 	@Autowired

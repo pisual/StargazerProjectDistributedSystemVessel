@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
-import com.stargazer.segmentation.EventExecute;
+import com.stargazerproject.analysis.EventAnalysis;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.queue.model.EventQueueEvent;
 
@@ -37,7 +37,7 @@ public class EventHandler extends EventConsumer implements WorkHandler<EventQueu
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public EventHandler(Optional<EventExecute> executeArg) {
+	public EventHandler(Optional<EventAnalysis> executeArg) {
 		super(executeArg);
 	}
 

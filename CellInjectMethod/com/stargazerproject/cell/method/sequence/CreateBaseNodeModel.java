@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.cell.CellsTransaction;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.negotiate.Negotiate;
@@ -26,15 +26,15 @@ import com.stargazerproject.negotiate.Negotiate;
 public class CreateBaseNodeModel implements CellsTransaction<String, String>{
 	
 	/** @name 根路径 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_BasePath_RootPath;
 	
 	/** @name 新生区路径 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_BasePath_EdenNodePath;
 	
 	/** @name 建组区路径 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_BasePath_ZoneNodePath;
 	
 	/** @illustrate 获取Log(日志)接口 **/

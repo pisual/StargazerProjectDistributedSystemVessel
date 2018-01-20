@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.negotiate.NegotiateNodeMethod;
 
@@ -25,7 +25,7 @@ import com.stargazerproject.negotiate.NegotiateNodeMethod;
 public class NegotiateNodeMethodCharacteristic implements NegotiateNodeMethod, BaseCharacteristic<NegotiateNodeMethod>{
 
 	/** @name 创建锁的超时时间 **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Negotiate_Mode_Lock_CreatLockOutTime;
 	
 	@Autowired

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeededInject;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.order.impl.Order;
@@ -26,11 +26,11 @@ import kafka.utils.ZkUtils;
 public class OrderMessageQueueControlCharacteristic implements MessageQueueControl<Order>, BaseCharacteristic<MessageQueueControl<Order>>{
 	
 	/** @illustrate Kernel_Queue_OrderMessage_KafkaZookeeperBrokers **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Queue_OrderMessage_KafkaZookeeperBrokers;
 	
 	/** @illustrate 系统ID  **/
-	@NeededInject(type="SystemParametersCache")
+	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_System_CellsID;
 	
 	@Autowired
