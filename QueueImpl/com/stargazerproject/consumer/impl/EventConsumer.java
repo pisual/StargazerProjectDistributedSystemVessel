@@ -17,7 +17,7 @@ import com.stargazerproject.queue.QueueConsumer;
 public class EventConsumer implements QueueConsumer<Event>{
 
 	@Autowired
-	@Qualifier("eventExecute")
+	@Qualifier("eventAnalysisImpl")
 	private EventAnalysis execute;
 
 	/**

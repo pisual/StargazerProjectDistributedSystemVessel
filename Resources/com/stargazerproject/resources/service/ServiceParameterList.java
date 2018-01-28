@@ -74,7 +74,7 @@ public class ServiceParameterList implements BaseCharacteristic<List<String>>{
 		}
 		
 		if(null != transferServerMap.get(order.get())){
-			throw new IllegalArgumentException("The Service list duplication : 服务列表重复");
+			throw new IllegalArgumentException("The Service list duplication : 服务列表重复 : " + servername.get() + " 与 " + transferServerMap.get(order.get()) + "重复");
 		}
 		
 		if(order.get().equals(0)){
@@ -88,6 +88,17 @@ public class ServiceParameterList implements BaseCharacteristic<List<String>>{
 	private void serviceListSort(){
 		for(int i=1 ; i<transferServerMap.size();i++){
 			if(null == transferServerMap.get(i)){
+				System.err.println("服务模块诊断 : ");
+				for(int j=1 ; j<transferServerMap.size();j++){
+					
+					if(null == transferServerMap.get(j)){
+						System.err.println(" ServerNumber " + j + " : Null ");
+					}
+					else{
+						System.out.println("SercereSequence : " + j + " : " +transferServerMap.get(j));
+					}
+					
+				}
 				throw new IllegalArgumentException("The service list is discontinuous : 服务列表不连续");
 			}
 			sequenceServiceList.add(transferServerMap.get(i));

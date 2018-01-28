@@ -24,30 +24,39 @@ public class QueueParameters {
 	
 	    //Event队列 Start
 		/** @illustrate order Export 队列消费者数目 **/
-		private static final String Order_Export_Number_of_consumers = "1";
+		private static final String Kernel_Queue_OrderExportQueue_Consumer_NumberOfConsumers = "1";
 		/** @illustrate orderExport 队列缓存 **/
-		private static final String Order_Export_Size_of_bufferSize = "65536";
+		private static final String Kernel_Queue_OrderExportQueue_Memory_BufferSize = "65536";
+		//Event队列 End
+		
+	    //TransmissionQueue队列 Start
+		/** @illustrate 接收Event队列消费者数目 **/
+		public static final String Kernel_Queue_TransmissionQueue_Consumer_NumberOfConsumers = "1";
+		/** @illustrate 接收Event队列缓存 **/
+		private static final String Kernel_Queue_TransmissionQueue_Memory_BufferSize = "65536";
+		/** @illustrate 低速队列的寻轮时间 **/
+		private static final String Kernel_Queue_TransmissionQueue_Strategy_SearchIntervalTime = "10000000000";
+		//TransmissionQueue队列 End
+		
+		//Event队列 Start
+		/** @illustrate 接收Event队列消费者数目 **/
+		public static final String Kernel_Queue_ReceiveEventQueue_Consumer_NumberOfConsumers = "4";
+		/** @illustrate 接收Event队列缓存 **/
+		private static final String Kernel_Queue_ReceiveEventQueue_Memory_BufferSize = "65536";
 		//Event队列 End
 		
 		//Event队列 Start
 		/** @illustrate 接收Event队列消费者数目 **/
-		public static final String Receive_Event_Number_of_consumers = "4";
+		public static final String Kernel_Queue_ReceiveEventBusQueue_Consumer_NumberOfConsumers = "4";
 		/** @illustrate 接收Event队列缓存 **/
-		private static final String Receive_Event_Size_of_bufferSize = "65536";
-		//Event队列 End
-		
-		//Event队列 Start
-		/** @illustrate 接收Event队列消费者数目 **/
-		public static final String Receive_Event_Bus_Number_of_consumers = "4";
-		/** @illustrate 接收Event队列缓存 **/
-		private static final String Receive_Event_Bus_Size_of_bufferSize = "65536";
+		private static final String Kernel_Queue_ReceiveEventBusQueue_Memory_BufferSize = "65536";
 		//Event队列 End
 		
 		//系统核心日志队列配置 Start
 		/** @illustrate 系统核心日志队列消费者数目 **/
-		private static final String Receive_Log_Number_of_consumers = "1";
+		private static final String Kernel_Queue_ReceiveLogQueue_Consumer_NumberOfConsumers= "1";
 		/** @illustrate 系统核心日志队列缓存 **/
-		private static final String Receive_Log_Size_of_bufferSize = "65536";
+		private static final String Kernel_Queue_ReceiveLogQueue_Memory_BufferSize = "65536";
 		//系统核心日志队列配置 End
 		
 		//Kafka消息队列配置 Start

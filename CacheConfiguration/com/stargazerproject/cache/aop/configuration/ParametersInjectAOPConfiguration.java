@@ -88,7 +88,8 @@ public class ParametersInjectAOPConfiguration {
 			
 			return proceedingJoinPoint.proceed();
 		} catch (Throwable throwable) {
-			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
+			System.out.println(proceedingJoinPoint.getThis() + throwable.getMessage());
+//			baseLog.ERROR(proceedingJoinPoint.getThis(), throwable.getMessage());
 			throw throwable;
 		}
 	}

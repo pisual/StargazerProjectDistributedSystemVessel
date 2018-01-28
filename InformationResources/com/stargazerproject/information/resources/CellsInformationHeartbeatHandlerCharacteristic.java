@@ -34,13 +34,15 @@ public class CellsInformationHeartbeatHandlerCharacteristic extends SimpleChanne
             
             if (event.state() == IdleState.READER_IDLE) {
             	Response response = new Response(Optional.of(ResponseType.PING));
-            	channelHandlerContext.writeAndFlush(response);
+            	channelHandlerContext.write(response);
+			channelHandlerContext.fireChannelReadComplete();
             	log.INFO(this, "Cells Information : No data is read in the specified time, and the heartbeat data will be tried to keep the connection : 在指定时间内没有读取数据,将尝试发送心跳数据保持连接");
             } 
             
             else if (event.state() == IdleState.WRITER_IDLE) {
             	Response response = new Response(Optional.of(ResponseType.PING));
-            	channelHandlerContext.writeAndFlush(response);
+            	channelHandlerContext.write(response);
+			channelHandlerContext.fireChannelReadComplete();
             	log.INFO(this, "Cells Information : No data is written in the specified time, and the heartbeat data is attempted to keep the connection : 在指定时间内没有写入数据,将尝试发送心跳数据保持连接");
             } 
             
@@ -59,26 +61,23 @@ public class CellsInformationHeartbeatHandlerCharacteristic extends SimpleChanne
 			case PING:
 				log.INFO(object, "CellsInformation : Received PING request，response REPING : 收到Ping请求，即将回应REPING");
 				Response responseReplays = new Response(Optional.of(ResponseType.REPING));
-				channelHandlerContext.writeAndFlush(responseReplays);
+				channelHandlerContext.write(responseReplays);
 				channelHandlerContext.fireChannelReadComplete();
 				break;
 			case REPING:
 				log.INFO(object, "CellsInformation : Receive a response : 收到回应");
 				channelHandlerContext.fireChannelReadComplete();
 				break;
-			case REGISTERED:
-				log.INFO(object, "CellsInformation : Upon receipt of the registration request, the next processing link will be transferred : 收到注册请求，将移交下一处理环节");
-				channelHandlerContext.fireChannelRead(object);
-				break;
-			case REGISTERED_SUCCESS:
-				log.INFO(object, "CellsInformation : Upon receipt of the registration Success request, the next processing link will be transferred : 收到注册成功回应，将移交下一处理环节");
-				channelHandlerContext.fireChannelRead(object);
-				break;
 			default:
 				channelHandlerContext.fireChannelRead(object);
 				break;
 				}
 			}
+		
+		else{
+			channelHandlerContext.fireChannelRead(object);
+		}
+		
 		}
     
 }

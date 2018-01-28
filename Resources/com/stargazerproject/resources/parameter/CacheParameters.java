@@ -27,7 +27,7 @@ public class CacheParameters {
 	/** @illustrate 拆分Order缓存最大数目 **/
 	private static final String Parameters_Module_Kernel_Cache_OrderCache_MaxSize = "65537";
 	/** @illustrate 拆分Order缓存 并行级别数目 **/
-	private static final String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel = QueueParameters.Receive_Event_Number_of_consumers;
+	private static final String Parameters_Module_Kernel_Cache_OrderCache_ConcurrencyLevel = QueueParameters.Kernel_Queue_ReceiveEventQueue_Consumer_NumberOfConsumers;
 	/** @illustrate 拆分Order缓存 非写销毁时间 **/
 	private static final String Parameters_Module_Kernel_Cache_OrderCache_ExpireAfterWriteTime = "6553";
 	/** @illustrate 拆分Order缓存 非读销毁时间 **/

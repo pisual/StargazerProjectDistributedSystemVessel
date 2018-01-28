@@ -34,11 +34,11 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	
 	/** @name Order Export队列的缓存数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Order_Export_Size_of_bufferSize;
+	private static String Kernel_Queue_OrderExportQueue_Memory_BufferSize;
 	
 	/** @name Order Export队列的消费者数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Order_Export_Number_of_consumers;
+	private static String Kernel_Queue_OrderExportQueue_Consumer_NumberOfConsumers;
 	
 	@Autowired
 	@Qualifier("orderExportEventFactory")
@@ -91,13 +91,13 @@ public class OrderExportDisruptorShell extends BaseQueueRingBuffer<Order, OrderE
 	}
 	
 	private void disruptorInitialization(){
-		disruptor = new Disruptor<OrderExportEvent>(orderExportEventFactory, getIntegerParameter(Order_Export_Size_of_bufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
+		disruptor = new Disruptor<OrderExportEvent>(orderExportEventFactory, getIntegerParameter(Kernel_Queue_OrderExportQueue_Memory_BufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanOrderExportHandler);
 	}
 	
 	private void handleEvents(){
-		handler = new OrderExportHandler[getIntegerParameter(Order_Export_Number_of_consumers)];
-		for(int i=0; i<getIntegerParameter(Order_Export_Number_of_consumers); i++){
+		handler = new OrderExportHandler[getIntegerParameter(Kernel_Queue_OrderExportQueue_Consumer_NumberOfConsumers)];
+		for(int i=0; i<getIntegerParameter(Kernel_Queue_OrderExportQueue_Consumer_NumberOfConsumers); i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("orderExportHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
 	}

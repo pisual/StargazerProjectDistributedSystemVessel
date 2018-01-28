@@ -6,6 +6,8 @@ import org.springframework.context.annotation.PropertySource;
 import com.stargazer.segmentation.impl.EventSegmentation;
 import com.stargazerproject.analysis.impl.EventAnalysisImpl;
 import com.stargazerproject.analysis.impl.EventBusAnalysisImpl;
+import com.stargazerproject.analysis.impl.LogAnalysisImpl;
+import com.stargazerproject.analysis.impl.TransmissionAnalysisImpl;
 import com.stargazerproject.annotation.impl.AnnotationsImpl;
 import com.stargazerproject.annotation.resources.AnnotationsScannerResourcesCharacteristic;
 import com.stargazerproject.annotation.resources.shell.AnnotationsShell;
@@ -55,6 +57,7 @@ import com.stargazerproject.cache.server.manage.OrderCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
+import com.stargazerproject.consumer.impl.TransmissionConsumer;
 import com.stargazerproject.inject.impl.InjectImpl;
 import com.stargazerproject.inject.resources.InjectClassMethodCharacteristic;
 import com.stargazerproject.inject.resources.InjectSearchMethodCharacteristic;
@@ -93,9 +96,11 @@ import com.stargazerproject.queue.impl.EventBusQueue;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.OrderExportQueue;
+import com.stargazerproject.queue.impl.TransmissionQueue;
 import com.stargazerproject.queue.resources.impl.CleanEventHandler;
 import com.stargazerproject.queue.resources.impl.CleanLogHandler;
 import com.stargazerproject.queue.resources.impl.CleanOrderExportHandler;
+import com.stargazerproject.queue.resources.impl.CleanTransmissionEventHandler;
 import com.stargazerproject.queue.resources.impl.EventBusHandler;
 import com.stargazerproject.queue.resources.impl.EventFactory;
 import com.stargazerproject.queue.resources.impl.EventHandler;
@@ -107,23 +112,31 @@ import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
 import com.stargazerproject.queue.resources.impl.OrderExportEventFactory;
 import com.stargazerproject.queue.resources.impl.OrderExportHandler;
 import com.stargazerproject.queue.resources.impl.OrderExportThreadFactory;
+import com.stargazerproject.queue.resources.impl.TransmissionEventFactory;
+import com.stargazerproject.queue.resources.impl.TransmissionQueueHandler;
+import com.stargazerproject.queue.resources.impl.TransmissionQueueThreadFactory;
 import com.stargazerproject.queue.resources.shell.EventBusDisruptorShell;
 import com.stargazerproject.queue.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.resources.shell.LogDisruptorShell;
 import com.stargazerproject.queue.resources.shell.OrderExportDisruptorShell;
+import com.stargazerproject.queue.resources.shell.TransmissionDisruptorShell;
 import com.stargazerproject.queue.server.impl.EventBusQueueServer;
 import com.stargazerproject.queue.server.impl.EventQueueServer;
 import com.stargazerproject.queue.server.impl.LogQueueServer;
 import com.stargazerproject.queue.server.impl.OrderExportQueueServer;
+import com.stargazerproject.queue.server.impl.TransmissionQueueServer;
 import com.stargazerproject.queue.server.listener.impl.EventBusQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.OrderExportQueueServerListener;
+import com.stargazerproject.queue.server.listener.impl.TransmissionQueueServerListener;
 import com.stargazerproject.queue.server.manage.EventBusQueueServerManage;
 import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.queue.server.manage.OrderExportQueueServerManage;
+import com.stargazerproject.queue.server.manage.TransmissionQueueServerManage;
 import com.stargazerproject.resources.parameter.CacheParameters;
+import com.stargazerproject.resources.parameter.InformationParameter;
 import com.stargazerproject.resources.parameter.NegotiateParameters;
 import com.stargazerproject.resources.parameter.QueueParameters;
 import com.stargazerproject.resources.parameter.SequenceParameters;
@@ -157,6 +170,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NegotiateParameters.class,
 		SystemParameters.class,
 		SequenceParameters.class,
+		InformationParameter.class,
 		ParametersInjectAOPConfiguration.class,
 		
 		/**Depend ObjectParameterCache Class**/
@@ -360,6 +374,18 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventBusServerListener.class,
 		EventBusServerManage.class,
 		
+		/**Depend Transmission Queue**/
+		TransmissionConsumer.class,
+		TransmissionQueue.class,
+		CleanTransmissionEventHandler.class,
+		TransmissionEventFactory.class,
+		TransmissionQueueHandler.class,
+		TransmissionQueueThreadFactory.class,
+		TransmissionDisruptorShell.class,
+		TransmissionQueueServer.class,
+		TransmissionQueueServerListener.class,
+		TransmissionQueueServerManage.class,
+		
 		/**Depend Inject**/
 		InjectImpl.class,
 		InjectClassMethodCharacteristic.class,
@@ -367,8 +393,14 @@ public class GlobalAnnotationApplicationContextInitialization {
 		InjectShell.class,
 		InjectServer.class,
 		InjectServerListener.class,
-		InjectServerManage.class
-
+		InjectServerManage.class,
+		
+		/**Depend Analysis**/
+		EventAnalysisImpl.class,
+		EventBusAnalysisImpl.class,
+		LogAnalysisImpl.class,
+		TransmissionAnalysisImpl.class
+		
 		);
 	} 
 	

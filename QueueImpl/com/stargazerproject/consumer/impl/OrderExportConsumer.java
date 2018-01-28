@@ -16,9 +16,6 @@ import com.stargazerproject.queue.QueueConsumer;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class OrderExportConsumer implements QueueConsumer<Order>{
 
-	@Autowired
-	@Qualifier("eventExecute")
-	private EventAnalysis execute;
 	
 	/**
 	* @name Springs使用的初始化构造
@@ -28,13 +25,13 @@ public class OrderExportConsumer implements QueueConsumer<Order>{
 	* **/
 	protected OrderExportConsumer() {}
 	
-	/**
-	* @name 常规初始化构造
-	* @illustrate 基于外部参数进行注入
-	* **/
-	public OrderExportConsumer(Optional<EventAnalysis> executeArg) {
-		execute = executeArg.get();
-	}
+//	/**
+//	* @name 常规初始化构造
+//	* @illustrate 基于外部参数进行注入
+//	* **/
+//	public OrderExportConsumer(Optional<EventAnalysis> executeArg) {
+//		execute = executeArg.get();
+//	}
 	
 	@Override
 	public void consumer(Optional<Order> e) {

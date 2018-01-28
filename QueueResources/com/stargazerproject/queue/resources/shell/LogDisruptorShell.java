@@ -39,11 +39,11 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEven
 	
 	/** @name 接收Log队列的缓存数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Receive_Log_Size_of_bufferSize;
+	private static String Kernel_Queue_ReceiveLogQueue_Memory_BufferSize;
 	
 	/** @name 接收Log队列的消费者数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Receive_Log_Number_of_consumers;
+	private static String Kernel_Queue_ReceiveLogQueue_Consumer_NumberOfConsumers;
 	
 	@Autowired
 	@Qualifier("logEventFactory")
@@ -96,13 +96,13 @@ public class LogDisruptorShell extends BaseQueueRingBuffer<LogData, LogQueueEven
 	}
 	
 	private void disruptorInitialization(){
-		disruptor = new Disruptor<LogQueueEvent>(eventFactory, getIntegerParameter(Receive_Log_Size_of_bufferSize), threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
+		disruptor = new Disruptor<LogQueueEvent>(eventFactory, getIntegerParameter(Kernel_Queue_ReceiveLogQueue_Memory_BufferSize), threadFactory, ProducerType.SINGLE, new SleepingWaitStrategy());
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(cleanLogHandler);
 	}
 	
 	private void handleEvents(){
-		handler = new LogHandler[getIntegerParameter(Receive_Log_Number_of_consumers)];
-		for(int i=0; i<getIntegerParameter(Receive_Log_Number_of_consumers); i++){
+		handler = new LogHandler[getIntegerParameter(Kernel_Queue_ReceiveLogQueue_Consumer_NumberOfConsumers)];
+		for(int i=0; i<getIntegerParameter(Kernel_Queue_ReceiveLogQueue_Consumer_NumberOfConsumers); i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("logHandler"), WorkHandler.class);
 		}
 	}

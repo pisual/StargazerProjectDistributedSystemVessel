@@ -34,11 +34,11 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	
 	/** @name 接收Event队列的缓存数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Receive_Event_Size_of_bufferSize;
+	private static String Kernel_Queue_ReceiveEventQueue_Memory_BufferSize;
 	
 	/** @name 接收Event队列的消费者数目 **/
 	@NeedInject(type="SystemParametersCache")
-	private static String Receive_Event_Number_of_consumers;
+	private static String Kernel_Queue_ReceiveEventQueue_Consumer_NumberOfConsumers;
 	
 	@Autowired
 	@Qualifier("eventFactory")
@@ -95,14 +95,14 @@ public class EventDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEv
 	}
 	
 	private void disruptorInitialization(){
-		disruptor = new Disruptor<EventQueueEvent>(eventFactory, getIntegerParameter(Receive_Event_Size_of_bufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
+		disruptor = new Disruptor<EventQueueEvent>(eventFactory, getIntegerParameter(Kernel_Queue_ReceiveEventQueue_Memory_BufferSize), Executors.defaultThreadFactory(), ProducerType.SINGLE, new PhasedBackoffWaitStrategy(1,2,TimeUnit.SECONDS,new BlockingWaitStrategy()));
 	//	disruptor.setDefaultExceptionHandler(new EventOutTimeExceptionHandler<EventQueueEvent>());
 		disruptor.handleEventsWithWorkerPool(handler).thenHandleEventsWithWorkerPool(eventResultMergeHandler).thenHandleEventsWithWorkerPool(cleanEventHandler);
 	}
 	
 	private void handleEvents(){
-		handler = new EventHandler[getIntegerParameter(Receive_Event_Number_of_consumers)];
-		for(int i=0; i<getIntegerParameter(Receive_Event_Number_of_consumers); i++){
+		handler = new EventHandler[getIntegerParameter(Kernel_Queue_ReceiveEventQueue_Consumer_NumberOfConsumers)];
+		for(int i=0; i<getIntegerParameter(Kernel_Queue_ReceiveEventQueue_Consumer_NumberOfConsumers); i++){
 			handler[i] = BeanContainer.instance().getBean(Optional.of("eventHandler"), com.lmax.disruptor.WorkHandler.class);
 		}
 	}
