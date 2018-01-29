@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
@@ -20,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="cellsInformationServerManage")
 @Qualifier("cellsInformationServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-//@Services(value="eventBusServerManage", order = 12)
+@Services(value="cellsInformationServerManage", order = 14)
 public class CellsInformationServerManage extends AbstractIdleService{
 	
 	/** @illustrate standardSequenceServer的ServiceShell接口 **/

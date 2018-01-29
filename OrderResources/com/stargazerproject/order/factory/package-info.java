@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.staragzerproject.order.factory;
+package com.stargazerproject.order.factory;

@@ -17,14 +17,10 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.ByteToMessageDecoder;
-import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.timeout.IdleStateHandler;
 
 @Component(value="informationControlCharacteristic")
 @Qualifier("informationControlCharacteristic")
@@ -38,18 +34,6 @@ public class CellsInformationControlCharacteristic implements InformationControl
     /** @illustrate 连接Cells主机的套接字 Port**/
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_Information_Cells_Connection_Port;
-	
-    /** @illustrate 读超时时间,A一定时间内未接受到B端消息 **/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_Information_Cells_Heartbeat_ReaderIdleTime;
-	
-	/** @illustrate 写超时时间，A端一定时间未内向被B端发送消息 **/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_Information_Cells_Heartbeat_WriterIdleTime;
-	
-    /** @illustrate 所有类型的超时时间 **/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_Information_Cells_Heartbeat_AllIdleTime;
 	
     /** @illustrate  处理IO的线程数**/
 	@NeedInject(type="SystemParametersCache")
@@ -68,12 +52,8 @@ public class CellsInformationControlCharacteristic implements InformationControl
 	private Cache<String, SocketChannel> socketChannelCache;
 	
 	@Autowired
-	@Qualifier("cellsInformationByteToMessageDecoderHandlerCharacteristic")
-	private BaseCharacteristic<ByteToMessageDecoder> cellsInformationByteToMessageDecoderHandlerCharacteristic;
-	
-	@Autowired
-	@Qualifier("cellsInformationMessageToByteEncoderHandlerCharacteristic")
-	private BaseCharacteristic<MessageToByteEncoder<Object>> cellsInformationMessageToByteEncoderHandlerCharacteristic;
+	@Qualifier("cellsInformationHandlerGuide")
+	private BaseCharacteristic<ChannelInitializer<SocketChannel>> cellsInformationHandlerGuide;
 	
     /** @illustrate  Bootstrap**/
 	private static Bootstrap bootstrap;
@@ -119,15 +99,7 @@ public class CellsInformationControlCharacteristic implements InformationControl
 	}
 	
 	private void serverHandlerInitialize(){
-		bootstrap.handler(new ChannelInitializer<SocketChannel>() {
-			@Override
-			protected void initChannel(SocketChannel socketChannel) throws Exception {
-				ChannelPipeline p = socketChannel.pipeline();
-				p.addLast(new IdleStateHandler(Integer.parseInt(Kernel_Information_Cells_Heartbeat_ReaderIdleTime), Integer.parseInt(Kernel_Information_Cells_Heartbeat_WriterIdleTime), Integer.parseInt(Kernel_Information_Cells_Heartbeat_AllIdleTime)));
-				p.addLast(cellsInformationMessageToByteEncoderHandlerCharacteristic.characteristic().get());
-				p.addLast(cellsInformationByteToMessageDecoderHandlerCharacteristic.characteristic().get());
-			}
-		});
+		bootstrap.handler(cellsInformationHandlerGuide.characteristic().get());
 	}
 	
 	private class startServer extends Thread{

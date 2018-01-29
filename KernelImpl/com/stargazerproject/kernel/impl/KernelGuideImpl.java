@@ -139,7 +139,19 @@ public class KernelGuideImpl implements KernelGuide{
 		logRecord.initialize(logRecordShell.characteristic());
 
 		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlCharacteristic"), BaseCharacteristic.class);
-		serviceControl.characteristic().get().startAllservice();;
+		
+		Thread closeJVM = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				System.out.println("Start Stop Sequence");
+				serviceControl.characteristic().get().stopAllService();
+			}
+		});
+		
+		Runtime.getRuntime().addShutdownHook(closeJVM); 
+		
+		serviceControl.characteristic().get().startAllservice();
+		
 
 		return kernelGuide;
 	}

@@ -29,6 +29,7 @@ import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
 import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.ServerCache;
+import com.stargazerproject.cache.impl.SocketChannelCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
 import com.stargazerproject.cache.impl.TreeCacheCache;
 import com.stargazerproject.cache.impl.resources.BigCacheIndexCahceCharacteristic;
@@ -58,6 +59,20 @@ import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.consumer.impl.TransmissionConsumer;
+import com.stargazerproject.information.impl.CellsInformation;
+import com.stargazerproject.information.resources.CellsInformationByteToMessageDecoderHandlerCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationClientRegisterHandlerCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationControlCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationEventHandlerCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationHandlerGuide;
+import com.stargazerproject.information.resources.CellsInformationHeartbeatHandlerCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationMessageToByteEncoderHandlerCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationMethodCharacteristic;
+import com.stargazerproject.information.resources.CellsInformationsOutScourHandler;
+import com.stargazerproject.information.resources.shell.CellsInformationShell;
+import com.stargazerproject.information.server.impl.CellsInformationServer;
+import com.stargazerproject.information.server.listener.impl.CellsInformationServerListener;
+import com.stargazerproject.information.server.manage.CellsInformationServerManage;
 import com.stargazerproject.inject.impl.InjectImpl;
 import com.stargazerproject.inject.resources.InjectClassMethodCharacteristic;
 import com.stargazerproject.inject.resources.InjectSearchMethodCharacteristic;
@@ -143,6 +158,7 @@ import com.stargazerproject.resources.parameter.SequenceParameters;
 import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
+import com.stargazerproject.serializable.impl.NetworkTransmissionSerializables;
 import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.service.resources.ServerDependCharacteristic;
@@ -160,7 +176,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		setProfiles();
 		GlobalAnnotationApplicationContext.ApplicationContextInitialize(
 	    args,
-		/**Itself Configuration Class**/
+	    
+		/**Depend SystemParameter **/
 		SystemParameterCahce.class,
 		SystemParameterCahceCharacteristic.class,
 		SystemParameterCahceShell.class,
@@ -173,22 +190,24 @@ public class GlobalAnnotationApplicationContextInitialization {
 		InformationParameter.class,
 		ParametersInjectAOPConfiguration.class,
 		
-		/**Depend ObjectParameterCache Class**/
+		/**Depend ObjectParameterCache **/
 		ObjectParameterCache.class,
 		
-		/**Depend InterProcessSemaphoreMutexCache Class**/
+		/**Depend SocketChannelCache **/
+		SocketChannelCache.class,
+		
+		/**Depend InterProcessSemaphoreMutexCache **/
 		InterProcessSemaphoreMutexCache.class,
 		
-		/**Depend LeaderLatchParameterCache Class**/
+		/**Depend LeaderLatchParameterCache **/
 		LeaderLatchParameterCache.class,
 		
-		/**Depend TreeCacheCache Class**/
+		/**Depend TreeCacheCache **/
 		TreeCacheCache.class,
 		
-		/**Depend ServerCache Class**/
+		/**Depend ServerCache **/
 		ServerCache.class,
-
-     /******Depend Configuration Class******/
+		
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueue.class,
 		OrderMessageQueueServer.class,
@@ -399,7 +418,26 @@ public class GlobalAnnotationApplicationContextInitialization {
 		EventAnalysisImpl.class,
 		EventBusAnalysisImpl.class,
 		LogAnalysisImpl.class,
-		TransmissionAnalysisImpl.class
+		TransmissionAnalysisImpl.class,
+		
+		/**Depend CellsInformation**/
+		CellsInformation.class,
+		CellsInformationByteToMessageDecoderHandlerCharacteristic.class,
+		CellsInformationClientRegisterHandlerCharacteristic.class,
+		CellsInformationControlCharacteristic.class,
+		CellsInformationEventHandlerCharacteristic.class,
+		CellsInformationHandlerGuide.class,
+		CellsInformationHeartbeatHandlerCharacteristic.class,
+		CellsInformationMessageToByteEncoderHandlerCharacteristic.class,
+		CellsInformationMethodCharacteristic.class,
+		CellsInformationsOutScourHandler.class,
+		CellsInformationShell.class,
+		CellsInformationServer.class,
+		CellsInformationServerListener.class,
+		CellsInformationServerManage.class,
+		
+		/**Depend CellsInformation**/
+		NetworkTransmissionSerializables.class
 		
 		);
 	} 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.information.model.Transmission;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.queue.Queue;
 
@@ -19,7 +20,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 @Qualifier("cellsInformationEventHandlerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Sharable
-public class CellsInformationEventHandlerCharacteristic extends SimpleChannelInboundHandler<Object> {
+public class CellsInformationEventHandlerCharacteristic extends SimpleChannelInboundHandler<Object> implements BaseCharacteristic<SimpleChannelInboundHandler<Object>> {
 	
 	@Autowired
 	@Qualifier("logRecord")
@@ -30,6 +31,11 @@ public class CellsInformationEventHandlerCharacteristic extends SimpleChannelInb
 	public Queue<Transmission> queue;
 	
 	public CellsInformationEventHandlerCharacteristic() {}
+	
+	@Override
+	public Optional<SimpleChannelInboundHandler<Object>> characteristic() {
+		return Optional.of(this);
+	}
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext channelHandlerContext, Object object) throws Exception {

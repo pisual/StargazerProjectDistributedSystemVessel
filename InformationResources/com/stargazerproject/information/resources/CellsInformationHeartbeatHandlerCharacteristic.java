@@ -13,12 +13,14 @@ import com.stargazerproject.log.LogMethod;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
 @Component(value="cellsInformationHeartbeatHandlerCharacteristic")
 @Qualifier("cellsInformationHeartbeatHandlerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Sharable
 public class CellsInformationHeartbeatHandlerCharacteristic extends SimpleChannelInboundHandler<Object> {
 	
 	@Autowired

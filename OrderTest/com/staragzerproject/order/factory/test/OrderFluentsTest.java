@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.fasterxml.uuid.Generators;
 import com.google.common.base.Optional;
-import com.staragzerproject.order.factory.OrderFluentFactory;
 import com.stargazerproject.cache.impl.OrderParameterCache;
+import com.stargazerproject.order.factory.OrderFluentFactory;
 import com.stargazerproject.order.impl.Order;
 
 public class OrderFluentsTest {

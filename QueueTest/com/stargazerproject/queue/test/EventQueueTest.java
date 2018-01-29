@@ -10,10 +10,10 @@ import org.junit.runners.MethodSorters;
 
 import com.fasterxml.uuid.Generators;
 import com.google.common.base.Optional;
-import com.staragzerproject.order.factory.OrderFluentFactory;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.order.factory.OrderFluentFactory;
 import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
