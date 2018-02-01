@@ -23,6 +23,7 @@ public class OrderExportQueueServerListener extends StandardWorkInServiceListene
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : OrderExportQueue Server Starting");
 	}
 	

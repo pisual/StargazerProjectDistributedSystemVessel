@@ -15,7 +15,7 @@ public class BaseSerializablesImpl implements Serializables{
 	}
 
 	@Override
-	public Optional<Object> deserialize(Optional<byte[]> byteArray) {
+	public Optional<Object> deserialize(Optional<byte[]> byteArray) throws ClassNotFoundException, IOException{
 		return serializables.deserialize(byteArray);
 	}
 

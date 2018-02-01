@@ -22,8 +22,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-@Component(value="informationControlCharacteristic")
-@Qualifier("informationControlCharacteristic")
+@Component(value="cellsInformationControlCharacteristic")
+@Qualifier("cellsInformationControlCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class CellsInformationControlCharacteristic implements InformationControl, BaseCharacteristic<InformationControl> {
 

@@ -9,11 +9,12 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.information.model.Response;
 import com.stargazerproject.information.model.ResponseType;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
@@ -21,13 +22,18 @@ import io.netty.handler.timeout.IdleStateEvent;
 @Qualifier("cellsInformationHeartbeatHandlerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Sharable
-public class CellsInformationHeartbeatHandlerCharacteristic extends SimpleChannelInboundHandler<Object> {
+public class CellsInformationHeartbeatHandlerCharacteristic extends SimpleChannelInboundHandler<Object> implements BaseCharacteristic<SimpleChannelInboundHandler<Object>>{
 	
 	@Autowired
 	@Qualifier("logRecord")
 	private LogMethod log;
 	
 	public CellsInformationHeartbeatHandlerCharacteristic() {}
+	
+	@Override
+	public Optional<SimpleChannelInboundHandler<Object>> characteristic() {
+		return Optional.of(this);
+	}
 	
 	@Override
     public void userEventTriggered(ChannelHandlerContext channelHandlerContext, Object object) throws Exception {

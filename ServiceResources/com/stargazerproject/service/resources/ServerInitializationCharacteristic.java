@@ -24,6 +24,10 @@ public class ServerInitializationCharacteristic implements ServerInitialization,
 	private Cache<String, Boolean> serverCache;
 	
 	@Autowired
+	@Qualifier("serverListCache")
+	private Cache<String, List<String>> serverListCache;
+	
+	@Autowired
 	@Qualifier("serviceParameterList")
 	private BaseCharacteristic<List<String>> serviceParameterList;
 	
@@ -39,9 +43,11 @@ public class ServerInitializationCharacteristic implements ServerInitialization,
 	
 	@Override
 	public Optional<List<String>> initializationFromAnnotationsScan() {		
-		serviceParameterList.characteristic().get().stream().map(x -> x.replace("Manage", "")).collect(Collectors.toList())
-		                                           .stream().forEach(x -> serverCache.put(Optional.of(x), Optional.of(Boolean.FALSE)));
-		return serviceParameterList.characteristic();
+		List<String> serverList = serviceParameterList.characteristic().get();
+		serverList.stream().map(x -> x.replace("Manage", "")).collect(Collectors.toList())
+		          .stream().forEach(x -> serverCache.put(Optional.of(x), Optional.of(Boolean.FALSE)));
+		serverListCache.put(Optional.of("serverList"), Optional.of(serverList));
+		return Optional.of(serverList);
 	}
 	
 }

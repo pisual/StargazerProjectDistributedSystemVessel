@@ -43,6 +43,10 @@ public class ServerDependDetectionAOPConfiguration {
 	private Cache<String,Boolean> cache;
 	
 	@Autowired
+	@Qualifier("serverListCache")
+	private Cache<String, List<String>> serverListCache;
+	
+	@Autowired
 	@Qualifier("serviceParameterList")
 	private BaseCharacteristic<List<String>> serviceParameterList;
 	
@@ -60,7 +64,7 @@ public class ServerDependDetectionAOPConfiguration {
 	private ServerDependDetectionAOPConfiguration() {}
 
 	public void initializationServerSequenceListMap(){
-		List<String> serverList = serviceParameterList.characteristic().get();
+		List<String> serverList = serverListCache.get(Optional.of("serverList")).get();
 		for(int i=1; i<=serverList.size(); i++){
 			String servername = serverList.get(i-1).replace("Manage", "");
 			servername = firstChartoLowerCase(servername);

@@ -15,6 +15,7 @@ public class CellsInformationServerListener extends StandardWorkInServiceListene
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : cellsInformationServer Server Starting");
 	}
 	

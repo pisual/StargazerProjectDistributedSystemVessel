@@ -23,6 +23,7 @@ public class TransmissionQueueServerListener extends StandardWorkInServiceListen
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : transmissionQueue Server Starting");
 	}
 	

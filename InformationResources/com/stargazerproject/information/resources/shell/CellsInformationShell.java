@@ -19,11 +19,11 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 public class CellsInformationShell implements Information, BaseCharacteristic<Information>{
 
 	@Autowired
-	@Qualifier("informationControlCharacteristic")
+	@Qualifier("cellsInformationControlCharacteristic")
 	private BaseCharacteristic<InformationControl> informationControlCharacteristic;
 	
 	@Autowired
-	@Qualifier("informationMethodCharacteristic")
+	@Qualifier("cellsInformationMethodCharacteristic")
 	private BaseCharacteristic<InformationMethod> informationMethodCharacteristic;
 	
 	@Override

@@ -21,6 +21,7 @@ public class LocalLogServerListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : localLogServerListener Server Starting");
 	}
 	

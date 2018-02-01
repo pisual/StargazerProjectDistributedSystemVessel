@@ -14,6 +14,7 @@ import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServerDepend;
 import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
+import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 
 @Component(value="serverShell")
 @Qualifier("serverShell")
@@ -31,6 +32,10 @@ public class ServerShell implements Server, BaseCharacteristic<Server>{
 	@Autowired
 	@Qualifier("serverDependCharacteristic")
 	private BaseCharacteristic<ServerDepend> serverDependCharacteristic;
+	
+	@Autowired
+	@Qualifier("serverDependDetectionAOPConfiguration")
+	private ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration;
 	
 	private ServiceControl serviceControl;
 	

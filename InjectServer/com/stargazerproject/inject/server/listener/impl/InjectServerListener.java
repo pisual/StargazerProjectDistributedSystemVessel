@@ -15,6 +15,7 @@ public class InjectServerListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : injectServer Server Starting");
 	}
 	

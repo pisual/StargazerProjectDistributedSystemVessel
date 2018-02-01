@@ -23,6 +23,7 @@ public class SystemParameterCacheServerListener extends StandardWorkInServiceLis
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : SystemParameterCache Server Starting");
 	}
 	

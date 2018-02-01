@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -13,12 +14,14 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.collect.Multimap;
 import com.stargazerproject.annotation.Annotations;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BeforehandCharacteristicShell;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 
 @Component(value="annotationsImpl")
 @Qualifier("annotationsImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class AnnotationsImpl implements Annotations, StanderCharacteristicShell<Annotations>{
+public class AnnotationsImpl implements Annotations, StanderCharacteristicShell<Annotations>, BeforehandCharacteristicShell<Annotations>{
 
 	private Annotations annotations;
 
@@ -35,6 +38,13 @@ public class AnnotationsImpl implements Annotations, StanderCharacteristicShell<
 	@Override
 	public void initialize(Optional<Annotations> annotationsArg) {
 		annotations = annotationsArg.get();
+	}
+
+	@Override
+	@Qualifier("annotationsShell")
+	@Autowired
+	public void initialize(BaseCharacteristic<Annotations> annotationsArg) {
+		annotations = annotationsArg.characteristic().get();
 	}
 
 }

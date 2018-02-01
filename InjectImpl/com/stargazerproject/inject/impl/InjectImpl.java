@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -11,13 +12,15 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.inject.Inject;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
+import com.stargazerproject.interfaces.characteristic.shell.BeforehandCharacteristicShell;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.spring.container.BeanControl;
 
 @Component(value="injectImpl")
 @Qualifier("injectImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class InjectImpl implements Inject, StanderCharacteristicShell<Inject>{
+public class InjectImpl implements Inject, StanderCharacteristicShell<Inject>, BeforehandCharacteristicShell<Inject>{
 
 	private Inject inject;
 	
@@ -44,6 +47,13 @@ public class InjectImpl implements Inject, StanderCharacteristicShell<Inject>{
 	@Override
 	public void initialize(Optional<Inject> injectArg) {
 		inject = injectArg.get();
+	}
+
+	@Override
+	@Qualifier("injectShell")
+	@Autowired
+	public void initialize(BaseCharacteristic<Inject> injectArg) {
+		inject = injectArg.characteristic().get();
 	}
 
 }

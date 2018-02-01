@@ -23,6 +23,7 @@ public class EventQueueServerListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : eventQueue Server Starting");
 	}
 	

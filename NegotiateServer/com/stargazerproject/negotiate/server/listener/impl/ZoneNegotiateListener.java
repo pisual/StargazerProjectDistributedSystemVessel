@@ -15,6 +15,7 @@ public class ZoneNegotiateListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : zoneNegotiateListener Server Starting");
 	}
 	

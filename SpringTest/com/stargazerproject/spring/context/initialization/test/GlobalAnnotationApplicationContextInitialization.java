@@ -29,6 +29,7 @@ import com.stargazerproject.cache.impl.LeaderLatchParameterCache;
 import com.stargazerproject.cache.impl.ObjectParameterCache;
 import com.stargazerproject.cache.impl.OrderCache;
 import com.stargazerproject.cache.impl.ServerCache;
+import com.stargazerproject.cache.impl.ServerListCache;
 import com.stargazerproject.cache.impl.SocketChannelCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
 import com.stargazerproject.cache.impl.TreeCacheCache;
@@ -159,6 +160,10 @@ import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
 import com.stargazerproject.resources.service.ServiceParameterList;
 import com.stargazerproject.serializable.impl.NetworkTransmissionSerializables;
+import com.stargazerproject.serializable.server.impl.SerializableServer;
+import com.stargazerproject.serializable.server.listener.impl.SerializableServerListener;
+import com.stargazerproject.serializable.server.manage.SerializableServerManage;
+import com.stargazerproject.serializable.shell.NetworkTransmissionSerializablesShell;
 import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
 import com.stargazerproject.service.resources.ServerDependCharacteristic;
@@ -207,6 +212,9 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		/**Depend ServerCache **/
 		ServerCache.class,
+		
+		/**Depend ServerListCache **/
+		ServerListCache.class,
 		
 		/**Depend OrderQueueMessage**/
 		OrderMessageQueue.class,
@@ -436,8 +444,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		CellsInformationServerListener.class,
 		CellsInformationServerManage.class,
 		
-		/**Depend CellsInformation**/
-		NetworkTransmissionSerializables.class
+		/**Depend Serializables**/
+		NetworkTransmissionSerializables.class,
+		NetworkTransmissionSerializablesShell.class,
+		SerializableServer.class,
+		SerializableServerListener.class,
+		SerializableServerManage.class
 		
 		);
 	} 

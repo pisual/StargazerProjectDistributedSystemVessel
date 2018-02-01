@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.annotation.Annotations;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.kernel.KernelGuide;
-import com.stargazerproject.log.Log;
-import com.stargazerproject.service.Server;
 import com.stargazerproject.service.ServerInitialization;
 import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
@@ -119,14 +115,14 @@ public class KernelGuideImpl implements KernelGuide{
 	@SuppressWarnings("unchecked")
 	public KernelGuide startKernelGuide() {
 		
-		/**预先加载**/
-		StanderCharacteristicShell<Annotations> annotationsImpl =  BeanContainer.instance().getBean(Optional.of("annotationsImpl"), StanderCharacteristicShell.class);
-		BaseCharacteristic<Annotations> annotationsShell = BeanContainer.instance().getBean(Optional.of("annotationsShell"), BaseCharacteristic.class);
-		annotationsImpl.initialize(annotationsShell.characteristic());
+//		/**预先加载**/
+//		StanderCharacteristicShell<Annotations> annotationsImpl =  BeanContainer.instance().getBean(Optional.of("annotationsImpl"), StanderCharacteristicShell.class);
+//		BaseCharacteristic<Annotations> annotationsShell = BeanContainer.instance().getBean(Optional.of("annotationsShell"), BaseCharacteristic.class);
+//		annotationsImpl.initialize(annotationsShell.characteristic());
 		
-		BaseCharacteristic<Server> serverShell = BeanContainer.instance().getBean(Optional.of("serverShell"), BaseCharacteristic.class);
-		StanderCharacteristicShell<Server> server =  BeanContainer.instance().getBean(Optional.of("kernelService"), StanderCharacteristicShell.class);
-		server.initialize(serverShell.characteristic());
+//		BaseCharacteristic<Server> serverShell = BeanContainer.instance().getBean(Optional.of("serverShell"), BaseCharacteristic.class);
+//		StanderCharacteristicShell<Server> server =  BeanContainer.instance().getBean(Optional.of("kernelService"), StanderCharacteristicShell.class);
+//		server.initialize(serverShell.characteristic());
 		
 		BaseCharacteristic<ServerInitialization> serverInitialization = BeanContainer.instance().getBean(Optional.of("serverInitializationCharacteristic"), BaseCharacteristic.class);
 		serverInitialization.characteristic().get().initializationFromAnnotationsScan();
@@ -134,9 +130,9 @@ public class KernelGuideImpl implements KernelGuide{
 		ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration = BeanContainer.instance().getBean(Optional.of("serverDependDetectionAOPConfiguration"), ServerDependDetectionAOPConfiguration.class);
 		serverDependDetectionAOPConfiguration.initializationServerSequenceListMap();
 		
-		StanderCharacteristicShell<Log> logRecord =  BeanContainer.instance().getBean(Optional.of("logRecord"), StanderCharacteristicShell.class);
-		BaseCharacteristic<Log> logRecordShell = BeanContainer.instance().getBean(Optional.of("localLogShell"), BaseCharacteristic.class);
-		logRecord.initialize(logRecordShell.characteristic());
+//		StanderCharacteristicShell<Log> logRecord =  BeanContainer.instance().getBean(Optional.of("logRecord"), StanderCharacteristicShell.class);
+//		BaseCharacteristic<Log> logRecordShell = BeanContainer.instance().getBean(Optional.of("localLogShell"), BaseCharacteristic.class);
+//		logRecord.initialize(logRecordShell.characteristic());
 
 		BaseCharacteristic<ServiceControl> serviceControl = BeanContainer.instance().getBean(Optional.of("serviceControlCharacteristic"), BaseCharacteristic.class);
 		

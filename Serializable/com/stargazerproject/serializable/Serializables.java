@@ -8,5 +8,5 @@ public interface Serializables {
 
 	public Optional<byte[]> serialize(Optional<Object> object) throws IOException;
 	
-	public Optional<Object> deserialize(Optional<byte[]> byteArray);
+	public Optional<Object> deserialize(Optional<byte[]> byteArray) throws ClassNotFoundException, IOException;
 }

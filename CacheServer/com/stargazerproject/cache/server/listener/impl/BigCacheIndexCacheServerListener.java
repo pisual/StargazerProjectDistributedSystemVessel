@@ -23,6 +23,7 @@ public class BigCacheIndexCacheServerListener extends StandardWorkInServiceListe
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : bigCacheIndexCache Server Starting");
 	}
 	

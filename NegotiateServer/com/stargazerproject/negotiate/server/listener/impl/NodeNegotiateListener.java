@@ -15,6 +15,7 @@ public class NodeNegotiateListener extends StandardWorkInServiceListener{
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : nodeNegotiateListener Server Starting");
 	}
 	

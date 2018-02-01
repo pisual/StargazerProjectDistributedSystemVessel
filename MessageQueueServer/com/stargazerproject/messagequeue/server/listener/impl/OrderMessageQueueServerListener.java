@@ -15,6 +15,7 @@ public class OrderMessageQueueServerListener extends StandardWorkInServiceListen
 	
 	@Override
 	public void starting() {
+		super.starting();
 		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : orderMessageQueueListener Server Starting");
 	}
 	
