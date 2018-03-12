@@ -20,8 +20,8 @@ public class BaseSequence<K> implements Sequence<K>{
 
 	
 	@Override
-	public void clear(Optional<String> sequenceGroup) {
-		sequence.clear(sequenceGroup);
+	public void clearSequence(Optional<String> sequenceGroup) {
+		sequence.clearSequence(sequenceGroup);
 	}
 
 }

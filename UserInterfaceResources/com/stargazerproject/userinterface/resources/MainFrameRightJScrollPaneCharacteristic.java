@@ -3,16 +3,15 @@ package com.stargazerproject.userinterface.resources;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.characteristic.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 
 /**
@@ -20,26 +19,36 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
  * 
  *@author Felixerio
  */
-@Component(value="MainFrameRightJScrollPane")
-@Qualifier("MainFrameRightJScrollPane")
+@Component(value="mainFrameRightJScrollPaneCharacteristic")
+@Qualifier("mainFrameRightJScrollPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacteristic<JScrollPane> {
+	@Autowired
+	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
+	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
 	
-	private Optional<JTextPane> jTextPane;
+	@Autowired
+	@Qualifier("characteristicInitialization")
+	private Characteristic characteristic;
+	
 	private JScrollPane jScrollPane;
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="mainFrameRightJScrollPaneCharacteristic")
-	@Lazy(true)
 	public Optional<JScrollPane> characteristic() {
-		jTextPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightConsoleTextPaneCharacteristic"), Optional.class);
-		jScrollPane = new JScrollPane(jTextPane.get());
-		initialization();
+		synchronized(this){
+			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+				initialization();
+				characteristic.singleInitializationComplete();
+			}
+			else{
+				
+			}
+		}
 		return Optional.of(jScrollPane);
 	}
 	
-	public void initialization(){
+	private void initialization(){
+		jScrollPane = new JScrollPane(mainFrameConsoleTextPaneCharacteristic.characteristic().get());
 		jScrollPane.setOpaque(false);
 		jScrollPane.getViewport().setOpaque(false);
 		jScrollPane.setBorder(null);

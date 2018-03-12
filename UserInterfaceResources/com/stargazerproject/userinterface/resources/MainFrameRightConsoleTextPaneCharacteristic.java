@@ -1,7 +1,6 @@
 package com.stargazerproject.userinterface.resources;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -14,16 +13,13 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.stargazerproject.util.ColorUtil;
@@ -36,86 +32,100 @@ import com.stargazerproject.util.UIUtil;
  * 
  * @author Felixerio
  */
-@Component(value="mainFrameRightConsoleTextPane")
-@Qualifier("mainFrameRightConsoleTextPane")
+@Component(value="mainFrameRightConsoleTextPaneCharacteristic")
+@Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameRightConsoleTextPaneCharacteristic extends JTextPane implements BaseCharacteristic<JTextPane>{
-	private static final long serialVersionUID = 7309857723035362456L;
+
+	private static final long serialVersionUID = -6817739617043790365L;
+
+	/** @name 主界面控制台字体的路径**/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Font_Path_Console;
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> systemParameter;
+	/** @name 主界面控制台字体的名称 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Font_Console;
 	
-	private static StyledDocument styledDocument;
-	private static Style style;
-	private static SimpleAttributeSet simpleAttributeSet;
-    private static Document consoleDocument;
+	/** @name 主界面控制台字体的RGB颜色  **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Font_Color_Console;
+	
+	/** @name 主界面控制台字体前端行装饰 每行字前端加上的装饰性图标**/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Font_Icon_Line;
+	
+	private Style style;
+	private StyledDocument styledDocument;
+	private SimpleAttributeSet simpleAttributeSet;
 	
 	@Override
-	@Bean(name="mainFrameRightConsoleTextPaneCharacteristic")
-	@Lazy(true)
 	public Optional<JTextPane> characteristic() {
 		initialization();
 		return Optional.of(this);
 	}
 	
 	private void initialization(){
-		StyleConstants.setForeground(new SimpleAttributeSet(), fontColorInitialization());
-		styledDocument = this.getStyledDocument();
-		style = styledDocument.addStyle("ConsoleTextPane", null);
-		StyleConstants.setIcon(style,new ImageIcon(UserinterfaceResource.class.getResource(systemParameter.get(Optional.of("ConsoleTextPane_Text_Circle")).get())));
-		consoleDocument = this.getDocument();
+		styleInitialization();
 		this.setOpaque(false);
 		this.setFont(fontInitialization());
 		this.setForeground(fontColorInitialization());
-		this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		this.setBorder(BorderFactory.createEmptyBorder());
-		UIUtil.startRightConsoleReaderThread(this);
+		UIUtil.startConsoleReaderThread(this);
+	}
+	
+	private void styleInitialization(){
+		styledDocument = this.getStyledDocument();
+		style = styledDocument.addStyle("ConsoleTextPane", null);
+		StyleConstants.setForeground(new SimpleAttributeSet(), fontColorInitialization());
+		StyleConstants.setIcon(style, new ImageIcon(UserinterfaceResource.class.getResource(Kernel_UserInterface_MainFrame_Font_Icon_Line)));
 	}
 	
 	private Font fontInitialization(){
-		String Main_Frame_Console_StandbyFontPath = systemParameter.get(Optional.of("Main_Frame_Console_StandbyFontPath")).get();
-		String Main_Frame_Console_FontName = systemParameter.get(Optional.of("Main_Frame_Console_FontName")).get();
-		Font ConsoleTextFont = FontUtil.getConsoleFont(Main_Frame_Console_FontName,Main_Frame_Console_StandbyFontPath);
+		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_MainFrame_Font_Console, Kernel_UserInterface_MainFrame_Font_Path_Console);
 		return ConsoleTextFont;
 	}
 	
 	private Color fontColorInitialization(){
-		Color ConsoleText_FontColor = ColorUtil.getColorFromIntRGBParament(ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("ConsoleText_FontColor")), Optional.of(","), Optional.of(3)).get());
+		int[] colorArray = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_MainFrame_Font_Color_Console), decollator(","), arrayLength(3)).get();
+		Color ConsoleText_FontColor = ColorUtil.getColorFromIntRGBParament(colorArray);
 		return ConsoleText_FontColor;
 	}
 
 
 	public void insertMessage(Optional<String> text) {
 		try {
-			boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
 			styledDocument.insertString(styledDocument.getLength(), text.get() + '\n', simpleAttributeSet);
-			  if(caretAtEnd)
-				  this.setCaretPosition(consoleDocument.getLength());
-		} catch (BadLocationException e) {
+			cursorLocation();
+		} catch (BadLocationException badLocationException) {
+			badLocationException.printStackTrace();
 		}
 	}
 
 	public void insertLogo() {
-		StyleConstants.setIcon(style,new ImageIcon(UserinterfaceResource.class.getResource(systemParameter.get(Optional.of("ConsoleTextPane_Text_Circle")).get())));
+		ImageIcon imageIcon = new ImageIcon(UserinterfaceResource.class.getResource(Kernel_UserInterface_MainFrame_Font_Icon_Line));
+		StyleConstants.setIcon(style, imageIcon);
 		try {
 			styledDocument.insertString(styledDocument.getLength(), " ", style);
-			boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
-			  if(caretAtEnd)
-				  this.setCaretPosition(consoleDocument.getLength());
-		} catch (BadLocationException ex) {
+			cursorLocation();
+		} catch (BadLocationException badLocationException) {
+			badLocationException.printStackTrace();
 		}
 	}
-
-	public void insertLine() {
-		StyleConstants.setIcon(style,new ImageIcon("/Users/Felixerio/Workspaces/StargazerProject/StargazerProjectntelligenceSystem/StargazerUIAssaultLily/PisualCellsSmall.png"));
-		try {
-			styledDocument.insertString(styledDocument.getLength(), " ", style);
-			boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
-			  if(caretAtEnd)
-				  this.setCaretPosition(consoleDocument.getLength());
-		} catch (BadLocationException ex) {
-		}
+	
+	private void cursorLocation(){
+	    Document consoleDocument = this.getDocument();;
+		boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
+		  if(caretAtEnd){
+			  this.setCaretPosition(consoleDocument.getLength());
+		  }
 	}
-
+	
+	private Optional<String> decollator(String decollator){
+		return Optional.of(decollator);
+	}
+	
+	private Optional<Integer> arrayLength(int arrayLength){
+		return Optional.of(arrayLength);
+	}
 }

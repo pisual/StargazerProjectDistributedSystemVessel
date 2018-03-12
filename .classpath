@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="Characteristic"/>
+	<classpathentry kind="src" path="CharacteristicImpl"/>
+	<classpathentry kind="src" path="CharacteristicConfiguration"/>
+	<classpathentry kind="src" path="CharacteristicResources"/>
+	<classpathentry kind="src" path="CharacteristicServer"/>
+	<classpathentry kind="src" path="CharacteristicTest"/>
 	<classpathentry kind="src" path="Serializable"/>
 	<classpathentry kind="src" path="SerializableImpl"/>
 	<classpathentry kind="src" path="SerializableConfiguration"/>

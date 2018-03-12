@@ -56,7 +56,7 @@ public class SequenceResourcesShell implements Sequence<Order>, BaseCharacterist
 	}
 	
 	@Override
-	public void clear(Optional<String> sequenceGroup) {
+	public void clearSequence(Optional<String> sequenceGroup) {
 		orderTemporaryDepositMap.remove(sequenceGroup.get());
 	}
 	

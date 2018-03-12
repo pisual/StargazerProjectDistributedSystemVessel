@@ -6,7 +6,7 @@ public class ParameterStringUtil {
 	
 	public ParameterStringUtil() {}
 
-	public static Optional<int[]> parameterTransToNormallArray(Optional<String> parameter, Optional<String> split, Optional<Integer> size){
+	public static Optional<int[]> segmentationArray(Optional<String> parameter, Optional<String> split, Optional<Integer> size){
 		String logoLocationString[] = parameter.get().split(split.get());
 		int logoLocationInt[] = new int[size.get()];
 		for(int i = 0; i<logoLocationString.length; i++){

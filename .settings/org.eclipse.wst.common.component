@@ -147,6 +147,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SerializableTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Characteristic"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicServer"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

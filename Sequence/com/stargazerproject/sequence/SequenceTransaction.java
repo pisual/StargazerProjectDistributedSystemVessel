@@ -17,7 +17,7 @@ public interface SequenceTransaction<K>{
 	* @illustrate 清除指定的Sequence队列
 	* @param Optional<String> OrderID Order的ID
 	* **/
-	public void clear(Optional<String> orderID);
+	public void clearSequence(Optional<String> orderID);
 	
 	/**
 	* @name 启动指定的Sequence队列

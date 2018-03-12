@@ -1,14 +1,15 @@
 package com.stargazerproject.userinterface.resources.shall;
 
 import java.awt.Point;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,26 +22,45 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.userinterface.extend.MainFrameAssaultLilysUserInterface;
 import com.stargazerproject.userinterface.resources.GradientLoadInterface;
-import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
 
-@SuppressWarnings("unused")
 @Component(value="mainFrameShall")
 @Qualifier("mainFrameShall")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseCharacteristic<MainFrameAssaultLilysUserInterface>{
 	
+	@Autowired
+	@Qualifier("mainFrameJFrameCharacteristic")
+	private BaseCharacteristic<JFrame> mainFrameJFrameCharacteristic;
+	
+	@Autowired
+	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
+	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
+	
+	@Autowired
+	@Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
+	private BaseCharacteristic<JTextPane> mainFrameRightConsoleTextPaneCharacteristic;
+	
+	@Autowired
+	@Qualifier("mainFrameJScrollPaneCharacteristic")
+	private BaseCharacteristic<JScrollPane> mainFrameJScrollPaneCharacteristic;
+	
+	@Autowired
+	@Qualifier("mainFrameRightJScrollPaneCharacteristic")
+	private BaseCharacteristic<JScrollPane> mainFrameRightJScrollPaneCharacteristic;
+	
 	/**混合主界面**/
-	private Optional<JFrame> baseFrame;
-	/**控制台**/
-	private Optional<MainFrameConsoleTextPaneCharacteristic> consoleTextPane;
-	/**控制台**/
-	private Optional<MainFrameRightConsoleTextPaneCharacteristic> rightConsoleTextPane;
-	/**主界面滚动条**/
-	private Optional<JScrollPane> jScrollPane;
-	/**主界面滚动条**/
-	private Optional<JScrollPane> rightJScrollPane;
+	private JFrame mainFrameJFrame;
+	/**主界面左控制台**/
+	private JTextPane mainFrameConsoleTextPane;
+	/**主界面右控制台**/
+	private JTextPane mainFrameRightConsoleTextPane;
+	/**主界面左面滚动条**/
+	private JScrollPane mainFrameJScrollPane;
+	/**主界面右面滚动条**/
+	private JScrollPane mainFramerightJScrollPane;
+	
 	/**操纵图标头像位置**/
 	private Optional<JLabel> mainFrameLogoJlabel;
 	/**系统构架拓扑**/
@@ -70,11 +90,12 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 
 	@SuppressWarnings("unchecked")
 	private void assemblyInitialization(){
-		baseFrame = BeanContainer.instance().getBean(Optional.of("mainFrameJFrameCharacteristic"), Optional.class);
-		consoleTextPane = BeanContainer.instance().getBean(Optional.of("mainFrameConsoleTextPaneCharacteristic"), Optional.class);
-		rightConsoleTextPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightConsoleTextPaneCharacteristic"), Optional.class);
-		jScrollPane = BeanContainer.instance().getBean(Optional.of("mainFrameJScrollPaneCharacteristic"), Optional.class);
-		rightJScrollPane = BeanContainer.instance().getBean(Optional.of("mainFrameRightJScrollPaneCharacteristic"), Optional.class);
+		mainFrameJFrame = mainFrameJFrameCharacteristic.characteristic().get();
+		mainFrameConsoleTextPane = mainFrameConsoleTextPaneCharacteristic.characteristic().get();
+		mainFrameRightConsoleTextPane = mainFrameRightConsoleTextPaneCharacteristic.characteristic().get();
+		mainFrameJScrollPane = mainFrameJScrollPaneCharacteristic.characteristic().get();
+		mainFramerightJScrollPane = mainFrameRightJScrollPaneCharacteristic.characteristic().get();
+		
 		mainFrameLogoJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameLogoJlabelCharacteristic"), Optional.class);
 		structureTopologyJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameStructureTopologyJlabelCharacteristic"), Optional.class);
 		mainFrameBackgroundJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameBackgroundJlabelCharacteristic"), Optional.class);
