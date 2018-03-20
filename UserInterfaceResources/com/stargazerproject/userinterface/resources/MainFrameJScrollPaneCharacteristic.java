@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.characteristic.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 
@@ -35,11 +36,11 @@ public class MainFrameJScrollPaneCharacteristic implements BaseCharacteristic<JS
 	
 	@Override
 	public Optional<JScrollPane> characteristic() {
-		if(characteristic.singleInitialization()){
-			initialization();
-		}
-		else{
-			
+		synchronized(this){
+			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+				initialization();
+				characteristic.singleInitializationComplete();
+			}
 		}
 		return Optional.of(jScrollPane);
 	}

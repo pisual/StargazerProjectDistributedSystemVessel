@@ -30,39 +30,54 @@ import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPan
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseCharacteristic<MainFrameAssaultLilysUserInterface>{
 	
+	/**混合主界面特征**/
 	@Autowired
 	@Qualifier("mainFrameJFrameCharacteristic")
 	private BaseCharacteristic<JFrame> mainFrameJFrameCharacteristic;
 	
+	/**混合主界面**/
+	private JFrame mainFrameJFrame;
+	
+	/**主界面左控制台特征**/
 	@Autowired
 	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
 	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
 	
+	/**主界面左控制台**/
+	private JTextPane mainFrameConsoleTextPane;
+	
+	/**主界面右控制台特征**/
 	@Autowired
 	@Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
 	private BaseCharacteristic<JTextPane> mainFrameRightConsoleTextPaneCharacteristic;
 	
+	/**主界面右控制台**/
+	private JTextPane mainFrameRightConsoleTextPane;
+	
+	/**主界面左面滚动条特征**/
 	@Autowired
 	@Qualifier("mainFrameJScrollPaneCharacteristic")
 	private BaseCharacteristic<JScrollPane> mainFrameJScrollPaneCharacteristic;
 	
+	/**主界面左面滚动条**/
+	private JScrollPane mainFrameJScrollPane;
+	
+	/**主界面右面滚动条特征**/
 	@Autowired
 	@Qualifier("mainFrameRightJScrollPaneCharacteristic")
 	private BaseCharacteristic<JScrollPane> mainFrameRightJScrollPaneCharacteristic;
-	
-	/**混合主界面**/
-	private JFrame mainFrameJFrame;
-	/**主界面左控制台**/
-	private JTextPane mainFrameConsoleTextPane;
-	/**主界面右控制台**/
-	private JTextPane mainFrameRightConsoleTextPane;
-	/**主界面左面滚动条**/
-	private JScrollPane mainFrameJScrollPane;
+
 	/**主界面右面滚动条**/
 	private JScrollPane mainFramerightJScrollPane;
 	
-	/**操纵图标头像位置**/
+	/**主界面Logo特征 **/
+	@Autowired
+	@Qualifier("mainFrameLogoJlabelCharacteristic")
+	private BaseCharacteristic<JLabel> mainFrameLogoJlabelCharacteristic;
+	
+	/**主界面Logo **/
 	private Optional<JLabel> mainFrameLogoJlabel;
+	
 	/**系统构架拓扑**/
 	private Optional<JLabel> structureTopologyJlabel;
 	/**主界面背景**/
@@ -95,8 +110,8 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 		mainFrameRightConsoleTextPane = mainFrameRightConsoleTextPaneCharacteristic.characteristic().get();
 		mainFrameJScrollPane = mainFrameJScrollPaneCharacteristic.characteristic().get();
 		mainFramerightJScrollPane = mainFrameRightJScrollPaneCharacteristic.characteristic().get();
+		mainFrameLogoJlabel = mainFrameLogoJlabelCharacteristic.characteristic().get();
 		
-		mainFrameLogoJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameLogoJlabelCharacteristic"), Optional.class);
 		structureTopologyJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameStructureTopologyJlabelCharacteristic"), Optional.class);
 		mainFrameBackgroundJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameBackgroundJlabelCharacteristic"), Optional.class);
 		mainFrameLayout = BeanContainer.instance().getBean(Optional.of("mainFrameLayoutCharacteristic"), Optional.class);

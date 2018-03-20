@@ -40,9 +40,6 @@ public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacterist
 				initialization();
 				characteristic.singleInitializationComplete();
 			}
-			else{
-				
-			}
 		}
 		return Optional.of(jScrollPane);
 	}

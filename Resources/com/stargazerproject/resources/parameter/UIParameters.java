@@ -49,17 +49,17 @@ public class UIParameters {
 	/** @illustrate 主界面使用者头像 **/
 	private static final String Kernel_UserInterface_MainFrame_Icon_UserHeadPortrait = "logo.png";
 	
-	/** @illustrate 操纵图标头像位置及尺寸 **/
-	private static final String Main_Frame_LogoLocation = "1675,23,124,124";
+	/** @illustrate 主界面Logo **/
+	private static final String Kernel_UserInterface_MainFrame_Icon_Logo = "logo.png";
 	
-	/** @illustrate 主界面系统构架拓扑图标位置及尺寸 **/
-	private static final String Main_Frame_StructureTopology_Location = "1140,33,645,540";
-	
-	/** @illustrate 操纵图标头像文件路径 **/
-	private static final String Main_Frame_Logo_Path = "logo.png";
+	/** @illustrate 主界面Logo位置及尺寸 格式 X ：Y：W ：H **/
+	private static final String Kernel_UserInterface_MainFrame_Icon_Logo_Location = "1675,23,124,124";
 	
 	/** @illustrate 系统构架拓扑图标路径 **/
-	private static final String Main_Frame_StructureTopology_Path = "StructureTopology.png";
+	private static final String Kernel_UserInterface_MainFrame_Icon_TructureTopology = "StructureTopology.png";
+	
+	/** @illustrate 主界面系统构架拓扑图标位置及尺寸 格式 X ：Y：W ：H **/
+	private static final String Kernel_UserInterface_MainFrame_Icon_TructureTopology_Location = "1140,33,645,540";
 	
 	/** @illustrate 主界面控制台高度 **/
 	private static final String Main_Frame_Console_Height = "500";

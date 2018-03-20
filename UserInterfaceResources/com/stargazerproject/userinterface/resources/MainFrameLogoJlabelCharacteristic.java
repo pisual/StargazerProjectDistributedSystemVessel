@@ -4,39 +4,37 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.util.ParameterStringUtil;
 
 /**
- *操控头像 
+ *主界面Logo 
  **/
-@Component(value="mainFrameLogoJlabel")
-@Qualifier("mainFrameLogoJlabel")
+@Component(value="mainFrameLogoJlabelCharacteristic")
+@Qualifier("mainFrameLogoJlabelCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameLogoJlabelCharacteristic implements BaseCharacteristic<JLabel>{
 	
+	/** @name 主界面Logo **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Icon_Logo;
+	
+	/** @name 主界面Logo位置 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Icon_Logo_Location;
+	
 	private GradientLoadInterface gradientLoadInterface;
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> systemParameter;
-	
 	@Override
-	@Bean(name="mainFrameLogoJlabelCharacteristic")
-	@Lazy(true)
 	public Optional<JLabel> characteristic() {
 		try {
-			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("Main_Frame_Logo_Path")).get());
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,7 +47,8 @@ public class MainFrameLogoJlabelCharacteristic implements BaseCharacteristic<JLa
 	}
 	
 	private void initMainFrameLogoJlabel(){
-		int logoLocation[] = ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("Main_Frame_LogoLocation")), Optional.of(","), Optional.of(4)).get();
+		int logoLocation[] = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_MainFrame_Icon_Logo), Optional.of(","), Optional.of(4)).get();
+		gradientLoadInterface = new GradientLoadInterface(Kernel_UserInterface_MainFrame_Icon_Logo);
 		gradientLoadInterface.setBounds(logoLocation[0], logoLocation[1], logoLocation[2], logoLocation[3]);
 	}
 
