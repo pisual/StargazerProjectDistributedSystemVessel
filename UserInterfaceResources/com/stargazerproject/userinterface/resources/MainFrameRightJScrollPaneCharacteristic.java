@@ -23,6 +23,7 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Qualifier("mainFrameRightJScrollPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacteristic<JScrollPane> {
+	
 	@Autowired
 	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
 	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;

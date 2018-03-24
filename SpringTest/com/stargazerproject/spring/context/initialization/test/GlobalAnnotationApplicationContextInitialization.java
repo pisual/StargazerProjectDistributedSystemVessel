@@ -355,7 +355,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 //		MainFrameRightJScrollPaneCharacteristic.class,
 //		MainFrameStructureTopologyJlabelCharacteristic.class,
 //		MainFrameShall.class,
-//		LogoClickListenerCharacteristic.class,
+//		MainFrameLogoClickListenerCharacteristic.class,
 //		MainFrameMouseAdapterListenerCharacteristic.class,
 //		MainFrameMouseMotionAdapterListenerCharacteristic.class,
 //		MainFramePointCharacteristic.class,

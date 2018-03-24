@@ -6,47 +6,53 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JFrame;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /**
  * 鼠标拖拽事件
  *@author Felixerio
  */
-@Component(value="mainFrameMouseMotionAdapterListener")
-@Qualifier("mainFrameMouseMotionAdapterListener")
+@Component(value="mainFrameMouseMotionAdapterListenerCharacteristic")
+@Qualifier("mainFrameMouseMotionAdapterListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameMouseMotionAdapterListenerCharacteristic extends MouseMotionAdapter implements BaseCharacteristic<MouseMotionAdapter>{
 	
+	/**混合主界面特征**/
+	@Autowired
+	@Qualifier("mainFrameJFrameCharacteristic")
+	private BaseCharacteristic<JFrame> mainFrameJFrameCharacteristic;
+	
 	/**混合主界面**/
-	private Optional<JFrame> baseFrame;
-	/**操纵点坐标**/
-	private Optional<Point> point;
+	private JFrame mainFrameJFrame;
+	
+	/**主界面坐标点特征特征 **/
+	@Autowired
+	@Qualifier("mainFramePointCharacteristic")
+	private BaseCharacteristic<Point> mainFramePointCharacteristic;
+	
+	/**主界面鼠标点击主界面坐标点特征**/
+	private Point mainFramePoint;
 	
 	public MainFrameMouseMotionAdapterListenerCharacteristic() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="mainFrameMouseMotionAdapterListenerCharacteristic")
-	@Lazy(true)
 	public Optional<MouseMotionAdapter> characteristic() {
-		baseFrame = BeanContainer.instance().getBean(Optional.of("mainFrameJFrameCharacteristic"), Optional.class);
-		point = BeanContainer.instance().getBean(Optional.of("mainFramePointCharacteristic"), Optional.class);
+		mainFrameJFrame = mainFrameJFrameCharacteristic.characteristic().get();
+		mainFramePoint = mainFramePointCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Point p = baseFrame.get().getLocation();
-		baseFrame.get().setLocation(p.x + e.getX() - point.get().x, p.y+ e.getY() - point.get().y);
+		Point p = mainFrameJFrame.getLocation();
+		mainFrameJFrame.setLocation(p.x + e.getX() - mainFramePoint.x, p.y+ e.getY() - mainFramePoint.y);
 		}
 	 
 }

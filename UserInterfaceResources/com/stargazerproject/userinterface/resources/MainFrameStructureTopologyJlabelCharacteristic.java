@@ -49,7 +49,7 @@ public class MainFrameStructureTopologyJlabelCharacteristic implements BaseChara
 	
 	private void initMainFrameLogoJlabel(){
 		int structureTopologyJlabelLocation[] = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_MainFrame_Icon_TructureTopology_Location), Optional.of(","), Optional.of(4)).get();
-		gradientLoadInterface = new GradientLoadInterface(Kernel_UserInterface_MainFrame_Icon_TructureTopology);
+		gradientLoadInterface = new GradientLoadInterface(Optional.of(Kernel_UserInterface_MainFrame_Icon_TructureTopology));
 		gradientLoadInterface.setBounds(structureTopologyJlabelLocation[0], structureTopologyJlabelLocation[1], structureTopologyJlabelLocation[2], structureTopologyJlabelLocation[3]);
 	}
 }

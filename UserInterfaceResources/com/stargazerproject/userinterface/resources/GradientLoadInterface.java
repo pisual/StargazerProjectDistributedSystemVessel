@@ -26,18 +26,12 @@ public class GradientLoadInterface extends JLabel implements ActionListener {
 	private Timer timer;
 	public BufferedImage image = null;
 	
-	public GradientLoadInterface(String imgPath) {
-		super(new ImageIcon(imgPath));
-		try {
-			image = ImageIO.read(UserinterfaceResource.class.getResource(imgPath));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public GradientLoadInterface(Optional<String> imagePath) {
+		super(new ImageIcon(imagePath.get()));
+		readImage(imagePath);
 	}
 
-	protected void readImage(Optional<String> imagePath){
+	private void readImage(Optional<String> imagePath){
 		try {
 			image = ImageIO.read(UserinterfaceResource.class.getResource(imagePath.get()));
 		} catch (FileNotFoundException e) {

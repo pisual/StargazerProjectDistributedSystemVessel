@@ -21,11 +21,6 @@ public class UIParameters {
 	
 	/** @illustrate 全局根路径 **/
 	private static final String BasePath = System.getProperty("user.dir") + "/StargazerUIAssaultLily/";
-
-	//言语及区域配置 Start
-	/** @illustrate I18N全局语言配置 **/
-	private static final String I18N_Initialize_PropertiesPath = "StargazerI18N_en.properties";
-	//言语及区域配置 End
 	
 	//UI配置 Start
 	/** @illustrate 主界面宽 **/
@@ -37,8 +32,8 @@ public class UIParameters {
 	/** @illustrate 加载进度页面背景 **/
 	private static final String LOADING_INTERFACE_BACKGROUND = "Loading.png";
 	
-	/** @illustrate 主界面页面背景 **/
-	private static final String MAIN_INTERFACE_BACKGROUND = "Background.png";
+	/** @illustrate 主界面背景 **/
+	private static final String Kernel_UserInterface_MainFrame_Background = "Background.png";
 	
 	/** @illustrate 滚动条闸道背景颜色 RGB色组**/
 	private static final String JScrollPaneUI_TrackColor = "247,247,247";
@@ -62,7 +57,7 @@ public class UIParameters {
 	private static final String Kernel_UserInterface_MainFrame_Icon_TructureTopology_Location = "1140,33,645,540";
 	
 	/** @illustrate 主界面控制台高度 **/
-	private static final String Main_Frame_Console_Height = "500";
+	private static final String Kernel_UserInterface_MainFrame_Console_Size_Height = "500";
 	
 	/** @illustrate 主界面控制台字体的路径 **/
 	private static final String Kernel_UserInterface_MainFrame_Font_Path_Console = BasePath + "Copperplate.ttf";

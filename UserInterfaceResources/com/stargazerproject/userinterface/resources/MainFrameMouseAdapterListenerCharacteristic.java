@@ -4,45 +4,47 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /**
  * 获取鼠标点击位置事件
  *@author Felixeri
  */
-@Component(value="mouseAdapterListener")
-@Qualifier("mouseAdapterListener")
+@Component(value="mainFrameMouseAdapterListenerCharacteristic")
+@Qualifier("mainFrameMouseAdapterListenerCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameMouseAdapterListenerCharacteristic extends MouseAdapter implements BaseCharacteristic<MouseAdapter>{
 	
-	private Optional<Point> point;
+	/**主界面坐标点特征特征 **/
+	@Autowired
+	@Qualifier("mainFramePointCharacteristic")
+	private BaseCharacteristic<Point> mainFramePointCharacteristic;
+	
+	/**主界面鼠标点击主界面坐标点特征**/
+	private Point mainFramePoint;
+
 	
 	public MainFrameMouseAdapterListenerCharacteristic() {
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="mainFrameMouseAdapterListenerCharacteristic")
-	@Lazy(true)
 	public Optional<MouseAdapter> characteristic() {
-		point = BeanContainer.instance().getBean(Optional.of("mainFramePointCharacteristic"), Optional.class);
+		mainFramePoint = mainFramePointCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		point.get().x = e.getX();
-		point.get().y = e.getY();
+		mainFramePoint.x = e.getX();
+		mainFramePoint.y = e.getY();
 		}
 
 }

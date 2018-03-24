@@ -4,16 +4,14 @@ import java.awt.Point;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
-@Component(value="mainFramePoint")
-@Qualifier("mainFramePoint")
+@Component(value="mainFramePointCharacteristic")
+@Qualifier("mainFramePointCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFramePointCharacteristic implements BaseCharacteristic<Point>{
 
@@ -22,8 +20,6 @@ public class MainFramePointCharacteristic implements BaseCharacteristic<Point>{
 	public MainFramePointCharacteristic() {}
 	
 	@Override
-	@Bean(name="mainFramePointCharacteristic")
-	@Lazy(true)
 	public Optional<Point> characteristic() {
 		return Optional.of(origin);
 	}

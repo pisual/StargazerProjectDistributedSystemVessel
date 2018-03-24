@@ -7,7 +7,6 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,9 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.userinterface.extend.MainFrameAssaultLilysUserInterface;
-import com.stargazerproject.userinterface.resources.GradientLoadInterface;
+import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
 
@@ -41,18 +39,18 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 	/**主界面左控制台特征**/
 	@Autowired
 	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
-	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
+	private BaseCharacteristic<MainFrameConsoleTextPaneCharacteristic> mainFrameConsoleTextPaneCharacteristic;
 	
 	/**主界面左控制台**/
-	private JTextPane mainFrameConsoleTextPane;
+	private MainFrameConsoleTextPaneCharacteristic mainFrameConsoleTextPane;
 	
 	/**主界面右控制台特征**/
 	@Autowired
 	@Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
-	private BaseCharacteristic<JTextPane> mainFrameRightConsoleTextPaneCharacteristic;
+	private BaseCharacteristic<MainFrameRightConsoleTextPaneCharacteristic> mainFrameRightConsoleTextPaneCharacteristic;
 	
 	/**主界面右控制台**/
-	private JTextPane mainFrameRightConsoleTextPane;
+	private MainFrameRightConsoleTextPaneCharacteristic mainFrameRightConsoleTextPane;
 	
 	/**主界面左面滚动条特征**/
 	@Autowired
@@ -76,22 +74,63 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 	private BaseCharacteristic<JLabel> mainFrameLogoJlabelCharacteristic;
 	
 	/**主界面Logo **/
-	private Optional<JLabel> mainFrameLogoJlabel;
+	private JLabel mainFrameLogoJlabel;
 	
-	/**系统构架拓扑**/
-	private Optional<JLabel> structureTopologyJlabel;
+	/**主界面系统构架拓扑特征 **/
+	@Autowired
+	@Qualifier("MainFrameStructureTopologyJlabelCharacteristic")
+	private BaseCharacteristic<JLabel> mainFrameStructureTopologyJlabelCharacteristic;
+	
+	/**主界面系统构架拓扑**/
+	private JLabel mainFrameStructureTopologyJlabel;
+	
+	/**主界面系统构架拓扑特征 **/
+	@Autowired
+	@Qualifier("mainFrameBackgroundJlabelCharacteristic")
+	private BaseCharacteristic<JLabel> mainFrameBackgroundJlabelCharacteristic;
+	
 	/**主界面背景**/
-	private Optional<GradientLoadInterface> mainFrameBackgroundJlabel;
+	private JLabel mainFrameBackgroundJlabel;
+	
+	/**混合主界面布局特征 **/
+	@Autowired
+	@Qualifier("mainFrameLayoutCharacteristic")
+	private BaseCharacteristic<MainFrameLayoutCharacteristic> mainFrameLayoutCharacteristic;
+	
 	/**混合主界面布局**/
-	private Optional<MainFrameLayoutCharacteristic> mainFrameLayout;
-	/**主界面坐标点，用于界面拖动**/
-	private Optional<Point> mainFramePointCharacteristic;
+	private MainFrameLayoutCharacteristic mainFrameLayout;
+	
+	/**主界面坐标点特征 **/
+	@Autowired
+	@Qualifier("mainFramePointCharacteristic")
+	private BaseCharacteristic<Point> mainFramePointCharacteristic;
+	
+	/**主界面坐标点**/
+	private Point mainFramePoint;
+	
+	/**主界面鼠标点击事件特征 **/
+	@Autowired
+	@Qualifier("mainFrameLogoClickListenerCharacteristic")
+	private BaseCharacteristic<MouseAdapter> mainFrameLogoClickListenerCharacteristic;
+	
 	/**主界面鼠标点击事件**/
-	private Optional<MouseAdapter> logoClickListenerCharacteristic;
-	/**获取主界面鼠标点击位置**/
-	private Optional<MouseAdapter> mainFrameMouseAdapterListenerCharacteristic;
+	private MouseAdapter mainFrameLogoClickListener;
+	
+	/**主界面鼠标点击位置特征 **/
+	@Autowired
+	@Qualifier("mainFrameMouseAdapterListenerCharacteristic")
+	private BaseCharacteristic<MouseAdapter> mainFrameMouseAdapterListenerCharacteristic;
+	
+	/**主界面鼠标点击位置**/
+	private MouseAdapter mainFrameMouseAdapterListener;
+	
+	/**主界面鼠标点击事件特征 **/
+	@Autowired
+	@Qualifier("mainFrameMouseMotionAdapterListenerCharacteristic")
+	private BaseCharacteristic<MouseMotionAdapter> mainFrameMouseMotionAdapterListenerCharacteristic;
+	
 	/**主界面鼠标点击事件**/
-	private Optional<MouseMotionAdapter> mainFrameMouseMotionAdapterListenerCharacteristic;
+	private MouseMotionAdapter mainFrameMouseMotionAdapterListener;
 
 
 	@Override
@@ -111,67 +150,66 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 		mainFrameJScrollPane = mainFrameJScrollPaneCharacteristic.characteristic().get();
 		mainFramerightJScrollPane = mainFrameRightJScrollPaneCharacteristic.characteristic().get();
 		mainFrameLogoJlabel = mainFrameLogoJlabelCharacteristic.characteristic().get();
-		
-		structureTopologyJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameStructureTopologyJlabelCharacteristic"), Optional.class);
-		mainFrameBackgroundJlabel = BeanContainer.instance().getBean(Optional.of("mainFrameBackgroundJlabelCharacteristic"), Optional.class);
-		mainFrameLayout = BeanContainer.instance().getBean(Optional.of("mainFrameLayoutCharacteristic"), Optional.class);
-		mainFramePointCharacteristic = BeanContainer.instance().getBean(Optional.of("mainFramePointCharacteristic"), Optional.class);
-		logoClickListenerCharacteristic = BeanContainer.instance().getBean(Optional.of("logoClickListenerCharacteristic"), Optional.class);
-		mainFrameMouseAdapterListenerCharacteristic = BeanContainer.instance().getBean(Optional.of("mainFrameMouseAdapterListenerCharacteristic"), Optional.class);
-		mainFrameMouseMotionAdapterListenerCharacteristic = BeanContainer.instance().getBean(Optional.of("mainFrameMouseMotionAdapterListenerCharacteristic"), Optional.class);
+		mainFrameStructureTopologyJlabel = mainFrameStructureTopologyJlabelCharacteristic.characteristic().get();
+		mainFrameBackgroundJlabel = mainFrameBackgroundJlabelCharacteristic.characteristic().get();
+		mainFrameLayout = mainFrameLayoutCharacteristic.characteristic().get();
+		mainFramePoint = mainFramePointCharacteristic.characteristic().get();
+		mainFrameLogoClickListener = mainFrameLogoClickListenerCharacteristic.characteristic().get();
+		mainFrameMouseAdapterListener = mainFrameMouseAdapterListenerCharacteristic.characteristic().get();
+		mainFrameMouseMotionAdapterListener = mainFrameMouseMotionAdapterListenerCharacteristic.characteristic().get();
 	}
 	
 	private void baseFrameInitialization(){
-		baseFrame.get().getLayeredPane().add(mainFrameBackgroundJlabel.get(),new Integer(Integer.MIN_VALUE));
-		baseFrame.get().getLayeredPane().add(mainFrameLogoJlabel.get(),new Integer(Integer.MIN_VALUE)+1);
-		baseFrame.get().getLayeredPane().add(structureTopologyJlabel.get(),new Integer(Integer.MIN_VALUE)+2);
-		mainFrameLogoJlabel.get().addMouseListener(logoClickListenerCharacteristic.get());
-		mainFrameLogoJlabel.get().addMouseListener(mainFrameMouseAdapterListenerCharacteristic.get());
-		mainFrameLogoJlabel.get().addMouseMotionListener(mainFrameMouseMotionAdapterListenerCharacteristic.get());	
+		mainFrameJFrame.getLayeredPane().add(mainFrameBackgroundJlabel, new Integer(Integer.MIN_VALUE));
+		mainFrameJFrame.getLayeredPane().add(mainFrameLogoJlabel, new Integer(Integer.MIN_VALUE) + 1);
+		mainFrameJFrame.getLayeredPane().add(mainFrameStructureTopologyJlabel, new Integer(Integer.MIN_VALUE) + 2);
+		mainFrameLogoJlabel.addMouseListener(mainFrameLogoClickListener);
+		mainFrameLogoJlabel.addMouseListener(mainFrameMouseAdapterListener);
+		mainFrameLogoJlabel.addMouseMotionListener(mainFrameMouseMotionAdapterListener);	
 	}
 	
 	@Override
 	public void startMain() {
-		baseFrame.get().setVisible(Boolean.TRUE);
-		mainFrameLogoJlabel.get().setVisible(Boolean.TRUE);
-		structureTopologyJlabel.get().setVisible(Boolean.TRUE);
+		mainFrameJFrame.setVisible(Boolean.TRUE);
+		mainFrameLogoJlabel.setVisible(Boolean.TRUE);
+		mainFrameStructureTopologyJlabel.setVisible(Boolean.TRUE);
 	}
 
 	@Override
 	public void endMain() {
-		baseFrame.get().setVisible(Boolean.FALSE);
-		mainFrameLogoJlabel.get().setVisible(Boolean.FALSE);
-		structureTopologyJlabel.get().setVisible(Boolean.FALSE);
+		mainFrameJFrame.setVisible(Boolean.FALSE);
+		mainFrameLogoJlabel.setVisible(Boolean.FALSE);
+		mainFrameStructureTopologyJlabel.setVisible(Boolean.FALSE);
 	}
 
 	@Override
 	public void visualLeftTerminal() {
-		consoleTextPane.get().setVisible(Boolean.TRUE);
+		mainFrameConsoleTextPane.setVisible(Boolean.TRUE);
 	}
 
 	@Override
 	public void unvisualLeftTerminal() {
-		consoleTextPane.get().setVisible(Boolean.FALSE);
+		mainFrameConsoleTextPane.setVisible(Boolean.FALSE);
 	}
 
 	@Override
 	public void addLeftTerminalText(Optional<String> content) {
-		consoleTextPane.get().insertMessage(content);
+		mainFrameConsoleTextPane.insertMessage(content);
 	}
 
 	@Override
 	public void visualRightTerminal() {
-		rightConsoleTextPane.get().setVisible(Boolean.TRUE);
+		mainFrameRightConsoleTextPane.setVisible(Boolean.TRUE);
 	}
 
 	@Override
 	public void unvisualRightTerminal() {
-		rightConsoleTextPane.get().setVisible(Boolean.FALSE);
+		mainFrameRightConsoleTextPane.setVisible(Boolean.FALSE);
 	}
 
 	@Override
 	public void addRightTerminalText(Optional<String> content) {
-		rightConsoleTextPane.get().insertMessage(content);
+		mainFrameRightConsoleTextPane.insertMessage(content);
 	}
 
 }

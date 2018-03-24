@@ -2,16 +2,15 @@ package com.stargazerproject.userinterface.resources;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.swing.JLabel;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 /**
@@ -19,23 +18,20 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
  * 
  *@author Felixerio
  */
-@Component(value="mainFrameBackgroundJlabel")
-@Qualifier("mainFrameBackgroundJlabel")
+@Component(value="mainFrameBackgroundJlabelCharacteristic")
+@Qualifier("mainFrameBackgroundJlabelCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<GradientLoadInterface>{
+public class MainFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<JLabel>{
+	
+	/** @name 主界面背景 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_MainFrame_Background;
 	
 	private GradientLoadInterface gradientLoadInterface;
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> systemParameter;
-	
 	@Override
-	@Bean(name="mainFrameBackgroundJlabelCharacteristic")
-	@Lazy(true)
-	public Optional<GradientLoadInterface> characteristic() {
+	public Optional<JLabel> characteristic() {
 		try {
-			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("MAIN_INTERFACE_BACKGROUND")).get());
 			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -44,6 +40,7 @@ public class MainFrameBackgroundJlabelCharacteristic implements BaseCharacterist
 	}
 	
 	private void initialization() throws IOException {
+		gradientLoadInterface = new GradientLoadInterface(Optional.of(Kernel_UserInterface_MainFrame_Background));
 		gradientLoadInterface.setBounds(0, 0,gradientLoadInterface.image.getWidth(), gradientLoadInterface.image.getHeight());
 		gradientLoadInterface.setOpaque(true);
 	}
