@@ -16,17 +16,16 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
  * 加载界面进度条
  *@author Felixerio
  */
-@Component(value="loadingJProgressBar")
-@Qualifier("loadingJProgressBar")
+@Component(value="loadingJProgressBarCharacteristic")
+@Qualifier("loadingJProgressBarCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingJProgressBarCharacteristic extends JProgressBar implements BaseCharacteristic<JProgressBar>{
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 70148292084859317L;
+
 	public LoadingJProgressBarCharacteristic() {}
 	
 	@Override
-	@Bean(name="loadingJProgressBarCharacteristic")
-	@Lazy(true)
 	public Optional<JProgressBar> characteristic() {
 		initLoadingJProgressBar();
 		return Optional.of(this);

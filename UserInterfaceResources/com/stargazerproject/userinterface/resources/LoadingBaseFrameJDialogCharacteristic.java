@@ -1,6 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
 import java.awt.Toolkit;
+import java.net.URL;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.sun.awt.AWTUtilities;
@@ -24,20 +26,22 @@ import com.sun.awt.AWTUtilities;
  *@email pisual@163.com dsnsuva@163.com dsnsuva@gmail.com
  *@author Felixerio FelixSion
  */
-@SuppressWarnings("restriction")
-@Component(value="loadingBaseFrameJDialog")
-@Qualifier("loadingBaseFrameJDialog")
+@Component(value="loadingBaseFrameJDialogCharacteristic")
+@Qualifier("loadingBaseFrameJDialogCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements BaseCharacteristic<JDialog>{
 	private static final long serialVersionUID = 5171904966548890916L;
 	
+	/** @name 加载界面使用者头像 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_LoadingFrame_Icon_Logo;
+	
 	public LoadingBaseFrameJDialogCharacteristic() {}
 	
 	@Override
-	@Bean(name="loadingBaseFrameJDialogCharacteristic")
-	@Lazy(true)
 	public Optional<JDialog> characteristic() {
 		initLoadingBaseFrameJDialog();
+		initializationJDialogIcon();
 		return Optional.of(this);
 	}
 	
@@ -47,6 +51,10 @@ public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements Ba
 		this.setSize(295,296);
 		this.setBounds(839, 403, 296, 296);
 		AWTUtilities.setWindowOpaque(this, false);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(UserinterfaceResource.class.getResource("logo.png")));
+	}
+	
+	private void initializationJDialogIcon(){
+		URL url = UserinterfaceResource.class.getResource(Kernel_UserInterface_LoadingFrame_Icon_Logo);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 	}
 }

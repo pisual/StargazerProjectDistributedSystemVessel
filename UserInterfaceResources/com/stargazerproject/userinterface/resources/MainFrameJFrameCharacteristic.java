@@ -61,7 +61,7 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 
 	private void initialization() {
 		initializationJFrame();
-		initializationJFrameBackground();
+		initializationJFrameIcon();
 	}
 	
 	private void initializationJFrame(){
@@ -72,7 +72,7 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 		UIUtil.changeFrameToCenter(jFrame);
 	}
 	
-	private void initializationJFrameBackground(){
+	private void initializationJFrameIcon(){
 		URL url = UserinterfaceResource.class.getResource(Kernel_UserInterface_MainFrame_Icon_UserHeadPortrait);
 		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 	}
