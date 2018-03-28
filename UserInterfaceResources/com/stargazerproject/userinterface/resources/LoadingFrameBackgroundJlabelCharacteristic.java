@@ -4,39 +4,34 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 /**
  *加载进度页面背景
  *@author Felixerio
  */
-@Component(value="loadingFrameBackgroundJlabel")
-@Qualifier("loadingFrameBackgroundJlabel")
+@Component(value="loadingFrameBackgroundJlabelCharacteristic")
+@Qualifier("loadingFrameBackgroundJlabelCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingFrameBackgroundJlabelCharacteristic implements BaseCharacteristic<JLabel>{
 	
-	@Autowired
-	@Qualifier("systemParameterCahce")
-	private Cache<String,String> systemParameter;
+	/** @name 加载界面背景 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_LoadingFrame_Background;
 	
 	private GradientLoadInterface gradientLoadInterface;
 	
 	@Override
-	@Bean(name="loadingFrameBackgroundJlabelCharacteristic")
-	@Lazy(true)
 	public Optional<JLabel> characteristic() {
 		try {
-			gradientLoadInterface = new GradientLoadInterface(systemParameter.get(Optional.of("LOADING_INTERFACE_BACKGROUND")).get());
+			gradientLoadInterface = new GradientLoadInterface(Optional.of(Kernel_UserInterface_LoadingFrame_Background));
 			initialization();
 			initialization();
 		} catch (IOException e) {

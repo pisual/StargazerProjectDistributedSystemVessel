@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
+import com.stargazerproject.characteristic.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.util.ColorUtil;
 import com.stargazerproject.util.FontUtil;
@@ -43,11 +45,20 @@ public class LoadingProgressInfoCharacteristic extends JLabel implements BaseCha
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_Color_ProgressInfo;
 	
+	@Autowired
+	@Qualifier("characteristicInitialization")
+	private Characteristic characteristic;
+	
 	public LoadingProgressInfoCharacteristic() {}
 	
 	@Override
 	public Optional<JLabel> characteristic() {
-		initLoadingProgressInfo(fontInitialization(), fontColorInitialization());
+		synchronized(this){
+			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+				initLoadingProgressInfo(fontInitialization(), fontColorInitialization());
+				characteristic.singleInitializationComplete();
+			}
+		}
 		return Optional.of(this);
 	}
 	

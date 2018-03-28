@@ -6,41 +6,56 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.LayoutStyle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 
 /**
  *混合主界面布局器 加载进度界面布局
  *@author Felixerio
  **/
-@Component(value="loadingFrameLayout")
-@Qualifier("loadingFrameLayout")
+@Component(value="loadingFrameLayoutCharacteristic")
+@Qualifier("loadingFrameLayoutCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingFrameLayoutCharacteristic implements BaseCharacteristic<LoadingFrameLayoutCharacteristic>{
 	
-	private Optional<JDialog> jDialog;
-	private Optional<JProgressBar> jProgressBar;
-	private Optional<JLabel> jLabel;
+	/**加载进度界面特征**/
+	@Autowired
+	@Qualifier("loadingBaseFrameJDialogCharacteristic")
+	private BaseCharacteristic<JDialog> loadingBaseFrameJDialogCharacteristic;
+	
+	/**加载进度界面**/
+	private JDialog loadingBaseFrameJDialog;
+	
+	/**加载进度界面进度条特征**/
+	@Autowired
+	@Qualifier("loadingJProgressBarCharacteristic")
+	private BaseCharacteristic<JProgressBar> loadingJProgressBarCharacteristic;
+	
+	/**加载进度界面进度条**/
+	private JProgressBar loadingJProgressBar;
+
+	/**加载界面进度条文字标识特征**/
+	@Autowired
+	@Qualifier("loadingProgressInfoCharacteristic")
+	private BaseCharacteristic<JLabel> loadingProgressInfoCharacteristic;
+	
+	/**加载界面进度条文字标识**/
+	private JLabel loadingProgressInfo;
 	
 	public LoadingFrameLayoutCharacteristic() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	@Bean(name="loadingFrameLayoutCharacteristic")
-	@Lazy(true)
 	public Optional<LoadingFrameLayoutCharacteristic> characteristic() {
-		jDialog = BeanContainer.instance().getBean(Optional.of("loadingBaseFrameJDialogCharacteristic"), Optional.class);
-		jProgressBar = BeanContainer.instance().getBean(Optional.of("loadingJProgressBarCharacteristic"), Optional.class);
-		jLabel = BeanContainer.instance().getBean(Optional.of("loadingProgressInfoCharacteristic"), Optional.class);
-		initMainFrameLayout(jDialog.get(), jProgressBar.get(), jLabel.get());
+		loadingBaseFrameJDialog = loadingBaseFrameJDialogCharacteristic.characteristic().get();
+		loadingJProgressBar = loadingJProgressBarCharacteristic.characteristic().get();
+		loadingProgressInfo = loadingProgressInfoCharacteristic.characteristic().get();
+		initMainFrameLayout(loadingBaseFrameJDialog, loadingJProgressBar, loadingProgressInfo);
 		return Optional.of(this);
 	}
 	
@@ -57,6 +72,5 @@ public class LoadingFrameLayoutCharacteristic implements BaseCharacteristic<Load
 			  .addComponent(progressInfo,GroupLayout.PREFERRED_SIZE, 18,GroupLayout.PREFERRED_SIZE)
 			  .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)));
 	}
-
 	
 }

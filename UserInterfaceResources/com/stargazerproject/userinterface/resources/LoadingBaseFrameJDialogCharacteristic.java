@@ -6,15 +6,15 @@ import java.net.URL;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
+import com.stargazerproject.characteristic.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.sun.awt.AWTUtilities;
@@ -36,12 +36,21 @@ public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements Ba
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Icon_Logo;
 	
+	@Autowired
+	@Qualifier("characteristicInitialization")
+	private Characteristic characteristic;
+	
 	public LoadingBaseFrameJDialogCharacteristic() {}
 	
 	@Override
 	public Optional<JDialog> characteristic() {
-		initLoadingBaseFrameJDialog();
-		initializationJDialogIcon();
+		synchronized(this){
+			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+				initLoadingBaseFrameJDialog();
+				initializationJDialogIcon();
+				characteristic.singleInitializationComplete();
+			}
+		}
 		return Optional.of(this);
 	}
 	

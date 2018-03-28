@@ -7,9 +7,13 @@ import javax.swing.JComponent;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
-import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.util.ColorUtil;
 import com.stargazerproject.util.ParameterStringUtil;
 
@@ -20,19 +24,19 @@ import com.stargazerproject.util.ParameterStringUtil;
  *@email pisual@163.com dsnsuva@163.com dsnsuva@gmail.com
  *@author Felixerio FelixSion
  */
+@Component(value="loadingJProgressBarUI")
+@Qualifier("loadingJProgressBarUI")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingJProgressBarUI extends BasicProgressBarUI {
 	
-	/**加载界面进度条**/
-	private static JProgressBar loadingframeJProgressBar;
-	/**加载界面进度条 RGB色组**/
-	private static Color Loading_Frame_ProgressBar_Color;
+	/** @name 加载界面背景 **/
+	@NeedInject(type="SystemParametersCache")
+	private static String Kernel_UserInterface_LoadingFrame_ProgressBar_Color;
 	
-	@SuppressWarnings("unchecked")
-	public LoadingJProgressBarUI(JProgressBar jProgressBar) {
-		Cache<String,String> systemParameter = BeanContainer.instance().getBean(Optional.of("systemParameterCahce"), Cache.class);
-		Loading_Frame_ProgressBar_Color  = ColorUtil.getColorFromIntRGBParament(ParameterStringUtil.parameterTransToNormallArray(systemParameter.get(Optional.of("Loading_Frame_ProgressBar_Color")), Optional.of(","), Optional.of(3)).get());
-		loadingframeJProgressBar = jProgressBar;
-		loadingframeJProgressBar.setForeground(Loading_Frame_ProgressBar_Color);
+	public LoadingJProgressBarUI() {}
+	
+	public void loadingJProgressBarUIInit(JProgressBar loadingframeJProgressBar){
+		loadingframeJProgressBar.setForeground(jProgressBarColorInitialization());
 		loadingframeJProgressBar.setBounds(430, 250, 670, 2);
 	}
 	
@@ -40,4 +44,19 @@ public class LoadingJProgressBarUI extends BasicProgressBarUI {
 	protected void paintDeterminate(Graphics g, JComponent c) {
 		super.paintDeterminate(g, c);
 	}
+	
+	private Color jProgressBarColorInitialization(){
+		int[] colorArray = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_LoadingFrame_ProgressBar_Color), decollator(","), arrayLength(3)).get();
+		Color ConsoleText_FontColor = ColorUtil.getColorFromIntRGBParament(colorArray);
+		return ConsoleText_FontColor;
+	}
+	
+	private Optional<String> decollator(String decollator){
+		return Optional.of(decollator);
+	}
+	
+	private Optional<Integer> arrayLength(int arrayLength){
+		return Optional.of(arrayLength);
+	}
+	
 }
