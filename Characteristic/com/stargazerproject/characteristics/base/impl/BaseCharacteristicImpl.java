@@ -1,7 +1,7 @@
-package com.stargazerproject.characteristic.base.impl;
+package com.stargazerproject.characteristics.base.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 
 public class BaseCharacteristicImpl implements Characteristic{
 

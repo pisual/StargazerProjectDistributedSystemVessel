@@ -5,4 +5,4 @@
  * @author Felixerio
  *
  */
-package com.stargazerproject.characteristic.base.impl;
+package com.stargazerproject.characteristics.base.impl;
