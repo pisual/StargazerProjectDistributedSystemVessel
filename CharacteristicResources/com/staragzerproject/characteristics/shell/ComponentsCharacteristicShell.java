@@ -1,4 +1,4 @@
-package com.staragzerproject.characteristic.shell;
+package com.staragzerproject.characteristics.shell;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="componentsCharacteristicShell")

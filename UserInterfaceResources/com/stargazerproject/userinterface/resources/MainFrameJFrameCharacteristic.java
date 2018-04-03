@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.stargazerproject.util.UIUtil;
@@ -43,7 +43,7 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 	private static String Kernel_UserInterface_MainFrame_Icon_UserHeadPortrait;
 	
 	@Autowired
-	@Qualifier("characteristicInitialization")
+	@Qualifier("componentsCharacteristic")
 	private Characteristic characteristic;
 	
 	private JFrame jFrame = new JFrame();

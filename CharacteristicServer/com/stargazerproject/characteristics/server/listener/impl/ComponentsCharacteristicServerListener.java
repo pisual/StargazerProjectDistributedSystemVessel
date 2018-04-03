@@ -1,4 +1,4 @@
-package com.stargazerproject.Characteristic.server.listener.impl;
+package com.stargazerproject.characteristics.server.listener.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

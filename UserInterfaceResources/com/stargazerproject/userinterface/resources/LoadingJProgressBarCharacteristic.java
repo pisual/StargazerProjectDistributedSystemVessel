@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 /**
@@ -19,9 +19,7 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Component(value="loadingJProgressBarCharacteristic")
 @Qualifier("loadingJProgressBarCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingJProgressBarCharacteristic extends JProgressBar implements BaseCharacteristic<JProgressBar>{
-	
-	private static final long serialVersionUID = 70148292084859317L;
+public class LoadingJProgressBarCharacteristic implements BaseCharacteristic<JProgressBar>{
 	
 	/**加载界面进度条UI**/
 	@Autowired
@@ -29,8 +27,10 @@ public class LoadingJProgressBarCharacteristic extends JProgressBar implements B
 	private LoadingJProgressBarUI loadingJProgressBarUI;
 	
 	@Autowired
-	@Qualifier("characteristicInitialization")
+	@Qualifier("componentsCharacteristic")
 	private Characteristic characteristic;
+	
+	private JProgressBar jProgressBar = new JProgressBar();
 
 	public LoadingJProgressBarCharacteristic() {}
 	
@@ -42,13 +42,13 @@ public class LoadingJProgressBarCharacteristic extends JProgressBar implements B
 				characteristic.singleInitializationComplete();
 			}
 		}
-		return Optional.of(this);
+		return Optional.of(jProgressBar);
 	}
 	
 	private void initLoadingJProgressBar(){
-		loadingJProgressBarUI.loadingJProgressBarUIInit(this);
-		this.setUI(loadingJProgressBarUI);
-		this.setBounds(100, 400, 1000, 2);
+		loadingJProgressBarUI.loadingJProgressBarUIInit(jProgressBar);
+		jProgressBar.setUI(loadingJProgressBarUI);
+		jProgressBar.setBounds(100, 400, 1000, 2);
 	}
 	
 }

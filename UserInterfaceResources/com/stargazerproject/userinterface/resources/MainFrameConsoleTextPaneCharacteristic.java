@@ -35,9 +35,7 @@ import com.stargazerproject.util.UIUtil;
 @Component(value="mainFrameConsoleTextPaneCharacteristic")
 @Qualifier("mainFrameConsoleTextPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameConsoleTextPaneCharacteristic extends JTextPane implements BaseCharacteristic<JTextPane>{
-	
-	private static final long serialVersionUID = 7309857723035362456L;
+public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristic<JTextPane>{
 	
 	/** @name 主界面控制台字体的路径**/
 	@NeedInject(type="SystemParametersCache")
@@ -59,23 +57,25 @@ public class MainFrameConsoleTextPaneCharacteristic extends JTextPane implements
 	private StyledDocument styledDocument;
 	private SimpleAttributeSet simpleAttributeSet;
 	
+	private JTextPane jTextPane = new JTextPane();
+	
 	@Override
 	public Optional<JTextPane> characteristic() {
 		initialization();
-		return Optional.of(this);
+		return Optional.of(jTextPane);
 	}
 	
 	private void initialization(){
 		styleInitialization();
-		this.setOpaque(false);
-		this.setFont(fontInitialization());
-		this.setForeground(fontColorInitialization());
-		this.setBorder(BorderFactory.createEmptyBorder());
-		UIUtil.startConsoleReaderThread(this);
+		jTextPane.setOpaque(false);
+		jTextPane.setFont(fontInitialization());
+		jTextPane.setForeground(fontColorInitialization());
+		jTextPane.setBorder(BorderFactory.createEmptyBorder());
+		UIUtil.startConsoleReaderThread(jTextPane);
 	}
 	
 	private void styleInitialization(){
-		styledDocument = this.getStyledDocument();
+		styledDocument = jTextPane.getStyledDocument();
 		style = styledDocument.addStyle("ConsoleTextPane", null);
 		StyleConstants.setForeground(new SimpleAttributeSet(), fontColorInitialization());
 		StyleConstants.setIcon(style, new ImageIcon(UserinterfaceResource.class.getResource(Kernel_UserInterface_MainFrame_Font_Icon_Line)));
@@ -114,10 +114,10 @@ public class MainFrameConsoleTextPaneCharacteristic extends JTextPane implements
 	}
 	
 	private void cursorLocation(){
-	    Document consoleDocument = this.getDocument();;
-		boolean caretAtEnd = this.getCaretPosition() == consoleDocument.getLength() ? true : false;
+	    Document consoleDocument = jTextPane.getDocument();;
+		boolean caretAtEnd = jTextPane.getCaretPosition() == consoleDocument.getLength() ? true : false;
 		  if(caretAtEnd){
-			  this.setCaretPosition(consoleDocument.getLength());
+			  jTextPane.setCaretPosition(consoleDocument.getLength());
 		  }
 	}
 	

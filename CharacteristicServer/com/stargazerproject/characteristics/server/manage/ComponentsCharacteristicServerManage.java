@@ -1,4 +1,4 @@
-package com.stargazerproject.Characteristic.server.manage;
+package com.stargazerproject.characteristics.server.manage;
 
 import javax.annotation.PostConstruct;
 

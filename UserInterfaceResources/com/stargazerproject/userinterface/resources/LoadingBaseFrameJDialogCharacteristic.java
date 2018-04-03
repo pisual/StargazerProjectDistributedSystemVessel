@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.resources.userinterface.UserinterfaceResource;
 import com.sun.awt.AWTUtilities;
@@ -29,16 +29,17 @@ import com.sun.awt.AWTUtilities;
 @Component(value="loadingBaseFrameJDialogCharacteristic")
 @Qualifier("loadingBaseFrameJDialogCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements BaseCharacteristic<JDialog>{
-	private static final long serialVersionUID = 5171904966548890916L;
+public class LoadingBaseFrameJDialogCharacteristic implements BaseCharacteristic<JDialog>{
 	
 	/** @name 加载界面使用者头像 **/
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Icon_Logo;
 	
 	@Autowired
-	@Qualifier("characteristicInitialization")
+	@Qualifier("componentsCharacteristic")
 	private Characteristic characteristic;
+	
+	private JDialog jDialog = new JDialog();
 	
 	public LoadingBaseFrameJDialogCharacteristic() {}
 	
@@ -51,19 +52,19 @@ public class LoadingBaseFrameJDialogCharacteristic extends JDialog implements Ba
 				characteristic.singleInitializationComplete();
 			}
 		}
-		return Optional.of(this);
+		return Optional.of(jDialog);
 	}
 	
 	private void initLoadingBaseFrameJDialog(){
-		((JPanel) this.getContentPane()).setOpaque(false);
-		this.setUndecorated(true);
-		this.setSize(295,296);
-		this.setBounds(839, 403, 296, 296);
-		AWTUtilities.setWindowOpaque(this, false);
+		((JPanel) jDialog.getContentPane()).setOpaque(false);
+		jDialog.setUndecorated(true);
+		jDialog.setSize(295,296);
+		jDialog.setBounds(839, 403, 296, 296);
+		AWTUtilities.setWindowOpaque(jDialog, false);
 	}
 	
 	private void initializationJDialogIcon(){
 		URL url = UserinterfaceResource.class.getResource(Kernel_UserInterface_LoadingFrame_Icon_Logo);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+		jDialog.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 	}
 }

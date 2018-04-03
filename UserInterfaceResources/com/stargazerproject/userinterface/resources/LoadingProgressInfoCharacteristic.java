@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
-import com.stargazerproject.characteristic.Characteristic;
+import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.util.ColorUtil;
 import com.stargazerproject.util.FontUtil;
@@ -26,8 +26,7 @@ import com.stargazerproject.util.ParameterStringUtil;
 @Component(value="loadingProgressInfoCharacteristic")
 @Qualifier("loadingProgressInfoCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingProgressInfoCharacteristic extends JLabel implements BaseCharacteristic<JLabel>{
-	private static final long serialVersionUID = -7016844370715643376L;
+public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLabel>{
 	
 	/** @name 加载界面使用者头像 **/
 	@NeedInject(type="SystemParametersCache")
@@ -46,8 +45,10 @@ public class LoadingProgressInfoCharacteristic extends JLabel implements BaseCha
 	private static String Kernel_UserInterface_LoadingFrame_Font_Color_ProgressInfo;
 	
 	@Autowired
-	@Qualifier("characteristicInitialization")
+	@Qualifier("componentsCharacteristic")
 	private Characteristic characteristic;
+	
+	private JLabel jLabel = new JLabel();
 	
 	public LoadingProgressInfoCharacteristic() {}
 	
@@ -59,7 +60,7 @@ public class LoadingProgressInfoCharacteristic extends JLabel implements BaseCha
 				characteristic.singleInitializationComplete();
 			}
 		}
-		return Optional.of(this);
+		return Optional.of(jLabel);
 	}
 	
 	private Font fontInitialization(){
@@ -74,9 +75,9 @@ public class LoadingProgressInfoCharacteristic extends JLabel implements BaseCha
 	}
 	
 	private void initLoadingProgressInfo(Font font, Color color){
-		this.setFont(font);
-		this.setForeground(color); 
-		this.setBounds(730, 238, 200, 30);
+		jLabel.setFont(font);
+		jLabel.setForeground(color); 
+		jLabel.setBounds(730, 238, 200, 30);
 	}
 	
 	private Optional<String> decollator(String decollator){

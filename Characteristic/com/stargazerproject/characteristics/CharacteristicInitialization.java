@@ -1,4 +1,4 @@
-package com.stargazerproject.characteristic;
+package com.stargazerproject.characteristics;
 
 import com.google.common.base.Optional;
 

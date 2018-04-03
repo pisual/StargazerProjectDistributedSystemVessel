@@ -83,7 +83,7 @@ public class ServerDependDetectionAOPConfiguration {
 		servername = firstChartoLowerCase(servername);
 		
 		while(dependOnDelay(Optional.of(servername)).get() == Boolean.FALSE){
-			TimeUnit.SECONDS.sleep(1);
+	//		TimeUnit.SECONDS.sleep(1);
 		}
 		
 		proceedingJoinPoint.proceed();
