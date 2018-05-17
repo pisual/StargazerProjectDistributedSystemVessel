@@ -8,8 +8,9 @@ import com.stargazerproject.order.State;
 import com.stargazerproject.util.Clone;
 
 /** 
- *  @name 缓存接口
- *  @illustrate 实现缓存的基础功能
+ *  @name 指令
+ *  @illustrate Order指令是系统运行的核心部分，在外部调用，外部指令，内部事务，系统事件总线，序列总线中起着交换数据的功能
+ *             
  *  @param <K> 缓存的Key值类型
  *  @param <V> 缓存的Value类型
  *  @author Felixerio

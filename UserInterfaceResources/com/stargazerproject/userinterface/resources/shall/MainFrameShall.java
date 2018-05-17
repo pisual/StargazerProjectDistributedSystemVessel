@@ -184,12 +184,12 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 
 	@Override
 	public void visualLeftTerminal() {
-		mainFrameConsoleTextPane.setVisible(Boolean.TRUE);
+		mainFrameConsoleTextPane.setVisible();
 	}
 
 	@Override
 	public void unvisualLeftTerminal() {
-		mainFrameConsoleTextPane.setVisible(Boolean.FALSE);
+		mainFrameConsoleTextPane.unVisible();
 	}
 
 	@Override
@@ -199,12 +199,12 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 
 	@Override
 	public void visualRightTerminal() {
-		mainFrameRightConsoleTextPane.setVisible(Boolean.TRUE);
+		mainFrameRightConsoleTextPane.setVisible();
 	}
 
 	@Override
 	public void unvisualRightTerminal() {
-		mainFrameRightConsoleTextPane.setVisible(Boolean.FALSE);
+		mainFrameRightConsoleTextPane.unVisible();
 	}
 
 	@Override

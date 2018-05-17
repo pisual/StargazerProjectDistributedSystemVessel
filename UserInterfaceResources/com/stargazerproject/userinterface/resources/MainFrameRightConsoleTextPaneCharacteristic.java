@@ -113,6 +113,14 @@ public class MainFrameRightConsoleTextPaneCharacteristic implements BaseCharacte
 		}
 	}
 	
+	public void setVisible(){
+		jTextPane.setVisible(Boolean.TRUE);
+	}
+	
+	public void unVisible(){
+		jTextPane.setVisible(Boolean.FALSE);
+	}
+	
 	private void cursorLocation(){
 	    Document consoleDocument = jTextPane.getDocument();;
 		boolean caretAtEnd = jTextPane.getCaretPosition() == consoleDocument.getLength() ? true : false;

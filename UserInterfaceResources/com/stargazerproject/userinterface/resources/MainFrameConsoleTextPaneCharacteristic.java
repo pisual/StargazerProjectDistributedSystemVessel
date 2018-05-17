@@ -101,6 +101,14 @@ public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristi
 			badLocationException.printStackTrace();
 		}
 	}
+	
+	public void setVisible(){
+		jTextPane.setVisible(Boolean.TRUE);
+	}
+	
+	public void unVisible(){
+		jTextPane.setVisible(Boolean.FALSE);
+	}
 
 	public void insertLogo() {
 		ImageIcon imageIcon = new ImageIcon(UserinterfaceResource.class.getResource(Kernel_UserInterface_MainFrame_Font_Icon_Line));

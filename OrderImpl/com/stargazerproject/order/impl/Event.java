@@ -8,7 +8,9 @@ import com.stargazerproject.order.Result;
 
 /** 
  *  @name 可追踪注入序列实体
- *  @illustrate 带有ID变量的可追踪的实体，由外界进行序列注入
+ *              Event状态 ： 
+ *                         NoComplete：未完成状态
+ *                         Skip：
  *  @author Felixerio
  *  **/
 public class Event extends ID{
@@ -19,6 +21,7 @@ public class Event extends ID{
 	/** @illustrate 事件结果接口**/
 	private Result result;
 	
+	/** @illustrate 事件是否执行标志**/
 	private Boolean waitExecutionState = Boolean.TRUE;
 
 	/** @illustrate  加参数初始化 **/
