@@ -7,6 +7,7 @@ StargazerProject 观星者计划
  *  @param <K> 缓存的Key值类型
  *  @param <V> 缓存的Value类型
  *  @author Felixerio
+ *  @version 1.0.0
  *  **/
           方法注释:
                    Void:

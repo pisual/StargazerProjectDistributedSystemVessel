@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventAnalysis;
 import com.stargazerproject.cache.Cache;
+import com.stargazerproject.order.EventState;
 import com.stargazerproject.order.Result;
 
 /** 
@@ -21,8 +22,8 @@ public class Event extends ID{
 	/** @illustrate 事件结果接口**/
 	private Result result;
 	
-	/** @illustrate 事件是否执行标志**/
-	private Boolean waitExecutionState = Boolean.TRUE;
+	/** @illustrate 事件状态**/
+	private EventState eventState;
 
 	/** @illustrate  加参数初始化 **/
 	public Event(Optional<String> idArg, Optional<Cache<String, String>> parameterArg) {
@@ -42,19 +43,20 @@ public class Event extends ID{
 			}
 	}
 	
-	/** @illustrate  跳过此事件 并将指令置于未完成的状态**/
+	/** @illustrate  跳过此事件**/
 	public void skipEvent(){
-		waitExecutionState = Boolean.FALSE;
+		eventState = Boolean.FALSE;
 	}
 	
-	public Optional<Boolean> waitExecutionState(){
-		return Optional.of(waitExecutionState);
+	/** @illustrate 获取事件状态**/
+	public Optional<EventState> eventState(){
+		return Optional.of(eventState);
 	}
 	
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("result", result).add("parameter Test", parameter.get(Optional.of("Test")))
+                          .add("result", result)
                           .add("parameter", parameter).toString();
 	}
 }
