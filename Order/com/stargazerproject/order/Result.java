@@ -14,5 +14,5 @@ public interface Result {
 	public void complete();
 	
 	/** @illustrate 获取结果状态 **/
-	public Optional<ResultState> resultState();
+	public Optional<String> resultState();
 }

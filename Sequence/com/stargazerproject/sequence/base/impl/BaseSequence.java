@@ -10,5 +10,4 @@ public class BaseSequence<K> implements Sequence<K>{
 	
 	protected Sequence<K> sequence;
 
-
 }

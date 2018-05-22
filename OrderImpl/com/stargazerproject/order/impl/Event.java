@@ -14,33 +14,45 @@ import com.stargazerproject.order.Result;
  *                         Skip：
  *  @author Felixerio
  *  **/
+/** 
+ *  @name 事件结果（EventResult）实现
+ *  @illustrate 事件（Event）是事务的原子单位，一个事件包含了一个事务，并包含了对于这个事务
+ *  @author Felixerio
+ *  @version 1.0.0
+ *  **/
 public class Event extends ID{
-	
-	/** @illustrate 事件参数接口,需要注入baseMapUnit **/
-	public Cache<String, String> parameter;
 	
 	/** @illustrate 事件结果接口**/
 	private Result result;
 	
 	/** @illustrate 事件状态**/
 	private EventState eventState;
+	
+	/** @illustrate 交互缓存 **/
+	public Cache<String, String> interactionCache;
 
-	/** @illustrate  加参数初始化 **/
-	public Event(Optional<String> idArg, Optional<Cache<String, String>> parameterArg) {
+	/** @illustrate Event 构造函数
+	 *@param			Optional<String> idArg ： 聚合根ID（Order ID）
+	 *@param			Optional<Cache<String, String>> interactionCacheArg : 交互缓存的实现
+	 *@param			Optional<Result> resultArg : 事件结果的实现
+	 * **/
+	public Event(Optional<String> idArg, Optional<Cache<String, String>> interactionCacheArg, Optional<Result> resultArg) {
 		super(idArg);
-		parameter = parameterArg.get();
+		result = resultArg.get();
+		interactionCache = interactionCacheArg.get();
+		eventState = EventState.WAIT;
+	}
+
+	/** @illustrate 开始执行事件, 执行者接口 **/
+	public void startEvent(Optional<EventAnalysis> eventAnalysis) {
+		eventState = EventState.RUN;
+		eventAnalysis.get().analysis(Optional.of(interactionCache), Optional.of(result));
+		eventState = EventState.COMPLETE;
 	}
 	
-	public boolean isComplete(){
-		return result.isComplete();
-	}
-
-	/** @illustrate  开始执行事件 **/
-	public void startEvent(Optional<EventAnalysis> eventAnalysis) {
-		result = new ResultVoid();
-		if(eventAnalysis.get().analysis(Optional.of(parameter)).get()){
-			result.Complete();
-			}
+	/** @illustrate 获取并且分析事件结果, 调用者接口 **/
+	public void eventResult(){
+		
 	}
 	
 	/** @illustrate  跳过此事件**/
