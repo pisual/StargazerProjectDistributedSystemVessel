@@ -78,10 +78,10 @@ public class ParameterInitializationModel implements CellsTransaction<String, St
 	* **/
 	public boolean fallBack(Optional<Cache<String, String>> cache, Throwable throwable){
 		if(null == throwable){
-			log.WARN(this, "Event FallBack : TimeOut");
+			log.WARN(this, "BaseEvent FallBack : TimeOut");
 		}
 		else{
-			log.WARN(this, "Event FallBack : " + throwable.getMessage());
+			log.WARN(this, "BaseEvent FallBack : " + throwable.getMessage());
 		}
 		return Boolean.FALSE;
     }

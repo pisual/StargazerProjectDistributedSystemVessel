@@ -13,8 +13,8 @@ import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.cache.impl.SystemParameterCahce;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.factory.OrderFluentFactory;
-import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
@@ -25,11 +25,11 @@ import com.stargazerproject.spring.context.initialization.test.GlobalAnnotationA
 @FixMethodOrder(MethodSorters.JVM)
 public class EventQueueTest {
 
-	public static Queue<Event> queue;
+	public static Queue<BaseEvent> queue;
 	
 	private static Cache<String, Order> cache;
 	
-	public static QueueControl<Event> queueControl;
+	public static QueueControl<BaseEvent> queueControl;
 	
 	@Rule  
 	public ExpectedException expectedException = ExpectedException.none();  
@@ -40,8 +40,8 @@ public class EventQueueTest {
 		GlobalAnnotationApplicationContextInitialization.ApplicationContextInitialize(args);
 	}
 	
-	public Event getEventData(){
-		return new Event(Optional.of("ID"), Optional.of(new SystemParameterCahce()));
+	public BaseEvent getEventData(){
+		return new BaseEvent(Optional.of("ID"), Optional.of(new SystemParameterCahce()));
 	}
 	
 	/**内部函数区域开始**/
@@ -85,11 +85,11 @@ public class EventQueueTest {
 	@Test(timeout=20000)
 	public void cacheBitchPutTest(){
 		for (int i = 0; i < 1; i++) {
-			Event event = getEventData();
+			BaseEvent event = getEventData();
 			cache.put(event.IDSequence(), Optional.of(getOrder(event.IDSequence().get())));
 			queue.producer(Optional.of(event));
 		}
-		System.out.println("Event Queue 亿级(100000000个)数据测试Put完毕");
+		System.out.println("BaseEvent Queue 亿级(100000000个)数据测试Put完毕");
 	}
 	
 	@Test(timeout=10)

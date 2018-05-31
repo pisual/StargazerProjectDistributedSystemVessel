@@ -2,11 +2,11 @@ package com.stargazerproject.bus.impl;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.base.impl.BusObserverImpl;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 
-public class EventBusObserver extends BusObserverImpl<Event>{
+public class EventBusObserver extends BusObserverImpl<BaseEvent>{
 
-	public EventBusObserver(Optional<Event> eventArg) {
+	public EventBusObserver(Optional<BaseEvent> eventArg) {
 		super(eventArg);
 	}
 	

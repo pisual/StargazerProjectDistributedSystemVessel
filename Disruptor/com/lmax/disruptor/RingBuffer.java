@@ -236,7 +236,7 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * <pre>
      * long sequence = ringBuffer.next();
      * try {
-     *     Event e = ringBuffer.get(sequence);
+     *     BaseEvent e = ringBuffer.get(sequence);
      *     // Do some work with the event.
      * } finally {
      *     ringBuffer.publish(sequence);
@@ -273,7 +273,7 @@ public final class RingBuffer<E> extends RingBufferFields<E> implements Cursored
      * <pre>
      * long sequence = ringBuffer.next();
      * try {
-     *     Event e = ringBuffer.get(sequence);
+     *     BaseEvent e = ringBuffer.get(sequence);
      *     // Do some work with the event.
      * } finally {
      *     ringBuffer.publish(sequence);

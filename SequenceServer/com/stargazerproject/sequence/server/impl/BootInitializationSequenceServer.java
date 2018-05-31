@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -26,7 +26,7 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("bootInitializationSequence")
-	private StanderCharacteristicShell<Sequence<Event>> sequence;
+	private StanderCharacteristicShell<Sequence<BaseEvent>> sequence;
 	
 	/** @construction 初始化构造 **/
 	private BootInitializationSequenceServer() {}
@@ -35,7 +35,7 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		Optional<Sequence<Event>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
+		Optional<Sequence<BaseEvent>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
 		try {
 			sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
 		} catch (BusEventTimeoutException e) {

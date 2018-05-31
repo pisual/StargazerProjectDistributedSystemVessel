@@ -30,6 +30,12 @@ public class BigCacheIndexCahceCharacteristic implements Cache<String, Map<Strin
 		map.put(key.get(), value.get());
 	}
 
+	/**
+	* @name Get方法
+	* @illustrate 如果Key值没有对应的Value，则返回Optional的Null对象形式，可以通过isPresent()来进行检测
+	* @param Optional<String> key值
+	* @param Optional<Map<String, Integer>> Value值
+	* **/
 	@Override
 	public Optional<Map<String, Integer>> get(Optional<String> key) {
 		return Optional.fromNullable(map.get(key.get()));

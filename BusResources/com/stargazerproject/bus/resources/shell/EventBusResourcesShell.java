@@ -16,41 +16,41 @@ import com.stargazerproject.bus.BusNoBlockMethod;
 import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 
 @Component(value="eventBusResourcesShell")
 @Qualifier("eventBusResourcesShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusResourcesShell implements Bus<Event>, BaseCharacteristic<Bus<Event>>{
+public class EventBusResourcesShell implements Bus<BaseEvent>, BaseCharacteristic<Bus<BaseEvent>>{
 	
 	@Autowired
 	@Qualifier("eventBusBlockMethodCharacteristic")
-	private BaseCharacteristic<BusBlockMethod<Event>> eventBusBlockMethodCharacteristic;
+	private BaseCharacteristic<BusBlockMethod<BaseEvent>> eventBusBlockMethodCharacteristic;
 	
 	@Autowired
 	@Qualifier("eventBusNoBlockMethodCharacteristic")
-	private BaseCharacteristic<BusNoBlockMethod<Event>> eventBusNoBlockMethodCharacteristic;
+	private BaseCharacteristic<BusNoBlockMethod<BaseEvent>> eventBusNoBlockMethodCharacteristic;
 	
-	private BusBlockMethod<Event> busBlockMethod;
+	private BusBlockMethod<BaseEvent> busBlockMethod;
 	
-	private BusNoBlockMethod<Event> busNoBlockMethod;
+	private BusNoBlockMethod<BaseEvent> busNoBlockMethod;
 	
 	public EventBusResourcesShell() {}
 	
 	@Override
-	public Optional<Bus<Event>> characteristic() {
+	public Optional<Bus<BaseEvent>> characteristic() {
 		busBlockMethod = eventBusBlockMethodCharacteristic.characteristic().get();
 		busNoBlockMethod = eventBusNoBlockMethodCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 
 	@Override
-	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
+	public Optional<BaseEvent> push(Optional<BaseEvent> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
 		return busBlockMethod.push(busEvent, timeUnit, timeout);
 	}
 	
 	@Override
-	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
+	public Optional<BusObserver<BaseEvent>> pushNoBlock(Optional<BaseEvent> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
 		return busNoBlockMethod.pushNoBlock(busEvent, BusEventListen, timeUnit, timeout);
 	}
 

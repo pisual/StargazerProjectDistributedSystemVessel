@@ -93,13 +93,13 @@ public class KernelGuideImpl implements KernelGuide{
 //		Sequence standardSequence = BeanContainer.instance().getBean(Optional.of("standardSequence"), Sequence.class);
 //		Cache<String, String> cache = new OrderParameterCache();
 //		cache.put(Optional.of("CellsMethodName"), Optional.of("registerSequenceBeanModel"));
-//		Event registerSequenceBeanModel = new Event(Optional.of(SequenceUtil.getUUID()), Optional.of(cache));
+//		BaseEvent registerSequenceBeanModel = new BaseEvent(Optional.of(SequenceUtil.getUUID()), Optional.of(cache));
 //		standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(registerSequenceBeanModel));
 //		
 //		
 //			Cache<String, String> cache2 = new OrderParameterCache();
 //			cache2.put(Optional.of("CellsMethodName"), Optional.of("initializationCellsGroupModel"));
-//			Event initializationCellsGroupModel = new Event(Optional.of(SequenceUtil.getUUID()), Optional.of(cache2));
+//			BaseEvent initializationCellsGroupModel = new BaseEvent(Optional.of(SequenceUtil.getUUID()), Optional.of(cache2));
 //			standardSequence.addModel(Optional.of("cellsNodeParameterControlModel"), Optional.of(initializationCellsGroupModel));
 //			
 //		

@@ -3,7 +3,7 @@ package com.stargazerproject.sequence;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 
 /** 
  *  @name 并行序列方法的观测者
@@ -21,7 +21,7 @@ public interface SequenceObserver<T> {
 	
 	public boolean isSuccess();
 	
-	public Optional<List<Event>> failResultList();
+	public Optional<List<BaseEvent>> failResultList();
 	
 	public Optional<List<T>> sequenceResultList();
 	

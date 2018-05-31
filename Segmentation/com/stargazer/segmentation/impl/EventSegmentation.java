@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 
 @Component
 @Qualifier("eventSegmentation")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventSegmentation implements Segmentation<Optional<Event>>{
+public class EventSegmentation implements Segmentation<Optional<BaseEvent>>{
 	
 	@Autowired
 	@Qualifier("eventQueue")
-	public Queue<Event> eventQueue;
+	public Queue<BaseEvent> eventQueue;
 	
 	@Override
-	public void batchSegmentation(Optional<Event> event) {
+	public void batchSegmentation(Optional<BaseEvent> event) {
 		eventQueue.producer(event);
 	}
 }

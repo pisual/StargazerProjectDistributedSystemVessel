@@ -20,7 +20,7 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
@@ -30,7 +30,7 @@ import com.stargazerproject.spring.container.impl.BeanContainer;
 @Component(value="eventBusDisruptorShell")
 @Qualifier("eventBusDisruptorShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueueEvent> implements BaseCharacteristic<Queue<Event>>{
+public class EventBusDisruptorShell extends BaseQueueRingBuffer<BaseEvent, EventQueueEvent> implements BaseCharacteristic<Queue<BaseEvent>>{
 	
 	/** @name 接收EventBus队列的缓存数目 **/
 	@NeedInject(type="SystemParametersCache")
@@ -60,8 +60,8 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 	* **/
 	@SuppressWarnings("unused")
 	private EventBusDisruptorShell() {
-		super.translator = new EventTranslatorOneArg<EventQueueEvent, Event>() {
-			public void translateTo(EventQueueEvent eventQueueEvent, long sequence, Event event) {
+		super.translator = new EventTranslatorOneArg<EventQueueEvent, BaseEvent>() {
+			public void translateTo(EventQueueEvent eventQueueEvent, long sequence, BaseEvent event) {
 				eventQueueEvent.setEvent(event);
 			}
 		};
@@ -76,15 +76,15 @@ public class EventBusDisruptorShell extends BaseQueueRingBuffer<Event, EventQueu
 		threadFactory = threadFactoryArg.get();
 		cleanEventHandler = cleanEventHandlerArg.get();
 		
-		super.translator = new EventTranslatorOneArg<EventQueueEvent, Event>() {
-			public void translateTo(EventQueueEvent eventQueueEvent, long sequence, Event event) {
+		super.translator = new EventTranslatorOneArg<EventQueueEvent, BaseEvent>() {
+			public void translateTo(EventQueueEvent eventQueueEvent, long sequence, BaseEvent event) {
 				eventQueueEvent.setEvent(event);
 			}
 		};
 	}
 	
 	@Override
-	public Optional<Queue<Event>> characteristic() {
+	public Optional<Queue<BaseEvent>> characteristic() {
 		handleEvents();
 		disruptorInitialization();
 		return Optional.of(this);

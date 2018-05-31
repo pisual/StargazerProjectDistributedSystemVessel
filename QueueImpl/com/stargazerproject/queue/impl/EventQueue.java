@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.base.impl.StandQueue;
 
@@ -20,7 +20,7 @@ import com.stargazerproject.queue.base.impl.StandQueue;
 @Component(value="eventQueue")
 @Qualifier("eventQueue")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventQueue extends StandQueue<Event> implements StanderCharacteristicShell<Queue<Event>>{
+public class EventQueue extends StandQueue<BaseEvent> implements StanderCharacteristicShell<Queue<BaseEvent>>{
 
 	/**
 	* @name 常规初始化构造
@@ -29,7 +29,7 @@ public class EventQueue extends StandQueue<Event> implements StanderCharacterist
 	protected EventQueue() {}
 
 	@Override
-	public void initialize(Optional<Queue<Event>> queueArg) {
+	public void initialize(Optional<Queue<BaseEvent>> queueArg) {
 		queue = queueArg.get();
 	}
 

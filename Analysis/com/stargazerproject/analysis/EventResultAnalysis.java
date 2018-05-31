@@ -1,8 +1,11 @@
 package com.stargazerproject.analysis;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.order.ResultState;
 
-public interface EventResultAnalysis {
-	public Optional<Boolean> analysis(Optional<Cache<String, String>> parameter);
+public interface EventResultAnalysis extends ResultAnalysis{
+	
+	/** @illustrate 获取结果状态 **/
+	public Optional<ResultState> resultState();
+	
 }

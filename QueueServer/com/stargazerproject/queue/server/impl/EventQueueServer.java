@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
@@ -21,15 +21,15 @@ public class EventQueueServer implements StanderServiceShell{
 
 	@Autowired
 	@Qualifier("eventDisruptorShell")
-	private BaseCharacteristic<Queue<Event>> eventDisruptorShell;
+	private BaseCharacteristic<Queue<BaseEvent>> eventDisruptorShell;
 	
 	@Autowired
 	@Qualifier("eventQueue")
-	private StanderCharacteristicShell<Queue<Event>> eventQueue;
+	private StanderCharacteristicShell<Queue<BaseEvent>> eventQueue;
 	
 	@Autowired
 	@Qualifier("eventQueue")
-	private QueueControl<Event> eventQueueControl;
+	private QueueControl<BaseEvent> eventQueueControl;
 	
 	/**
 	* @name Springs使用的初始化构造
@@ -44,7 +44,7 @@ public class EventQueueServer implements StanderServiceShell{
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public EventQueueServer(Optional<BaseCharacteristic<Queue<Event>>> eventDisruptorShellArg, Optional<StanderCharacteristicShell<Queue<Event>>> eventQueueArg, Optional<QueueControl<Event>> eventQueueControlArg) {
+	public EventQueueServer(Optional<BaseCharacteristic<Queue<BaseEvent>>> eventDisruptorShellArg, Optional<StanderCharacteristicShell<Queue<BaseEvent>>> eventQueueArg, Optional<QueueControl<BaseEvent>> eventQueueControlArg) {
 		eventDisruptorShell = eventDisruptorShellArg.get();
 		eventQueueControl = eventQueueControlArg.get();
 		eventQueue = eventQueueArg.get();

@@ -14,7 +14,7 @@ public interface BusNoBlockMethod<T> {
 	/**
 	* @name 置入
 	* @illustrate 非阻塞置入方法，可以根据BusObserver查询指令是否完成
-	* @param <Event> 事件
+	* @param <BaseEvent> 事件
 	* @return 返回指令
 	* **/
 	public Optional<BusObserver<T>> pushNoBlock(Optional<T> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout);

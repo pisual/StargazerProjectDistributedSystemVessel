@@ -9,15 +9,16 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
+import com.stargazerproject.order.base.impl.BaseEvent;
 
 @Component
 @Qualifier("transaction")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class Transaction extends ID{
 	
-	private Optional<Event>[] events;
+	private Optional<BaseEvent>[] events;
 	
-	public Transaction(Optional<String> idArg, @SuppressWarnings("unchecked") Optional<Event> ... eventsArg) {
+	public Transaction(Optional<String> idArg, @SuppressWarnings("unchecked") Optional<BaseEvent> ... eventsArg) {
 		super(idArg);
 		events = eventsArg;
 	}
@@ -30,7 +31,7 @@ public final class Transaction extends ID{
 		return result;
 	}
 	
-	public void segmentationMethod(Optional<Segmentation<Optional<Event>>> segmentation){
+	public void segmentationMethod(Optional<Segmentation<Optional<BaseEvent>>> segmentation){
 		for (int i = 0; i < events.length; i++) {
 			segmentation.get().batchSegmentation(events[i]);
 		}

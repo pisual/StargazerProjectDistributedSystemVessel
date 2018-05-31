@@ -12,19 +12,19 @@ import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 
 @Component(value="eventBusBlockSegmentation")
 @Qualifier("eventBusBlockSegmentation")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusBlockSegmentation implements Segmentation<Optional<Event>>{
+public class EventBusBlockSegmentation implements Segmentation<Optional<BaseEvent>>{
 	
 	@Autowired
 	@Qualifier("eventBusBlockMethod")
-	private BusBlockMethod<Event> eventBusBlockMethod;
+	private BusBlockMethod<BaseEvent> eventBusBlockMethod;
 	
 	@Override
-	public void batchSegmentation(Optional<Event> event) {
+	public void batchSegmentation(Optional<BaseEvent> event) {
 		try {
 			eventBusBlockMethod.push(event, Optional.of(TimeUnit.SECONDS), Optional.of(10));
 		} catch (BusEventTimeoutException e) {

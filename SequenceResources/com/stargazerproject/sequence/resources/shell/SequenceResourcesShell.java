@@ -16,7 +16,7 @@ import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.sequence.Sequence;
 
@@ -27,11 +27,11 @@ public class SequenceResourcesShell implements Sequence<Order>, BaseCharacterist
 	
 	@Autowired
 	@Qualifier("eventBusImpl")
-	private Bus<Event> bus;
+	private Bus<BaseEvent> bus;
 	
 	@Autowired
 	@Qualifier("eventSegmentation")
-	private Segmentation<Optional<Event>> eventSegmentation;
+	private Segmentation<Optional<BaseEvent>> eventSegmentation;
 	
 	private Map<String, Order> orderTemporaryDepositMap = new HashMap<String, Order>();
 	

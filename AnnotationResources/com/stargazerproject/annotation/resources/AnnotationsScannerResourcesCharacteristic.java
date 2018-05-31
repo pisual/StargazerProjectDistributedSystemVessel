@@ -33,10 +33,6 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AnnotationsScannerResourcesCharacteristic implements AnnotationsScanner, BaseCharacteristic<AnnotationsScanner>{
 
-	/**
-	 * {class com.stargazerproject.annotations.server.manage.AnnotationsServerManage 
-	 *         [value=[annotationsServerManage], order=[13]]
-	 * **/
 	private Multimap<Class<?>, Map.Entry<String, List<Object>>> scoreMultimap;
 	
 	private AnnotationsScannerResourcesCharacteristic() {}

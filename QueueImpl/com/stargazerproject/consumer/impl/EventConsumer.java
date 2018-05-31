@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventAnalysis;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.QueueConsumer;
 
 @Component(value="eventConsumer")
 @Qualifier("eventConsumer")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EventConsumer implements QueueConsumer<Event>{
+public class EventConsumer implements QueueConsumer<BaseEvent>{
 
 	@Autowired
 	@Qualifier("eventAnalysisImpl")
@@ -36,7 +36,7 @@ public class EventConsumer implements QueueConsumer<Event>{
 		execute = executeArg.get();
 	}
 	@Override
-	public void consumer(Optional<Event> e) {
+	public void consumer(Optional<BaseEvent> e) {
 		e.get().startEvent(Optional.of(execute));
 	}
 

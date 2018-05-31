@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
@@ -24,11 +24,11 @@ public class EventBusServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("eventBusImpl")
-	private StanderCharacteristicShell<Bus<Event>> eventBus;
+	private StanderCharacteristicShell<Bus<BaseEvent>> eventBus;
 	
 	@Autowired
 	@Qualifier("eventBusResourcesShell")
-	private BaseCharacteristic<Bus<Event>> eventBusResourcesShell;
+	private BaseCharacteristic<Bus<BaseEvent>> eventBusResourcesShell;
 	
 	/** @construction 初始化构造 **/
 	private EventBusServer() {}

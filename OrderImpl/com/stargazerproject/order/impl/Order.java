@@ -5,6 +5,7 @@ import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.State;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.util.Clone;
 
 /** 
@@ -44,9 +45,9 @@ public final class Order extends ID implements Entity<Order>{
 	/**
 	* @name 切分事务
 	* @illustrate 切分事务到缓存队列
-	* @param Segmentation<Event> 缓存队列
+	* @param Segmentation<BaseEvent> 缓存队列
 	* **/
-	public void segmentation(Optional<Segmentation<Optional<Event>>> segmentation){
+	public void segmentation(Optional<Segmentation<Optional<BaseEvent>>> segmentation){
 		transaction.segmentationMethod(segmentation);
 		state = State.Execute;
 	}

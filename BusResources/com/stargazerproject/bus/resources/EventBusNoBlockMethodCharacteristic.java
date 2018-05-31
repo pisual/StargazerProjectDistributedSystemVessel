@@ -15,13 +15,13 @@ import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.impl.EventBusObserver;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.order.impl.Event;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 
 @Component(value="eventBusNoBlockMethodCharacteristic")
 @Qualifier("eventBusNoBlockMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Event>, BaseCharacteristic<BusNoBlockMethod<Event>>{
+public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<BaseEvent>, BaseCharacteristic<BusNoBlockMethod<BaseEvent>>{
 
 	@Autowired
 	@Qualifier("logRecord")
@@ -29,20 +29,20 @@ public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Eve
 	
 	@Autowired
 	@Qualifier("eventBusQueue")
-	private Queue<Event> event;
+	private Queue<BaseEvent> event;
 	
 	public EventBusNoBlockMethodCharacteristic() {
 		super();
 		}
 	
 	@Override
-	public Optional<BusNoBlockMethod<Event>> characteristic() {
+	public Optional<BusNoBlockMethod<BaseEvent>> characteristic() {
 		return Optional.of(this);
 	}
 
 	@Override
-	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
-		BusObserver<Event> eventBusObserver = new EventBusObserver(busEvent);
+	public Optional<BusObserver<BaseEvent>> pushNoBlock(Optional<BaseEvent> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
+		BusObserver<BaseEvent> eventBusObserver = new EventBusObserver(busEvent);
 		event.producer(busEvent);
 		return Optional.of(eventBusObserver);
 	}

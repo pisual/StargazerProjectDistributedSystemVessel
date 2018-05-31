@@ -17,8 +17,8 @@ import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.impl.OrderParameterCache;
 import com.stargazerproject.log.LogMethod;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.factory.OrderFluentFactory;
-import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.service.ServiceControl;
 import com.stargazerproject.spring.container.impl.BeanContainer;
@@ -36,7 +36,7 @@ public class OrderQueueAndCacheTest {
 	
 	private static Cache<String, Order> cache;
 	
-	private static Segmentation<Optional<Event>> segmentation;
+	private static Segmentation<Optional<BaseEvent>> segmentation;
 	
 	private int TEST_NUMBER = 1000000;
 	

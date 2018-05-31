@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.order.Target;
+import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.impl.AddressTarget;
-import com.stargazerproject.order.impl.Event;
 import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.order.impl.Transaction;
 import com.stargazerproject.order.impl.Transmission;
@@ -16,10 +16,10 @@ public class OrderFluentFactory {
 	private Optional<String> id;
 	private Target source;
 	private Target receive;
-	protected ArrayList<Event> event;
+	protected ArrayList<BaseEvent> event;
 	
 	public OrderFluentFactory() {
-		event = new ArrayList<Event>();
+		event = new ArrayList<BaseEvent>();
 	}
 	
 	public OrderFluentFactory addID(Optional<String> idArg){
@@ -73,16 +73,16 @@ public class OrderFluentFactory {
 		}
 		
 		public TransactionEvents addnextEvent(){
-			event.add(new Event(id, Optional.of(cache)));
+			event.add(new BaseEvent(id, Optional.of(cache)));
 			return new TransactionEvents();
 		}
 		
 		public Order complete(){
-			event.add(new Event(id, Optional.of(cache)));
-			Event[] eventArray = new Event[event.size()];
-			Event[] evenResult = event.toArray(eventArray);
+			event.add(new BaseEvent(id, Optional.of(cache)));
+			BaseEvent[] eventArray = new BaseEvent[event.size()];
+			BaseEvent[] evenResult = event.toArray(eventArray);
 			
-			Optional<Event>[] eventOptional = new Optional[event.size()];
+			Optional<BaseEvent>[] eventOptional = new Optional[event.size()];
 			
 			for (int i = 0; i < event.size(); i++) {
 				eventOptional[i] = Optional.of(evenResult[i]);

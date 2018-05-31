@@ -2,7 +2,7 @@ package com.stargazerproject.analysis;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.order.Result;
+import com.stargazerproject.order.ResultRecord;
 
 /** 
  *  @name 事件运行器接口
@@ -14,7 +14,6 @@ import com.stargazerproject.order.Result;
  *  **/
 public interface EventAnalysis {
 	
-	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache, Optional<Result> result);
+	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache, Optional<ResultRecord> result);
 	
-	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache, Optional<Cache<String, byte[]>> interactionByteArrayCache, Optional<Result> result);
 }
