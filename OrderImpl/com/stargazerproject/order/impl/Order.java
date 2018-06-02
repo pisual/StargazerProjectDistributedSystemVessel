@@ -6,6 +6,7 @@ import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.State;
 import com.stargazerproject.order.base.impl.BaseEvent;
+import com.stargazerproject.order.base.impl.ID;
 import com.stargazerproject.util.Clone;
 
 /** 

@@ -16,10 +16,4 @@ public interface EventAnalyze {
 	 * **/
 	public void eventResult(Optional<EventResultAnalysis> eventResultAnalysis);
 	
-	
-	/** @illustrate 获取事件状态 
-	 *  @return     Optional<EventState> : 结果状态 EventState
-	 * **/
-	public Optional<EventState> eventState();
-	
 }

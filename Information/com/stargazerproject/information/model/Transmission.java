@@ -4,7 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.TransmissionAnalysis;
 import com.stargazerproject.order.Entity;
-import com.stargazerproject.order.impl.ID;
+import com.stargazerproject.order.base.impl.ID;
 import com.stargazerproject.util.Clone;
 
 public class Transmission extends ID implements Entity<Transmission>{

@@ -10,6 +10,7 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.order.base.impl.BaseEvent;
+import com.stargazerproject.order.base.impl.ID;
 
 @Component
 @Qualifier("transaction")
