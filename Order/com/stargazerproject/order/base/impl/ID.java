@@ -25,10 +25,6 @@ public class ID implements Entity<String>{
 	private String id;
 	
 	protected ID() {}
-
-	public ID(Optional<String> idArg) {
-		id = idArg.get();
-	}
 	
 	/**
 	* @name 获取ID
@@ -38,5 +34,14 @@ public class ID implements Entity<String>{
 	@Override
 	public Optional<String> sequenceID(){
 		return Optional.of(id);
+	}
+
+	/**
+	* @name 注入ID
+	* @illustrate  注入ID
+	* **/
+	@Override
+	public void injectSequenceID(Optional<String> idArg) {
+		id = idArg.get();
 	}
 }

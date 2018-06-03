@@ -18,7 +18,7 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
  *  **/
 //@Component
 @Qualifier("eventCache")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public final class EventCache extends BaseCacheImpl<String,String> implements StanderCharacteristicShell<Cache<String,String>>{
 		
 	/** @construction 初始化构造 **/

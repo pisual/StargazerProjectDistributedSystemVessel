@@ -22,7 +22,7 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
  *  **/
 //@Component
 @Qualifier("eventResultCache")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @NeedInitialization(content = "{'ResultRecord' : 'Faile'," 	  /** @illustrate 结果状态（"Faile" Or "Success"） **/
 		                    + " 'Exception' : 'NULL'"      /** @illustrate 异常信息（NULL Or ExceptionMessage） **/
 		                    + " 'CompleteTime' : '0'"      /** @illustrate 完成时间（0 Or 格林威治时间（精确到秒）） **/

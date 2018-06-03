@@ -5,7 +5,6 @@ import com.stargazerproject.analysis.ResultAnalysis;
 import com.stargazerproject.order.Result;
 import com.stargazerproject.order.ResultRecord;
 import com.stargazerproject.order.ResultState;
-import com.stargazerproject.order.ValueObject;
 
 
 /** 
@@ -16,7 +15,7 @@ import com.stargazerproject.order.ValueObject;
  *  @author Felixerio
  *  @version 1.0.0
  *  **/
-public class BaseEventResult implements Result, ValueObject<Result>{
+public class BaseEventResult implements Result{
 
 	private static final long serialVersionUID = -8725503398105907243L;
 	

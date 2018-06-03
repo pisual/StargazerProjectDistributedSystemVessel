@@ -13,6 +13,12 @@ import com.google.common.base.Optional;
 public interface Entity<T> extends Serializable{
 	
 	/**
+	* @name 注入ID
+	* @illustrate  注入ID
+	* **/
+	public void injectSequenceID(Optional<T> idArg);
+	
+	/**
 	* @name 获取ID
 	* @illustrate  获取ID
 	* @return Optional<T> sequenceID ： ID值
