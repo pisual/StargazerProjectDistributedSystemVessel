@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Optional;
-import com.stargazer.segmentation.Segmentation;
+import com.stargazerproject.analysis.TransactionAnalysis;
+import com.stargazerproject.analysis.TransactionResultAnalysis;
+import com.stargazerproject.order.Event;
 import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.base.impl.ID;
 
@@ -17,25 +19,19 @@ import com.stargazerproject.order.base.impl.ID;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public final class Transaction extends ID{
 	
-	private Optional<BaseEvent>[] events;
+	private Event[] events;
 	
 	public Transaction(Optional<String> idArg, @SuppressWarnings("unchecked") Optional<BaseEvent> ... eventsArg) {
 		super(idArg);
 		events = eventsArg;
 	}
 	
-	public Boolean isComplete(){
-		boolean result = true;
-		for (int i = 0; i < events.length; i++) {
-			result = result & events[i].get().isComplete();
-		}
-		return result;
+	public void transactionResul(Optional<TransactionResultAnalysis> transactionResultAnalysisArg){
+		transactionResultAnalysisArg.get().analysis(Optional.of(events));
 	}
 	
-	public void segmentationMethod(Optional<Segmentation<Optional<BaseEvent>>> segmentation){
-		for (int i = 0; i < events.length; i++) {
-			segmentation.get().batchSegmentation(events[i]);
-		}
+	public void startTransaction(Optional<TransactionAnalysis> transactionAnalysis){
+		transactionAnalysis.get().analysis(Optional.of(events));
 	}
 	
 	@Override

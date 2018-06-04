@@ -7,7 +7,7 @@ import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.State;
 import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.order.base.impl.ID;
-import com.stargazerproject.util.Clone;
+import com.stargazerproject.util.CloneUtil;
 
 /** 
  *  @name 指令
@@ -59,7 +59,7 @@ public final class Order extends ID implements Entity<Order>{
 	
 	@Override
 	public Order clone() throws CloneNotSupportedException {
-		return (Order) Clone.deepClone(Optional.of(this));
+		return (Order) CloneUtil.deepClone(Optional.of(this));
 	}
 
 	@Override

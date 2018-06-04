@@ -4,7 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.base.impl.ID;
-import com.stargazerproject.util.Clone;
+import com.stargazerproject.util.CloneUtil;
 
 public class Response extends ID implements Entity<Response>{
 
@@ -20,7 +20,7 @@ public class Response extends ID implements Entity<Response>{
 	
 	@Override
 	public Response clone() throws CloneNotSupportedException {
-		return (Response) Clone.deepClone(Optional.of(this));
+		return (Response) CloneUtil.deepClone(Optional.of(this));
 	}
 
 	@Override

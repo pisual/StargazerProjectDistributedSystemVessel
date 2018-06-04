@@ -5,7 +5,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.analysis.TransmissionAnalysis;
 import com.stargazerproject.order.Entity;
 import com.stargazerproject.order.base.impl.ID;
-import com.stargazerproject.util.Clone;
+import com.stargazerproject.util.CloneUtil;
 
 public class Transmission extends ID implements Entity<Transmission>{
 
@@ -22,7 +22,7 @@ public class Transmission extends ID implements Entity<Transmission>{
 	
 	@Override
 	public Transmission clone() throws CloneNotSupportedException {
-		return (Transmission) Clone.deepClone(Optional.of(this));
+		return (Transmission) CloneUtil.deepClone(Optional.of(this));
 	}
 
 	@Override

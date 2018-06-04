@@ -16,7 +16,7 @@ import com.stargazerproject.order.Event;
 import com.stargazerproject.order.EventState;
 import com.stargazerproject.order.Result;
 import com.stargazerproject.order.base.impl.ID;
-import com.stargazerproject.util.Clone;
+import com.stargazerproject.util.CloneUtil;
 
 /** 
  *  @name 事件（BaseEvent）实现
@@ -106,7 +106,7 @@ public class BaseEventShell extends ID implements Event, BaseCharacteristic<Even
 	 * **/
 	@Override
 	public Optional<EventState> eventState(){
-		EventState copyEventState = (EventState)Clone.deepClone(Optional.of(eventState)); /** @illustrate  返回一个经过深度拷贝的EventState对象**/
+		EventState copyEventState = (EventState)CloneUtil.deepClone(Optional.of(eventState)); /** @illustrate  返回一个经过深度拷贝的EventState对象**/
 		return Optional.of(copyEventState);
 	}
 	
