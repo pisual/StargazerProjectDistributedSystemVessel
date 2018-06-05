@@ -1,4 +1,4 @@
-package com.stargazerproject.analysis;
+package com.stargazerproject.analysis; 
 
 import com.google.common.base.Optional;
 import com.stargazerproject.order.ResultState;

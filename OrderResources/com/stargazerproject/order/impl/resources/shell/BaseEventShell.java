@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventAnalysis;
+import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.analysis.EventResultAnalysis;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
@@ -49,8 +50,8 @@ public class BaseEventShell extends ID implements Event, BaseCharacteristic<Even
 	@Qualifier("eventCache")
 	public Cache<String, String> interactionCache;
 	
-	/** @illustrate 事件状态**/
-	private EventState eventState;
+	/** @illustrate 事件状态, 初始状态为初始态**/
+	private EventState eventState = EventState.INIT;
 	
 	/**
 	* @name 常规初始化构造
@@ -73,8 +74,16 @@ public class BaseEventShell extends ID implements Event, BaseCharacteristic<Even
 	@Override
 	public Optional<Event> characteristic() {
 		result = baseEventResultShell.characteristic().get();
-		eventState = EventState.WAIT;
 		return Optional.of(this);
+	}
+	
+	/** @illustrate 事件生产，生产者调用
+	 *  @param      Optional<EventAssembleAnalysis> eventAssembleAnalysis : 事件生产分析器接口
+	 * **/
+	@Override
+	public void eventAssemble(Optional<EventAssembleAnalysis> eventAssembleAnalysis){
+		eventAssembleAnalysis.get().analysis(Optional.of(interactionCache));
+		eventState = EventState.WAIT;
 	}
 
 	/** @illustrate 开始执行事件, 执行者调用 
