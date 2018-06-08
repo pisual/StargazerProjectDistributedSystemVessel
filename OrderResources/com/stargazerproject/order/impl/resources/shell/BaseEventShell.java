@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.EventAnalysis;
+import com.stargazerproject.analysis.EventExecuteAnalysis;
 import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.analysis.EventResultAnalysis;
 import com.stargazerproject.cache.Cache;
@@ -87,10 +87,10 @@ public class BaseEventShell extends ID implements Event, BaseCharacteristic<Even
 	}
 
 	/** @illustrate 开始执行事件, 执行者调用 
-	 * 	@param      Optional<EventAnalysis> eventAnalysis : 事件运行器接口
+	 * 	@param      Optional<EventExecuteAnalysis> eventAnalysis : 事件运行器接口
 	 * **/
 	@Override
-	public void startEvent(Optional<EventAnalysis> eventAnalysis) {
+	public void eventExecute(Optional<EventExecuteAnalysis> eventAnalysis) {
 		eventState = EventState.RUN;
 		eventAnalysis.get().analysis(Optional.of(interactionCache), Optional.of(result));
 		eventState = EventState.COMPLETE;

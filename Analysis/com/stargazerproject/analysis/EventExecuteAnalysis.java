@@ -12,7 +12,7 @@ import com.stargazerproject.order.ResultRecord;
  *  @author Felixerio
  *  @version 1.0.0
  *  **/
-public interface EventAnalysis {
+public interface EventExecuteAnalysis {
 	
 	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache, Optional<ResultRecord> result);
 	

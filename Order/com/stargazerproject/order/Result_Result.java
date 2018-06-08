@@ -8,7 +8,7 @@ import com.stargazerproject.analysis.ResultAnalysis;
  *  @author Felixerio
  *  @version 1.0.0
  *  **/
-public interface ResultAnalyze {
+public interface Result_Result {
 	
 	/** @illustrate 结果分析器 **/
 	public void resultAnalyze(ResultAnalysis resultAnalysis);

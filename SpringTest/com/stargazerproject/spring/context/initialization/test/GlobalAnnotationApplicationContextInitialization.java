@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import com.staragzerproject.characteristics.impl.ComponentsCharacteristic;
 import com.staragzerproject.characteristics.shell.ComponentsCharacteristicShell;
 import com.stargazer.segmentation.impl.EventSegmentation;
-import com.stargazerproject.analysis.impl.EventAnalysisImpl;
+import com.stargazerproject.analysis.impl.EventExecuteAnalysisImpl;
 import com.stargazerproject.analysis.impl.EventBusAnalysisImpl;
 import com.stargazerproject.analysis.impl.LogAnalysisImpl;
 import com.stargazerproject.analysis.impl.TransmissionAnalysisImpl;
@@ -369,7 +369,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		GroupServiceConfiguration.class,
 		
 		EventSegmentation.class,
-		EventAnalysisImpl.class,
+		EventExecuteAnalysisImpl.class,
 		EventBusAnalysisImpl.class,
 		
 //		StandardCellsTransactionImpl.class,
@@ -455,7 +455,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		InjectServerManage.class,
 		
 		/**Depend Analysis**/
-		EventAnalysisImpl.class,
+		EventExecuteAnalysisImpl.class,
 		EventBusAnalysisImpl.class,
 		LogAnalysisImpl.class,
 		TransmissionAnalysisImpl.class,

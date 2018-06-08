@@ -1,7 +1,8 @@
 package com.stargazerproject.order.base.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.EventAnalysis;
+import com.stargazerproject.analysis.EventExecuteAnalysis;
+import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.analysis.EventResultAnalysis;
 import com.stargazerproject.order.Event;
 import com.stargazerproject.order.EventState;
@@ -21,8 +22,8 @@ public class BaseEvent extends ID implements Event{
 	protected BaseEvent() {}
 
 	@Override
-	public void startEvent(Optional<EventAnalysis> eventAnalysis) {
-		event.startEvent(eventAnalysis);
+	public void eventExecute(Optional<EventExecuteAnalysis> eventAnalysis) {
+		event.eventExecute(eventAnalysis);
 	}
 
 	@Override
@@ -38,6 +39,11 @@ public class BaseEvent extends ID implements Event{
 	@Override
 	public Optional<EventState> eventState() {
 		return event.eventState();
+	}
+
+	@Override
+	public void eventAssemble(Optional<EventAssembleAnalysis> eventAssembleAnalysis) {
+		event.eventAssemble(eventAssembleAnalysis);
 	}
 	
 }

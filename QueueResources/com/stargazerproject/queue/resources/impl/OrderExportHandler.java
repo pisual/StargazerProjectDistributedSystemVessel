@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
-import com.stargazerproject.analysis.EventAnalysis;
+import com.stargazerproject.analysis.EventExecuteAnalysis;
 import com.stargazerproject.consumer.impl.OrderExportConsumer;
 import com.stargazerproject.queue.model.OrderExportEvent;
 
@@ -37,7 +37,7 @@ public class OrderExportHandler extends OrderExportConsumer implements WorkHandl
 //	* @name 常规初始化构造
 //	* @illustrate 基于外部参数进行注入
 //	* **/
-//	public OrderExportHandler(Optional<EventAnalysis> executeArg) {
+//	public OrderExportHandler(Optional<EventExecuteAnalysis> executeArg) {
 //		super(executeArg);
 //	}
 

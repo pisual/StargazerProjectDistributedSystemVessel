@@ -1,5 +1,5 @@
 package com.stargazerproject.order;
 
-public interface Result extends ResultAnalyze, ResultRecord, ValueObject<Result>{
+public interface Result extends Result_Result, ResultRecord, ValueObject<Result>{
 
 }
