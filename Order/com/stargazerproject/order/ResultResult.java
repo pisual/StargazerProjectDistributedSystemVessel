@@ -1,6 +1,6 @@
 package com.stargazerproject.order;
 
-import com.stargazerproject.analysis.ResultAnalysis;
+import com.stargazerproject.analysis.ResultResultAnalysis;
 
 /** 
  *  @name Result分析接口
@@ -8,8 +8,8 @@ import com.stargazerproject.analysis.ResultAnalysis;
  *  @author Felixerio
  *  @version 1.0.0
  *  **/
-public interface Result_Result {
+public interface ResultResult {
 	
 	/** @illustrate 结果分析器 **/
-	public void resultAnalyze(ResultAnalysis resultAnalysis);
+	public void resultResult(ResultResultAnalysis resultResultAnalysis);
 }

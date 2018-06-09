@@ -6,7 +6,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.order.EventExecute;
 import com.stargazerproject.order.ResultState;
 
-public interface TransactionAnalysis {
+public interface TransactionExecuteAnalysis {
 	
 	/** @illustrate 结果分析器 **/
 	public Optional<Boolean> analysis(Optional<List<EventExecute>> events);

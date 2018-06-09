@@ -12,8 +12,8 @@ import com.stargazerproject.analysis.TransactionAssembleAnalysis;
 public interface TransactionAssemble {
 	
 	/** @illustrate 事务生产，生产者调用
-	 *  @param      Optional<EventAssembleAnalysis> eventAssembleAnalysis : 事件生产分析器接口
+	 *  @param      Optional<TransactionAssembleAnalysis> transactionAssembleAnalysis : 事务生产分析器接口
 	 * **/
-	public void eventAssemble(Optional<TransactionAssembleAnalysis> eventAssembleAnalysis);
+	public void transactionAssemble(Optional<TransactionAssembleAnalysis> transactionAssembleAnalysis);
 	
 }

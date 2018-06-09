@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.ResultAnalysis;
+import com.stargazerproject.analysis.ResultResultAnalysis;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
@@ -73,8 +73,8 @@ public class BaseEventResultShell implements Result, BaseCharacteristic<Result>{
 
 	/** @illustrate 事件结果内容分析器*/
 	@Override
-	public void resultAnalyze(ResultAnalysis resultAnalysis) {
-		resultAnalysis.analysis(Optional.of(executionResultCache));
+	public void resultResult(ResultResultAnalysis resultResultAnalysis) {
+		resultResultAnalysis.analysis(Optional.of(executionResultCache));
 	}
 
 	/** @illustrate 设置事件结果标志为完成状态，**/

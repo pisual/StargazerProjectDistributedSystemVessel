@@ -2,30 +2,29 @@ package com.stargazerproject.order.base.impl;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.TransactionAssembleAnalysis;
+import com.stargazerproject.analysis.TransactionExecuteAnalysis;
+import com.stargazerproject.analysis.TransactionResultAnalysis;
 import com.stargazerproject.order.Transaction;
 
-public class BaseTransaction implements Transaction{
+public class BaseTransaction extends ID implements Transaction{
 
+	private static final long serialVersionUID = -3595408225181602700L;
+	
 	protected Transaction transaction;
 
 	@Override
-	public void eventAssemble(Optional<TransactionAssembleAnalysis> eventAssembleAnalysis) {
-		// TODO Auto-generated method stub
-		
+	public void transactionAssemble(Optional<TransactionAssembleAnalysis> transactionAssembleAnalysis) {
+		transaction.transactionAssemble(transactionAssembleAnalysis);
 	}
 
 	@Override
-	public void injectSequenceID(Optional<String> idArg) {
-		// TODO Auto-generated method stub
-		
+	public void transactionResult(Optional<TransactionResultAnalysis> transactionResultAnalysis) {
+		transaction.transactionResult(transactionResultAnalysis);
 	}
 
 	@Override
-	public Optional<String> sequenceID() {
-		// TODO Auto-generated method stub
-		return null;
+	public void transactionExecute(Optional<TransactionExecuteAnalysis> transactionExecuteAnalysis) {
+		transaction.transactionExecute(transactionExecuteAnalysis);
 	}
-	
-	
 	
 }

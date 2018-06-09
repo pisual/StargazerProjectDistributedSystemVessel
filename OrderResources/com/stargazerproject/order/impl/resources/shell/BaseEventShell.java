@@ -101,7 +101,7 @@ public class BaseEventShell extends ID implements Event, BaseCharacteristic<Even
 	 * **/
 	@Override
 	public void eventResult(Optional<EventResultAnalysis> eventResultAnalysis){
-		result.resultAnalyze(eventResultAnalysis.get());
+		result.resultResult(eventResultAnalysis.get());
 	}
 	
 	/** @illustrate  跳过此事件**/
