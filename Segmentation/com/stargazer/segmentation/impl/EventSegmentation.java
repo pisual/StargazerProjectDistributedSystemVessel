@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
-import com.stargazerproject.order.Event;
 import com.stargazerproject.queue.Queue;
+import com.stargazerproject.transaction.Event;
 
 @Component
 @Qualifier("eventSegmentation")

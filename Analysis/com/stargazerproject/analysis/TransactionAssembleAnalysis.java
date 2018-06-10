@@ -1,10 +1,9 @@
 package com.stargazerproject.analysis;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.order.Event;
-import com.stargazerproject.order.EventAssemble;
+import com.stargazerproject.transaction.EventAssemble;
 
 /** 
  *  @name 事件装配器接口
@@ -14,7 +13,6 @@ import com.stargazerproject.order.EventAssemble;
  *  **/
 public interface TransactionAssembleAnalysis {
 	
-	public Optional<Boolean> analysis(Optional<List<EventAssemble>> eventsList);
+	public Optional<Boolean> analysis(Optional<Collection<EventAssemble>> eventsList);
 	
-	public void addEvent(Optional<Event> event);
 }

@@ -14,7 +14,7 @@ import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.messagequeue.MessageQueuePush;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderMessageQueueShall")
 @Qualifier("orderMessageQueueShall")

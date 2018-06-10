@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.LoadingCache;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 /** 
  *  @name Order缓存

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.order.State;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
+import com.stargazerproject.transaction.State;
+import com.stargazerproject.transaction.impl.Order;
 
 /** 
  *  @name Event队列的消费者

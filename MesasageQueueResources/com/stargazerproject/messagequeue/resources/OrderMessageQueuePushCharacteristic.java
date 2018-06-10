@@ -18,7 +18,7 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueuePush;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderMessageQueuePushCharacteristic")
 @Qualifier("orderMessageQueuePushCharacteristic")

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventBusQueueServer")
 @Qualifier("eventBusQueueServer")

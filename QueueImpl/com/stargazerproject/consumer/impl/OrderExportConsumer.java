@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventExecuteAnalysis;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.QueueConsumer;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderExportConsumer")
 @Qualifier("orderExportConsumer")

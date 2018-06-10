@@ -3,7 +3,7 @@ package com.stargazerproject.analysis.base.impl;
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.extend.EventExecuteAnalysisExtend;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.order.ResultRecord;
+import com.stargazerproject.transaction.ResultRecord;
 
 public class BaseEventExecuteAnalysis implements EventExecuteAnalysisExtend{
 

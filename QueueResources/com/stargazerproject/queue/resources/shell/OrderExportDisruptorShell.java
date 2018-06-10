@@ -20,12 +20,12 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.OrderExportEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.OrderExportHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderExportDisruptorShell")
 @Qualifier("orderExportDisruptorShell")

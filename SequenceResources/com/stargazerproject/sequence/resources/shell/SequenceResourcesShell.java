@@ -16,9 +16,9 @@ import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.base.impl.BaseEvent;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.sequence.Sequence;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="sequenceResourcesShell")
 @Qualifier("sequenceResourcesShell")

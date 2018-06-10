@@ -15,8 +15,8 @@ import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.impl.EventBusObserver;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
-import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventBusNoBlockMethodCharacteristic")
 @Qualifier("eventBusNoBlockMethodCharacteristic")

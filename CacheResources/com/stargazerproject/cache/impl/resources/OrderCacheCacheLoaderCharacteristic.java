@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderCacheCacheLoaderCharacteristic")
 @Qualifier("orderCacheCacheLoaderCharacteristic")

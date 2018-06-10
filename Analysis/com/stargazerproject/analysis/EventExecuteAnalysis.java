@@ -2,7 +2,7 @@ package com.stargazerproject.analysis;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.order.ResultRecord;
+import com.stargazerproject.transaction.ResultRecord;
 
 /** 
  *  @name 事件运行器接口

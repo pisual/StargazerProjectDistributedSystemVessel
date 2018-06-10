@@ -9,7 +9,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.base.impl.BusImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.base.impl.BaseEvent;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventBusImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)

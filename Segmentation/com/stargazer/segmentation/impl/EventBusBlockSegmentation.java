@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 import com.stargazer.segmentation.Segmentation;
 import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
-import com.stargazerproject.order.base.impl.BaseEvent;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventBusBlockSegmentation")
 @Qualifier("eventBusBlockSegmentation")

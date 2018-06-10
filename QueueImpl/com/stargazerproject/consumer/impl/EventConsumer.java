@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventExecuteAnalysis;
-import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.QueueConsumer;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventConsumer")
 @Qualifier("eventConsumer")

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 /** 
  *  @name StandardSequenceServer 服务的实现

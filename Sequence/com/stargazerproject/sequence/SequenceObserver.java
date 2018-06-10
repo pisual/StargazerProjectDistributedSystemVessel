@@ -3,7 +3,7 @@ package com.stargazerproject.sequence;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.order.base.impl.BaseEvent;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 /** 
  *  @name 并行序列方法的观测者

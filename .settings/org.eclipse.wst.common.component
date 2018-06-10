@@ -29,8 +29,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MesasageQueueTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Order"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Queue"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/QueueConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/QueueImpl"/>
@@ -53,9 +51,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Validation"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ValidationTest"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderImpl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderResources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/OrderTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CellServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Inject"/>
@@ -153,6 +148,11 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/CharacteristicServer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Transaction"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionImpl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionConfiguration"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionResources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionTest"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>

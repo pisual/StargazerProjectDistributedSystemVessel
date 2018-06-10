@@ -3,8 +3,8 @@ package com.stargazerproject.analysis;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.order.EventExecute;
-import com.stargazerproject.order.ResultState;
+import com.stargazerproject.transaction.EventExecute;
+import com.stargazerproject.transaction.ResultState;
 
 public interface TransactionExecuteAnalysis {
 	

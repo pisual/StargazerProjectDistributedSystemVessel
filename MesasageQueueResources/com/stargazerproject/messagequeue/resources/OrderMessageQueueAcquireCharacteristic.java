@@ -18,7 +18,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderMessageQueueAcquireCharacteristic")
 @Qualifier("orderMessageQueueAcquireCharacteristic")

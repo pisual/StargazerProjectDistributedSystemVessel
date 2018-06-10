@@ -1,7 +1,7 @@
 package com.stargazerproject.queue.model;
 
 import com.google.common.base.MoreObjects;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 /** 
  *  @name lmax disruptor 专用的OrderModel

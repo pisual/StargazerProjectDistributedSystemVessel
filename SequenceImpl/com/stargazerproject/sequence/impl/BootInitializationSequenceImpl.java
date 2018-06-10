@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.base.impl.BaseSequence;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="bootInitializationSequence")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)

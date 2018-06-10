@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.QueueControl;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderExportQueueServer")
 @Qualifier("orderExportQueueServer")

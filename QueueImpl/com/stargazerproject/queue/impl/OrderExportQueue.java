@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.order.impl.Order;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.base.impl.StandQueue;
+import com.stargazerproject.transaction.impl.Order;
 
 /** 
  *  @name Order归并输出队列

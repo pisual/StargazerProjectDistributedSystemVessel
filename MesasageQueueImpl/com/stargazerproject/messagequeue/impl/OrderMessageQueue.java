@@ -9,7 +9,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.base.impl.BaseMessageQueue;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 @Component(value="orderMessageQueue")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)

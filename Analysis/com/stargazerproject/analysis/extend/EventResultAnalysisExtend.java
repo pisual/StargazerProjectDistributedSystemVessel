@@ -2,7 +2,7 @@ package com.stargazerproject.analysis.extend;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventResultAnalysis;
-import com.stargazerproject.order.ResultState;
+import com.stargazerproject.transaction.ResultState;
 
 public interface EventResultAnalysisExtend extends EventResultAnalysis{
 	

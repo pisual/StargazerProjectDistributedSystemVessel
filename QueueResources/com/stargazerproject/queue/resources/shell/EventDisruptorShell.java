@@ -20,12 +20,12 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.order.base.impl.BaseEvent;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
 import com.stargazerproject.queue.resources.BaseQueueRingBuffer;
 import com.stargazerproject.queue.resources.impl.EventHandler;
 import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.transaction.base.impl.BaseEvent;
 
 @Component(value="eventDisruptorShell")
 @Qualifier("eventDisruptorShell")

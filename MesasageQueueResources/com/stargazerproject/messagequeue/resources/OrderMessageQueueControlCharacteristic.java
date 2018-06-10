@@ -14,7 +14,7 @@ import com.stargazerproject.cache.Cache;
 import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.messagequeue.MessageQueueControl;
-import com.stargazerproject.order.impl.Order;
+import com.stargazerproject.transaction.impl.Order;
 
 import kafka.admin.AdminUtils;
 import kafka.admin.RackAwareMode;

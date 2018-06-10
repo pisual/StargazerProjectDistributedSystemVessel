@@ -115,11 +115,11 @@
 	<classpathentry kind="src" path="MesasageQueueResources"/>
 	<classpathentry kind="src" path="MessageQueueServer"/>
 	<classpathentry kind="src" path="MesasageQueueTest"/>
-	<classpathentry kind="src" path="Order"/>
-	<classpathentry kind="src" path="OrderImpl"/>
-	<classpathentry kind="src" path="OrderConfiguration"/>
-	<classpathentry kind="src" path="OrderResources"/>
-	<classpathentry kind="src" path="OrderTest"/>
+	<classpathentry kind="src" path="Transaction"/>
+	<classpathentry kind="src" path="TransactionImpl"/>
+	<classpathentry kind="src" path="TransactionConfiguration"/>
+	<classpathentry kind="src" path="TransactionResources"/>
+	<classpathentry kind="src" path="TransactionTest"/>
 	<classpathentry kind="src" path="Queue"/>
 	<classpathentry kind="src" path="QueueImpl"/>
 	<classpathentry kind="src" path="QueueConfiguration"/>
