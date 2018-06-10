@@ -1,4 +1,4 @@
-package com.stargazerproject.order.base.impl;
+package com.stargazerproject.transaction.base.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.order.Entity;
+import com.stargazerproject.transaction.Entity;
 
 /** 
  *  @name ID对象（可追踪实体根对象）

@@ -1,10 +1,10 @@
-package com.stargazerproject.order.base.impl;
+package com.stargazerproject.transaction.base.impl;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.ResultResultAnalysis;
-import com.stargazerproject.order.Result;
-import com.stargazerproject.order.ResultRecord;
-import com.stargazerproject.order.ResultState;
+import com.stargazerproject.transaction.Result;
+import com.stargazerproject.transaction.ResultRecord;
+import com.stargazerproject.transaction.ResultState;
 
 
 /** 

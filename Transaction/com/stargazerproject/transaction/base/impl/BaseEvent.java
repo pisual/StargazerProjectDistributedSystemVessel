@@ -1,11 +1,11 @@
-package com.stargazerproject.order.base.impl;
+package com.stargazerproject.transaction.base.impl;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventExecuteAnalysis;
 import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.analysis.EventResultAnalysis;
-import com.stargazerproject.order.Event;
-import com.stargazerproject.order.EventState;
+import com.stargazerproject.transaction.Event;
+import com.stargazerproject.transaction.EventState;
 
 /** 
  *  @name 事件（BaseEvent）模型
