@@ -153,6 +153,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionConfiguration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/TransactionTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Catalog"/>
         <property name="java-output-path" value="/StargazerProjectStargazerCloudSystem/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="StargazerProjectntelligenceSystem"/>
     </wb-module>
