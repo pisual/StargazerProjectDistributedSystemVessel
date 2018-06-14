@@ -5,7 +5,7 @@ import com.stargazerproject.analysis.extend.EventExecuteAnalysisExtend;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.transaction.ResultRecord;
 
-public class BaseEventExecuteAnalysis implements EventExecuteAnalysisExtend{
+public class BaseEventExecuteAnalysisImpl implements EventExecuteAnalysisExtend{
 
 	protected EventExecuteAnalysisExtend eventExecuteAnalysisExtend;
 	

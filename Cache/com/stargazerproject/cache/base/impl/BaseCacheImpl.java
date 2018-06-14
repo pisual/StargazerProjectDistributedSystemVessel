@@ -20,8 +20,8 @@ public abstract class BaseCacheImpl<K, V> implements Cache<K, V>{
 	}
 
 	@Override
-	public void remove(Optional<K> key) {
-		cache.remove(key);
+	public Optional<Boolean> remove(Optional<K> key) {
+		return cache.remove(key);
 	}
 
 }
