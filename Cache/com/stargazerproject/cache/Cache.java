@@ -1,5 +1,7 @@
 package com.stargazerproject.cache;
 
+import java.io.Serializable;
+
 import com.google.common.base.Optional;
 import com.stargazerproject.annotation.description.ThreadSafeLevel;
 import com.stargazerproject.annotation.description.ThreadSafeMethodsLevel;
@@ -12,7 +14,7 @@ import com.stargazerproject.annotation.description.ThreadSafeMethodsLevel;
  *  @author Felixerio
  *  @version 1.1.0
  *  **/
-public interface Cache<K, V> {
+public interface Cache<K, V> extends Serializable{
 	
 	/**
 	 * @name 置入

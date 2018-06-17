@@ -25,7 +25,7 @@ import com.stargazerproject.negotiate.Negotiate;
 public class AcquireParameterBlockModel implements CellsTransaction<String, String>, CellsBlockMethod{
 	
 	/** @name 聚合根ID **/
-	@NeedInject(type="OrderCache")
+	@NeedInject(type="TransactionCache")
 	private static String OrderID;
 	
 	/** @name 聚合根ID **/

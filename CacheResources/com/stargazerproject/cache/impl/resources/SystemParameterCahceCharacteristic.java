@@ -18,7 +18,9 @@ import com.stargazerproject.cache.Cache;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class SystemParameterCahceCharacteristic implements Cache<String, String>{
 
-	/** @illustrate SystemParameterCache(系统参数缓存)需要的特征(Map<String, String>)接口 **/
+	private static final long serialVersionUID = -595703056203103395L;
+	
+	/** @illustrate SystemParameterCache(系统参数缓存)的底层实现依赖并行跳表Map **/
 	protected Map<String, String> map = new ConcurrentSkipListMap<String, String>();
 	
 	/**
@@ -29,10 +31,10 @@ public class SystemParameterCahceCharacteristic implements Cache<String, String>
 	
 	/**
 	 * @name 置入
-	 * @illustrate 缓存内容置入
-	 * @param @Optional <String> Guava包装缓存的Key值
-	 * @param @Optional <String> Guava包装缓存的Value值
-	 * @ThreadSafeMethodsLevel Put方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * @illustrate 缓存内容置入,Key及Value均不允许空值
+	 * @param @Optional <String> Guava包装缓存的Key值，不允许空值
+	 * @param @Optional <String> Guava包装缓存的Value值，不允许空值
+	 * @ThreadSafeMethodsLevel put方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
 	 * **/
 	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
 	@Override
@@ -45,7 +47,7 @@ public class SystemParameterCahceCharacteristic implements Cache<String, String>
 	 * @illustrate 缓存内容获取
 	 * @param @Optional <String> Guava包装缓存的Key值，不允许空值
 	 * @return @Optional <String> Guava包装缓存的Value值，如果Key值没有对应的Value，则返回Optional的空值包装模式
-	 * @ThreadSafeMethodsLevel 依赖具体的实现方法
+	 * @ThreadSafeMethodsLevel get方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
 	 * **/
 	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
 	@Override
@@ -53,9 +55,17 @@ public class SystemParameterCahceCharacteristic implements Cache<String, String>
 		return Optional.fromNullable(map.get(key.get()));
 	}
 
+	/**
+	 * @name 移除
+	 * @illustrate 移除缓存内容
+	 * @param @Optional <String> Guava包装缓存的Key值，不允许空值
+	 * @return @Optional <String> Guava包装缓存的Boolean值，成功删除返回True，删除失败（没有相应的Key值条数）这返回False
+	 * @ThreadSafeMethodsLevel remove方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
 	@Override
-	public void remove(Optional<String> key) {
-		map.remove(key.get());
+	public Optional<Boolean> remove(Optional<String> key) {
+		return (null == map.remove(key.get()))?Optional.of(Boolean.FALSE):Optional.of(Boolean.TRUE);
 	}
 
 }

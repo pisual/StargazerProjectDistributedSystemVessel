@@ -10,7 +10,7 @@ package com.stargazerproject.transaction;
 	            COMPLETE： 正常终止态，事件有可能执行成功或者失败
 	            ANALYSIS： 分析终止态，事件已经分析结果
  *  @author Felixerio
- *  @version 1.0
+ *  @version 1.0.0
  *  **/
 public enum EventState {
 	INIT,

@@ -26,5 +26,10 @@ public class BaseTransaction extends ID implements Transaction{
 	public void transactionExecute(Optional<TransactionExecuteAnalysis> transactionExecuteAnalysis) {
 		transaction.transactionExecute(transactionExecuteAnalysis);
 	}
+
+	@Override
+	public void skipTransaction() {
+		transaction.skipTransaction();
+	}
 	
 }

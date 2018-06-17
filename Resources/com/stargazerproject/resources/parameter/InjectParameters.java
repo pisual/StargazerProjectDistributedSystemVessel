@@ -14,7 +14,7 @@ public class InjectParameters implements Serializable {
 
 	/**   测试输入参数，不是真实的参数   **/
 	
-	//Netty接收Order超时缓存(Google Guava)配置 Start OrderCache
+	//Netty接收Order超时缓存(Google Guava)配置 Start TransactionCache
 	/** @illustrate Netty接收Order缓存初始化数目 **/
 	private static final String Parameters_Module_Kernel_Cache_OrderCache_InitialSize = "65536";
 	/** @illustrate 拆分Order缓存最大数目 **/

@@ -22,6 +22,8 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 @Qualifier("systemParameterCahce")
 public final class SystemParameterCahce extends BaseCacheImpl<String,String> implements StanderCharacteristicShell<Cache<String,String>>{
 	
+	private static final long serialVersionUID = 7738977972200007844L;
+
 	/** @construction 初始化构造 **/
 	public SystemParameterCahce() {}
 

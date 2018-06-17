@@ -15,8 +15,9 @@ import com.stargazerproject.cache.BigCache;
  *  @author Felixerio
  *  **/
 public abstract class BaseBigCacheImpl<K, V> implements BigCache<K, V>{
+
+	private static final long serialVersionUID = 2064898589774017147L;
 	
-	/** @illustrate org.ehcache.Cache 缓存接口 **/
 	protected BigCache<K, V> cache;
 	
 	/** @construction 初始化构造 **/

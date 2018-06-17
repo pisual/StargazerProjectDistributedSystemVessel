@@ -2,6 +2,8 @@ package com.stargazerproject.transaction;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.EventResultAnalysis;
+import com.stargazerproject.annotation.description.ThreadSafeLevel;
+import com.stargazerproject.annotation.description.ThreadSafeMethodsLevel;
 
 /** 
  *  @name 事件（EventResult）接口
@@ -12,8 +14,10 @@ import com.stargazerproject.analysis.EventResultAnalysis;
 public interface EventResult {
 	
 	/** @illustrate 分析事件结果，分析者调用
-	 *  @param      Optional<EventResultAnalysis> eventResultAnalysis : 事件结果分析器接口
+	 *  @param      Optional<EventResultAnalysis> eventResultAnalysis : 事件结果分析器接口，不可以为空值
+	 *  	@ThreadSafeMethodsLevel eventResult的线程安全级别为ThreadSafeLevel.ThreadCompatible，非线程安全，只能单线程单次使用
 	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadCompatible)
 	public void eventResult(Optional<EventResultAnalysis> eventResultAnalysis);
 	
 }

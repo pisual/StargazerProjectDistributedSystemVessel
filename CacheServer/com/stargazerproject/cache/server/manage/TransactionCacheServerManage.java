@@ -15,23 +15,23 @@ import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
- *  @name OrderCache服务集中托管
- *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
+ *  @name transactionCache服务集中托管
+ *  @illustrate transactionCache服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="orderCacheServerManage")
-@Qualifier("orderCacheServerManage")
+@Component(value="transactionCacheServerManage")
+@Qualifier("transactionCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="orderCacheServerManage", order = 7)
-public class OrderCacheServerManage extends AbstractIdleService{
+@Services(value="transactionCacheServerManage", order = 7)
+public class TransactionCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("orderCacheServer")
-	private StanderServiceShell orderCacheServer;
+	@Qualifier("transactionCacheServer")
+	private StanderServiceShell transactionCacheServer;
 	
 	@Autowired
-	@Qualifier("orderCacheServerListener")
+	@Qualifier("transactionCacheServerListener")
 	private Listener workInServiceControlListener;
 	
 	/**
@@ -41,14 +41,14 @@ public class OrderCacheServerManage extends AbstractIdleService{
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private OrderCacheServerManage() {}
+	private TransactionCacheServerManage() {}
 	
 	/**
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public OrderCacheServerManage(Optional<StanderServiceShell> orderCacheServerArg, Optional<Listener> workInServiceControlListenerArg) {
-		orderCacheServer = orderCacheServerArg.get();
+	public TransactionCacheServerManage(Optional<StanderServiceShell> transactionCacheServerArg, Optional<Listener> workInServiceControlListenerArg) {
+		transactionCacheServer = transactionCacheServerArg.get();
 		workInServiceControlListener = workInServiceControlListenerArg.get();
 	}
 	
@@ -61,13 +61,13 @@ public class OrderCacheServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		orderCacheServer.startUp();
+		transactionCacheServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		orderCacheServer.shutDown();
+		transactionCacheServer.shutDown();
 	}
 
 }

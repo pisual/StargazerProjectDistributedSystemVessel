@@ -1,6 +1,8 @@
 package com.stargazerproject.transaction;
 
 import com.stargazerproject.analysis.ResultResultAnalysis;
+import com.stargazerproject.annotation.description.ThreadSafeLevel;
+import com.stargazerproject.annotation.description.ThreadSafeMethodsLevel;
 
 /** 
  *  @name Result分析接口
@@ -10,6 +12,9 @@ import com.stargazerproject.analysis.ResultResultAnalysis;
  *  **/
 public interface ResultResult {
 	
-	/** @illustrate 结果分析器 **/
+	/** @illustrate 结果分析器，分析者调用
+	 *  @ThreadSafeMethodsLevel resultResult的线程安全级别为ThreadSafeLevel.ThreadCompatible，非线程安全，只能单线程单次使用
+	 *  **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadCompatible)
 	public void resultResult(ResultResultAnalysis resultResultAnalysis);
 }

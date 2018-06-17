@@ -78,11 +78,22 @@ private static final long serialVersionUID = 5579247376914613210L;
 		transactionExecuteAnalysis.get().analysis(Optional.of(eventExecuteList));
 	}
 	
+	/**
+	* @name 跳过此事务，通过调用其名下的Event的skipEvent方法来主动放弃Event的执行
+	* @illustrate 跳过此事务，通过调用其名下的Event的skipEvent方法来主动放弃Event的执行
+	* @param Optional<TransactionExecuteAnalysis> 事务运行分析接口
+	* **/
+	@Override
+	public void skipTransaction() {
+		eventsList.forEach(x -> x.skipEvent());
+	}
+	
 	@Override
 	public String toString() {
 		ToStringHelper toStringHelper = MoreObjects.toStringHelper(this);
 		eventsList.forEach(x -> toStringHelper.add("Events : ", x.toString()));
         return toStringHelper.toString();
 	}
+
 	
 }
