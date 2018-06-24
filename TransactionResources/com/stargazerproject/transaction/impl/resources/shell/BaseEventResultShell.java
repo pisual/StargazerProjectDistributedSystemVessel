@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.ResultResultAnalysis;
+import com.stargazerproject.annotation.description.NeedInject;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.transaction.Result;
 import com.stargazerproject.transaction.ResultRecord;

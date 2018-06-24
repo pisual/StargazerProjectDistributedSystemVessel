@@ -19,6 +19,8 @@ import net.sf.ehcache.Element;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ByteArrayCacheShell implements BigCache<String, byte[]>, BaseCharacteristic<BigCache<String, byte[]>>{
 	
+	private static final long serialVersionUID = -589538612754788343L;
+
 	@Autowired
 	@Qualifier("byteArrayCacheCacheManagerCharacteristic")
 	private BaseCharacteristic<CacheManager> byteArrayCacheCacheManager;

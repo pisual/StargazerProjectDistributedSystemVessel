@@ -14,7 +14,7 @@ import com.lmax.disruptor.EventTranslatorOneArg;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.stargazerproject.cache.annotation.NeedInject;
+import com.stargazerproject.annotation.description.NeedInject;
 import com.stargazerproject.information.model.Transmission;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.queue.Queue;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.stargazerproject.cache.annotation.NeedInitialization;
+import com.stargazerproject.annotation.description.NeedInitialization;
 import com.stargazerproject.cache.datastructure.BaseDataStructureCache;
 
 /** 

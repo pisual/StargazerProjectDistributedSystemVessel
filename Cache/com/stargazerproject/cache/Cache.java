@@ -18,7 +18,7 @@ public interface Cache<K, V> extends Serializable{
 	
 	/**
 	 * @name 置入
-	 * @illustrate 缓存内容置入,Key及Value均不允许空值
+	 * @illustrate 缓存内容置入,Key及Value均不允许空值，如果置入的元素已经存在，则进行覆盖
 	 * @param @Optional <K> Guava包装缓存的Key值，不允许空值
 	 * @param @Optional <V> Guava包装缓存的Value值，不允许空值
 	 * @ThreadSafeMethodsLevel 依赖具体的实现方法

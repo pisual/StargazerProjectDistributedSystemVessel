@@ -9,17 +9,17 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.base.impl.BaseMessageQueue;
-import com.stargazerproject.transaction.impl.Order;
+import com.stargazerproject.transaction.Transaction;
 
-@Component(value="orderMessageQueue")
+@Component(value="transactionMessageQueue")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Qualifier("orderMessageQueue")
-public class OrderMessageQueue extends BaseMessageQueue<Order> implements StanderCharacteristicShell<MessageQueue<Order>>{
+@Qualifier("transactionMessageQueue")
+public class TransactionMessageQueue extends BaseMessageQueue<Transaction> implements StanderCharacteristicShell<MessageQueue<Transaction>>{
 	
-	protected OrderMessageQueue() {}
+	protected TransactionMessageQueue() {}
 
 	@Override
-	public void initialize(Optional<MessageQueue<Order>> messageQueueArg) {
+	public void initialize(Optional<MessageQueue<Transaction>> messageQueueArg) {
 		messageQueue = messageQueueArg.get();
 	}
 	

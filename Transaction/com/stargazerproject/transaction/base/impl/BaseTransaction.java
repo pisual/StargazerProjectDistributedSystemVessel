@@ -18,7 +18,7 @@ public class BaseTransaction extends ID implements Transaction{
 	}
 
 	@Override
-	public void transactionResult(Optional<TransactionResultAnalysis> transactionResultAnalysis) {
+	public synchronized void transactionResult(Optional<TransactionResultAnalysis> transactionResultAnalysis) {
 		transaction.transactionResult(transactionResultAnalysis);
 	}
 

@@ -11,11 +11,10 @@ import com.lmax.disruptor.WorkHandler;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.model.EventQueueEvent;
-import com.stargazerproject.transaction.State;
-import com.stargazerproject.transaction.impl.Order;
+import com.stargazerproject.transaction.Transaction;
 
 /** 
- *  @name Event队列的消费者
+ *  @name Event结果队列的消费者
  *  @illustrate 队列的消费者功能
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
@@ -26,12 +25,12 @@ import com.stargazerproject.transaction.impl.Order;
 public class EventResultMergeHandler implements WorkHandler<EventQueueEvent> {
 	
 	@Autowired
-	@Qualifier("orderCache")
-	private Cache<String, Order> cache;
+	@Qualifier("transactionCache")
+	private Cache<String, Transaction> transactionCache;
 	
 	@Autowired
-	@Qualifier("OrderExportQueue")
-	private Queue<Order> OrderExportQueue;
+	@Qualifier("transactionExportQueue")
+	private Queue<Transaction> transactionExportQueue;
 	
 	/**
 	* @name Springs使用的初始化构造
@@ -48,23 +47,14 @@ public class EventResultMergeHandler implements WorkHandler<EventQueueEvent> {
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public EventResultMergeHandler(Optional<Cache<String, Order>> cacheArg, Optional<Queue<Order>> OrderExportQueueArg){
-		super();
-		cache = cacheArg.get();
-		OrderExportQueue = OrderExportQueueArg.get();
+	public EventResultMergeHandler(Optional<Cache<String, Transaction>> transactionCacheArg, Optional<Queue<Transaction>> transactionExportQueueArg){
+		transactionCache = transactionCacheArg.get();
+		transactionExportQueue = transactionExportQueueArg.get();
 	}
 
 	@Override
 	public void onEvent(EventQueueEvent event){
-		Order order = cache.get(event.getEvent().IDSequence()).get();
-		if(order.checkResult() && order.state().get().equals(State.Execute)){
-			order.changeState(Optional.of(State.Send));
-			System.out.println("Order归并成功 " + order.toString());
-			OrderExportQueue.producer(Optional.of(order));
-		}
-		else{
-			System.out.println("Order 已经归并，将抛弃本次归并" + order.toString());
-		}
+		
 	}
 	
 }

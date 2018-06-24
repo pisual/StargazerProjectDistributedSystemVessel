@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.cache.annotation.NeedInject;
+import com.stargazerproject.annotation.description.NeedInject;
 import com.stargazerproject.util.ColorUtil;
 import com.stargazerproject.util.ParameterStringUtil;
 

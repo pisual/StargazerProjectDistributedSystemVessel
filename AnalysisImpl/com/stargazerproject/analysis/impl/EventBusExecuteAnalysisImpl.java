@@ -10,10 +10,10 @@ import com.stargazerproject.analysis.base.impl.BaseEventExecuteAnalysisImpl;
 import com.stargazerproject.analysis.extend.EventExecuteAnalysisExtend;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 
-@Component(value="eventBusAnalysisImpl")
-@Qualifier("eventBusAnalysisImpl")
+@Component(value="eventBusExecuteAnalysisImpl")
+@Qualifier("eventBusExecuteAnalysisImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusAnalysisImpl extends BaseEventExecuteAnalysisImpl implements StanderCharacteristicShell<EventExecuteAnalysisExtend>{
+public class EventBusExecuteAnalysisImpl extends BaseEventExecuteAnalysisImpl implements StanderCharacteristicShell<EventExecuteAnalysisExtend>{
 
 	@Override
 	public void initialize(Optional<EventExecuteAnalysisExtend> eventExecuteAnalysisExtendArg) {

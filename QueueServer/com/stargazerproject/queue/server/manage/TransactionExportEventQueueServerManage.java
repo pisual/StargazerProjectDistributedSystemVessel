@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.server.manage;
+package com.stargazerproject.queue.server.manage;
 
 import javax.annotation.PostConstruct;
 
@@ -15,23 +15,23 @@ import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
- *  @name bigCacheIndexCacheServerManage服务集中托管
- *  @illustrate bigCacheIndexCache服务集中托管，继承于Guava的AbstractIdleService
+ *  @name transactionExport服务集中托管
+ *  @illustrate transactionExport服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="bigCacheIndexCacheServerManage")
-@Qualifier("bigCacheIndexCacheServerManage")
+@Component(value="transactionExportEventQueueServerManage")
+@Qualifier("transactionExportEventQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="bigCacheIndexCacheServerManage", order = 5)
-public class BigCacheIndexCacheServerManage extends AbstractIdleService{
+@Services(value="transactionExportEventQueueServerManage", order = 9)
+public class TransactionExportEventQueueServerManage extends AbstractIdleService{
 	
-	/** @illustrate orderCacheServer的ServiceShell接口 **/
+	/** @illustrate transactionExportEventQueueServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("bigCacheIndexCacheServer")
-	private StanderServiceShell bigCacheIndexCacheBuiltInCacheServer;
+	@Qualifier("transactionExportEventQueueServer")
+	private StanderServiceShell transactionExportEventQueueServer;
 	
 	@Autowired
-	@Qualifier("bigCacheIndexCacheServerListener")
+	@Qualifier("transactionExportEventQueueServerListener")
 	private Listener workInServiceControlListener;
 	
 	/**
@@ -41,14 +41,18 @@ public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	*             @NeededInject 基于AOP进行最终获取时候的参数注入
 	* **/
 	@SuppressWarnings("unused")
-	private BigCacheIndexCacheServerManage() {}
+	private TransactionExportEventQueueServerManage() {
+		super();
+	}
 	
 	/**
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public BigCacheIndexCacheServerManage(Optional<StanderServiceShell> bigCacheIndexCacheBuiltInCacheServerArg, Optional<Listener> workInServiceControlListenerArg) {
-		bigCacheIndexCacheBuiltInCacheServer = bigCacheIndexCacheBuiltInCacheServerArg.get();
+	public TransactionExportEventQueueServerManage(Optional<StanderServiceShell> transactionExportEventQueueServerArg, 
+			                                       Optional<Listener> workInServiceControlListenerArg) {
+		super();
+		transactionExportEventQueueServer = transactionExportEventQueueServerArg.get();
 		workInServiceControlListener = workInServiceControlListenerArg.get();
 	}
 	
@@ -61,12 +65,13 @@ public class BigCacheIndexCacheServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		bigCacheIndexCacheBuiltInCacheServer.startUp();
+		transactionExportEventQueueServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		bigCacheIndexCacheBuiltInCacheServer.shutDown();
+		transactionExportEventQueueServer.shutDown();
 	}
+
 }

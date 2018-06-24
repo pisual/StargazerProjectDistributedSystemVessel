@@ -1,4 +1,4 @@
-package com.stargazerproject.cache.annotation;
+package com.stargazerproject.annotation.description;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,14 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
-* @name 需要初始化Cache的内容
-* @illustrate 将标注的必要内容Map注入Cache之中
+* @name 需要注入参数
+* @illustrate 被此注解标注的参数，会被注入参数
 * **/
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface NeedInitialization {
+public @interface NeedInject {
 	
-	public String content() default "";
+	public String type() default "SystemParametersCache";
 
 }

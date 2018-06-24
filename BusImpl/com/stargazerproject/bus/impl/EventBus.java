@@ -9,19 +9,19 @@ import com.google.common.base.Optional;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.base.impl.BusImpl;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
-import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.transaction.Event;
 
 @Component(value="eventBusImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Qualifier("eventBusImpl")
-public class EventBus extends BusImpl<BaseEvent> implements StanderCharacteristicShell<Bus<BaseEvent>>{
+public class EventBus extends BusImpl<Event> implements StanderCharacteristicShell<Bus<Event>>{
 
 	public EventBus() {
 		super();
 		}
 
 	@Override
-	public void initialize(Optional<Bus<BaseEvent>> busArg) {
+	public void initialize(Optional<Bus<Event>> busArg) {
 		bus = busArg.get();
 	}
 

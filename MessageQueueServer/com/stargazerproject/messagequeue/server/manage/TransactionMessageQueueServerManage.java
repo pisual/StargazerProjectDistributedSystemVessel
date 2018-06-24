@@ -18,23 +18,23 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
  *  @illustrate orderMessageQueue服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="orderMessageQueueServerManage")
-@Qualifier("orderMessageQueueServerManage")
+@Component(value="transactionMessageQueueServerManage")
+@Qualifier("transactionMessageQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="orderMessageQueueServerManage", order = 8)
-public class OrderMessageQueueServerManage extends AbstractIdleService{
+@Services(value="transactionMessageQueueServerManage", order = 8)
+public class TransactionMessageQueueServerManage extends AbstractIdleService{
 	
-	/** @illustrate orderCacheServer的ServiceShell接口 **/
+	/** @illustrate transactionMessageQueueServer的ServiceShell接口 **/
 	@Autowired
-	@Qualifier("orderMessageQueueServer")
-	private StanderServiceShell orderMessageQueueServer;
+	@Qualifier("transactionMessageQueueServer")
+	private StanderServiceShell transactionMessageQueueServer;
 	
 	@Autowired
-	@Qualifier("orderMessageQueueServerListener")
+	@Qualifier("transactionMessageQueueServerListener")
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public OrderMessageQueueServerManage() {}
+	public TransactionMessageQueueServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct
@@ -45,13 +45,13 @@ public class OrderMessageQueueServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		orderMessageQueueServer.startUp();
+		transactionMessageQueueServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		orderMessageQueueServer.shutDown();
+		transactionMessageQueueServer.shutDown();
 	}
 
 }

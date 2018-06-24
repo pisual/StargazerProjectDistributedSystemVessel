@@ -69,5 +69,5 @@ public class TransactionCacheServerManage extends AbstractIdleService{
 	protected void shutDown() throws Exception {
 		transactionCacheServer.shutDown();
 	}
-
+	
 }

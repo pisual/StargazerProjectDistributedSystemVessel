@@ -7,12 +7,12 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component(value="orderMessageQueueCallBackCharacteristic")
-@Qualifier("orderMessageQueueCallBackCharacteristic")
+@Component(value="transactionMessageQueueCallBackCharacteristic")
+@Qualifier("transactionMessageQueueCallBackCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueCallBackCharacteristic implements Callback{
+public class TransactionMessageQueueCallBackCharacteristic implements Callback{
 	
-	public OrderMessageQueueCallBackCharacteristic() {}
+	public TransactionMessageQueueCallBackCharacteristic() {}
 
 	public void onCompletion(RecordMetadata metadata, Exception exception) {
         if (metadata != null) {

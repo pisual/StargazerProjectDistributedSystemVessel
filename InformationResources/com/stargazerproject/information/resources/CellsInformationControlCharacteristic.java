@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.annotation.description.NeedInject;
 import com.stargazerproject.cache.Cache;
-import com.stargazerproject.cache.annotation.NeedInject;
 import com.stargazerproject.information.InformationControl;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;

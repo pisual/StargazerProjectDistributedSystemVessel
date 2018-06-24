@@ -6,27 +6,27 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.lmax.disruptor.WorkHandler;
-import com.stargazerproject.queue.model.OrderExportEvent;
+import com.stargazerproject.queue.model.TransactionExportEvent;
 
 /** 
- *  @name Event队列的消费者
- *  @illustrate 队列的消费者功能
+ *  @name TransactionExportEvent队列的清除Handler
+ *  @illustrate 用于清除TransactionExportEvent中消费过的Event
  *  @param <K> 队列的Entry值类型
  *  @author Felixerio
  *  **/
-@Component(value="cleanOrderExportHandler")
-@Qualifier("cleanOrderExportHandler")
+@Component(value="cleanTransactionExportEventHandler")
+@Qualifier("cleanTransactionExportEventHandler")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class CleanOrderExportHandler implements WorkHandler<OrderExportEvent> {
+public class CleanTransactionExportEventHandler implements WorkHandler<TransactionExportEvent> {
 	
 	/**
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public CleanOrderExportHandler() {}
+	public CleanTransactionExportEventHandler() {}
 
 	@Override
-	public void onEvent(OrderExportEvent event){
+	public void onEvent(TransactionExportEvent event){
 		event.clear();
 	}
 	

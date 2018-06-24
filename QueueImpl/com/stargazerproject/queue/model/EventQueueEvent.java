@@ -1,7 +1,7 @@
 package com.stargazerproject.queue.model;
 
 import com.google.common.base.MoreObjects;
-import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.transaction.Event;
 
 /** 
  *  @name lmax disruptor 专用的EventModel
@@ -11,7 +11,7 @@ import com.stargazerproject.transaction.base.impl.BaseEvent;
  *  **/
 public class EventQueueEvent {
 	
-	private BaseEvent event;
+	private Event event;
 	
 	/**
 	* @name 常规初始化构造
@@ -19,11 +19,11 @@ public class EventQueueEvent {
 	* **/
 	public EventQueueEvent() {}
 
-	public BaseEvent getEvent() {
+	public Event getEvent() {
 		return event;
 	}
 
-	public void setEvent(BaseEvent event) {
+	public void setEvent(Event event) {
 		this.event = event;
 	}
 	

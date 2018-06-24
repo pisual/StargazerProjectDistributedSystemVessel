@@ -7,13 +7,13 @@ import com.stargazerproject.transaction.Entity;
 import com.stargazerproject.transaction.base.impl.ID;
 import com.stargazerproject.util.CloneUtil;
 
-public class Transmission extends ID implements Entity<Transmission>{
+public class Transmission extends ID {
 
 	private TransmissionContent transmissionContent;
 	
 	/** @construction 初始化构造 **/
 	public Transmission(Optional<String> idArg) {
-		super(idArg);
+		injectSequenceID(idArg);
 	}
 	
 	public void analysis(Optional<TransmissionAnalysis> transmissionAnalysis){
@@ -28,7 +28,7 @@ public class Transmission extends ID implements Entity<Transmission>{
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("ID", super.IDSequence().get()).toString();
+                          .add("ID", super.sequenceID().get()).toString();
 	}
 	
 }
