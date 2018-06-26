@@ -9,17 +9,20 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.analysis.extend.EventBusResultAnalysisExtend;
 import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.transaction.Event;
+import com.stargazerproject.transaction.ResultState;
 
 @Component(value="eventBusBlockMethodCharacteristic")
 @Qualifier("eventBusBlockMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusBlockMethodCharacteristic implements BusBlockMethod<BaseEvent>, BaseCharacteristic<BusBlockMethod<BaseEvent>>{
+public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>, BaseCharacteristic<BusBlockMethod<Event>>{
 
 	@Autowired
 	@Qualifier("logRecord")
@@ -27,28 +30,30 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<BaseEve
 	
 	@Autowired
 	@Qualifier("eventBusQueue")
-	private Queue<BaseEvent> event;
+	private Queue<Event> event;
 	
-	public EventBusBlockMethodCharacteristic() {
-		super();
-		}
+	private final String eventBusResultAnalysisImpl = "eventBusResultAnalysisImpl";
+	
+	public EventBusBlockMethodCharacteristic() {}
 
 	@Override
-	public Optional<BusBlockMethod<BaseEvent>> characteristic() {
+	public Optional<BusBlockMethod<Event>> characteristic() {
 		return Optional.of(this);
 	}
 
 	@Override
-	public Optional<BaseEvent> push(Optional<BaseEvent> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
+	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
+		EventBusResultAnalysisExtend eventBusResultAnalysisExtend = BeanContainer.instance().getBean(Optional.of(eventBusResultAnalysisImpl), EventBusResultAnalysisExtend.class);
+		busEvent.get().eventResult(Optional.of(eventBusResultAnalysisExtend));
 		event.producer(busEvent);
 		for(int i=0; i<timeout.get(); i++){
 			sleep(timeUnit.get());
-			if(busEvent.get().isComplete()){
+			if(eventBusResultAnalysisExtend.resultState().get() == ResultState.SUCCESS){
 				return busEvent;
 			}
 		}
-		l️og.WARN(busEvent.get(), " BaseEvent Not completed at the specified time");
-		throw new BusEventTimeoutException(event.toString()+"BaseEvent Not completed at the specified time");
+		l️og.WARN(busEvent.get(), "Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time");
+		throw new BusEventTimeoutException("Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time : " + busEvent.toString());
 	}
 	
 	private void sleep(TimeUnit timeUnit){

@@ -12,16 +12,16 @@ import com.google.common.base.Optional;
 import com.stargazerproject.bus.BusEventListen;
 import com.stargazerproject.bus.BusNoBlockMethod;
 import com.stargazerproject.bus.BusObserver;
-import com.stargazerproject.bus.impl.EventBusObserver;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.spring.container.impl.BeanContainer;
+import com.stargazerproject.transaction.Event;
 
 @Component(value="eventBusNoBlockMethodCharacteristic")
 @Qualifier("eventBusNoBlockMethodCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<BaseEvent>, BaseCharacteristic<BusNoBlockMethod<BaseEvent>>{
+public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Event>, BaseCharacteristic<BusNoBlockMethod<Event>>{
 
 	@Autowired
 	@Qualifier("logRecord")
@@ -29,20 +29,22 @@ public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Bas
 	
 	@Autowired
 	@Qualifier("eventBusQueue")
-	private Queue<BaseEvent> event;
+	private Queue<Event> event;
 	
 	public EventBusNoBlockMethodCharacteristic() {
 		super();
 		}
 	
 	@Override
-	public Optional<BusNoBlockMethod<BaseEvent>> characteristic() {
+	public Optional<BusNoBlockMethod<Event>> characteristic() {
 		return Optional.of(this);
 	}
-
+	
+	/**等待开发中**/
 	@Override
-	public Optional<BusObserver<BaseEvent>> pushNoBlock(Optional<BaseEvent> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
-		BusObserver<BaseEvent> eventBusObserver = new EventBusObserver(busEvent);
+	@SuppressWarnings("unchecked")
+	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
+		BusObserver<Event> eventBusObserver = BeanContainer.instance().getBean(Optional.of("eventBusObserver"), BusObserver.class);
 		event.producer(busEvent);
 		return Optional.of(eventBusObserver);
 	}

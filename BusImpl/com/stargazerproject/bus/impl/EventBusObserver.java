@@ -2,30 +2,26 @@ package com.stargazerproject.bus.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.EventExecuteAnalysis;
+import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.base.impl.BusObserverImpl;
+import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.transaction.Event;
 
-public class EventBusObserver extends BusObserverImpl<Event>{
-	
-	@Qualifier("eventBusAnalysisImpl")
+@Component(value="eventBusObserver")
+@Qualifier("eventBusObserver")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public class EventBusObserver extends BusObserverImpl<Event> implements StanderCharacteristicShell<BusObserver<Event>>{
+
+	@Override
+	@Qualifier("eventBusObserverShellCharacteristic")
 	@Autowired
-	private EventExecuteAnalysis eventExecuteAnalysis;
-
-	public EventBusObserver(Optional<Event> eventArg) {
-		super(eventArg);
+	public void initialize(Optional<BusObserver<Event>> busObserverArg) {
+		busObserver = busObserverArg.get();
 	}
 	
-	@Override
-	public boolean isComplete() {
-		return event.eventResult(Optional.of(eventExecuteAnalysis));
-	}
-
-	@Override
-	public void skip() {
-		event.skipEvent();
-	}
-
 }

@@ -11,6 +11,8 @@ public interface BusEventListen {
 	
 	public void onCompleted();
 	
+	public void onTimeout();
+	
 	public void onError(Throwable e);
 	
 }

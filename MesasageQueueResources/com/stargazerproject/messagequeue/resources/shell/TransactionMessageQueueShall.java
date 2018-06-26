@@ -14,54 +14,57 @@ import com.stargazerproject.messagequeue.MessageQueue;
 import com.stargazerproject.messagequeue.MessageQueueAcquire;
 import com.stargazerproject.messagequeue.MessageQueueControl;
 import com.stargazerproject.messagequeue.MessageQueuePush;
-import com.stargazerproject.transaction.impl.Order;
+import com.stargazerproject.transaction.Transaction;
 
-@Component(value="orderMessageQueueShall")
-@Qualifier("orderMessageQueueShall")
+@Component(value="transactionMessageQueueShall")
+@Qualifier("transactionMessageQueueShall")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class OrderMessageQueueShall implements MessageQueue<Order>, BaseCharacteristic<MessageQueue<Order>>{
+public class TransactionMessageQueueShall implements MessageQueue<Transaction>, BaseCharacteristic<MessageQueue<Transaction>>{
 
 	@Autowired
-	@Qualifier("orderMessageQueueControlCharacteristic")
-	private BaseCharacteristic<MessageQueueControl<Order>> orderMessageQueueControlCharacteristic;
+	@Qualifier("transactionMessageQueueControlCharacteristic")
+	private BaseCharacteristic<MessageQueueControl<Transaction>> transactionMessageQueueControlCharacteristic;
 	
 	@Autowired
-	@Qualifier("orderMessageQueueAcquireCharacteristic")
-	private BaseCharacteristic<MessageQueueAcquire<Order>> orderMessageQueueAcquireCharacteristic;
+	@Qualifier("transactionMessageQueueAcquireCharacteristic")
+	private BaseCharacteristic<MessageQueueAcquire<Transaction>> transactionMessageQueueAcquireCharacteristic;
 	
 	@Autowired
-	@Qualifier("orderMessageQueuePushCharacteristic")
-	private BaseCharacteristic<MessageQueuePush<Order>> orderMessageQueuePushCharacteristic;
+	@Qualifier("transactionMessageQueuePushCharacteristic")
+	private BaseCharacteristic<MessageQueuePush<Transaction>> transactionMessageQueuePushCharacteristic;
 	
-	private MessageQueueControl<Order> orderMessageQueueControl;
+	private MessageQueueControl<Transaction>  transactionMessageQueueControl;
 	
-	private MessageQueueAcquire<Order> messageQueueAcquire;
+	private MessageQueueAcquire<Transaction>  transactionMessageQueueAcquire;
 	
-	private MessageQueuePush<Order> messageQueuePush;
+	private MessageQueuePush<Transaction>  transactionMessageQueuePush;
 	
 	@Override
-	public Optional<MessageQueue<Order>> characteristic() {
+	public Optional<MessageQueue<Transaction>> characteristic() {
+		transactionMessageQueueControl = transactionMessageQueueControlCharacteristic.characteristic().get();
+		transactionMessageQueueAcquire = transactionMessageQueueAcquireCharacteristic.characteristic().get();
+		transactionMessageQueuePush    = transactionMessageQueuePushCharacteristic.characteristic().get();
 		return Optional.of(this);
 	}
 
 	@Override
-	public Optional<List<Order>> get(Optional<Integer> messageNumber) {
-		return messageQueueAcquire.get(messageNumber);
+	public Optional<List<Transaction>> get(Optional<Integer> messageNumber) {
+		return transactionMessageQueueAcquire.get(messageNumber);
 	}
 	
 	@Override
-	public void put(Optional<List<Order>> t) {
-		messageQueuePush.put(t);
+	public void put(Optional<List<Transaction>> transactionList) {
+		transactionMessageQueuePush.put(transactionList);
 	}
 
 	@Override
 	public void join() {
-		orderMessageQueueControl.join();
+		transactionMessageQueueControl.join();
 	}
 
 	@Override
 	public void out() {
-		orderMessageQueueControl.out();
+		transactionMessageQueueControl.out();
 	}
 
 }
