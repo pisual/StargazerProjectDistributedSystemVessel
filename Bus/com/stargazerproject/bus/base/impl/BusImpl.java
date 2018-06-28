@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.Bus;
-import com.stargazerproject.bus.BusEventListen;
 import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 
@@ -18,8 +17,8 @@ public abstract class BusImpl<T> implements Bus<T>{
 	}
 	
 	@Override
-	public Optional<BusObserver<T>> pushNoBlock(Optional<T> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
-		return bus.pushNoBlock(busEvent, BusEventListen, timeUnit, timeout);
+	public Optional<BusObserver<T>> pushNoBlock(Optional<T> busEvent) {
+		return bus.pushNoBlock(busEvent);
 	}
 
 	@Override

@@ -40,10 +40,7 @@ public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Eve
 		return Optional.of(this);
 	}
 	
-	/**等待开发中**/
-	@Override
-	@SuppressWarnings("unchecked")
-	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
+	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent) {
 		BusObserver<Event> eventBusObserver = BeanContainer.instance().getBean(Optional.of("eventBusObserver"), BusObserver.class);
 		event.producer(busEvent);
 		return Optional.of(eventBusObserver);

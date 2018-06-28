@@ -1,7 +1,5 @@
 package com.stargazerproject.bus;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.base.Optional;
 
 /** 
@@ -17,6 +15,6 @@ public interface BusNoBlockMethod<T> {
 	* @param <BaseEvent> 事件
 	* @return 返回指令
 	* **/
-	public Optional<BusObserver<T>> pushNoBlock(Optional<T> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout);
+	public Optional<BusObserver<T>> pushNoBlock(Optional<T> busEvent);
 	
 }

@@ -9,15 +9,15 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.base.impl.BaseSequence;
-import com.stargazerproject.transaction.impl.Order;
+import com.stargazerproject.transaction.Transaction;
 
 @Component(value="bootInitializationSequence")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Qualifier("bootInitializationSequence")
-public class BootInitializationSequenceImpl extends BaseSequence<Order> implements StanderCharacteristicShell<Sequence<Order>>{
+public class BootInitializationSequenceImpl extends BaseSequence<Transaction> implements StanderCharacteristicShell<Sequence<Transaction>>{
 
 	@Override
-	public void initialize(Optional<Sequence<Order>> sequenceArg) {
+	public void initialize(Optional<Sequence<Transaction>> sequenceArg) {
 		sequence = sequenceArg.get();
 	}
 

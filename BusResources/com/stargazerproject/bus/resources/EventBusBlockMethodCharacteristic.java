@@ -47,10 +47,10 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 		busEvent.get().eventResult(Optional.of(eventBusResultAnalysisExtend));
 		event.producer(busEvent);
 		for(int i=0; i<timeout.get(); i++){
-			sleep(timeUnit.get());
 			if(eventBusResultAnalysisExtend.resultState().get() == ResultState.SUCCESS){
 				return busEvent;
 			}
+			sleep(timeUnit.get());
 		}
 		l️og.WARN(busEvent.get(), "Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time");
 		throw new BusEventTimeoutException("Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time : " + busEvent.toString());

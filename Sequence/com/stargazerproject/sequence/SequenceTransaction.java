@@ -1,23 +1,26 @@
 package com.stargazerproject.sequence;
 
+import java.util.concurrent.TimeUnit;
+
 import com.google.common.base.Optional;
+import com.stargazerproject.bus.exception.BusEventTimeoutException;
 
 /** 
  *  @name 顺序序列（单向序列）的事务接口
  *  @illustrate 
  *            名词解析：
- *                     事务组：顺序序列的事务载体，默认并且是最完全的的实现是Order，所以，以下的事务组默认为Order
- *                     事务：  事务组（Order）内部包含的一个事务
+ *                     事务组：顺序序列的事务载体，默认完全的的实现是Transaction，所以，以下的事务组默认为Transaction
+ *                     事务：  事务组（Transaction）内部包含的一个事务
  *                     
  *              顺序序列的执行方法：
- *                  顺序序列是单次运行方法，首先创建序列，并为序列加入事务组（Order），阻塞序列一经启动，首先会关闭序列，禁止任何对队列的操作，
+ *                  顺序序列是单次运行方法，首先创建序列，并为序列加入事务组（Transaction），阻塞序列一经启动，首先会关闭序列，禁止任何对队列的操作，
  *                  随后，严格按照序列顺序，依次执行序列方法事务组，一旦其中任何一个事务执行出现异常，会立即终止序列的继续运行并返回相应结果。
  *                  一旦此次序列执行完毕，会清空并结束序列。
  *              
  *              序列的顺序处理方法为：
  *                  依赖 ：SequenceBus
  *                      
- *                  Parallel Sequence : { Order（"Sequence a","Sequence b","Sequence c"）- Order（"Sequence d","Sequence e","Sequence f"）}
+ *                  Parallel Sequence : { Transaction（"Sequence a","Sequence b","Sequence c"）- Transaction（"Sequence d","Sequence e","Sequence f"）}
  *                      
  *                  首先，会取出Parallel Sequence中的第一个事务，推入SequenceBus，确认执行完毕并且成功后再取出第二个推入SequenceBus，依次完成。
  *             
@@ -41,14 +44,14 @@ public interface SequenceTransaction<K>{
 	* @illustrate 添加事务组 Order
 	* @param Optional<K> order 事务组
 	* **/ 
-	public void addSequence(Optional<K> order);
+	public void addSequence(Optional<K> transaction);
 	
 	/**
 	* @name 清除Sequence序列中指定的事务组
 	* @illustrate 清除Sequence序列的指定事务组
 	* @param Optional<String> OrderID 需要清除的事务组的ID
 	* **/
-	public void clearSequence(Optional<String> orderID);
+	public void clearSequence(Optional<String> transactionID);
 	
 	/**
 	* @name 清除Sequence队列
@@ -59,8 +62,9 @@ public interface SequenceTransaction<K>{
 	/**
 	* @name 启动顺序序列
 	* @illustrate 启动指定的Sequence队列，并阻塞，直到序列全部完成后返回SequenceResult结果
+	* @exception BusEventTimeoutException : 超时会抛出BusEventTimeoutException异常
 	* **/
-	public Optional<SequenceResult<K>> startBlockSequence();
+	public Optional<SequenceResult<K>> startBlockSequence(Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException;
 	
 	/**
 	* @name 启动顺序序列

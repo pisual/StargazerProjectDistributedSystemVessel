@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.Bus;
 import com.stargazerproject.bus.BusBlockMethod;
-import com.stargazerproject.bus.BusEventListen;
 import com.stargazerproject.bus.BusNoBlockMethod;
 import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
@@ -50,8 +49,8 @@ public class EventBusResourcesShell implements Bus<BaseEvent>, BaseCharacteristi
 	}
 	
 	@Override
-	public Optional<BusObserver<BaseEvent>> pushNoBlock(Optional<BaseEvent> busEvent, Optional<BusEventListen> BusEventListen, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) {
-		return busNoBlockMethod.pushNoBlock(busEvent, BusEventListen, timeUnit, timeout);
+	public Optional<BusObserver<BaseEvent>> pushNoBlock(Optional<BaseEvent> busEvent) {
+		return busNoBlockMethod.pushNoBlock(busEvent);
 	}
 
 	@Override
