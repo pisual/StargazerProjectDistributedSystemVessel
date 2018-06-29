@@ -1,5 +1,5 @@
 
-# StargazerProjectCloudSystem（文档正在努力书写，）
+# StargazerProjectCloudSystem（文档正在努力书写！）
      观星者计划 分布式云框架
 
 StargazerProjectCloudSystem是StargazerProject的顶级项目，云计算中间事务框架，用于承担海量请求的冲击。不光承担海量的用户请求，还要承担着与云计算系统的海量数据交互，其本身也可以进行定制化的云计算及云事务。
@@ -64,13 +64,13 @@ StargazerCloud使用的是定制化的StargazerCellsUI，以下为UI的启动界
 
 现阶段，Stargazer分布式系统的拓扑结构是扁平化布局，使得节点的加入和退出或者局部扩张和消亡对整体构架造成的影响降到最低，
 
-         Group - Group - Group * *
+    Group - Group - Group * *
          
-   Cell - Cell - Cell - Cell - Cell * 
+    Cell - Cell - Cell - Cell - Cell * 
    
  Group: 是一个内部包含节点的拓扑结构，根据BackupLevel（集群事务备份级别）来确定包含的数目以此实现备份级别。
  
-例如
+    例如：
 
          BackupLevel（节点备份级别）: 3
          
@@ -78,7 +78,7 @@ StargazerCloud使用的是定制化的StargazerCellsUI，以下为UI的启动界
          
 组内节点互相跟踪，节点分为跟踪节点（Follow，用于同步跟踪节点）和 领导节点（Leader，负责实际的运算），为了提高负载能力系统将根据BackupLevel来进行固定分组，
 
- Group A (Cell 1 : Cell 2 : Cell 3)
+    Group A (Cell 1 : Cell 2 : Cell 3)
  
     CellsGroup1 (Cell 1(Leader) : Cell 2(Follow) : Cell 3(Follow))
     
