@@ -1,5 +1,5 @@
 
-# StargazerProjectCloudSystem（文档正在书写。。。。）
+# StargazerProjectCloudSystem（文档正在书写，StargazerProjectCloudSystem涉及了上百个全新的开发方案，我正在努力用大家能理解的语言表述与书写，请原谅我这么慢）
      观星者计划 分布式云框架
 
 StargazerProjectCloudSystem是StargazerProject的顶级项目，云计算中间事务框架，用于承担海量请求的冲击。不光承担海量的用户请求，还要承担着与云计算系统的海量数据交互，其本身也可以进行定制化的云计算及云事务。
@@ -34,39 +34,68 @@ StargazerProjectCloudSystem是StargazerProject的顶级项目，云计算中间�
         9. 运算模块的自行动态均衡
         10. 代码检测
         11. 核心模块化
-        12，基于区块链的分布式存储
-        13，基于人工智能的系统审计及系统内动态构架
-
+        12，基于区块链的分布式存储于系统架构
+        13，基于人工智能的系统审计集及系统内动态构架
+        
 
 ----------
 
-
-        
-##     2. Cache 缓存模块介绍
-##     3. Queue 队列介绍
-##     4. Log 日志介绍
-##     5. Bus 总线介绍
-##     6. Server 服务介绍
+##     2. Cache 综合缓存模块介绍
+##     3. Queue 综合队列介绍
+##     4. Log 集中托管日志介绍
+##     5. Bus 系统总线介绍
+##     6. Server 服务托管与运维介绍
 ##     7. Sequence 序列介绍
 ##     8. UserInterface 界面介绍
 StargazerCloud使用的是定制化的StargazerCellsUI，以下为UI的启动界面及使用界面，UI已经开发完毕，因为其依赖了StargazerCloud的一些内部模块，所以就不单独发布了。
-# 启动界面
+# 启动界面截图
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/1.jpeg)
-# Translucent Surface运行界面
+# Translucent Surface运行界面截图
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/2.jpeg)
-#启动界面
+# 启动界面截图
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/7.jpeg)
-# Black Lotus运行界面
+# Black Lotus运行界面截图
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/6.jpeg)
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/4.jpeg)
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/3.jpeg)
 ![image](https://github.com/pisual/StargazerProjectDistributedSystemVessel/blob/master/UIShow/5.jpeg)
 ##     9. Negotiate 协商介绍
+协商服务模块负责分布式系统整体架构的构建，StargazerCloud系统并没有要求强行指使用定某一种架构模式，架构是演变与进化的，今天的架构并不一定适合明日的架构，这个项目的架构模式也不适用另外项目的，保持架构的灵活性是为了延长StargazerCloud生存周期，使得StargazerCloud能够不断的分支演化，StargazerCloud在架构哲学上遵守着最基本的一点就是协商架构，在StargazerCloud系统之内，节点的分化及架构成型，是由模型来进行指定，每一次系统新生都不会形成完全相同的架构。
+现阶段，Stargazer分布式系统的拓扑结构是扁平化布局，使得节点的加入和退出或者局部扩张和消亡对整体构架造成的影响降到最低，
+         Group - Group - Group * *
+   Cell - Cell - Cell - Cell - Cell * 
+ Group: 是一个内部包含节点的拓扑结构，根据BackupLevel（集群事务备份级别）来确定包含的数目以此实现备份级别。
+例如
+         BackupLevel（节点备份级别）: 3
+         Group A (Cell 1 : Cell 2 : Cell 3)
+组内节点互相跟踪，节点分为跟踪节点（Follow，用于同步跟踪节点）和 领导节点（Leader，负责实际的运算），为了提高负载能力系统将根据BackupLevel来进行固定分组，
+ Group A (Cell 1 : Cell 2 : Cell 3)
+    CellsGroup1 (Cell 1(Leader) : Cell 2(Follow) : Cell 3(Follow))
+    CellsGroup1 (Cell 1(Follow) : Cell 2(Leader) : Cell 3(Follow))
+    CellsGroup1 (Cell 1(Follow) : Cell 2(Follow) : Cell 3(Leader))
+    组成员将会定期通信来记录已经处理完成的指令，Leader将定期发送指令来指示Follow推进备份指令队列的位置
+####     分布式区域协议
+Cell节点需要自行组建Group结构，依靠共识算法（例如比特币的POW工作量证明）来获取组建的权利，分布式区域协议的建组是动态模式，任何时候都可以进行自由建组。
+
+         
+ 
 ##     10. Cell 细胞介绍
 ##     11. MessageQueue 消息队列介绍
-##     12. Order 指令介绍
+##     12. Transaction 事务介绍
 ##     13. Check 检测介绍
 ##     14. Resources 资源介绍
+##     15. @SHELL壳式编程
+@SHELL是一种对于未来编程的描绘与设计，很多我开发的项目，最后都死在了无法维护、无法更新、无法更迭上，随着项目的不断扩张，原来能稳定运行的项目不断被腐蚀，最后，巨大的无法维护的代码堆就摆在一代代接盘侠的眼前，无法重构，没人能了解这个代码堆的全局架构，最后，往往是成为一个被死去的孩子。
+我们能开发出一个万能的架构�吗？对不起不能。这是一个虚幻的梦，但是我们能做的，我们最容易做的就是保持这个项目架构的可成长性，使得这个项目不断成长的代价降低，使得这个项目在搭建初期就能为如今或者未来描绘好成长的轨迹，即使有一日，她再也不能承担起重任需要逝去，她，也是以闪亮的姿态谢幕，而不是一堆烂代码。
+@SHELL壳式编程不是终点，未来可能会有更多天才的解决方法，但是如今她为超大型项目的构建提供了未来解决方案，在StargazerProjectCloudSystem中，经过漫展与痛苦第一次SHELL大型重构，重构后的代码已经全部采用了@SHELL的编程方案，初见就展现了其独特的魅力。在Spring的辅助下，@SHELL更是极大的缩小了代码量，下面，放空心态，与她一起走近@SHELL的世界。
+##     16. Analysis 注入式分析器介绍
+##     17. Serializables 托管序列化介绍
+##     18. Information 交换与信息介绍
+##     19. Inject 注入与空中编译介绍
+##     20. Annotations 注解扫描介绍
+##     21. Check 代码检测与自动化测试介绍
+##     22. Validation 集中校验介绍
+
 
 后记：
     每个人都有一个伴随了自己大半个人生的故事，总有一天会拿出来讲一讲，每个人都会有自己最大的隐藏的能力，默默的在深夜里磨练，希望有他成熟的一天，会闪耀在夜空中，那么，就让我讲一讲我的故事吧。
