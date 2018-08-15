@@ -121,4 +121,4 @@ Cell节点需要自行组建Group结构，依靠共识算法（例如比特币�
   ### 最后的最后，StargazerProject顶级项目CloudSystem预计2018年上半年将开发出第一个测试版本，并用于承担StargazerProject项目组内所有的图像分析及计算任务。
     
 
-### StargazerProject首席设计师 FelixErio
+### StargazerProject首席设计师 FelixErio & Love 喵喵大胖猫
