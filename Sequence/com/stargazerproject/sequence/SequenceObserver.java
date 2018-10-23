@@ -16,7 +16,7 @@ import com.stargazerproject.transaction.base.impl.BaseEvent;
  *  @author Felixerio
  *  **/
 public interface SequenceObserver<T> {
-
+	
 	public boolean isComplete();
 	
 	public boolean isSuccess();

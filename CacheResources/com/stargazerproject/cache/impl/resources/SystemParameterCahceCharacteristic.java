@@ -1,6 +1,8 @@
 package com.stargazerproject.cache.impl.resources;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -68,4 +70,24 @@ public class SystemParameterCahceCharacteristic implements Cache<String, String>
 		return (null == map.remove(key.get()))?Optional.of(Boolean.FALSE):Optional.of(Boolean.TRUE);
 	}
 
+	/**
+	 * @name 清除
+	 * @illustrate 清除缓存所有内容
+	 * @ThreadSafeMethodsLevel remove方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
+	public void clear(){
+		map.clear(); 
+	}
+	
+	/**
+	 * @name 获取结果集
+	 * @illustrate 获取Set类型的结果集，结果集是有序的（自然排序）
+	 * @ThreadSafeMethodsLevel entrySet方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
+	public Optional<Set<Entry<String, String>>> entrySet(){
+		return ( Optional.of(map.entrySet()) );
+	}
+	
 }

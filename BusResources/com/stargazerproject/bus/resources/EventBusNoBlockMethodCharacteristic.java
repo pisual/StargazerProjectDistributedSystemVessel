@@ -1,7 +1,5 @@
 package com.stargazerproject.bus.resources;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -9,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.bus.BusEventListen;
 import com.stargazerproject.bus.BusNoBlockMethod;
 import com.stargazerproject.bus.BusObserver;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
@@ -42,6 +39,7 @@ public class EventBusNoBlockMethodCharacteristic implements BusNoBlockMethod<Eve
 	
 	public Optional<BusObserver<Event>> pushNoBlock(Optional<Event> busEvent) {
 		BusObserver<Event> eventBusObserver = BeanContainer.instance().getBean(Optional.of("eventBusObserver"), BusObserver.class);
+		eventBusObserver.injectEvent(busEvent);
 		event.producer(busEvent);
 		return Optional.of(eventBusObserver);
 	}

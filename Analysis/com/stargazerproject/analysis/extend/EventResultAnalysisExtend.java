@@ -6,7 +6,8 @@ import com.stargazerproject.transaction.ResultState;
 
 public interface EventResultAnalysisExtend extends EventResultAnalysis{
 	
-	/** @illustrate 获取结果状态 **/
+	/** @illustrate 获取结果状态 
+	 * **/
 	public Optional<ResultState> resultState();
 
 }

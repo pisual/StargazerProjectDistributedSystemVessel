@@ -6,7 +6,6 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.spring.container.BeanControl;
-import com.stargazerproject.spring.container.model.Scope;
 import com.stargazerproject.spring.context.GlobalApplicationContext;
 
 /** 

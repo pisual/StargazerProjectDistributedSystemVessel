@@ -9,13 +9,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventBusResultAnalysisExtend;
+import com.stargazerproject.analysis.extend.EventResultAnalysisExtend;
 import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.log.LogMethod;
 import com.stargazerproject.queue.Queue;
-import com.stargazerproject.spring.container.impl.BeanContainer;
 import com.stargazerproject.transaction.Event;
 import com.stargazerproject.transaction.ResultState;
 
@@ -32,7 +31,9 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 	@Qualifier("eventBusQueue")
 	private Queue<Event> event;
 	
-	private final String eventBusResultAnalysisImpl = "eventBusResultAnalysisImpl";
+	@Autowired
+	@Qualifier("eventResultAnalysisExtend")
+	private EventResultAnalysisExtend eventResultAnalysisExtend;
 	
 	public EventBusBlockMethodCharacteristic() {}
 
@@ -41,16 +42,24 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 		return Optional.of(this);
 	}
 
+	/**
+	* @name 置入事件
+	* @illustrate 阻塞推入事件方法
+	* @param Optional<TimeUnit> timeUnit
+	* @param Optional<Integer> timeout
+	* **/
 	@Override
 	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
-		EventBusResultAnalysisExtend eventBusResultAnalysisExtend = BeanContainer.instance().getBean(Optional.of(eventBusResultAnalysisImpl), EventBusResultAnalysisExtend.class);
-		busEvent.get().eventResult(Optional.of(eventBusResultAnalysisExtend));
 		event.producer(busEvent);
+		busEvent.get().eventResult(Optional.of(eventResultAnalysisExtend));
 		for(int i=0; i<timeout.get(); i++){
-			if(eventBusResultAnalysisExtend.resultState().get() == ResultState.SUCCESS){
+			if(eventResultAnalysisExtend.resultState().get() == ResultState.WAIT){
+				sleep(timeUnit.get());
+				continue;
+			}
+			else{
 				return busEvent;
 			}
-			sleep(timeUnit.get());
 		}
 		l️og.WARN(busEvent.get(), "Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time");
 		throw new BusEventTimeoutException("Event没有在指定时间内完成任务 : BaseEvent Not completed at the specified time : " + busEvent.toString());

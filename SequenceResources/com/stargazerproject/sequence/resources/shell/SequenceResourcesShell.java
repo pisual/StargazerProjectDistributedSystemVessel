@@ -29,35 +29,4 @@ public class SequenceResourcesShell implements Sequence<Order>, BaseCharacterist
 	@Qualifier("eventBusImpl")
 	private Bus<BaseEvent> bus;
 	
-	@Autowired
-	@Qualifier("eventSegmentation")
-	private Segmentation<Optional<BaseEvent>> eventSegmentation;
-	
-	private Map<String, Order> orderTemporaryDepositMap = new HashMap<String, Order>();
-	
-	public SequenceResourcesShell() {}
-	
-	@Override
-	@Bean(name="sequenceResourcesCharacteristic")
-	@Lazy(true)
-	public Optional<Sequence<Order>> characteristic() {
-		return Optional.of(this);
-	}
-	
-	@Override
-	public void addSequence(Optional<Order> order) {
-		orderTemporaryDepositMap.put(order.get().IDSequence().get(), order.get());
-	}
-
-	@Override
-	public void startSequence(Optional<String> sequenceGroup) throws BusEventTimeoutException{
-		Order order = orderTemporaryDepositMap.get(sequenceGroup.get());
-		order.segmentation(Optional.of(eventSegmentation));
-	}
-	
-	@Override
-	public void clearSequence(Optional<String> sequenceGroup) {
-		orderTemporaryDepositMap.remove(sequenceGroup.get());
-	}
-	
 }

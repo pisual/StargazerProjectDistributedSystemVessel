@@ -1,5 +1,8 @@
 package com.stargazerproject.cache.base.impl;
 
+import java.util.Set;
+import java.util.Map.Entry;
+
 import com.google.common.base.Optional;
 import com.stargazerproject.cache.Cache;
 
@@ -24,6 +27,16 @@ public abstract class BaseCacheImpl<K, V> implements Cache<K, V>{
 	@Override
 	public Optional<Boolean> remove(Optional<K> key) {
 		return cache.remove(key);
+	}
+	
+	@Override
+	public void clear() {
+		cache.clear();
+	}
+	
+	@Override
+	public Optional<Set<Entry<K, V>>> entrySet() {
+		return ( cache.entrySet() );
 	}
 
 }

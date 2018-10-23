@@ -7,7 +7,7 @@ import com.stargazerproject.transaction.EventExecute;
 
 public interface TransactionExecuteAnalysis {
 	
-	/** @illustrate 结果分析器 **/
-	public Optional<Boolean> analysis(Optional<List<EventExecute>> events);
+	/** @illustrate 执行分析器 **/
+	public Optional<Boolean> analysis(Optional<List<EventExecute> > eventExecute);
 
 }

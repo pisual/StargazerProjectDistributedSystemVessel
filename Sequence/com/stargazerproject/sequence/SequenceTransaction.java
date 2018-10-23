@@ -1,7 +1,5 @@
 package com.stargazerproject.sequence;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 
@@ -20,9 +18,9 @@ import com.stargazerproject.bus.exception.BusEventTimeoutException;
  *              序列的顺序处理方法为：
  *                  依赖 ：SequenceBus
  *                      
- *                  Parallel Sequence : { Transaction（"Sequence a","Sequence b","Sequence c"）- Transaction（"Sequence d","Sequence e","Sequence f"）}
+ *                  Sequence : { Transaction（"Sequence a","Sequence b","Sequence c"）- Transaction（"Sequence d","Sequence e","Sequence f"）}
  *                      
- *                  首先，会取出Parallel Sequence中的第一个事务，推入SequenceBus，确认执行完毕并且成功后再取出第二个推入SequenceBus，依次完成。
+ *                  首先，会取出Sequence中的第一个事务，推入SequenceBus，确认执行完毕并且成功后再取出第二个推入SequenceBus，依次完成。
  *             
  *             顺序序列的使用范围：
  *                 需要严格依赖前者执行的事务
@@ -37,7 +35,7 @@ public interface SequenceTransaction<K>{
 	* @name 创建顺序序列
 	* @illustrate 创建顺序序列
 	* **/ 
-	public Optional<ParallelSequenceTransaction<K>> creatSequence();
+	public Optional<SequenceTransaction<K>> creatSequence();
 	
 	/**
 	* @name 添加事务组 Order到顺序序列
@@ -64,7 +62,7 @@ public interface SequenceTransaction<K>{
 	* @illustrate 启动指定的Sequence队列，并阻塞，直到序列全部完成后返回SequenceResult结果
 	* @exception BusEventTimeoutException : 超时会抛出BusEventTimeoutException异常
 	* **/
-	public Optional<SequenceResult<K>> startBlockSequence(Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException;
+	public Optional<SequenceObserver<K>> startBlockSequence() throws BusEventTimeoutException;
 	
 	/**
 	* @name 启动顺序序列

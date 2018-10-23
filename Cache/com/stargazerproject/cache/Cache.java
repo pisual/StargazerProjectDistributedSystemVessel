@@ -1,6 +1,8 @@
 package com.stargazerproject.cache;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.annotation.description.ThreadSafeLevel;
@@ -45,4 +47,20 @@ public interface Cache<K, V> extends Serializable{
 	 * **/
 	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.Implementation)
 	public Optional<Boolean> remove(Optional<K> key);
+	
+	/**
+	 * @name 清除
+	 * @illustrate 清除缓存所有内容
+	 * @ThreadSafeMethodsLevel 依赖具体的实现方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.Implementation)
+	public void clear();
+	
+	/**
+	 * @name 获取结果集
+	 * @illustrate 获取Set类型的结果集，结果集是的排序依赖具体实现方法
+	 * @ThreadSafeMethodsLevel 依赖具体的实现方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.Implementation)
+	public Optional<Set<Entry<K, V>>> entrySet();
 }

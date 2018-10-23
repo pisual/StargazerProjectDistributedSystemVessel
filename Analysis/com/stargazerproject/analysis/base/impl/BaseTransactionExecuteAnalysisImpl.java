@@ -11,8 +11,8 @@ public class BaseTransactionExecuteAnalysisImpl implements TransactionExecuteAna
 	protected TransactionExecuteAnalysisExtend transactionExecuteAnalysisExtend;
 
 	@Override
-	public Optional<Boolean> analysis(Optional<List<EventExecute>> events) {
-		return transactionExecuteAnalysisExtend.analysis(events);
+	public Optional<Boolean> analysis(Optional<List<EventExecute>> eventExecute) {
+		return transactionExecuteAnalysisExtend.analysis(eventExecute);
 	}
 
 }

@@ -8,6 +8,7 @@ import com.stargazerproject.sequence.ParallelSequenceTransaction;
 import com.stargazerproject.sequence.Sequence;
 import com.stargazerproject.sequence.SequenceObserver;
 import com.stargazerproject.sequence.SequenceResult;
+import com.stargazerproject.sequence.SequenceTransaction;
 
 public class BaseSequence<K> implements Sequence<K>{
 	
@@ -34,8 +35,8 @@ public class BaseSequence<K> implements Sequence<K>{
 	}
 
 	@Override
-	public Optional<SequenceResult<K>> startBlockParallelSequence(Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
-		return sequence.startBlockSequence(timeUnit, timeout);
+	public Optional<SequenceObserver<K>> startBlockParallelSequence() throws BusEventTimeoutException {
+		return sequence.startBlockParallelSequence();
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class BaseSequence<K> implements Sequence<K>{
 	}
 
 	@Override
-	public Optional<ParallelSequenceTransaction<K>> creatSequence() {
+	public Optional<SequenceTransaction<K>> creatSequence() {
 		return sequence.creatSequence();
 	}
 
@@ -69,8 +70,8 @@ public class BaseSequence<K> implements Sequence<K>{
 	}
 
 	@Override
-	public Optional<SequenceResult<K>> startBlockSequence(Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
-		return sequence.startBlockSequence(timeUnit, timeout);
+	public Optional<SequenceObserver<K>> startBlockSequence() throws BusEventTimeoutException {
+		return sequence.startBlockSequence();
 	}
 
 	@Override

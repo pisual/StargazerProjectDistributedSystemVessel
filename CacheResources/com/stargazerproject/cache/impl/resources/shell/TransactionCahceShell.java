@@ -1,5 +1,7 @@
 package com.stargazerproject.cache.impl.resources.shell;
 
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +109,26 @@ public class TransactionCahceShell implements  Cache<String, Transaction>, BaseC
 	public Optional<Boolean> remove(Optional<String> key) {
 		loadingCache.invalidate(key.get());
 		return Optional.of(Boolean.TRUE);
+	}
+	
+	/**
+	 * @name 清除
+	 * @illustrate 清除缓存所有内容
+	 * @ThreadSafeMethodsLevel remove方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
+	public void clear(){
+		loadingCache.cleanUp();
+	}
+	
+	/**
+	 * @name 获取结果集
+	 * @illustrate 获取Set类型的结果集，结果集是无序的
+	 * @ThreadSafeMethodsLevel entrySet方法的线程安全级别是 ThreadSafeLevel.ThreadSafe，安全的线程安全方法
+	 * **/
+	@ThreadSafeMethodsLevel(threadSafeLevel = ThreadSafeLevel.ThreadSafe)
+	public Optional<Set<Entry<String, Transaction>>> entrySet(){
+		return ( Optional.of(loadingCache.asMap().entrySet()) );
 	}
 
 }

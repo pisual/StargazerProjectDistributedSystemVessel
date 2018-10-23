@@ -1,7 +1,5 @@
 package com.stargazerproject.sequence;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.base.Optional;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 
@@ -66,7 +64,7 @@ public interface ParallelSequenceTransaction<K>{
 	* @illustrate 启动指定的Sequence队列，并阻塞，直到序列全部完成后返回ParallelSequenceResult结果
 	* @exception BusEventTimeoutException : 超时会抛出BusEventTimeoutException异常
 	* **/
-	public Optional<SequenceResult<K>> startBlockParallelSequence(Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException;
+	public Optional<SequenceObserver<K>> startBlockParallelSequence() throws BusEventTimeoutException;
 	
 	/**
 	* @name 启动并行序列
@@ -80,7 +78,7 @@ public interface ParallelSequenceTransaction<K>{
 	* @illustrate 尽力终止并行序列是一个没有确定结果的不推荐使用方法，它为并行序列提供一个可以紧急终止的方法，
 	*             一旦调用此方法，会把本序列的事务组内部的全部事务置于PASS状态，由于遍历全部事务是需要时间的，
 	*             并且并行序列是一次性推送所有事务进入到事件总线，一旦事务在置于PASS状态前就已经进入了执行状态（RUN）中，
-	*             那么这个事务的PASS是无效的，所以，终止并行序列方法是一个没有确切结果的方法，只是尽力使得还没有执行的方法在事件总线中快速通过。
+	*             那么这个事务的PASS是无效的，所以，终止并行序列方法是一个没有确切结果的方法，只是尽力使得还没有执行的方法在事件总线中略过并且快速通过。
 	* **/
 	public Optional<SequenceObserver<K>> shutDownParallelSequence();
 	
