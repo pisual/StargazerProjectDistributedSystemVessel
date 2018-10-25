@@ -5,6 +5,7 @@ import com.stargazerproject.analysis.TransactionAssembleAnalysis;
 import com.stargazerproject.analysis.TransactionExecuteAnalysis;
 import com.stargazerproject.analysis.TransactionResultAnalysis;
 import com.stargazerproject.transaction.Transaction;
+import com.stargazerproject.transaction.exception.TransactionException;
 
 public class BaseTransaction extends ID implements Transaction{
 
@@ -23,7 +24,7 @@ public class BaseTransaction extends ID implements Transaction{
 	}
 
 	@Override
-	public void transactionExecute(Optional<TransactionExecuteAnalysis> transactionExecuteAnalysis) {
+	public void transactionExecute(Optional<TransactionExecuteAnalysis> transactionExecuteAnalysis) throws TransactionException {
 		transaction.transactionExecute(transactionExecuteAnalysis);
 	}
 

@@ -8,21 +8,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.google.common.base.Optional;
 import com.stargazerproject.analysis.extend.EventBusResultAnalysisExtend;
 import com.stargazerproject.analysis.extend.SequenceTransactionExecuteAnalysisExtend;
-import com.stargazerproject.bus.BusNoBlockMethod;
+import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.transaction.Event;
 
 /** 
- *  @name 非阻塞型序列运行器
- *  @illustrate 以非阻塞的方式运行序列
+ *  @name 阻塞型序列运行器
+ *  @illustrate 以阻塞的方式运行序列
  *  @version 1.0.0
  *  **/
-public class SequenceTransactionExecuteAnalysisShell implements SequenceTransactionExecuteAnalysisExtend, BaseCharacteristic<SequenceTransactionExecuteAnalysisExtend>{
+public class SequenceBlockTransactionExecuteAnalysisShell implements SequenceTransactionExecuteAnalysisExtend, BaseCharacteristic<SequenceTransactionExecuteAnalysisExtend>{
 
 	@Autowired
 	@Qualifier("eventBusImpl")
-	private BusNoBlockMethod<Event> bus;
+	private BusBlockMethod<Event> bus;
 	
 	@Autowired
 	@Qualifier("eventBusResultAnalysisExtend")
@@ -30,8 +30,16 @@ public class SequenceTransactionExecuteAnalysisShell implements SequenceTransact
 	
 	@Override
 	public Optional<Boolean> analysis(Optional<List<Event>> eventExecute) throws BusEventTimeoutException{
-		eventExecute.get().stream().forEach(event -> bus.pushNoBlock(Optional.of(event)));
-		return Optional.of(Boolean.TRUE);
+		eventExecute.get().stream().forEach(event -> {
+			event.eventResult(Optional.of(eventBusResultAnalysisExtend));
+			try {
+				bus.push(Optional.of(event), 
+						eventBusResultAnalysisExtend.busEventTimeout().get().getTimeUnit(), 
+						eventBusResultAnalysisExtend.busEventTimeout().get().getTimeout());
+			} catch (BusEventTimeoutException busEventTimeoutException) {
+				throw busEventTimeoutException;
+			}});
+		return null;
 	}
 
 	@Override

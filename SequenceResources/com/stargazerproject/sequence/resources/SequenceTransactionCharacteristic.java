@@ -27,9 +27,9 @@ public class SequenceTransactionCharacteristic implements SequenceTransaction<Tr
 	@Qualifier("logRecord")
 	private LogMethod logMethod;
 	
-	@Autowired
-	@Qualifier("eventBusImpl")
-	private Bus<EventExecute> bus;
+//	@Autowired
+//	@Qualifier("eventBusImpl")
+//	private Bus<EventExecute> bus;
 	
 	@Autowired
 	@Qualifier("sequenceTransactionCache")
