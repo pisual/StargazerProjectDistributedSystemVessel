@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transmissionQueueServerManage")
 @Qualifier("transmissionQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transmissionQueueServerManage", order = 13)
+//@Services(value="transmissionQueueServerManage", order = 13)
 public class TransmissionQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionCacheServerManage")
 @Qualifier("transactionCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionCacheServerManage", order = 7)
+@Services(value="transactionCacheServerManage", order = 6)
 public class TransactionCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

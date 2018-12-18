@@ -21,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="nodeNegotiateServerManage")
 @Qualifier("nodeNegotiateServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="nodeNegotiateServerManage", order = 11)
+@Services(value="nodeNegotiateServerManage", order = 10)
 public class NodeNegotiateServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

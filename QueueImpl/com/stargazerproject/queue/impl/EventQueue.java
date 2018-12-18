@@ -9,7 +9,7 @@ import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.queue.Queue;
 import com.stargazerproject.queue.base.impl.StandQueue;
-import com.stargazerproject.transaction.base.impl.BaseEvent;
+import com.stargazerproject.transaction.Event;
 
 /** 
  *  @name Event队列
@@ -20,7 +20,7 @@ import com.stargazerproject.transaction.base.impl.BaseEvent;
 @Component(value="eventQueue")
 @Qualifier("eventQueue")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class EventQueue extends StandQueue<BaseEvent> implements StanderCharacteristicShell<Queue<BaseEvent>>{
+public class EventQueue extends StandQueue<Event> implements StanderCharacteristicShell<Queue<Event>>{
 
 	/**
 	* @name 常规初始化构造
@@ -29,7 +29,7 @@ public class EventQueue extends StandQueue<BaseEvent> implements StanderCharacte
 	protected EventQueue() {}
 
 	@Override
-	public void initialize(Optional<Queue<BaseEvent>> queueArg) {
+	public void initialize(Optional<Queue<Event>> queueArg) {
 		queue = queueArg.get();
 	}
 

@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="byteArrayCacheServerManage")
 @Qualifier("byteArrayCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="byteArrayCacheServerManage", order = 6)
+@Services(value="byteArrayCacheServerManage", order = 5)
 public class ByteArrayCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

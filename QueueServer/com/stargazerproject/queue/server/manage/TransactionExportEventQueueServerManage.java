@@ -22,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionExportEventQueueServerManage")
 @Qualifier("transactionExportEventQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionExportEventQueueServerManage", order = 9)
+@Services(value="transactionExportEventQueueServerManage", order = 8)
 public class TransactionExportEventQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate transactionExportEventQueueServer的ServiceShell接口 **/

@@ -20,7 +20,7 @@ import com.stargazerproject.transaction.Transaction;
 public class TransactionExportEventQueueServer implements StanderServiceShell{
 
 	@Autowired
-	@Qualifier("transactionExportDisruptorShell")
+	@Qualifier("transactionExportEventDisruptorShell")
 	private BaseCharacteristic<Queue<Transaction>> transactionExportDisruptorShell;
 	
 	@Autowired

@@ -15,13 +15,6 @@ import com.stargazerproject.annotation.resources.shell.AnnotationsShell;
 import com.stargazerproject.annotations.server.impl.AnnotationsServer;
 import com.stargazerproject.annotations.server.listener.impl.AnnotationsServerListener;
 import com.stargazerproject.annotations.server.manage.AnnotationsServerManage;
-import com.stargazerproject.bus.impl.EventBus;
-import com.stargazerproject.bus.resources.EventBusBlockMethodCharacteristic;
-import com.stargazerproject.bus.resources.EventBusNoBlockMethodCharacteristic;
-import com.stargazerproject.bus.resources.shell.EventBusResourcesShell;
-import com.stargazerproject.bus.server.impl.EventBusServer;
-import com.stargazerproject.bus.server.listener.impl.EventBusServerListener;
-import com.stargazerproject.bus.server.manage.EventBusServerManage;
 import com.stargazerproject.cache.aop.configuration.ParametersInjectAOPConfiguration;
 import com.stargazerproject.cache.datastructure.impl.BigCacheIndexCahce;
 import com.stargazerproject.cache.datastructure.impl.InterProcessSemaphoreMutexCache;
@@ -58,21 +51,6 @@ import com.stargazerproject.characteristics.server.listener.impl.ComponentsChara
 import com.stargazerproject.characteristics.server.manage.ComponentsCharacteristicServerManage;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
-import com.stargazerproject.consumer.impl.TransmissionConsumer;
-import com.stargazerproject.information.impl.CellsInformation;
-import com.stargazerproject.information.resources.CellsInformationByteToMessageDecoderHandlerCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationClientRegisterHandlerCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationControlCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationEventHandlerCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationHandlerGuide;
-import com.stargazerproject.information.resources.CellsInformationHeartbeatHandlerCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationMessageToByteEncoderHandlerCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationMethodCharacteristic;
-import com.stargazerproject.information.resources.CellsInformationsOutScourHandler;
-import com.stargazerproject.information.resources.shell.CellsInformationShell;
-import com.stargazerproject.information.server.impl.CellsInformationServer;
-import com.stargazerproject.information.server.listener.impl.CellsInformationServerListener;
-import com.stargazerproject.information.server.manage.CellsInformationServerManage;
 import com.stargazerproject.inject.impl.InjectImpl;
 import com.stargazerproject.inject.resources.InjectClassMethodCharacteristic;
 import com.stargazerproject.inject.resources.InjectSearchMethodCharacteristic;
@@ -111,11 +89,9 @@ import com.stargazerproject.queue.impl.EventBusQueue;
 import com.stargazerproject.queue.impl.EventQueue;
 import com.stargazerproject.queue.impl.LogQueue;
 import com.stargazerproject.queue.impl.TransactionExportQueue;
-import com.stargazerproject.queue.impl.TransmissionQueue;
 import com.stargazerproject.queue.resources.impl.CleanEventHandler;
 import com.stargazerproject.queue.resources.impl.CleanLogHandler;
 import com.stargazerproject.queue.resources.impl.CleanTransactionExportEventHandler;
-import com.stargazerproject.queue.resources.impl.CleanTransmissionEventHandler;
 import com.stargazerproject.queue.resources.impl.EventBusHandler;
 import com.stargazerproject.queue.resources.impl.EventFactory;
 import com.stargazerproject.queue.resources.impl.EventHandler;
@@ -127,31 +103,25 @@ import com.stargazerproject.queue.resources.impl.LogQueueThreadFactory;
 import com.stargazerproject.queue.resources.impl.TransactionExportEventFactory;
 import com.stargazerproject.queue.resources.impl.TransactionExportEventHandler;
 import com.stargazerproject.queue.resources.impl.TransactionExportEventThreadFactory;
-import com.stargazerproject.queue.resources.impl.TransmissionEventFactory;
-import com.stargazerproject.queue.resources.impl.TransmissionQueueHandler;
-import com.stargazerproject.queue.resources.impl.TransmissionQueueThreadFactory;
 import com.stargazerproject.queue.resources.shell.EventBusDisruptorShell;
 import com.stargazerproject.queue.resources.shell.EventDisruptorShell;
 import com.stargazerproject.queue.resources.shell.LogDisruptorShell;
 import com.stargazerproject.queue.resources.shell.TransactionExportEventDisruptorShell;
-import com.stargazerproject.queue.resources.shell.TransmissionDisruptorShell;
 import com.stargazerproject.queue.server.impl.EventBusQueueServer;
 import com.stargazerproject.queue.server.impl.EventQueueServer;
 import com.stargazerproject.queue.server.impl.LogQueueServer;
 import com.stargazerproject.queue.server.impl.TransactionExportEventQueueServer;
-import com.stargazerproject.queue.server.impl.TransmissionQueueServer;
 import com.stargazerproject.queue.server.listener.impl.EventBusQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.EventQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.LogQueueServerListener;
 import com.stargazerproject.queue.server.listener.impl.TransactionExportEventQueueServerListener;
-import com.stargazerproject.queue.server.listener.impl.TransmissionQueueServerListener;
 import com.stargazerproject.queue.server.manage.EventBusQueueServerManage;
 import com.stargazerproject.queue.server.manage.EventQueueServerManage;
 import com.stargazerproject.queue.server.manage.LogQueueServerManage;
 import com.stargazerproject.queue.server.manage.TransactionExportEventQueueServerManage;
-import com.stargazerproject.queue.server.manage.TransmissionQueueServerManage;
 import com.stargazerproject.resources.parameter.CacheParameters;
 import com.stargazerproject.resources.parameter.InformationParameter;
+import com.stargazerproject.resources.parameter.InjectParameters;
 import com.stargazerproject.resources.parameter.NegotiateParameters;
 import com.stargazerproject.resources.parameter.QueueParameters;
 import com.stargazerproject.resources.parameter.SequenceParameters;
@@ -170,32 +140,6 @@ import com.stargazerproject.service.resources.ServerInitializationCharacteristic
 import com.stargazerproject.service.resources.ServiceControlCharacteristic;
 import com.stargazerproject.service.resources.shell.ServerShell;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
-import com.stargazerproject.userinterface.impl.AssaultLilysUserInterfaceImpl;
-import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
-import com.stargazerproject.userinterface.resources.LoadingJProgressBarUI;
-import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameLogoClickListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
-import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
-import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
-import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
-import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
-import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
-import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
-import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceManage;
 
 @SpringBootApplication
 @PropertySource(value="Spring.properties")
@@ -350,6 +294,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		QueueParameters.class,
 		UIParameters.class,
 		ServiceParameterList.class,
+		InformationParameter.class,
+		InjectParameters.class,
+		NegotiateParameters.class,
+		QueueParameters.class,
+		SequenceParameters.class,
+		SystemParameters.class,
 		
 		/**Depend Log**/
 		GroupLogConfiguration.class,
@@ -364,33 +314,33 @@ public class GlobalAnnotationApplicationContextInitialization {
 //		StandardCellsTransactionImpl.class,
 //		HystrixConfigurationS.class,
 		
-		/**User Interface Service**/
-		MainFrameBackgroundJlabelCharacteristic.class,
-		MainFrameConsoleTextPaneCharacteristic.class,
-		MainFrameJFrameCharacteristic.class,
-		MainFrameJScrollPaneCharacteristic.class,
-		MainFrameLayoutCharacteristic.class,
-		MainFrameLogoJlabelCharacteristic.class,
-		MainFrameRightConsoleTextPaneCharacteristic.class,
-		MainFrameRightJScrollPaneCharacteristic.class,
-		MainFrameStructureTopologyJlabelCharacteristic.class,
-		MainFrameShall.class,
-		MainFrameLogoClickListenerCharacteristic.class,
-		MainFrameMouseAdapterListenerCharacteristic.class,
-		MainFrameMouseMotionAdapterListenerCharacteristic.class,
-		MainFramePointCharacteristic.class,
-		LoadingBaseFrameJDialogCharacteristic.class,
-		LoadingJProgressBarCharacteristic.class,
-		LoadingProgressInfoCharacteristic.class,
-		LoadingFrameBackgroundJlabelCharacteristic.class,
-		LoadingFrameLayoutCharacteristic.class,
-		LoadingFrameShall.class,
-		AssaultLilysUserInterfaceImpl.class,
-		AssaultLilysUserInterfaceShall.class,
-		FrameUserInterfaceServer.class,
-		FrameUserInterfaceListener.class,
-		FrameUserInterfaceManage.class,
-		LoadingJProgressBarUI.class,
+//		/**User Interface Service**/
+//		MainFrameBackgroundJlabelCharacteristic.class,
+//		MainFrameConsoleTextPaneCharacteristic.class,
+//		MainFrameJFrameCharacteristic.class,
+//		MainFrameJScrollPaneCharacteristic.class,
+//		MainFrameLayoutCharacteristic.class,
+//		MainFrameLogoJlabelCharacteristic.class,
+//		MainFrameRightConsoleTextPaneCharacteristic.class,
+//		MainFrameRightJScrollPaneCharacteristic.class,
+//		MainFrameStructureTopologyJlabelCharacteristic.class,
+//		MainFrameShall.class,
+//		MainFrameLogoClickListenerCharacteristic.class,
+//		MainFrameMouseAdapterListenerCharacteristic.class,
+//		MainFrameMouseMotionAdapterListenerCharacteristic.class,
+//		MainFramePointCharacteristic.class,
+//		LoadingBaseFrameJDialogCharacteristic.class,
+//		LoadingJProgressBarCharacteristic.class,
+//		LoadingProgressInfoCharacteristic.class,
+//		LoadingFrameBackgroundJlabelCharacteristic.class,
+//		LoadingFrameLayoutCharacteristic.class,
+//		LoadingFrameShall.class,
+//		AssaultLilysUserInterfaceImpl.class,
+//		AssaultLilysUserInterfaceShall.class,
+//		FrameUserInterfaceServer.class,
+//		FrameUserInterfaceListener.class,
+//		FrameUserInterfaceManage.class,
+//		LoadingJProgressBarUI.class,
 		
 //		/**Depend Sequence*/
 //		BootInitializationSequenceImpl.class,
@@ -413,26 +363,26 @@ public class GlobalAnnotationApplicationContextInitialization {
 		AnnotationsServerListener.class,
 		AnnotationsServerManage.class,
 		
-		/**Depend Bus**/
-		EventBus.class,
-		EventBusBlockMethodCharacteristic.class,
-		EventBusNoBlockMethodCharacteristic.class,
-		EventBusResourcesShell.class,
-		EventBusServer.class,
-		EventBusServerListener.class,
-		EventBusServerManage.class,
-		
-		/**Depend Transmission Queue**/
-		TransmissionConsumer.class,
-		TransmissionQueue.class,
-		CleanTransmissionEventHandler.class,
-		TransmissionEventFactory.class,
-		TransmissionQueueHandler.class,
-		TransmissionQueueThreadFactory.class,
-		TransmissionDisruptorShell.class,
-		TransmissionQueueServer.class,
-		TransmissionQueueServerListener.class,
-		TransmissionQueueServerManage.class,
+//		/**Depend Bus**/
+//		EventBus.class,
+//		EventBusBlockMethodCharacteristic.class,
+//		EventBusNoBlockMethodCharacteristic.class,
+//		EventBusResourcesShell.class,
+//		EventBusServer.class,
+//		EventBusServerListener.class,
+//		EventBusServerManage.class,
+//		
+//		/**Depend Transmission Queue**/
+//		TransmissionConsumer.class,
+//		TransmissionQueue.class,
+//		CleanTransmissionEventHandler.class,
+//		TransmissionEventFactory.class,
+//		TransmissionQueueHandler.class,
+//		TransmissionQueueThreadFactory.class,
+//		TransmissionDisruptorShell.class,
+//		TransmissionQueueServer.class,
+//		TransmissionQueueServerListener.class,
+//		TransmissionQueueServerManage.class,
 		
 		/**Depend Inject**/
 		InjectImpl.class,
@@ -443,26 +393,26 @@ public class GlobalAnnotationApplicationContextInitialization {
 		InjectServerListener.class,
 		InjectServerManage.class,
 		
-		/**Depend Analysis**/
-		EventExecuteAnalysisImpl.class,
-		EventBusExecuteAnalysisImpl.class,
+//		/**Depend Analysis**/
+//		EventExecuteAnalysisImpl.class,
+//		EventBusExecuteAnalysisImpl.class,
 		LogAnalysisImpl.class,
 		
-		/**Depend CellsInformation**/
-		CellsInformation.class,
-		CellsInformationByteToMessageDecoderHandlerCharacteristic.class,
-		CellsInformationClientRegisterHandlerCharacteristic.class,
-		CellsInformationControlCharacteristic.class,
-		CellsInformationEventHandlerCharacteristic.class,
-		CellsInformationHandlerGuide.class,
-		CellsInformationHeartbeatHandlerCharacteristic.class,
-		CellsInformationMessageToByteEncoderHandlerCharacteristic.class,
-		CellsInformationMethodCharacteristic.class,
-		CellsInformationsOutScourHandler.class,
-		CellsInformationShell.class,
-		CellsInformationServer.class,
-		CellsInformationServerListener.class,
-		CellsInformationServerManage.class,
+//		/**Depend CellsInformation**/
+//		CellsInformation.class,
+//		CellsInformationByteToMessageDecoderHandlerCharacteristic.class,
+//		CellsInformationClientRegisterHandlerCharacteristic.class,
+//		CellsInformationControlCharacteristic.class,
+//		CellsInformationEventHandlerCharacteristic.class,
+//		CellsInformationHandlerGuide.class,
+//		CellsInformationHeartbeatHandlerCharacteristic.class,
+//		CellsInformationMessageToByteEncoderHandlerCharacteristic.class,
+//		CellsInformationMethodCharacteristic.class,
+//		CellsInformationsOutScourHandler.class,
+//		CellsInformationShell.class,
+//		CellsInformationServer.class,
+//		CellsInformationServerListener.class,
+//		CellsInformationServerManage.class,
 		
 		/**Depend Serializables**/
 		NetworkTransmissionSerializables.class,

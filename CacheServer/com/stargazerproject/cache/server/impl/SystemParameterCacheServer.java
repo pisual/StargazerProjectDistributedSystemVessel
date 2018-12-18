@@ -14,8 +14,8 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
- *  @name OrderCache服务的实现
- *  @illustrate 继承于ServiceShell的OrderCache相关服务实现
+ *  @name systemParameterCache服务的实现
+ *  @illustrate 继承于ServiceShell的systemParameterCache相关服务实现
  *  @author Felixerio
  *  **/
 @Component(value="systemParameterCacheServer")

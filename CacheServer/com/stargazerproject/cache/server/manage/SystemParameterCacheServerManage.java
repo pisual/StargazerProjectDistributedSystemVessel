@@ -16,7 +16,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
  *  @name systemParameterCache服务集中托管
- *  @illustrate OrderCache服务集中托管，继承于Guava的AbstractIdleService
+ *  @illustrate systemParameterCacheServerManage服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
 @Component(value="systemParameterCacheServerManage")
@@ -25,7 +25,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Services(value="systemParameterCacheServerManage", order = 2)
 public class SystemParameterCacheServerManage extends AbstractIdleService{
 	
-	/** @illustrate orderCacheServer的ServiceShell接口 **/
+	/** @illustrate systemParameterCache的ServiceShell接口 **/
 	@Autowired
 	@Qualifier("systemParameterCacheServer")
 	private StanderServiceShell systemParameterCacheServer;

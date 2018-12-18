@@ -21,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionMessageQueueServerManage")
 @Qualifier("transactionMessageQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionMessageQueueServerManage", order = 8)
+@Services(value="transactionMessageQueueServerManage", order = 7)
 public class TransactionMessageQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate transactionMessageQueueServer的ServiceShell接口 **/

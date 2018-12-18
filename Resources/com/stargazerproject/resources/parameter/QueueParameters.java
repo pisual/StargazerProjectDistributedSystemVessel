@@ -62,6 +62,8 @@ public class QueueParameters {
 		//Kafka消息队列配置 Start
 		/** @illustrate 消息推送的目的地址 **/
 		private static final String Kernel_Queue_TransactionMessage_MessagePushQueueTopic = "127.0.0.1:";
+		/** @illustrate 消息推送的目的Partition **/
+		private static final String Kernel_Queue_TransactionMessage_MessagePushQueuePartition = "2";
 		/** @illustrate 消息推送队列 **/
 		private static final String Kernel_Queue_TransactionMessage_PushQueueTopic = "OrderPushMessageQueue";
 		/** @illustrate 消息推送队列组 **/
