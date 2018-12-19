@@ -1,7 +1,6 @@
 package com.stargazerproject.information.model;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.TransmissionAnalysis;
 
 public class TransmissionContent {
 	
@@ -13,9 +12,21 @@ public class TransmissionContent {
 		context = contextArg.get();
 		contextType = contextTypeArg.get();
 	}
-	
-	public void analysis(Optional<TransmissionAnalysis> transmissionAnalysis){
-		transmissionAnalysis.get().analysis(Optional.of(this));
+
+	/**
+	 * @return the Optional.of(context)
+	 */
+	public Optional<Object> getContext() {
+		return Optional.of(context);
 	}
+
+	/**
+	 * @return the Optional.of(contextType)
+	 */
+	public Optional<String> getContextType() {
+		return Optional.of(contextType);
+	}
+	
+	
 
 }

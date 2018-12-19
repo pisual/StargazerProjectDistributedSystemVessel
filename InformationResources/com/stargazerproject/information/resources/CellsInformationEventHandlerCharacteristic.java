@@ -42,7 +42,7 @@ public class CellsInformationEventHandlerCharacteristic extends SimpleChannelInb
 		if(object instanceof Transmission){
 			Transmission transmission = (Transmission) object;
 			queue.producer(Optional.of((transmission.clone())));
-			log.INFO(this, "Transmission 已经入队 : " + transmission.IDSequence());
+			log.INFO(this, "Transmission 已经入队 : " + transmission.sequenceID());
 		}
 		else{
 			channelHandlerContext.fireChannelRead(object);

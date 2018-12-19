@@ -16,7 +16,7 @@ public class Transmission extends ID {
 		injectSequenceID(idArg);
 	}
 	
-	public void analysis(Optional<TransmissionAnalysis> transmissionAnalysis){
+	public void analysis(Optional<TransmissionAnalysis> transmissionAnalysisArg){
 		transmissionContent.analysis(transmissionAnalysis);
 	}
 	

@@ -62,12 +62,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateServer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/NegotiateTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/MessageQueueServer"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Exchange"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ExchangeImpl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ExchangeResources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ExchangeConfiguration"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ExchangeServer"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ExchangeTest"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterface"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceImpl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/UserInterfaceResources"/>

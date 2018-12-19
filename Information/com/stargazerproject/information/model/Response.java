@@ -2,12 +2,13 @@ package com.stargazerproject.information.model;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazerproject.transaction.Entity;
 import com.stargazerproject.transaction.base.impl.ID;
 import com.stargazerproject.util.CloneUtil;
 
-public class Response extends ID implements Entity<Response>{
+public class Response extends ID{
 
+	private static final long serialVersionUID = 4188986274633558284L;
+	
 	private ResponseType responseType;
 	
 	public Response(Optional<ResponseType> responseTypeArg) {
@@ -26,7 +27,7 @@ public class Response extends ID implements Entity<Response>{
 	@Override
 	public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("ID", super.IDSequence().get()).toString();
+                          .add("ID", super.sequenceID().get()).toString();
 	}
 	
 }
