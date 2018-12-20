@@ -9,6 +9,6 @@ import com.stargazerproject.transaction.Event;
 public interface TransactionExecuteAnalysis {
 	
 	/** @illustrate 执行分析器 **/
-	public Optional<Boolean> analysis(Optional<List<Event>> eventExecute) throws BusEventTimeoutException;
+	public Optional<Boolean> analysis(Optional<List<Event>> eventExecute);
 
 }
