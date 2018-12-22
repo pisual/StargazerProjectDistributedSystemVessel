@@ -1,7 +1,6 @@
 package com.stargazerproject.service.aop.configuration;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -60,6 +59,8 @@ public class ServerDependDetectionAOPConfiguration {
 	 *  **/
 	private static BiMap<Integer,String> serverSequenceMap = HashBiMap.create();
 	
+	private static BiMap<String,Integer> serverSequenceMapInverse = HashBiMap.create();
+	
 	/** @construction 初始化构造 **/
 	private ServerDependDetectionAOPConfiguration() {}
 
@@ -70,6 +71,7 @@ public class ServerDependDetectionAOPConfiguration {
 			servername = firstChartoLowerCase(servername);
 			serverSequenceMap.put(i, servername);
 		}
+		serverSequenceMapInverse = serverSequenceMap.inverse();
 	}
 	
 	/** @illustrate StanderServiceShell 中的Set方法的AOP切点**/
@@ -81,17 +83,14 @@ public class ServerDependDetectionAOPConfiguration {
 	public void setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 		String servername = proceedingJoinPoint.getTarget().getClass().getSimpleName();
 		servername = firstChartoLowerCase(servername);
-		
-		while(dependOnDelay(Optional.of(servername)).get() == Boolean.FALSE){
-	//		TimeUnit.SECONDS.sleep(1);
-		}
+		while(dependOnDelay(Optional.of(servername)).get() == Boolean.FALSE){}
 		
 		proceedingJoinPoint.proceed();
 		cache.put(Optional.of(servername), Optional.of(Boolean.TRUE));
 		}
 	
 	private Optional<Boolean> dependOnDelay(Optional<String> serverName){
-		Integer index = serverSequenceMap.inverse().get(serverName.get());
+		Integer index = serverSequenceMapInverse.get(serverName.get());
 		if(index == 1){
 			return Optional.of(Boolean.TRUE);
 		}

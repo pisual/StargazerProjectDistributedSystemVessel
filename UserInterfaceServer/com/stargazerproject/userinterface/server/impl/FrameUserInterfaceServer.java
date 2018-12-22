@@ -1,18 +1,16 @@
 package com.stargazerproject.userinterface.server.impl;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Optional;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
-import com.stargazerproject.spring.container.impl.BeanContainer;
-import com.stargazerproject.userinterface.extend.AssaultLilysUserInterface;
+import com.stargazerproject.userinterface.LoadingUserInterface;
+import com.stargazerproject.userinterface.base.impl.BaseUserInterface;
 
 /** 
  *  @name frameUserInterface服务的实现
@@ -26,33 +24,43 @@ public class FrameUserInterfaceServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("assaultLilysUserInterface")
-	private StanderCharacteristicShell<AssaultLilysUserInterface> zoneNegotiateShell;
+	private StanderCharacteristicShell<BaseUserInterface> baseUserInterface;
+	
+	@Autowired
+	@Qualifier("assaultLilysUserInterfaceShall")
+	private BaseCharacteristic<LoadingUserInterface> loadingUserInterfaceShell;
+	
+	@Autowired
+	@Qualifier("assaultLilysUserInterface")
+	private BaseUserInterface userInterface;
 	
 	/** @construction 初始化构造 **/
 	private FrameUserInterfaceServer() {}
 	
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
-	@SuppressWarnings("unchecked")
 	public void startUp() {
-		Optional<AssaultLilysUserInterface> assaultLilysUserInterface = BeanContainer.instance().getBean(Optional.of("assaultLilysUserInterfaceShallCharacteristic"), Optional.class);
-		zoneNegotiateShell.initialize(assaultLilysUserInterface);
-		//****样品展示代码Start
-		try {
-		assaultLilysUserInterface.get().startLoading();
-		for(int i=0;i<100;i++)
-		{
-			TimeUnit.MILLISECONDS.sleep(100);
-			assaultLilysUserInterface.get().increaseProgressBar(Optional.of(i+""), Optional.of(i));
-		}
-			TimeUnit.SECONDS.sleep(5);
-		assaultLilysUserInterface.get().endLoading();
-		assaultLilysUserInterface.get().startMain();
-		TimeUnit.SECONDS.sleep(5);
+	//	assaultLilysUserInterface.initialize(assaultLilysUserInterfaceShall.characteristic());
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	//	assaultLilysUserInterfaceShall.characteristic().get().startLoading();
+		userInterface.startLoading();	
+//		
+//		//****样品展示代码Start
+//		try {
+//			userInterface.startLoading();
+//		for(int i=0;i<100;i++)
+//		{
+//			TimeUnit.MILLISECONDS.sleep(100);
+//			userInterface.increaseProgressBar(Optional.of(i+""), Optional.of(i));
+//		}
+//			TimeUnit.SECONDS.sleep(5);
+//			userInterface.endLoading();
+//			userInterface.startMain();
+//		TimeUnit.SECONDS.sleep(5);
+//
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		//****样品展示代码End
 	}
 

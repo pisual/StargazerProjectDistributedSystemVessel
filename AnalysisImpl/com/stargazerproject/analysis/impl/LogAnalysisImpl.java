@@ -12,7 +12,7 @@ import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristi
 
 @Component(value="logAnalysisImpl")
 @Qualifier("logAnalysisImpl")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LogAnalysisImpl extends BaseLogAnalysisImpl implements StanderCharacteristicShell<LogAnalysis>{
 
 	@Override

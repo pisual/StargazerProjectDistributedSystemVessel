@@ -10,7 +10,7 @@ import com.stargazerproject.characteristics.Characteristic;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="componentsCharacteristicShell")
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Qualifier("componentsCharacteristicShell")
 public class ComponentsCharacteristicShell implements Characteristic, BaseCharacteristic<Characteristic>{
 

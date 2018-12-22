@@ -1,22 +1,30 @@
 package com.stargazerproject.analysis.base.impl;
 
+import java.util.List;
+
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventBusResultAnalysisExtend;
-import com.stargazerproject.cache.Cache;
+import com.stargazerproject.analysis.EventBusResultAnalysis;
+import com.stargazerproject.bus.BusEventTimeoutModel;
+import com.stargazerproject.transaction.EventResult;
 import com.stargazerproject.transaction.ResultState;
 
-public class BaseEventBusResultAnalysisImpl implements EventBusResultAnalysisExtend{
+public abstract class BaseEventBusResultAnalysisImpl implements EventBusResultAnalysis {
 
-	protected EventBusResultAnalysisExtend eventBusResultAnalysisExtend;
+	protected EventBusResultAnalysis eventBusResultAnalysis;
 	
 	@Override
-	public Optional<Boolean> analysis(Optional<Cache<String, String>> executionResultCache) {
-		return eventBusResultAnalysisExtend.analysis(executionResultCache);
+	public Optional<Boolean> analysis(Optional<List<EventResult>> resultCacheArg) {
+		return eventBusResultAnalysis.analysis(resultCacheArg);
 	}
 
 	@Override
 	public Optional<ResultState> resultState() {
-		return eventBusResultAnalysisExtend.resultState();
+		return eventBusResultAnalysis.resultState();
+	}
+
+	@Override
+	public Optional<BusEventTimeoutModel> busEventTimeout() {
+		return eventBusResultAnalysis.busEventTimeout();
 	}
 
 }

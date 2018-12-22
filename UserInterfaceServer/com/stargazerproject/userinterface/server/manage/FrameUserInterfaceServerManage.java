@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
 /** 
@@ -17,11 +18,11 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
  *  @illustrate frameUserInterfaceManage服务集中托管，继承于Guava的AbstractIdleService
  *  @author Felixerio
  *  **/
-@Component(value="frameUserInterfaceManage")
-@Qualifier("frameUserInterfaceManage")
+@Component(value="frameUserInterfaceServerManage")
+@Qualifier("frameUserInterfaceServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-//@Service(value="frameUserInterfaceManage", order = 100)
-public class FrameUserInterfaceManage extends AbstractIdleService{
+@Services(value="frameUserInterfaceServerManage", order = 12)
+public class FrameUserInterfaceServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
@@ -33,7 +34,7 @@ public class FrameUserInterfaceManage extends AbstractIdleService{
 	private Listener workInServiceControlListener;
 	
 	/** @construction 初始化构造 **/
-	public FrameUserInterfaceManage() {}
+	public FrameUserInterfaceServerManage() {}
 	
 	/** @illustrate 类完成加载后将自动加载监听器 **/
 	@PostConstruct

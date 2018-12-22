@@ -1,16 +1,16 @@
 package com.stargazerproject.analysis.base.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventExecuteAnalysisExtend;
+import com.stargazerproject.analysis.EventExecuteAnalysis;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.transaction.ResultRecord;
 
-public class BaseEventExecuteAnalysisImpl implements EventExecuteAnalysisExtend{
-
-	protected EventExecuteAnalysisExtend eventExecuteAnalysisExtend;
+public abstract class BaseEventExecuteAnalysisImpl implements EventExecuteAnalysis {
+	
+	protected EventExecuteAnalysis eventExecuteAnalysis;
 	
 	@Override
 	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache, Optional<ResultRecord> result) {
-		return eventExecuteAnalysisExtend.analysis(interactionCache, result);
+		return eventExecuteAnalysis.analysis(interactionCache, result);
 	}
 }

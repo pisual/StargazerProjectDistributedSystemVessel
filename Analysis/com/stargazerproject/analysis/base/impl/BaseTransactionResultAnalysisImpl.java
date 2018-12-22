@@ -3,22 +3,22 @@ package com.stargazerproject.analysis.base.impl;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.TransactionResultAnalysisExtend;
+import com.stargazerproject.analysis.TransactionResultAnalysis;
 import com.stargazerproject.transaction.EventResult;
 import com.stargazerproject.transaction.ResultState;
 
-public class BaseTransactionResultAnalysisImpl implements TransactionResultAnalysisExtend{
+public abstract class BaseTransactionResultAnalysisImpl implements TransactionResultAnalysis{
 	
-	protected TransactionResultAnalysisExtend transactionResultAnalysisExtend;
+	protected TransactionResultAnalysis transactionResultAnalysis;
 
 	@Override
 	public Optional<Boolean> analysis(Optional<List<EventResult>> events) {
-		return transactionResultAnalysisExtend.analysis(events);
+		return transactionResultAnalysis.analysis(events);
 	}
 
 	@Override
 	public Optional<ResultState> resultState() {
-		return transactionResultAnalysisExtend.resultState();
+		return transactionResultAnalysis.resultState();
 	}
 
 }

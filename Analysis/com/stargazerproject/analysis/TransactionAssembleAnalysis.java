@@ -15,4 +15,5 @@ public interface TransactionAssembleAnalysis {
 	
 	public Optional<Boolean> analysis(Optional<Collection<EventAssemble>> eventsList);
 	
+	public void addEvent(Optional<EventAssemble> eventAssemble);
 }

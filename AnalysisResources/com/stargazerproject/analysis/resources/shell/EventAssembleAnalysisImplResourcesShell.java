@@ -7,21 +7,21 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventAssembleAnalysisExtend;
+import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.cache.Cache;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 
 @Component(value="eventAssembleAnalysisImplResourcesShell")
 @Qualifier("eventAssembleAnalysisImplResourcesShell")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EventAssembleAnalysisImplResourcesShell implements EventAssembleAnalysisExtend, BaseCharacteristic<EventAssembleAnalysisExtend>{
+public class EventAssembleAnalysisImplResourcesShell implements EventAssembleAnalysis, BaseCharacteristic<EventAssembleAnalysis>{
 
 	@Autowired
 	@Qualifier("eventInteractionCache")
 	private Cache<String, String> cacheAssemble;
 	
 	@Override
-	public Optional<EventAssembleAnalysisExtend> characteristic() {
+	public Optional<EventAssembleAnalysis> characteristic() {
 		return Optional.of(this);
 	}
 	

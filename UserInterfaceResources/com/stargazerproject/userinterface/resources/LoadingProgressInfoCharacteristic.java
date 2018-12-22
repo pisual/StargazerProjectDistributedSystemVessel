@@ -28,10 +28,6 @@ import com.stargazerproject.util.ParameterStringUtil;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLabel>{
 	
-	/** @name 加载界面使用者头像 **/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_UserInterface_LoadingFrame_Font_ProgressBar;
-	
 	/** @name 加载界面指定字体名称 **/
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_ProgressInfo;
@@ -44,9 +40,9 @@ public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLa
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_Color_ProgressInfo;
 	
-	@Autowired
-	@Qualifier("componentsCharacteristic")
-	private Characteristic characteristic;
+//	@Autowired
+//	@Qualifier("componentsCharacteristic")
+//	private Characteristic characteristic;
 	
 	private JLabel jLabel = new JLabel();
 	
@@ -54,12 +50,12 @@ public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLa
 	
 	@Override
 	public Optional<JLabel> characteristic() {
-		synchronized(this){
-			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+//		synchronized(this){
+//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
 				initLoadingProgressInfo(fontInitialization(), fontColorInitialization());
-				characteristic.singleInitializationComplete();
-			}
-		}
+//				characteristic.singleInitializationComplete();
+//			}
+//		}
 		return Optional.of(jLabel);
 	}
 	

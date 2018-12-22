@@ -45,18 +45,7 @@ public class ParametersInjectAOPConfiguration {
 	@Pointcut ("execution(* com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic.characteristic())")
 	public void characteristicMethod(){}
 	
-
-//    + " && bean(negotiateConnectionStateListenerCharacteristic)"
-//    + " && bean(negotiateCuratorFrameworkCharacteristic)"
-//    + " && bean(negotiateNodeMethodCharacteristic)"
-//    + " && bean(negotiateRetryPolicyCharacteristic)"
-//    + " && bean(negotiateParametersInjectInitializationListenerCharacteristic)"
-//    + " && bean(eventBusDisruptorShell)"
-//    + " && bean(eventDisruptorShell)"
-//    + " && bean(orderExportDisruptorShell)"
-//    + " && bean(orderCacheLoadingCacheCharacteristic)"
-	
-	/** @illustrate orderCache 中的Set的AOP切点的具体方法**/
+	/** @illustrate  characteristicMethod切点的具体方法**/
 	@Around("characteristicMethod()")
 	public Object setMethodAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 		try {

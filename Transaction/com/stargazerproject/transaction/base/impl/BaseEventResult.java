@@ -1,7 +1,7 @@
 package com.stargazerproject.transaction.base.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.ResultResultAnalysis;
+import com.stargazerproject.analysis.EventResultAnalysis;
 import com.stargazerproject.transaction.Result;
 import com.stargazerproject.transaction.ResultRecord;
 import com.stargazerproject.transaction.ResultState;
@@ -24,8 +24,8 @@ public class BaseEventResult implements Result{
 	protected BaseEventResult() {}
 	
 	@Override
-	public void resultResult(ResultResultAnalysis resultResultAnalysis) {
-		result.resultResult(resultResultAnalysis);
+	public void resultResult(EventResultAnalysis eventResultAnalysis) {
+		result.resultResult(eventResultAnalysis);
 	}
 
 	@Override

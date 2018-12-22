@@ -1,6 +1,7 @@
 package com.stargazerproject.userinterface.resources;
 
 import javax.swing.JProgressBar;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,11 +25,13 @@ public class LoadingJProgressBarCharacteristic implements BaseCharacteristic<JPr
 	/**加载界面进度条UI**/
 	@Autowired
 	@Qualifier("loadingJProgressBarUI")
+	private BaseCharacteristic<LoadingJProgressBarUI> loadingJProgressBarUICharacteristic;
+	
 	private LoadingJProgressBarUI loadingJProgressBarUI;
 	
-	@Autowired
-	@Qualifier("componentsCharacteristic")
-	private Characteristic characteristic;
+//	@Autowired
+//	@Qualifier("componentsCharacteristic")
+//	private Characteristic characteristic;
 	
 	private JProgressBar jProgressBar = new JProgressBar();
 
@@ -36,12 +39,13 @@ public class LoadingJProgressBarCharacteristic implements BaseCharacteristic<JPr
 	
 	@Override
 	public Optional<JProgressBar> characteristic() {
-		synchronized(this){
-			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		loadingJProgressBarUI = loadingJProgressBarUICharacteristic.characteristic().get();
+//		synchronized(this){
+//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
 				initLoadingJProgressBar();
-				characteristic.singleInitializationComplete();
-			}
-		}
+//				characteristic.singleInitializationComplete();
+//			}
+//		}
 		return Optional.of(jProgressBar);
 	}
 	

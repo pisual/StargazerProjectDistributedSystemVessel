@@ -1,26 +1,21 @@
 package com.stargazerproject.analysis.base.impl;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventAssembleAnalysisExtend;
+import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.cache.Cache;
 
-public class BaseEventAssembleAnalysisImpl implements EventAssembleAnalysisExtend{
+public abstract class BaseEventAssembleAnalysisImpl implements EventAssembleAnalysis {
 	
-	protected EventAssembleAnalysisExtend eventAssembleAnalysisExtend;
-
+	protected EventAssembleAnalysis eventAssembleAnalysis;
+	
 	@Override
 	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache) {
-		return eventAssembleAnalysisExtend.analysis(interactionCache);
+		return eventAssembleAnalysis.analysis(interactionCache);
 	}
 
 	@Override
 	public void injectEventParameter(Optional<String> Key, Optional<String> value) {
-		eventAssembleAnalysisExtend.injectEventParameter(Key, value);
-	}
-
-	@Override
-	public void injectEventName(Optional<String> value) {
-		eventAssembleAnalysisExtend.injectEventName(value);
+		eventAssembleAnalysis.injectEventParameter(Key, value);
 	}
 
 }

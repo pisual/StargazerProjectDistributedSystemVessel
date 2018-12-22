@@ -13,4 +13,6 @@ public interface EventAssembleAnalysis {
 	
 	public Optional<Boolean> analysis(Optional<Cache<String, String>> interactionCache);
 	
+	public void injectEventParameter(Optional<String> Key, Optional<String> value);
+	
 }

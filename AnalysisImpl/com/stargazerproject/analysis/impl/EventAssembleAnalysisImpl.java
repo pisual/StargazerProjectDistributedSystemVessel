@@ -6,18 +6,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.stargazerproject.analysis.EventAssembleAnalysis;
 import com.stargazerproject.analysis.base.impl.BaseEventAssembleAnalysisImpl;
-import com.stargazerproject.analysis.extend.EventAssembleAnalysisExtend;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 
 @Component(value="eventAssembleAnalysisImpl")
 @Qualifier("eventAssembleAnalysisImpl")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EventAssembleAnalysisImpl extends BaseEventAssembleAnalysisImpl implements StanderCharacteristicShell<EventAssembleAnalysisExtend>{
+public class EventAssembleAnalysisImpl extends BaseEventAssembleAnalysisImpl implements StanderCharacteristicShell<EventAssembleAnalysis>{
 
 	@Override
-	public void initialize(Optional<EventAssembleAnalysisExtend> eventAssembleAnalysisExtendArg) {
-		eventAssembleAnalysisExtend = eventAssembleAnalysisExtendArg.get();
+	public void initialize(Optional<EventAssembleAnalysis> eventAssembleAnalysisArg) {
+		eventAssembleAnalysis = eventAssembleAnalysisArg.get();
 	}
-
+	
 }

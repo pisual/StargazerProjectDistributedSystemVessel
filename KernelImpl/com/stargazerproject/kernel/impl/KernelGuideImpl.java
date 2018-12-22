@@ -32,15 +32,15 @@ public class KernelGuideImpl implements KernelGuide{
 
 	@Override
 	public KernelGuide loadKernelServer() {
-		serviceList.add("localLogServerManage");
-		serviceList.add("systemParameterCacheServerManage");
-		serviceList.add("logQueueServerManage");
-		serviceList.add("onlineLogServerManage");
-		serviceList.add("bigCacheIndexCacheServerManage");
-		serviceList.add("byteArrayCacheServerManage");
-		serviceList.add("nodeNegotiateManage");
-		serviceList.add("eventBusQueueServerManage");
-		serviceList.add("eventBusServerManage");
+//		serviceList.add("localLogServerManage");
+//		serviceList.add("systemParameterCacheServerManage");
+//		serviceList.add("logQueueServerManage");
+//		serviceList.add("onlineLogServerManage");
+//		serviceList.add("bigCacheIndexCacheServerManage");
+//		serviceList.add("byteArrayCacheServerManage");
+//		serviceList.add("nodeNegotiateManage");
+//		serviceList.add("eventBusQueueServerManage");
+//		serviceList.add("eventBusServerManage");
 		return kernelGuide;
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.extend.EventResultAnalysisExtend;
+import com.stargazerproject.analysis.EventResultAnalysis;
 import com.stargazerproject.bus.BusBlockMethod;
 import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
@@ -32,8 +32,8 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 	private Queue<Event> event;
 	
 	@Autowired
-	@Qualifier("eventResultAnalysisExtend")
-	private EventResultAnalysisExtend eventResultAnalysisExtend;
+	@Qualifier("eventResultAnalysis")
+	private EventResultAnalysis eventResultAnalysis;
 	
 	public EventBusBlockMethodCharacteristic() {}
 
@@ -51,9 +51,9 @@ public class EventBusBlockMethodCharacteristic implements BusBlockMethod<Event>,
 	@Override
 	public Optional<Event> push(Optional<Event> busEvent, Optional<TimeUnit> timeUnit, Optional<Integer> timeout) throws BusEventTimeoutException {
 		event.producer(busEvent);
-		busEvent.get().eventResult(Optional.of(eventResultAnalysisExtend));
+		busEvent.get().eventResult(Optional.of(eventResultAnalysis));
 		for(int i=0; i<timeout.get(); i++){
-			if(eventResultAnalysisExtend.resultState().get() == ResultState.WAIT){
+			if(eventResultAnalysis.resultState().get() == ResultState.WAIT){
 				sleep(timeUnit.get());
 				continue;
 			}

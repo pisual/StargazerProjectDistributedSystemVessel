@@ -47,4 +47,22 @@ public class BaseUserInterface implements UserInterface{
 		userInterface.addLeftTerminalText(content);
 	}
 
+	@Override
+	public void visualRightTerminal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unvisualRightTerminal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addRightTerminalText(Optional<String> content) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

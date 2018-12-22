@@ -3,7 +3,6 @@ package com.stargazerproject.analysis;
 import java.util.List;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.bus.exception.BusEventTimeoutException;
 import com.stargazerproject.transaction.Event;
 
 public interface TransactionExecuteAnalysis {

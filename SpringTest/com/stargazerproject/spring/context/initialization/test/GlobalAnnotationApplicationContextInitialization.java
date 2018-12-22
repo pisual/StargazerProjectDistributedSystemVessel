@@ -6,8 +6,8 @@ import org.springframework.context.annotation.PropertySource;
 import com.staragzerproject.characteristics.impl.ComponentsCharacteristic;
 import com.staragzerproject.characteristics.shell.ComponentsCharacteristicShell;
 import com.stargazer.segmentation.impl.EventSegmentation;
-import com.stargazerproject.analysis.impl.EventBusExecuteAnalysisImpl;
 import com.stargazerproject.analysis.impl.EventExecuteAnalysisImpl;
+import com.stargazerproject.analysis.impl.EventResultAnalysisImpl;
 import com.stargazerproject.analysis.impl.LogAnalysisImpl;
 import com.stargazerproject.annotation.impl.AnnotationsImpl;
 import com.stargazerproject.annotation.resources.AnnotationsScannerResourcesCharacteristic;
@@ -140,6 +140,32 @@ import com.stargazerproject.service.resources.ServerInitializationCharacteristic
 import com.stargazerproject.service.resources.ServiceControlCharacteristic;
 import com.stargazerproject.service.resources.shell.ServerShell;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
+import com.stargazerproject.userinterface.impl.UserInterfaceImpl;
+import com.stargazerproject.userinterface.resources.LoadingBaseFrameJDialogCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarCharacteristic;
+import com.stargazerproject.userinterface.resources.LoadingJProgressBarUI;
+import com.stargazerproject.userinterface.resources.LoadingProgressInfoCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameBackgroundJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJFrameCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLogoClickListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameLogoJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameMouseMotionAdapterListenerCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFramePointCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameRightJScrollPaneCharacteristic;
+import com.stargazerproject.userinterface.resources.MainFrameStructureTopologyJlabelCharacteristic;
+import com.stargazerproject.userinterface.resources.shall.AssaultLilysUserInterfaceShall;
+import com.stargazerproject.userinterface.resources.shall.LoadingFrameShall;
+import com.stargazerproject.userinterface.resources.shall.MainFrameShall;
+import com.stargazerproject.userinterface.server.impl.FrameUserInterfaceServer;
+import com.stargazerproject.userinterface.server.listener.impl.FrameUserInterfaceListener;
+import com.stargazerproject.userinterface.server.manage.FrameUserInterfaceServerManage;
 
 @SpringBootApplication
 @PropertySource(value="Spring.properties")
@@ -309,12 +335,12 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 		EventSegmentation.class,
 		EventExecuteAnalysisImpl.class,
-		EventBusExecuteAnalysisImpl.class,
+		EventResultAnalysisImpl.class,
 		
 //		StandardCellsTransactionImpl.class,
 //		HystrixConfigurationS.class,
 		
-//		/**User Interface Service**/
+		/**User Interface Service**/
 //		MainFrameBackgroundJlabelCharacteristic.class,
 //		MainFrameConsoleTextPaneCharacteristic.class,
 //		MainFrameJFrameCharacteristic.class,
@@ -329,18 +355,18 @@ public class GlobalAnnotationApplicationContextInitialization {
 //		MainFrameMouseAdapterListenerCharacteristic.class,
 //		MainFrameMouseMotionAdapterListenerCharacteristic.class,
 //		MainFramePointCharacteristic.class,
-//		LoadingBaseFrameJDialogCharacteristic.class,
-//		LoadingJProgressBarCharacteristic.class,
-//		LoadingProgressInfoCharacteristic.class,
-//		LoadingFrameBackgroundJlabelCharacteristic.class,
-//		LoadingFrameLayoutCharacteristic.class,
-//		LoadingFrameShall.class,
-//		AssaultLilysUserInterfaceImpl.class,
-//		AssaultLilysUserInterfaceShall.class,
-//		FrameUserInterfaceServer.class,
-//		FrameUserInterfaceListener.class,
-//		FrameUserInterfaceManage.class,
-//		LoadingJProgressBarUI.class,
+		LoadingBaseFrameJDialogCharacteristic.class,
+		LoadingJProgressBarCharacteristic.class,
+		LoadingProgressInfoCharacteristic.class,
+		LoadingFrameBackgroundJlabelCharacteristic.class,
+		LoadingFrameLayoutCharacteristic.class,
+		LoadingFrameShall.class,
+		UserInterfaceImpl.class,
+		AssaultLilysUserInterfaceShall.class,
+		FrameUserInterfaceServer.class,
+		FrameUserInterfaceListener.class,
+		FrameUserInterfaceServerManage.class,
+		LoadingJProgressBarUI.class,
 		
 //		/**Depend Sequence*/
 //		BootInitializationSequenceImpl.class,
@@ -395,7 +421,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		
 //		/**Depend Analysis**/
 //		EventExecuteAnalysisImpl.class,
-//		EventBusExecuteAnalysisImpl.class,
+//		EventResultAnalysisImpl.class,
 		LogAnalysisImpl.class,
 		
 //		/**Depend CellsInformation**/

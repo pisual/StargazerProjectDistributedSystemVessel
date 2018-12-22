@@ -27,21 +27,21 @@ public class MainFrameJScrollPaneCharacteristic implements BaseCharacteristic<JS
 	@Autowired
 	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
 	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
-	
-	@Autowired
-	@Qualifier("componentsCharacteristic")
-	private Characteristic characteristic;
+//	
+//	@Autowired
+//	@Qualifier("componentsCharacteristic")
+//	private Characteristic characteristic;
 	
 	private JScrollPane jScrollPane;
 	
 	@Override
 	public Optional<JScrollPane> characteristic() {
-		synchronized(this){
-			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+//		synchronized(this){
+//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
 				initialization();
-				characteristic.singleInitializationComplete();
-			}
-		}
+//				characteristic.singleInitializationComplete();
+//			}
+//		}
 		return Optional.of(jScrollPane);
 	}
 	

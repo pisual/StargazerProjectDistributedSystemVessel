@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.annotation.description.NeedInject;
+import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.util.ColorUtil;
 import com.stargazerproject.util.ParameterStringUtil;
 
@@ -27,7 +29,7 @@ import com.stargazerproject.util.ParameterStringUtil;
 @Component(value="loadingJProgressBarUI")
 @Qualifier("loadingJProgressBarUI")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingJProgressBarUI extends BasicProgressBarUI {
+public class LoadingJProgressBarUI extends BasicProgressBarUI implements BaseCharacteristic<LoadingJProgressBarUI>{
 	
 	/** @name 加载界面背景 **/
 	@NeedInject(type="SystemParametersCache")
@@ -38,6 +40,11 @@ public class LoadingJProgressBarUI extends BasicProgressBarUI {
 	public void loadingJProgressBarUIInit(JProgressBar loadingframeJProgressBar){
 		loadingframeJProgressBar.setForeground(jProgressBarColorInitialization());
 		loadingframeJProgressBar.setBounds(430, 250, 670, 2);
+	}
+	
+	@Override
+	public Optional<LoadingJProgressBarUI> characteristic() {
+		return Optional.of(this);
 	}
 	
 	@Override
