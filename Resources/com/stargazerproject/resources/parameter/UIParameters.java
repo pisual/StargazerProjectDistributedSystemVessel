@@ -19,8 +19,8 @@ import com.stargazerproject.resources.annotation.Parameters;
 @SuppressWarnings("unused")
 public class UIParameters {
 	
-	/** @illustrate 全局根路径 **/
-	private static final String BasePath = System.getProperty("user.dir") + "/StargazerUIAssaultLily/";
+//	/** @illustrate 全局根路径 **/
+//	private static final String BasePath = System.getProperty("user.dir") + "/StargazerUIAssaultLily/";
 	
 	//UI配置 Start
 	
@@ -32,9 +32,6 @@ public class UIParameters {
 	
 	/** @illustrate 加载界面进度条 RGB色组 **/
 	private static final String Kernel_UserInterface_LoadingFrame_ProgressBar_Color = "255,255,255";
-	
-	/** @illustrate 加载界面字体的绝对路径 **/
-	private static final String Kernel_UserInterface_LoadingFrame_Font_Path_ProgressInfo = BasePath + "Copperplate.ttf";
 	
 	/** @illustrate 加载界面指定字体名称 **/
 	private static final String Kernel_UserInterface_LoadingFrame_Font_ProgressInfo = "Copperplate";
@@ -68,9 +65,6 @@ public class UIParameters {
 	
 	/** @illustrate 主界面控制台高度 **/
 	private static final String Kernel_UserInterface_MainFrame_Console_Size_Height = "500";
-	
-	/** @illustrate 主界面控制台字体的路径 **/
-	private static final String Kernel_UserInterface_MainFrame_Font_Path_Console = BasePath + "Copperplate.ttf";
 	
 	/** @illustrate 主界面控制台字体的名称 **/
 	private static final String Kernel_UserInterface_MainFrame_Font_Console = "Copperplate";

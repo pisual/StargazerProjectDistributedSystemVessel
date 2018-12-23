@@ -51,8 +51,8 @@ public class TransactionMessageQueueServer implements StanderServiceShell{
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	public void shutDown() {
-		transactionMessageQueueControl = transactionMessageQueueControlCharacteristic.characteristic().get();
-		transactionMessageQueueControl.out();;
+	//	transactionMessageQueueControl = transactionMessageQueueControlCharacteristic.characteristic().get();
+	//	transactionMessageQueueControl.out();;
 	}
 	
 }

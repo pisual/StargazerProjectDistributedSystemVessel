@@ -32,10 +32,6 @@ public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLa
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_ProgressInfo;
 	
-	/** @name 加载界面字体的绝对路径 **/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_UserInterface_LoadingFrame_Font_Path_ProgressInfo;
-	
 	/** @name 加载界面指定字体颜色 **/
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_Color_ProgressInfo;
@@ -58,7 +54,7 @@ public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLa
 	}
 	
 	private Font fontInitialization(){
-		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_LoadingFrame_Font_ProgressInfo, Kernel_UserInterface_LoadingFrame_Font_Path_ProgressInfo);
+		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_LoadingFrame_Font_ProgressInfo);
 		return ConsoleTextFont;
 	}
 	

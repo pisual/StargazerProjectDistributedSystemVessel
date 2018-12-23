@@ -10,23 +10,15 @@ import java.util.HashMap;
 public class FontUtil {
 	
 	/**获取字体**/
-	public static Font getConsoleFont(String fontName,String fontPath){
+	public static Font getConsoleFont(String fontName){
 		Font ConsoleFont = null;
 		if(FontUtil.isFontExistInSystem(fontName)){
 			ConsoleFont = new Font(fontName, Font.BOLD, 11);
-			System.out.println("系统包含指定字体 "+fontName+" 将使用系统字体");
+			System.out.println("Stargazer System Report : 系统包含指定字体 "+fontName+" 将使用系统字体");
 		}
 		else{
-			try {
-				ConsoleFont = Font.createFont(Font.TRUETYPE_FONT,new File(fontPath));
-				System.out.println("系统不包含指定字体 "+fontName+" 将使用内置字体文件，系统字体显示将降低精度");
-			} catch (FontFormatException e) {
-				System.out.println("字体加载异常 加载默认字体");
-				ConsoleFont = new Font("serif", Font.PLAIN, 24);
-			} catch (IOException e) {
-				System.out.println("字体加载IO异常 加载默认字体");
-				ConsoleFont = new Font("serif", Font.PLAIN, 24);
-			}
+			System.err.println("Stargazer System Report : 字体加载异常,没有寻找到制定字体 "+fontName+" 加载默认字体");
+			ConsoleFont = new Font("serif", Font.PLAIN, 24);
 
 		}
 		return ConsoleFont;

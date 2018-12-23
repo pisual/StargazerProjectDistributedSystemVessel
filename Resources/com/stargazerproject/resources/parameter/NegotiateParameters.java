@@ -23,7 +23,7 @@ public class NegotiateParameters {
 	
 	    //Zookeeper配置 Start
 	    /** @illustrate Zookeeper集群主机 **/
-	    private static final String Kernel_Negotiate_Connection_Host = "127.0.0.1:2181";
+	    private static final String Kernel_Negotiate_Connection_Host = "127.0.0.1:2182";
 		/** @illustrate 重新连接策略间隔时间 **/
 		private static final String Kernel_Negotiate_Connection_RetryPolicySleepTime = "1000";
 		/**@illustrate 重新连接策略尝试次数**/

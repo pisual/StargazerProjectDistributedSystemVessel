@@ -23,6 +23,10 @@ public class OnlineLogServer implements StanderServiceShell{
 	
 	@Autowired
 	@Qualifier("onlineLogShell")
+	private BaseCharacteristic<Log> logShell;
+	
+	@Autowired
+	@Qualifier("localLogShell")
 	private BaseCharacteristic<Log> localLogShell;
 	
 	/**
@@ -38,18 +42,19 @@ public class OnlineLogServer implements StanderServiceShell{
 	* @name 常规初始化构造
 	* @illustrate 基于外部参数进行注入
 	* **/
-	public OnlineLogServer(Optional<StanderCharacteristicShell<Log>> logCharacteristicArg, Optional<BaseCharacteristic<Log>> localLogShellArg) {
+	public OnlineLogServer(Optional<StanderCharacteristicShell<Log>> logCharacteristicArg, Optional<BaseCharacteristic<Log>> logShellArg) {
 		logCharacteristic = logCharacteristicArg.get();
-		localLogShell =localLogShellArg.get();
+		logShell =logShellArg.get();
 	}
 	
 	@Override
 	public void startUp() {
-		logCharacteristic.initialize(localLogShell.characteristic());
+		logCharacteristic.initialize(logShell.characteristic());
 	}
 
 	@Override
 	public void shutDown() {
+		logCharacteristic.initialize(localLogShell.characteristic());
 	}
 
 }

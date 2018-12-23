@@ -25,8 +25,8 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacteristic<JScrollPane> {
 	
 	@Autowired
-	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
-	private BaseCharacteristic<MainFrameConsoleTextPaneCharacteristic> mainFrameConsoleTextPaneCharacteristic;
+	@Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
+	private BaseCharacteristic<MainFrameRightConsoleTextPaneCharacteristic> mainFrameRightConsoleTextPaneCharacteristic;
 	
 	private JScrollPane jScrollPane;
 	
@@ -44,7 +44,7 @@ public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacterist
 	}
 	
 	private void initialization(){
-		jScrollPane = new JScrollPane(mainFrameConsoleTextPaneCharacteristic.characteristic().get().getJTextPane().get());
+		jScrollPane = new JScrollPane(mainFrameRightConsoleTextPaneCharacteristic.characteristic().get().getJTextPane().get());
 		jScrollPane.setOpaque(false);
 		jScrollPane.getViewport().setOpaque(false);
 		jScrollPane.setBorder(null);

@@ -37,7 +37,7 @@ public class NodeNegotiateServer implements StanderServiceShell{
 	@Override
 	public void startUp() {
 		Optional<Negotiate> nodeNegotiateResources = nodenNegotiateShell.characteristic();
-		nodeNegotiateResources.get().start();
+	//	nodeNegotiateResources.get().start();
 		nodeNegotiate.initialize(nodeNegotiateResources);
 	}
 

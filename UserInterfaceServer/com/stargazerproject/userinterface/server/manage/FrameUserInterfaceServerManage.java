@@ -27,7 +27,7 @@ public class FrameUserInterfaceServerManage extends AbstractIdleService{
 	/** @illustrate orderCacheServer的ServiceShell接口 **/
 	@Autowired
 	@Qualifier("frameUserInterfaceServer")
-	private StanderServiceShell nodeNegotiateServer;
+	private StanderServiceShell frameUserInterfaceServer;
 	
 	@Autowired
 	@Qualifier("frameUserInterfaceListener")
@@ -45,13 +45,13 @@ public class FrameUserInterfaceServerManage extends AbstractIdleService{
 	/** @illustrate 启动服务及相关操作 **/
 	@Override
 	protected void startUp() throws Exception {
-		nodeNegotiateServer.startUp();
+		frameUserInterfaceServer.startUp();
 	}
 	
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	protected void shutDown() throws Exception {
-		nodeNegotiateServer.shutDown();
+		frameUserInterfaceServer.shutDown();
 	}
 
 }

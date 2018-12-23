@@ -167,7 +167,9 @@ public class MainFrameShell implements MainUserInterface, BaseCharacteristic<Mai
 	public void startMain() {
 		mainFrameJFrame.setVisible(Boolean.TRUE);
 		mainFrameLogoJlabel.setVisible(Boolean.TRUE);
-		mainFrameStructureTopologyJlabel.setVisible(Boolean.TRUE);
+		mainFrameStructureTopologyJlabel.setVisible(Boolean.FALSE);
+		visualLeftTerminal();
+		visualRightTerminal();
 	}
 
 	@Override

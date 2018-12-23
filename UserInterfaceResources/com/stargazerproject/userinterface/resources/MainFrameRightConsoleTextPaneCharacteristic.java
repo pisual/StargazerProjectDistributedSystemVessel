@@ -36,10 +36,6 @@ import com.stargazerproject.util.UIUtil;
 @Qualifier("mainFrameRightConsoleTextPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameRightConsoleTextPaneCharacteristic implements BaseCharacteristic<MainFrameRightConsoleTextPaneCharacteristic>{
-
-	/** @name 主界面控制台字体的路径**/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_UserInterface_MainFrame_Font_Path_Console;
 	
 	/** @name 主界面控制台字体的名称 **/
 	@NeedInject(type="SystemParametersCache")
@@ -72,13 +68,17 @@ public class MainFrameRightConsoleTextPaneCharacteristic implements BaseCharacte
 		return Optional.of(this);
 	}
 	
+	public Optional<JTextPane> getJTextPane(){
+		return Optional.of(jTextPane);
+	}
+	
 	private void initialization(){
 		styleInitialization();
 		jTextPane.setOpaque(false);
 		jTextPane.setFont(fontInitialization());
 		jTextPane.setForeground(fontColorInitialization());
 		jTextPane.setBorder(BorderFactory.createEmptyBorder());
-	//	UIUtil.startConsoleReaderThread(jTextPane);
+		UIUtil.startRightConsoleReaderThread(this);
 	}
 	
 	private void styleInitialization(){
@@ -89,7 +89,7 @@ public class MainFrameRightConsoleTextPaneCharacteristic implements BaseCharacte
 	}
 	
 	private Font fontInitialization(){
-		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_MainFrame_Font_Console, Kernel_UserInterface_MainFrame_Font_Path_Console);
+		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_MainFrame_Font_Console);
 		return ConsoleTextFont;
 	}
 	

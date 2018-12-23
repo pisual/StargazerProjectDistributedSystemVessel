@@ -21,7 +21,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="cellsInformationServerManage")
 @Qualifier("cellsInformationServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="cellsInformationServerManage", order = 14)
+//@Services(value="cellsInformationServerManage", order = 13)
 public class CellsInformationServerManage extends AbstractIdleService{
 	
 	/** @illustrate standardSequenceServer的ServiceShell接口 **/

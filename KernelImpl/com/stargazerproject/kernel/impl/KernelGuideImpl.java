@@ -141,14 +141,30 @@ public class KernelGuideImpl implements KernelGuide{
 			public void run() {
 				System.out.println("Start Stop Sequence");
 				serviceControl.characteristic().get().stopAllService();
+				System.out.println("StopAllservice");
 			}
 		});
 		
 		Runtime.getRuntime().addShutdownHook(closeJVM); 
-		
+		System.out.println("    startAllservice Start");
 		serviceControl.characteristic().get().startAllservice();
+		System.out.println("    startAllservice Over");
+//
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		serviceControl.characteristic().get().stopAllService();
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.exit(1);
 		
-
 		return kernelGuide;
 	}
 

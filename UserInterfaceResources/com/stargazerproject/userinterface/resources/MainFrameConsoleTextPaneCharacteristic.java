@@ -37,10 +37,6 @@ import com.stargazerproject.util.UIUtil;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristic<MainFrameConsoleTextPaneCharacteristic>{
 	
-	/** @name 主界面控制台字体的路径**/
-	@NeedInject(type="SystemParametersCache")
-	private static String Kernel_UserInterface_MainFrame_Font_Path_Console;
-	
 	/** @name 主界面控制台字体的名称 **/
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_MainFrame_Font_Console;
@@ -93,7 +89,7 @@ public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristi
 	}
 	
 	private Font fontInitialization(){
-		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_MainFrame_Font_Console, Kernel_UserInterface_MainFrame_Font_Path_Console);
+		Font ConsoleTextFont = FontUtil.getConsoleFont(Kernel_UserInterface_MainFrame_Font_Console);
 		return ConsoleTextFont;
 	}
 	

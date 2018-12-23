@@ -340,7 +340,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 //		StandardCellsTransactionImpl.class,
 //		HystrixConfigurationS.class,
 		
-//		/**User Interface Service**/
+		/**User Interface Service**/
 		MainFrameBackgroundJlabelCharacteristic.class,
 		MainFrameConsoleTextPaneCharacteristic.class,
 		MainFrameJFrameCharacteristic.class,

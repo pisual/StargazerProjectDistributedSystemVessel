@@ -86,7 +86,7 @@ public class ServiceParameterList implements BaseCharacteristic<List<String>>{
 	}
 	
 	private void serviceListSort(){
-		for(int i=1 ; i<transferServerMap.size(); i++){
+		for(int i=1 ; i<=transferServerMap.size(); i++){
 			if(null == transferServerMap.get(i)){
 				System.err.println("服务模块诊断 : ");
 				for(int j=1 ; j<transferServerMap.size();j++){

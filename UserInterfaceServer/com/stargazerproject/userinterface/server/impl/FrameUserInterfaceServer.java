@@ -49,13 +49,11 @@ public class FrameUserInterfaceServer implements StanderServiceShell{
 			userInterfaceframe.startLoading();
 		for(int i=0;i<100;i++)
 		{
-			TimeUnit.MILLISECONDS.sleep(100);
+			TimeUnit.MILLISECONDS.sleep(10);
 			userInterfaceframe.increaseProgressBar(Optional.of(i+""), Optional.of(i));
 		}
-			TimeUnit.SECONDS.sleep(5);
-			userInterfaceframe.endLoading();
 			userInterfaceframe.startMain();
-		TimeUnit.SECONDS.sleep(5);
+			userInterfaceframe.endLoading();
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();

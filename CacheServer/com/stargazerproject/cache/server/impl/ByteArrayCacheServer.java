@@ -12,6 +12,8 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.interfaces.characteristic.shell.StanderCharacteristicShell;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
+import net.sf.ehcache.CacheManager;
+
 /** 
  *  @name OrderCache服务的实现
  *  @illustrate 继承于ServiceShell的OrderCache相关服务实现
@@ -29,6 +31,10 @@ public class ByteArrayCacheServer implements StanderServiceShell{
 	@Autowired
 	@Qualifier("ByteArrayCacheShell")
 	private BaseCharacteristic<BigCache<String, byte[]>> ByteArrayCacheShell;
+	
+	@Autowired
+	@Qualifier("byteArrayCacheCacheManagerCharacteristic")
+	private BaseCharacteristic<CacheManager> byteArrayCacheCacheManager;
 	
 	/**
 	* @name Springs使用的初始化构造
@@ -57,5 +63,7 @@ public class ByteArrayCacheServer implements StanderServiceShell{
 	/** @illustrate 关闭服务及相关操作 **/
 	@Override
 	public void shutDown() {
+		byteArrayCacheCacheManager.characteristic().get().clearAll();
+		byteArrayCacheCacheManager.characteristic().get().shutdown();
 	}
 }
