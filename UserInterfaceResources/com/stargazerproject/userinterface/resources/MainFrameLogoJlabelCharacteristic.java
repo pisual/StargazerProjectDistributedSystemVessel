@@ -47,7 +47,7 @@ public class MainFrameLogoJlabelCharacteristic implements BaseCharacteristic<JLa
 	}
 	
 	private void initMainFrameLogoJlabel(){
-		int logoLocation[] = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_MainFrame_Icon_Logo), Optional.of(","), Optional.of(4)).get();
+		int logoLocation[] = ParameterStringUtil.segmentationArray(Optional.of(Kernel_UserInterface_MainFrame_Icon_Logo_Location), Optional.of(","), Optional.of(4)).get();
 		gradientLoadInterface = new GradientLoadInterface(Optional.of(Kernel_UserInterface_MainFrame_Icon_Logo));
 		gradientLoadInterface.setBounds(logoLocation[0], logoLocation[1], logoLocation[2], logoLocation[3]);
 	}

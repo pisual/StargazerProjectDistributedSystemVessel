@@ -26,27 +26,25 @@ public class MainFrameRightJScrollPaneCharacteristic implements BaseCharacterist
 	
 	@Autowired
 	@Qualifier("mainFrameConsoleTextPaneCharacteristic")
-	private BaseCharacteristic<JTextPane> mainFrameConsoleTextPaneCharacteristic;
-	
-//	@Autowired
-//	@Qualifier("componentsCharacteristic")
-//	private Characteristic characteristic;
+	private BaseCharacteristic<MainFrameConsoleTextPaneCharacteristic> mainFrameConsoleTextPaneCharacteristic;
 	
 	private JScrollPane jScrollPane;
 	
+	private Boolean init = Boolean.FALSE;
+	
 	@Override
 	public Optional<JScrollPane> characteristic() {
-//		synchronized(this){
-//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		synchronized(init){
+			if(init == Boolean.FALSE){
 				initialization();
-//				characteristic.singleInitializationComplete();
-//			}
-//		}
+				init = Boolean.TRUE;
+			}
+		}
 		return Optional.of(jScrollPane);
 	}
 	
 	private void initialization(){
-		jScrollPane = new JScrollPane(mainFrameConsoleTextPaneCharacteristic.characteristic().get());
+		jScrollPane = new JScrollPane(mainFrameConsoleTextPaneCharacteristic.characteristic().get().getJTextPane().get());
 		jScrollPane.setOpaque(false);
 		jScrollPane.getViewport().setOpaque(false);
 		jScrollPane.setBorder(null);

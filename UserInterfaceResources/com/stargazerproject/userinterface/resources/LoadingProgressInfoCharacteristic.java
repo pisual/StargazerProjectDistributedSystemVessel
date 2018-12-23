@@ -40,22 +40,20 @@ public class LoadingProgressInfoCharacteristic implements BaseCharacteristic<JLa
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Font_Color_ProgressInfo;
 	
-//	@Autowired
-//	@Qualifier("componentsCharacteristic")
-//	private Characteristic characteristic;
-	
 	private JLabel jLabel = new JLabel();
+	
+	private Boolean init = Boolean.FALSE;
 	
 	public LoadingProgressInfoCharacteristic() {}
 	
 	@Override
 	public Optional<JLabel> characteristic() {
-//		synchronized(this){
-//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		synchronized(init){
+			if(init == Boolean.FALSE){
 				initLoadingProgressInfo(fontInitialization(), fontColorInitialization());
-//				characteristic.singleInitializationComplete();
-//			}
-//		}
+				init = Boolean.TRUE;
+			}
+		}
 		return Optional.of(jLabel);
 	}
 	

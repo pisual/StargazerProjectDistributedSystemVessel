@@ -35,23 +35,21 @@ public class LoadingBaseFrameJDialogCharacteristic implements BaseCharacteristic
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_LoadingFrame_Icon_Logo;
 	
-//	@Autowired
-//	@Qualifier("componentsCharacteristic")
-//	private Characteristic characteristic;
-	
 	private JDialog jDialog = new JDialog();
+	
+	private Boolean init = Boolean.FALSE;
 	
 	public LoadingBaseFrameJDialogCharacteristic() {}
 	
 	@Override
 	public Optional<JDialog> characteristic() {
-//		synchronized(this){
-//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		synchronized(init){
+			if(init == Boolean.FALSE){
 				initLoadingBaseFrameJDialog();
 				initializationJDialogIcon();
-//				characteristic.singleInitializationComplete();
-//			}
-//		}
+				init = Boolean.TRUE;
+			}
+		}
 		return Optional.of(jDialog);
 	}
 	

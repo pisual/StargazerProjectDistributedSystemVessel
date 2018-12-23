@@ -42,20 +42,18 @@ public class MainFrameJFrameCharacteristic implements BaseCharacteristic<JFrame>
 	@NeedInject(type="SystemParametersCache")
 	private static String Kernel_UserInterface_MainFrame_Icon_UserHeadPortrait;
 	
-//	@Autowired
-//	@Qualifier("componentsCharacteristic")
-//	private Characteristic characteristic;
-	
 	private JFrame jFrame = new JFrame();
+	
+	private Boolean init = Boolean.FALSE;
 	
 	@Override
 	public Optional<JFrame> characteristic() {
-//		synchronized(this){
-//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		synchronized(init){
+			if(init == Boolean.FALSE){
 				initialization();
-//				characteristic.singleInitializationComplete();
-//			}
-//		}
+				init = Boolean.TRUE;
+			}
+		}	
 		return Optional.of(jFrame);
 	}
 

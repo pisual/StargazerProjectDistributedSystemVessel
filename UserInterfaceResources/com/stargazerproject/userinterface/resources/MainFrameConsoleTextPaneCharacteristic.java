@@ -35,7 +35,7 @@ import com.stargazerproject.util.UIUtil;
 @Component(value="mainFrameConsoleTextPaneCharacteristic")
 @Qualifier("mainFrameConsoleTextPaneCharacteristic")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristic<JTextPane>{
+public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristic<MainFrameConsoleTextPaneCharacteristic>{
 	
 	/** @name 主界面控制台字体的路径**/
 	@NeedInject(type="SystemParametersCache")
@@ -59,9 +59,20 @@ public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristi
 	
 	private JTextPane jTextPane = new JTextPane();
 	
+	private Boolean init = Boolean.FALSE;
+	
 	@Override
-	public Optional<JTextPane> characteristic() {
-		initialization();
+	public Optional<MainFrameConsoleTextPaneCharacteristic> characteristic() {
+		synchronized(init){
+			if(init == Boolean.FALSE){
+				initialization();
+				init = Boolean.TRUE;
+			}
+		}
+		return Optional.of(this);
+	}
+	
+	public Optional<JTextPane> getJTextPane(){
 		return Optional.of(jTextPane);
 	}
 	
@@ -71,7 +82,7 @@ public class MainFrameConsoleTextPaneCharacteristic implements BaseCharacteristi
 		jTextPane.setFont(fontInitialization());
 		jTextPane.setForeground(fontColorInitialization());
 		jTextPane.setBorder(BorderFactory.createEmptyBorder());
-		UIUtil.startConsoleReaderThread(jTextPane);
+		UIUtil.startConsoleReaderThread(this);
 	}
 	
 	private void styleInitialization(){

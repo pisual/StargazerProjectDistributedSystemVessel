@@ -29,23 +29,21 @@ public class LoadingJProgressBarCharacteristic implements BaseCharacteristic<JPr
 	
 	private LoadingJProgressBarUI loadingJProgressBarUI;
 	
-//	@Autowired
-//	@Qualifier("componentsCharacteristic")
-//	private Characteristic characteristic;
-	
 	private JProgressBar jProgressBar = new JProgressBar();
+	
+	private Boolean init = Boolean.FALSE;
 
 	public LoadingJProgressBarCharacteristic() {}
 	
 	@Override
 	public Optional<JProgressBar> characteristic() {
-		loadingJProgressBarUI = loadingJProgressBarUICharacteristic.characteristic().get();
-//		synchronized(this){
-//			if(characteristic.singleInitializationStata().get() == Boolean.FALSE){
+		synchronized(init){
+			if(init == Boolean.FALSE){
+				loadingJProgressBarUI = loadingJProgressBarUICharacteristic.characteristic().get();
 				initLoadingJProgressBar();
-//				characteristic.singleInitializationComplete();
-//			}
-//		}
+				init = Boolean.TRUE;
+			}
+		}	
 		return Optional.of(jProgressBar);
 	}
 	

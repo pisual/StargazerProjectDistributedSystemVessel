@@ -11,22 +11,20 @@ import javax.swing.JScrollPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.userinterface.extend.MainFrameAssaultLilysUserInterface;
+import com.stargazerproject.userinterface.MainUserInterface;
 import com.stargazerproject.userinterface.resources.MainFrameConsoleTextPaneCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameLayoutCharacteristic;
 import com.stargazerproject.userinterface.resources.MainFrameRightConsoleTextPaneCharacteristic;
 
-@Component(value="mainFrameShall")
-@Qualifier("mainFrameShall")
+@Component(value="mainFrameShell")
+@Qualifier("mainFrameShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseCharacteristic<MainFrameAssaultLilysUserInterface>{
+public class MainFrameShell implements MainUserInterface, BaseCharacteristic<MainUserInterface>{
 	
 	/**混合主界面特征**/
 	@Autowired
@@ -134,15 +132,12 @@ public class MainFrameShall implements MainFrameAssaultLilysUserInterface, BaseC
 
 
 	@Override
-	@Bean(name="mainFrameShallCharacteristic")
-	@Lazy(true)
-	public Optional<MainFrameAssaultLilysUserInterface> characteristic() {
+	public Optional<MainUserInterface> characteristic() {
 		assemblyInitialization();
 		baseFrameInitialization();
 		return Optional.of(this);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void assemblyInitialization(){
 		mainFrameJFrame = mainFrameJFrameCharacteristic.characteristic().get();
 		mainFrameConsoleTextPane = mainFrameConsoleTextPaneCharacteristic.characteristic().get();

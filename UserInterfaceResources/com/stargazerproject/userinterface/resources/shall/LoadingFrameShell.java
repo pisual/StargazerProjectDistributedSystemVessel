@@ -15,10 +15,10 @@ import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
 import com.stargazerproject.userinterface.LoadingUserInterface;
 import com.stargazerproject.userinterface.resources.LoadingFrameLayoutCharacteristic;
 
-@Component(value="loadingFrameShall")
-@Qualifier("loadingFrameShall")
+@Component(value="loadingFrameShell")
+@Qualifier("loadingFrameShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class LoadingFrameShall implements LoadingUserInterface, BaseCharacteristic<LoadingUserInterface>{
+public class LoadingFrameShell implements LoadingUserInterface, BaseCharacteristic<LoadingUserInterface>{
 
 	/**加载进度界面特征**/
 	@Autowired
@@ -60,7 +60,7 @@ public class LoadingFrameShall implements LoadingUserInterface, BaseCharacterist
 	/**加载进度界面布局**/
 	private LoadingFrameLayoutCharacteristic loadingFrameLayout;
 	
-	public LoadingFrameShall() {}
+	public LoadingFrameShell() {}
 	
 	@Override
 	public Optional<LoadingUserInterface> characteristic() {

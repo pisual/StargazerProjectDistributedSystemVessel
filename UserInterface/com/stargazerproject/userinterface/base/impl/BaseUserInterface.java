@@ -49,20 +49,17 @@ public class BaseUserInterface implements UserInterface{
 
 	@Override
 	public void visualRightTerminal() {
-		// TODO Auto-generated method stub
-		
+		userInterface.visualRightTerminal();
 	}
 
 	@Override
 	public void unvisualRightTerminal() {
-		// TODO Auto-generated method stub
-		
+		userInterface.unvisualRightTerminal();
 	}
 
 	@Override
 	public void addRightTerminalText(Optional<String> content) {
-		// TODO Auto-generated method stub
-		
+		userInterface.addRightTerminalText(content);
 	}
 
 }

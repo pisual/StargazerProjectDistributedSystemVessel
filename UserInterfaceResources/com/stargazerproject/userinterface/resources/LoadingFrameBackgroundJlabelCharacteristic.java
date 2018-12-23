@@ -33,7 +33,6 @@ public class LoadingFrameBackgroundJlabelCharacteristic implements BaseCharacter
 		try {
 			gradientLoadInterface = new GradientLoadInterface(Optional.of(Kernel_UserInterface_LoadingFrame_Background));
 			initialization();
-			initialization();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
