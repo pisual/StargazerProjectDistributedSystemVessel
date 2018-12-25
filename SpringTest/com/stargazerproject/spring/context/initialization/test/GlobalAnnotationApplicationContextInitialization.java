@@ -3,8 +3,6 @@ package com.stargazerproject.spring.context.initialization.test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
-import com.staragzerproject.characteristics.impl.ComponentsCharacteristic;
-import com.staragzerproject.characteristics.shell.ComponentsCharacteristicShell;
 import com.stargazer.segmentation.impl.EventSegmentation;
 import com.stargazerproject.analysis.impl.EventExecuteAnalysisImpl;
 import com.stargazerproject.analysis.impl.EventResultAnalysisImpl;
@@ -46,9 +44,6 @@ import com.stargazerproject.cache.server.listener.impl.TransactionCacheServerLis
 import com.stargazerproject.cache.server.manage.ByteArrayCacheServerManage;
 import com.stargazerproject.cache.server.manage.SystemParameterCacheServerManage;
 import com.stargazerproject.cache.server.manage.TransactionCacheServerManage;
-import com.stargazerproject.characteristics.server.impl.ComponentsCharacteristicServer;
-import com.stargazerproject.characteristics.server.listener.impl.ComponentsCharacteristicServerListener;
-import com.stargazerproject.characteristics.server.manage.ComponentsCharacteristicServerManage;
 import com.stargazerproject.consumer.impl.EventBusConsumer;
 import com.stargazerproject.consumer.impl.EventConsumer;
 import com.stargazerproject.inject.impl.InjectImpl;
@@ -445,14 +440,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		NetworkTransmissionSerializablesShell.class,
 		SerializableServer.class,
 		SerializableServerListener.class,
-		SerializableServerManage.class,
-		
-		/**Depend SystemParameter **/
-		ComponentsCharacteristic.class,
-		ComponentsCharacteristicShell.class,
-		ComponentsCharacteristicServer.class,
-		ComponentsCharacteristicServerListener.class,
-		ComponentsCharacteristicServerManage.class
+		SerializableServerManage.class
 		
 		);
 	} 

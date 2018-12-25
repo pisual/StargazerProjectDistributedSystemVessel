@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Services {
 
-	String value();
+	String name();
 	
-	int order();
+	int layer();
 
 }

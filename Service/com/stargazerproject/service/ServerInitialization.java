@@ -10,4 +10,6 @@ public interface ServerInitialization {
 	
 	public Optional<List<String>> initializationFromAnnotationsScan();
 	
+//	public Optional<List<String>> initializationFromServerList(Optional<List<String>> serverList);
+	
 }
