@@ -13,6 +13,8 @@ public @interface Services {
 
 	String name();
 	
+	ServiceZone serviceZone();
+	
 	int layer();
 
 }

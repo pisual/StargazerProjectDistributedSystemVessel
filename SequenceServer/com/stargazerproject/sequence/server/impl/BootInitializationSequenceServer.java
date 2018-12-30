@@ -35,13 +35,13 @@ public class BootInitializationSequenceServer implements StanderServiceShell{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void startUp() {
-		Optional<Sequence<BaseEvent>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
-		try {
-			sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
-		} catch (BusEventTimeoutException e) {
-			e.printStackTrace();
-		}
-		sequence.initialize(sequenceImpl);
+//		Optional<Sequence<BaseEvent>> sequenceImpl = BeanContainer.instance().getBean(Optional.of("sequenceResourcesCharacteristic"), Optional.class);
+//		try {
+//			sequenceImpl.get().startSequence(Optional.of("bootInitializationSequence"));
+//		} catch (BusEventTimeoutException e) {
+//			e.printStackTrace();
+//		}
+//		sequence.initialize(sequenceImpl);
 	}
 
 	/** @illustrate 关闭服务及相关操作 **/

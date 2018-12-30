@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -21,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="annotationsServerManage")
 @Qualifier("annotationsServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="annotationsServerManage", order = 0)
+@Services(name="annotationsServerManage", serviceZone = ServiceZone.System, layer = 0)
 public class AnnotationsServerManage extends AbstractIdleService{
 	
 	/** @illustrate standardSequenceServer的ServiceShell接口 **/

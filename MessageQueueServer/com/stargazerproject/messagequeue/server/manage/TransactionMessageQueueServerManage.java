@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -21,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionMessageQueueServerManage")
 @Qualifier("transactionMessageQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionMessageQueueServerManage", order = 7)
+@Services(name="transactionMessageQueueServerManage", serviceZone = ServiceZone.System, layer = 7)
 public class TransactionMessageQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate transactionMessageQueueServer的ServiceShell接口 **/

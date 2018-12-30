@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -22,7 +23,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="localLogServerManage")
 @Qualifier("localLogServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="localLogServerManage", order = 1)
+@Services(name="localLogServerManage", serviceZone = ServiceZone.System, layer = 1)
 public class LocalLogServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

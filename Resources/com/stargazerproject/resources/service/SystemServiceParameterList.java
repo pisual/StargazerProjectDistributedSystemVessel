@@ -13,10 +13,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeBasedTable;
 import com.stargazerproject.annotation.AnnotationsScanner;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 
 /**
@@ -31,30 +32,22 @@ import com.stargazerproject.service.annotation.Services;
 @Component(value="systemServiceParameterList")
 @Qualifier("systemServiceParameterList")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class SystemServiceParameterList implements BaseCharacteristic<Multimap<Optional<Integer>, Optional<String>>>{
+public class SystemServiceParameterList implements BaseCharacteristic<Table<Integer, String, Boolean>>{
 	
 	@Autowired
 	@Qualifier("annotationsImpl")
 	private AnnotationsScanner annotationsScanner;
 	
-	/** @illustrate 系统级（Zone.System）服务列表 
-	 * 一对多结构Map
-	 * {
-	 * 1{a.server,b.server}
-	 * 2{c.server}
-	 * }
-	 * 
-	 * **/
-	private Multimap<Optional<Integer>, Optional<String>> systemServiceterList;
+	Table<Integer, String, Boolean> serviceMenu;
 	
 	protected SystemServiceParameterList() {}
 	
 	@Override
-	public Optional<Multimap<Optional<Integer>, Optional<String>>> characteristic() {
+	public Optional<Table<Integer, String, Boolean>> characteristic() {
 		try {
-			systemServiceterList = ArrayListMultimap.create();
+			serviceMenu =  TreeBasedTable.create((x, y) -> Integer.compare(x, y), (x, y) -> x.compareTo(y));
 			serviceListInitialize();
-			return Optional.of(systemServiceterList);
+			return Optional.of(serviceMenu);
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		} catch (IOException e) {
@@ -73,11 +66,14 @@ public class SystemServiceParameterList implements BaseCharacteristic<Multimap<O
 		String servername = null;
 		Integer layer = null;
 		for(Entry<String, List<Object>> valueMap : mapSet){
-			
 			switch (valueMap.getKey()) {
 			/**非本级别服务，略过**/
-			case "Component":
-				return;
+			case "serviceZone":
+				if(valueMap.getValue().get(0).toString() == ServiceZone.Component.toString())
+				{
+					return;
+				}
+				break;
 			case "name":
 				servername = valueMap.getValue().get(0).toString();
 				break;
@@ -85,10 +81,10 @@ public class SystemServiceParameterList implements BaseCharacteristic<Multimap<O
 				layer = Integer.parseInt(valueMap.getValue().get(0).toString());
 				break;
 			default:
-				break;
+				continue;
 				}
 			}
-		systemServiceterList.put(Optional.of(layer), Optional.of(servername));
+		serviceMenu.put(layer, servername, Boolean.FALSE);
 		}
 	
 }

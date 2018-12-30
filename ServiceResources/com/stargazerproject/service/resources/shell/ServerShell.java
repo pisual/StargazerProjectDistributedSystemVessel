@@ -1,6 +1,6 @@
 package com.stargazerproject.service.resources.shell;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,45 +9,35 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Table;
 import com.stargazerproject.interfaces.characteristic.shell.BaseCharacteristic;
-import com.stargazerproject.service.Server;
-import com.stargazerproject.service.ServerDepend;
-import com.stargazerproject.service.ServerInitialization;
+import com.stargazerproject.service.Service;
 import com.stargazerproject.service.ServiceControl;
-import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
+import com.stargazerproject.service.ServiceInitialization;
 
 @Component(value="serverShell")
 @Qualifier("serverShell")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class ServerShell implements Server, BaseCharacteristic<Server>{
+public class ServerShell implements Service, BaseCharacteristic<Service>{
 	
 	@Autowired
 	@Qualifier("serviceControlCharacteristic")
 	private BaseCharacteristic<ServiceControl> serviceControlCharacteristic;
 	
 	@Autowired
-	@Qualifier("serverInitializationCharacteristic")
-	private BaseCharacteristic<ServerInitialization> serverInitializationCharacteristic;
+	@Qualifier("serviceInitializationCharacteristic")
+	private BaseCharacteristic<ServiceInitialization> serverInitializationCharacteristic;
 	
-	@Autowired
-	@Qualifier("serverDependCharacteristic")
-	private BaseCharacteristic<ServerDepend> serverDependCharacteristic;
-	
-	@Autowired
-	@Qualifier("serverDependDetectionAOPConfiguration")
-	private ServerDependDetectionAOPConfiguration serverDependDetectionAOPConfiguration;
 	
 	private ServiceControl serviceControl;
 	
-	private ServerInitialization serverInitialization;
+	private ServiceInitialization serverInitialization;
 	
-	private ServerDepend serverDepend;
 	
 	public ServerShell() {}
 	
 	@Override
-	public Optional<Server> characteristic() {
-		serverDepend = serverDependCharacteristic.characteristic().get();
+	public Optional<Service> characteristic() {
 		serviceControl = serviceControlCharacteristic.characteristic().get();
 		serverInitialization = serverInitializationCharacteristic.characteristic().get();
 		return Optional.of(this);
@@ -64,18 +54,17 @@ public class ServerShell implements Server, BaseCharacteristic<Server>{
 	}
 
 	@Override
-	public Optional<Boolean> dependOnDelay(Optional<String> workInServiceStates) {
-		return serverDepend.dependOnDelay(workInServiceStates);
+	public void initializationFromAnnotationsScan() {
+		serverInitialization.initializationFromAnnotationsScan();
+	}
+	@Override
+	public void initializationFromServerMenu(Optional<Map<String, Integer>> serverMenu) {
+		serverInitialization.initializationFromServerMenu(serverMenu);
 	}
 
 	@Override
-	public Optional<List<String>> initializationFromSequenceFile(Optional<String> filePath) {
-		return serverInitialization.initializationFromSequenceFile(filePath);
-	}
-
-	@Override
-	public Optional<List<String>> initializationFromAnnotationsScan() {
-		return serverInitialization.initializationFromAnnotationsScan();
+	public Optional<Table<Integer, String, Boolean>> serviceMenu() {
+		return serverInitialization.serviceMenu();
 	}
 
 }

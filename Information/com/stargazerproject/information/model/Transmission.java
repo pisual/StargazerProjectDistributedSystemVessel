@@ -2,8 +2,6 @@ package com.stargazerproject.information.model;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
-import com.stargazerproject.analysis.TransmissionAnalysis;
-import com.stargazerproject.transaction.Entity;
 import com.stargazerproject.transaction.base.impl.ID;
 import com.stargazerproject.util.CloneUtil;
 
@@ -14,10 +12,6 @@ public class Transmission extends ID {
 	/** @construction 初始化构造 **/
 	public Transmission(Optional<String> idArg) {
 		injectSequenceID(idArg);
-	}
-	
-	public void analysis(Optional<TransmissionAnalysis> transmissionAnalysisArg){
-		transmissionContent.analysis(transmissionAnalysis);
 	}
 	
 	@Override

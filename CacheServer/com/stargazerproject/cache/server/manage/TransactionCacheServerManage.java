@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -22,7 +23,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionCacheServerManage")
 @Qualifier("transactionCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionCacheServerManage", order = 6)
+@Services(name="transactionCacheServerManage", serviceZone = ServiceZone.System, layer = 6)
 public class TransactionCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

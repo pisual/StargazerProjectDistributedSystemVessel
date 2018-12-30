@@ -122,7 +122,7 @@ import com.stargazerproject.resources.parameter.QueueParameters;
 import com.stargazerproject.resources.parameter.SequenceParameters;
 import com.stargazerproject.resources.parameter.SystemParameters;
 import com.stargazerproject.resources.parameter.UIParameters;
-import com.stargazerproject.resources.service.ServiceParameterList;
+import com.stargazerproject.resources.service.SystemServiceParameterList;
 import com.stargazerproject.serializable.impl.NetworkTransmissionSerializables;
 import com.stargazerproject.serializable.server.impl.SerializableServer;
 import com.stargazerproject.serializable.server.listener.impl.SerializableServerListener;
@@ -130,9 +130,8 @@ import com.stargazerproject.serializable.server.manage.SerializableServerManage;
 import com.stargazerproject.serializable.shell.NetworkTransmissionSerializablesShell;
 import com.stargazerproject.service.aop.configuration.ServerDependDetectionAOPConfiguration;
 import com.stargazerproject.service.configuration.GroupServiceConfiguration;
-import com.stargazerproject.service.resources.ServerDependCharacteristic;
-import com.stargazerproject.service.resources.ServerInitializationCharacteristic;
 import com.stargazerproject.service.resources.ServiceControlCharacteristic;
+import com.stargazerproject.service.resources.ServiceInitializationCharacteristic;
 import com.stargazerproject.service.resources.shell.ServerShell;
 import com.stargazerproject.spring.context.impl.GlobalAnnotationApplicationContext;
 import com.stargazerproject.userinterface.impl.UserInterfaceImpl;
@@ -217,9 +216,8 @@ public class GlobalAnnotationApplicationContextInitialization {
 		TransactionMessageQueueShall.class,
 		TransactionMessageQueueCallBackCharacteristic.class,
 		
-		/**Depend Server*/
-		ServerDependCharacteristic.class,
-		ServerInitializationCharacteristic.class,
+		/**Depend Service*/
+		ServiceInitializationCharacteristic.class,
 		ServiceControlCharacteristic.class,
 		ServerShell.class,
 		ServerDependDetectionAOPConfiguration.class,
@@ -314,7 +312,7 @@ public class GlobalAnnotationApplicationContextInitialization {
 		CacheParameters.class,
 		QueueParameters.class,
 		UIParameters.class,
-		ServiceParameterList.class,
+		SystemServiceParameterList.class,
 		InformationParameter.class,
 		InjectParameters.class,
 		NegotiateParameters.class,

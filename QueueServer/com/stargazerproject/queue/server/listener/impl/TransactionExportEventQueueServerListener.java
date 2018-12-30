@@ -24,34 +24,34 @@ public class TransactionExportEventQueueServerListener extends StandardWorkInSer
 	@Override
 	public void starting() {
 		super.starting();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Server Starting");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Service Starting");
 	}
 	
 	@Override
 	public void running() {
 		super.running();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Server Run");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Service Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Service Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
 		super.terminated(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Server Terminated");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Service Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : TransactionExportEventQueue Service Failed");
 	}
 	
 }

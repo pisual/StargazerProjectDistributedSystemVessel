@@ -24,34 +24,34 @@ public class ByteArrayCacheServerListener extends StandardWorkInServiceListener{
 	@Override
 	public void starting() {
 		super.starting();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Server Starting");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Service Starting");
 	}
 	
 	@Override
 	public void running() {
 		super.running();
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Server Run");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Service Run");
 	}
 	
 	/** @illustrate 开始停止服务 **/
 	@Override
 	public void stopping(State from) {
 		super.stopping(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Server Stopping");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Service Stopping");
 	}
 	
 	/** @illustrate 服务停止 **/
 	@Override
 	public void terminated(State from) {
 		super.terminated(from);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Server Terminated");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Service Terminated");
 	}
 	
 	/** @illustrate 服务失败 **/
 	@Override
 	public void failed(State from, Throwable failure) {
 		super.failed(from, failure);
-		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Server Failed");
+		baseLog.INFO(this, "Stargazer ServiceControlSystem Report : byteArrayCache Service Failed");
 	}
 	
 }

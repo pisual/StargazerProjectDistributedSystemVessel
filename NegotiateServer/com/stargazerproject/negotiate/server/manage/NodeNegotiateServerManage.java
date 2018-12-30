@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -21,7 +22,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="nodeNegotiateServerManage")
 @Qualifier("nodeNegotiateServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="nodeNegotiateServerManage", order = 10)
+@Services(name="nodeNegotiateServerManage", serviceZone = ServiceZone.System, layer = 10)
 public class NodeNegotiateServerManage extends AbstractIdleService{
 	
 	/** @illustrate orderCacheServer的ServiceShell接口 **/

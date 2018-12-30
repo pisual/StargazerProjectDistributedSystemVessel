@@ -1,47 +1,38 @@
 package com.stargazerproject.service.base.impl;
 
-import java.util.List;
+import java.util.Map;
 
 import com.google.common.base.Optional;
-import com.stargazerproject.service.Server;
+import com.google.common.collect.Table;
+import com.stargazerproject.service.Service;
 
-public abstract class BaseServiceImpl implements Server {
+public abstract class BaseServiceImpl implements Service {
 	
-	protected Server server;
-	
-	private Boolean initializationState = Boolean.FALSE;
+	protected Service service;
 
 	@Override
 	public void startAllservice() {
-		server.startAllservice();
+		service.startAllservice();
 	}
 
 	@Override
 	public void stopAllService() {
-		server.stopAllService();
+		service.stopAllService();
+	}
+
+	@Override
+	public void initializationFromAnnotationsScan() {
+		service.initializationFromAnnotationsScan();
+	}
+
+	@Override
+	public void initializationFromServerMenu(Optional<Map<String, Integer>> serverMenu) {
+		service.initializationFromServerMenu(serverMenu);
 	}
 	
 	@Override
-	public Optional<Boolean> dependOnDelay(Optional<String> workInServiceStates) {
-		return server.dependOnDelay(workInServiceStates);
-	}
-	
-	@Override
-	public Optional<List<String>> initializationFromSequenceFile(Optional<String> filePath) {
-		initializationStateCheck();
-		return (server.initializationFromSequenceFile(filePath));
-	}
-	
-	@Override
-	public Optional<List<String>> initializationFromAnnotationsScan() {
-		initializationStateCheck();
-		return(server.initializationFromAnnotationsScan());
-	}
-	
-	private void initializationStateCheck(){
-		if(initializationState.equals(Boolean.TRUE)){
-			throw new IllegalArgumentException("The service has been initialized.");
-		}
+	public Optional<Table<Integer, String, Boolean>> serviceMenu() {
+		return service.serviceMenu();
 	}
 	
 }

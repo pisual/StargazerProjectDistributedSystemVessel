@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -22,7 +23,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="transactionExportEventQueueServerManage")
 @Qualifier("transactionExportEventQueueServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="transactionExportEventQueueServerManage", order = 8)
+@Services(name="transactionExportEventQueueServerManage", serviceZone = ServiceZone.System, layer = 8)
 public class TransactionExportEventQueueServerManage extends AbstractIdleService{
 	
 	/** @illustrate transactionExportEventQueueServer的ServiceShell接口 **/

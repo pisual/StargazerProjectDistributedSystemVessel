@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.stargazerproject.service.annotation.ServiceZone;
 import com.stargazerproject.service.annotation.Services;
 import com.stargazerproject.service.baseinterface.StanderServiceShell;
 
@@ -22,7 +23,7 @@ import com.stargazerproject.service.baseinterface.StanderServiceShell;
 @Component(value="systemParameterCacheServerManage")
 @Qualifier("systemParameterCacheServerManage")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Services(value="systemParameterCacheServerManage", order = 2)
+@Services(name="systemParameterCacheServerManage", serviceZone = ServiceZone.System, layer = 2)
 public class SystemParameterCacheServerManage extends AbstractIdleService{
 	
 	/** @illustrate systemParameterCache的ServiceShell接口 **/
